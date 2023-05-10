@@ -1,0 +1,16 @@
+{
+    "files": ["./shims-vue.d.ts"],
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "include": [
+        "env.d.ts",
+        "components/**/*",
+        "components/**/*.vue",
+        "models/**/*",
+        "models/**/*.ts"
+    ],
+    "exclude": ["components/**/__tests__/*", "components/**/*.cy.ts"],
+    "compilerOptions": {
+        "composite": true,
+        "baseUrl": "."
+    }
+}
