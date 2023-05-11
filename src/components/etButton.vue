@@ -1,6 +1,7 @@
 <template>
     <button class="personal-button">
         {{ props.text }}
+
     </button>
 </template>
 
