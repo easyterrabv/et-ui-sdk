@@ -33,4 +33,7 @@ if [ "$BRANCH" = "master" ]; then
 
   git push --no-verify
   git push --no-verify --tags
+
+  # failing original git push. Due to the fact a new commit has been added and pushed by itself.
+  exit 1;
 fi
