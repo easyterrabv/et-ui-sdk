@@ -2,7 +2,7 @@
   "name": "et-ui-sdk",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",

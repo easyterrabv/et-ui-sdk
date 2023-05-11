@@ -1,2 +1,3 @@
 export * from "./models/sonar";
-export { default as EtButton } from "./components/etButton.vue";
+import EtButton from "./components/etButton.vue";
+export { EtButton };
