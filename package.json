@@ -22,8 +22,17 @@
     "url": "https://github.com/easyterrabv/et-ui-sdk/issues"
   },
   "homepage": "https://github.com/easyterrabv/et-ui-sdk#readme",
+  "dependencies": {
+    "vue-demi": "latest"
+  },
   "peerDependencies": {
-    "vue": "^3.3.1"
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",

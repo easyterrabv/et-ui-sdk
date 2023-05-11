@@ -5,6 +5,9 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig({
     plugins: [vue(), dts()],
+    optimizeDeps: {
+        exclude: ['vue-demi']
+    },
     build: {
         lib: {
             entry: resolve(__dirname, "src/index.ts"),
