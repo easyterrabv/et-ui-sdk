@@ -1,6 +1,6 @@
-import { Sonar } from '../sonar';
+import { Sonar } from "../sonar";
 
-test('My Sonar', () => {
+test("My Sonar", () => {
     const sonar = new Sonar();
-    expect(sonar.ping()).toBe('PING!');
+    expect(sonar.ping()).toBe("PING!");
 });

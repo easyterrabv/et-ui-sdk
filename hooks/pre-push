@@ -21,4 +21,5 @@ if [ "$BRANCH" = "master" ]; then
   npm run build
   git add dist/*
   git commit -m "build commit"
+  git push --no-verify
 fi
