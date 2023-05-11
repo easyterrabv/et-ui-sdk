@@ -1,10 +1,24 @@
 #!/bin/bash
 
-# run Jest
+npm run lint
+
+if [ $? -ne 0 ]; then
+  echo "Linting failed. Aborting push."
+  exit 1
+fi
+
 npm test
 
 # check if any tests failed
 if [ $? -ne 0 ]; then
-  echo "Jest test(s) failed. Aborting commit."
+  echo "Jest test(s) failed. Aborting push."
   exit 1
+fi
+
+
+BRANCH=$(git symbolic-ref --short HEAD)
+if [ "$BRANCH" = "master" ]; then
+  npm run build
+  git add dist/*
+  git commit -m "build commit"
 fi
