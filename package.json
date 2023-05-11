@@ -9,7 +9,7 @@
     "build": "npm run test && vite build",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
-    "postinstall": "./install-hooks.sh"
+    "postinstall": "node -e \"try { require('child_process').execSync('./install-hooks.sh'); } catch (e) {}\""
   },
   "repository": {
     "type": "git",
@@ -48,8 +48,6 @@
     "vue": "^3.3.1"
   },
   "files": [
-    "dist/**/*",
-    "hooks/**/*",
-    "install-hooks.sh"
+    "dist/**/*"
   ]
 }
