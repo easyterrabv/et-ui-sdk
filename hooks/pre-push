@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# run Jest
+npm test
+
+# check if any tests failed
+if [ $? -ne 0 ]; then
+  echo "Jest test(s) failed. Aborting commit."
+  exit 1
+fi
