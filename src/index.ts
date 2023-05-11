@@ -2,4 +2,4 @@
 export * from "./models/sonar";
 
 // Components
-export {default as PersonalButton} from "./components/button.vue";
+export {default as EtButton} from "./components/etButton.vue";
