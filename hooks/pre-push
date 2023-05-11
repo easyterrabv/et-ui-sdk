@@ -35,5 +35,6 @@ if [ "$BRANCH" = "master" ]; then
   git push --no-verify --tags
 
   # failing original git push. Due to the fact a new commit has been added and pushed by itself.
+  echo "Version got bumped and a build got triggered. This has added a new commit and pushed by itself. So original push is no longer required.";
   exit 1;
 fi
