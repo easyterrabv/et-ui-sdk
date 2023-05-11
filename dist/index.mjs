@@ -1,26 +1,26 @@
-import { defineComponent as _, openBlock as c, createElementBlock as r, toDisplayString as p } from "vue";
-class d {
+import { defineComponent as s, openBlock as _, createElementBlock as r, toDisplayString as p } from "vue";
+class f {
   ping() {
     return console.info("ping!"), "PING!";
   }
 }
-const a = { class: "personal-button" }, u = /* @__PURE__ */ _({
-  __name: "button",
+const a = { class: "personal-button" }, u = /* @__PURE__ */ s({
+  __name: "etButton",
   props: {
     text: {}
   },
   setup(t) {
     const e = t;
-    return (o, n) => (c(), r("button", a, p(e.text), 1));
+    return (o, n) => (_(), r("button", a, p(e.text), 1));
   }
 });
 const l = (t, e) => {
   const o = t.__vccOpts || t;
-  for (const [n, s] of e)
-    o[n] = s;
+  for (const [n, c] of e)
+    o[n] = c;
   return o;
-}, f = /* @__PURE__ */ l(u, [["__scopeId", "data-v-07dee0e4"]]);
+}, d = /* @__PURE__ */ l(u, [["__scopeId", "data-v-87c4ec5f"]]);
 export {
-  f as PersonalButton,
-  d as Sonar
+  d as EtButton,
+  f as Sonar
 };
