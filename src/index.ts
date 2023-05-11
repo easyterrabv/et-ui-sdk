@@ -1,6 +1,5 @@
-export class Sonar {
-    ping() {
-        console.info("ping!");
-        return "PING!";
-    }
-}
+// Models
+export * from "./models/sonar";
+
+// Components
+export {default as PersonalButton} from "./components/button.vue";

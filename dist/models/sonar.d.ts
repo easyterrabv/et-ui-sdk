@@ -1,3 +1,3 @@
 export declare class Sonar {
-    ping(): void;
+    ping(): string;
 }
