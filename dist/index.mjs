@@ -1,26 +1,20 @@
-import { defineComponent as _, openBlock as c, createElementBlock as r, toDisplayString as a } from "vue";
-class d {
+import { defineComponent as n, openBlock as e, createElementBlock as r, toDisplayString as s } from "vue";
+class l {
   ping() {
     return "PING!";
   }
 }
-const p = { class: "personal-button" }, u = /* @__PURE__ */ _({
+const c = { class: "bg-et-primary-color" }, _ = /* @__PURE__ */ n({
   __name: "etButton",
   props: {
     text: {}
   },
   setup(t) {
     const o = t;
-    return (e, n) => (c(), r("button", p, a(o.text), 1));
+    return (p, a) => (e(), r("button", c, s(o.text), 1));
   }
 });
-const l = (t, o) => {
-  const e = t.__vccOpts || t;
-  for (const [n, s] of o)
-    e[n] = s;
-  return e;
-}, m = /* @__PURE__ */ l(u, [["__scopeId", "data-v-a872b35d"]]);
 export {
-  m as EtButton,
-  d as Sonar
+  _ as EtButton,
+  l as Sonar
 };
