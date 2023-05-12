@@ -1,5 +1,5 @@
 import { defineComponent as _, openBlock as c, createElementBlock as r, toDisplayString as a } from "vue";
-class i {
+class d {
   ping() {
     return "PING!";
   }
@@ -10,17 +10,17 @@ const p = { class: "personal-button" }, u = /* @__PURE__ */ _({
     text: {}
   },
   setup(t) {
-    const e = t;
-    return (o, n) => (c(), r("button", p, a(e.text), 1));
+    const o = t;
+    return (e, n) => (c(), r("button", p, a(o.text), 1));
   }
 });
-const l = (t, e) => {
-  const o = t.__vccOpts || t;
-  for (const [n, s] of e)
-    o[n] = s;
-  return o;
+const l = (t, o) => {
+  const e = t.__vccOpts || t;
+  for (const [n, s] of o)
+    e[n] = s;
+  return e;
 }, m = /* @__PURE__ */ l(u, [["__scopeId", "data-v-a872b35d"]]);
 export {
   m as EtButton,
-  i as Sonar
+  d as Sonar
 };

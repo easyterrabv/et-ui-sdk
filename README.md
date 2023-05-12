@@ -10,6 +10,12 @@ Standardized library of vue components and data model classes
 $ npm install  
 ```
 
+Run the following 2 commands separately
+```bash
+$ vite
+$ npm run tailwind
+```
+
 ### Releasing
 
 Committing to `master` will automatically bump version by one minor version and rebuild the `dist/` folder.

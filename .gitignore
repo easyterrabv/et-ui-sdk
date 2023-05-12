@@ -5,3 +5,4 @@ node_modules
 /.idea/modules.xml
 /.idea/php.xml
 /.idea/vcs.xml
+/sandbox/style.css
