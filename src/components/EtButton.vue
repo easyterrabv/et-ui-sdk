@@ -1,5 +1,5 @@
 <template>
-    <button class="bg-et-primary-color">
+    <button class="bg-primary">
         {{ props.text }}
     </button>
 </template>
