@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 :root {
-    --et-primary-color: orange;
+    --et-primary-color: #1670d3;
 }
