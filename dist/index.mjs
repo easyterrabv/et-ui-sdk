@@ -5,7 +5,7 @@ class l {
   }
 }
 const c = { class: "bg-et-primary-color" }, _ = /* @__PURE__ */ n({
-  __name: "etButton",
+  __name: "EtButton",
   props: {
     text: {}
   },
