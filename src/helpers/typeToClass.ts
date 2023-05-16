@@ -47,7 +47,10 @@ const buttonTypeActiveMap: Map<UI_TYPES, string> = new Map([
         UI_TYPES.SUCCESS,
         `${commonButtonHoverClasses} button-type__success__active`
     ],
-    [UI_TYPES.DANGER, `${commonButtonHoverClasses} button-type__danger__active`],
+    [
+        UI_TYPES.DANGER,
+        `${commonButtonHoverClasses} button-type__danger__active`
+    ],
     [
         UI_TYPES.WARNING,
         `${commonButtonHoverClasses} button-type__warning__active`

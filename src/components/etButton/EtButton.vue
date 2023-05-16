@@ -24,7 +24,8 @@ import {
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";
 import {
-    sizeToClass, typeToButtonActiveClass,
+    sizeToClass,
+    typeToButtonActiveClass,
     typeToButtonClass,
     typeToButtonDisabledClass,
     typeToButtonHoverClass
@@ -64,9 +65,13 @@ const computedClasses = computed<String>(() => {
     return [
         typeToButtonClass(props.type),
         sizeToClass(props.size),
-        !props.disabled && !props.readonly ? typeToButtonHoverClass(props.type) : "",
-        !props.disabled && props.active ? typeToButtonActiveClass(props.type) : "",
-        props.disabled ? typeToButtonDisabledClass(props.type) : "",
+        !props.disabled && !props.readonly
+            ? typeToButtonHoverClass(props.type)
+            : "",
+        !props.disabled && props.active
+            ? typeToButtonActiveClass(props.type)
+            : "",
+        props.disabled ? typeToButtonDisabledClass(props.type) : ""
     ].join(" ");
 });
 
