@@ -1,20 +1,20 @@
 export class Debounce {
-    private readonly callback: (...args: unknown[]) => void;
-    private readonly args: unknown[];
+    private readonly callback: (...args: any[]) => void;
+    private readonly args: any[];
     private readonly wait: number;
     private timeOutID?: number;
 
     constructor(
-        callback: (...args: unknown[]) => void,
+        callback: (...args: any[]) => void,
         wait: number,
-        ...args: unknown[]
+        ...args: any[]
     ) {
         this.callback = callback;
         this.wait = wait;
         this.args = args;
     }
 
-    debounce(...args: unknown[]) {
+    debounce(...args: any[]) {
         if (this.timeOutID) {
             window.clearTimeout(this.timeOutID);
         }

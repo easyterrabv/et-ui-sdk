@@ -3,6 +3,6 @@ export declare class Debounce {
     private readonly args;
     private readonly wait;
     private timeOutID?;
-    constructor(callback: (...args: unknown[]) => void, wait: number, ...args: unknown[]);
-    debounce(...args: unknown[]): void;
+    constructor(callback: (...args: any[]) => void, wait: number, ...args: any[]);
+    debounce(...args: any[]): void;
 }
