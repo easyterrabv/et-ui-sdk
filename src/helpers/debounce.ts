@@ -4,7 +4,11 @@ export class Debounce {
     private readonly wait: number;
     private timeOutID?: number;
 
-    constructor(callback: (...args: unknown[]) => void, wait: number, ...args: unknown[]) {
+    constructor(
+        callback: (...args: unknown[]) => void,
+        wait: number,
+        ...args: unknown[]
+    ) {
         this.callback = callback;
         this.wait = wait;
         this.args = args;

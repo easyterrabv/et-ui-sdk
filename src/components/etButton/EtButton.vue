@@ -6,7 +6,8 @@
         @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
         @keyup.enter="(e) => clickDebounce.debounce(e)"
         @focus="emit('focus')"
-        @blur="emit('blur')">
+        @blur="emit('blur')"
+    >
         <slot></slot>
     </button>
 </template>
@@ -24,7 +25,9 @@ import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";
 import {
     sizeToClass,
-    typeToButtonClass, typeToButtonDisabledClass, typeToButtonHoverClass,
+    typeToButtonClass,
+    typeToButtonDisabledClass,
+    typeToButtonHoverClass
 } from "../../helpers/typeToClass";
 
 export interface Props {
@@ -61,8 +64,10 @@ const computedClasses = computed<String>(() => {
     return [
         typeToButtonClass(props.type),
         sizeToClass(props.size),
-        props.disabled || props.readonly ? '' : typeToButtonHoverClass(props.type),
-        props.disabled ? typeToButtonDisabledClass(props.type) : ''
+        props.disabled || props.readonly
+            ? ""
+            : typeToButtonHoverClass(props.type),
+        props.disabled ? typeToButtonDisabledClass(props.type) : ""
     ].join(" ");
 });
 
