@@ -1,20 +1,20 @@
-import { defineComponent as n, openBlock as e, createElementBlock as r, toDisplayString as s } from "vue";
-class l {
+import { defineComponent as o, openBlock as e, createElementBlock as r, toDisplayString as s } from "vue";
+class _ {
   ping() {
     return "PING!";
   }
 }
-const c = { class: "bg-et-primary-color" }, _ = /* @__PURE__ */ n({
+const c = { class: "bg-primary" }, l = /* @__PURE__ */ o({
   __name: "EtButton",
   props: {
     text: {}
   },
   setup(t) {
-    const o = t;
-    return (p, a) => (e(), r("button", c, s(o.text), 1));
+    const n = t;
+    return (p, a) => (e(), r("button", c, s(n.text), 1));
   }
 });
 export {
-  _ as EtButton,
-  l as Sonar
+  l as EtButton,
+  _ as Sonar
 };

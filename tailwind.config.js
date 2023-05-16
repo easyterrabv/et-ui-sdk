@@ -3,6 +3,7 @@ module.exports = {
     content: [
         "./sandbox/**/*.{vue,html,js,ts}",
         "./src/components/**/*.{vue,html,js,ts}",
+        "./src/helpers/**/*.{vue,html,js,ts}",
         "./src/layouts/**/*.{vue,html,js,ts}"
     ],
     theme: {
@@ -57,6 +58,11 @@ module.exports = {
                 light: "var(--success-light)",
                 DEFAULT: "var(--success)",
                 dark: "var(--success-dark)"
+            },
+            warning: {
+                light: "var(--warning-light)",
+                DEFAULT: "var(--warning)",
+                dark: "var(--warning-dark)"
             },
             primary: {
                 light: "var(--primary-light)",
