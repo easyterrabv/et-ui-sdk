@@ -1,7 +1,7 @@
 <template>
     <button
         ref="elButton"
-        class="border-2 rounded drop-shadow-sm whitespace-nowrap inline-block cursor-default"
+        class="et-button border-2 rounded drop-shadow-sm whitespace-nowrap inline-block cursor-default"
         :class="computedClasses"
         @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
         @keyup.enter="(e) => clickDebounce.debounce(e)"
@@ -24,7 +24,7 @@ import {
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";
 import {
-    sizeToClass,
+    sizeToClass, typeToButtonActiveClass,
     typeToButtonClass,
     typeToButtonDisabledClass,
     typeToButtonHoverClass
@@ -64,10 +64,9 @@ const computedClasses = computed<String>(() => {
     return [
         typeToButtonClass(props.type),
         sizeToClass(props.size),
-        props.disabled || props.readonly
-            ? ""
-            : typeToButtonHoverClass(props.type),
-        props.disabled ? typeToButtonDisabledClass(props.type) : ""
+        !props.disabled && !props.readonly ? typeToButtonHoverClass(props.type) : "",
+        !props.disabled && props.active ? typeToButtonActiveClass(props.type) : "",
+        props.disabled ? typeToButtonDisabledClass(props.type) : "",
     ].join(" ");
 });
 

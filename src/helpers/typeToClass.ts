@@ -34,6 +34,30 @@ const buttonTypeHoverMap: Map<UI_TYPES, string> = new Map([
     ]
 ]);
 
+const buttonTypeActiveMap: Map<UI_TYPES, string> = new Map([
+    [
+        UI_TYPES.DEFAULT,
+        `${commonButtonHoverClasses} button-type__default__active`
+    ],
+    [
+        UI_TYPES.PRIMARY,
+        `${commonButtonHoverClasses} button-type__primary__active`
+    ],
+    [
+        UI_TYPES.SUCCESS,
+        `${commonButtonHoverClasses} button-type__success__active`
+    ],
+    [UI_TYPES.DANGER, `${commonButtonHoverClasses} button-type__danger__active`],
+    [
+        UI_TYPES.WARNING,
+        `${commonButtonHoverClasses} button-type__warning__active`
+    ],
+    [
+        UI_TYPES.PREMIUM,
+        `${commonButtonHoverClasses} button-type__premium__active`
+    ]
+]);
+
 const commonButtonDisabledClasses = "cursor-not-allowed";
 const buttonTypeDisabledMap: Map<UI_TYPES, string> = new Map([
     [
@@ -82,6 +106,14 @@ export const typeToButtonHoverClass = (type: UI_TYPES): string => {
         (buttonTypeHoverMap.has(type)
             ? buttonTypeHoverMap.get(type)
             : buttonTypeHoverMap.get(UI_TYPES.DEFAULT)) || ""
+    );
+};
+
+export const typeToButtonActiveClass = (type: UI_TYPES): string => {
+    return (
+        (buttonTypeActiveMap.has(type)
+            ? buttonTypeActiveMap.get(type)
+            : buttonTypeActiveMap.get(UI_TYPES.DEFAULT)) || ""
     );
 };
 

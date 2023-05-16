@@ -94,30 +94,6 @@
         @apply bg-premium text-white border-premium;
     }
 
-    .button-type__default__hover {
-        @apply hover:bg-grey-dark hover:text-white-off hover:border-grey-dark;
-    }
-
-    .button-type__primary__hover {
-        @apply hover:bg-primary-dark hover:border-primary-dark;
-    }
-
-    .button-type__success__hover {
-        @apply hover:bg-success-dark hover:border-success-dark;
-    }
-
-    .button-type__danger__hover {
-        @apply hover:bg-danger-dark hover:border-danger-dark;
-    }
-
-    .button-type__warning__hover {
-        @apply hover:bg-warning-dark hover:border-warning-dark;
-    }
-
-    .button-type__premium__hover {
-        @apply hover:bg-premium-dark hover:border-premium-dark;
-    }
-
     .button-type__default__disabled {
         @apply bg-grey-light text-white-off border-grey-light;
     }
@@ -140,5 +116,53 @@
 
     .button-type__premium__disabled {
         @apply bg-premium-light border-premium-light;
+    }
+
+    .button-type__default__active {
+        @apply bg-grey-dark text-white-off border-grey-dark;
+    }
+
+    .button-type__primary__active {
+        @apply bg-primary-dark border-primary-dark;
+    }
+
+    .button-type__success__active {
+        @apply bg-success-dark border-success-dark;
+    }
+
+    .button-type__danger__active {
+        @apply bg-danger-dark border-danger-dark;
+    }
+
+    .button-type__warning__active {
+        @apply bg-warning-dark border-warning-dark;
+    }
+
+    .button-type__premium__active {
+        @apply bg-premium-dark border-premium-dark;
+    }
+
+    .button-type__default__hover {
+        @apply hover:button-type__default__active;
+    }
+
+    .button-type__primary__hover {
+        @apply hover:button-type__primary__active;
+    }
+
+    .button-type__success__hover {
+        @apply hover:button-type__success__active;
+    }
+
+    .button-type__danger__hover {
+        @apply hover:button-type__danger__active;
+    }
+
+    .button-type__warning__hover {
+        @apply hover:button-type__warning__active;
+    }
+
+    .button-type__premium__hover {
+        @apply hover:button-type__premium__active;
     }
 }
