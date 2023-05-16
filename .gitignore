@@ -6,3 +6,4 @@ node_modules
 /.idea/php.xml
 /.idea/vcs.xml
 /sandbox/style.css
+/cypress/videos/
