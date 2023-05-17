@@ -47,11 +47,11 @@ describe(`<EtButton />`, () => {
 
                         // TESTS:  Should contain all basic classes related to size and type
                         return [
-                            sizeClasses.every((sizeClass: String) =>
+                            sizeClasses.every((sizeClass: string) =>
                                 classList.includes(sizeClass)
                             ),
                             regularTypeClasses.every(
-                                (regularTypeClass: String) =>
+                                (regularTypeClass: string) =>
                                     classList.includes(regularTypeClass)
                             )
                         ].every((check) => check);
@@ -78,11 +78,11 @@ describe(`<EtButton />`, () => {
                         cy.get("button").should("satisfy", ($el) => {
                             const classList = Array.from($el[0].classList);
                             return [
-                                disabledTypeClasses.every((c: String) =>
+                                disabledTypeClasses.every((c: string) =>
                                     classList.includes(c)
                                 ),
                                 hoverTypeClasses.every(
-                                    (c: String) => !classList.includes(c)
+                                    (c: string) => !classList.includes(c)
                                 )
                             ].every((check) => check);
                         });
@@ -98,7 +98,7 @@ describe(`<EtButton />`, () => {
                         cy.get("button").should("satisfy", ($el) => {
                             const classList = Array.from($el[0].classList);
                             return hoverTypeClasses.every(
-                                (c: String) => !classList.includes(c)
+                                (c: string) => !classList.includes(c)
                             );
                         });
                     })
@@ -112,7 +112,7 @@ describe(`<EtButton />`, () => {
 
                         cy.get("button").should("satisfy", ($el) => {
                             const classList = Array.from($el[0].classList);
-                            return activeTypeClasses.every((c: String) =>
+                            return activeTypeClasses.every((c: string) =>
                                 classList.includes(c)
                             );
                         });
