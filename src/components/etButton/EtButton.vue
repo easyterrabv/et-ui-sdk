@@ -5,22 +5,17 @@
         :class="computedClasses"
         @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
         @keyup.enter="(e) => clickDebounce.debounce(e)"
-        @focus="emit('focus')"
-        @blur="emit('blur')"
+        @focus="$emit('focus')"
+        @blur="$emit('blur')"
     >
         <slot></slot>
     </button>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import {
-    defineProps,
-    withDefaults,
-    defineEmits,
-    defineExpose,
-    ref,
-    computed,
-    isVue3
+    defineComponent,
+    PropType
 } from "vue-demi";
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";
@@ -32,60 +27,62 @@ import {
     typeToButtonHoverClass
 } from "../../helpers/typeToClass";
 
-export interface Props {
-    disabled?: Boolean;
-    readonly?: Boolean;
-    active?: Boolean;
-    size?: UI_SIZING;
-    type?: UI_TYPES;
-}
+export default defineComponent({
+    props: {
+        disabled: {required: false, type: Boolean, default: false},
+        readonly: {required: false, type: Boolean, default: false},
+        active: {required: false, type: Boolean, default: false},
+        size: {required: false, type: String as PropType<UI_SIZING>, default: UI_SIZING.M },
+        type: {required: false, type: String as PropType<UI_TYPES>, default: UI_TYPES.DEFAULT },
+    },
+    data() {
+        return {
+            clickDebounce: new Debounce(this.onClick, 100),
+        }
+    },
+    computed: {
+        computedClasses() {
+            const classes: Array<String> = [
+                typeToButtonClass(this.type),
+                sizeToClass(this.size)
+            ];
 
-const props = withDefaults(defineProps<Props>(), {
-    disabled: false,
-    readonly: false,
-    active: false,
-    size: UI_SIZING.M,
-    type: UI_TYPES.DEFAULT
-});
+            if(!this.disabled && !this.readonly){
+                classes.push(typeToButtonHoverClass(this.type));
+            }
 
-const onClick = (event: Event) => {
-    if (props.disabled || props.readonly) {
-        event.preventDefault();
-        return;
+            if(!this.disabled && this.active) {
+                classes.push(typeToButtonActiveClass(this.type));
+            }
+
+            if(this.disabled) {
+                classes.push(typeToButtonDisabledClass(this.type));
+            }
+
+            return classes.join(" ");
+        }
+    },
+    methods: {
+        onClick(event: Event) {
+            if (this.disabled || this.readonly) {
+                event.preventDefault();
+                return;
+            }
+
+            this.$emit("click", event);
+        },
+        focus() {
+            this.$refs.elButton.focus();
+        },
+        blur() {
+            this.$refs.elButton.blur();
+        }
+    },
+    expose: ['focus', 'blur'],
+    emits: {
+        click: ( event: Event) => true,
+        focus: () => true,
+        blur: () => true,
     }
-
-    emit("click", event);
-};
-const focus = () => elButton?.value?.focus();
-const blur = () => elButton?.value?.blur();
-
-const clickDebounce = new Debounce(onClick, 100);
-const elButton = ref<HTMLButtonElement | null>(null);
-
-const computedClasses = computed<String>(() => {
-    return [
-        typeToButtonClass(props.type),
-        sizeToClass(props.size),
-        !props.disabled && !props.readonly
-            ? typeToButtonHoverClass(props.type)
-            : "",
-        !props.disabled && props.active
-            ? typeToButtonActiveClass(props.type)
-            : "",
-        props.disabled ? typeToButtonDisabledClass(props.type) : ""
-    ].join(" ");
 });
-
-const emit = defineEmits<{
-    (e: "click", event: Event): void;
-    (e: "focus"): void;
-    (e: "blur"): void;
-}>();
-
-if(isVue3) {
-    defineExpose({
-        focus,
-        blur
-    });
-}
 </script>
