@@ -1,5 +1,5 @@
-import EtButton from "./EtButton.vue";
-import { UI_SIZING, UI_TYPES } from "../../enums";
+import EtButton from "../../../src/components/etButton/EtButton.vue";
+import { UI_SIZING, UI_TYPES } from "../../../src/enums";
 import { mount } from "cypress/vue";
 import {
     sizeToClass,
@@ -7,7 +7,7 @@ import {
     typeToButtonClass,
     typeToButtonDisabledClass,
     typeToButtonHoverClass
-} from "../../helpers/typeToClass";
+} from "../../../src/helpers/typeToClass";
 
 describe(`<EtButton />`, () => {
     Object.keys(UI_SIZING).forEach((uiSize) => {

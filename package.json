@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/easyterrabv/et-ui-sdk#readme",
   "dependencies": {
-    "@cypress/vue": "^3.1.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@vue/tsconfig": "^0.4.0",
     "vue-demi": "latest",
     "vue-tsc": "^1.6.5"
@@ -40,6 +42,7 @@
     }
   },
   "devDependencies": {
+    "@cypress/vue": "^3.1.0",
     "@vitejs/plugin-vue": "^4.2.2",
     "autoprefixer": "^10.4.14",
     "cypress": "^12.12.0",

@@ -26,13 +26,8 @@
                 <br />
             </template>
 
-            <EtButton
-                ref="focusButton"
-                :size="UI_SIZING[size]"
-                @click="e => console.log('test', e)"
-                :type="UI_TYPES[type]">
-                Focus Button!
-            </EtButton>
+            <HouseIcon></HouseIcon>
+
         </MenuLeft>
     </div>
 </template>
@@ -44,6 +39,8 @@ import EtButton from "../src/components/etButton/EtButton.vue";
 import EtMenuSection from "../src/components/EtMenuSection.vue";
 import EtMenuItem from "../src/components/EtMenuItem.vue";
 import {UI_SIZING, UI_TYPES} from "../src/enums";
+
+import HouseIcon from "../src/components/etIcons/EtIconHouse.vue"
 
 import {
     ref,
