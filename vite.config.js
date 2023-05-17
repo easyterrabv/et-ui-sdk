@@ -13,20 +13,5 @@ export default defineConfig({
     },
     optimizeDeps: {
         exclude: ['vue-demi']
-    },
-    build: {
-        lib: {
-            entry: resolve(__dirname, "src/index.ts"),
-            name: "et-ui-sdk",
-            fileName: "index",
-        },
-        rollupOptions: {
-            external: ["vue"],
-            output: {
-                globals: {
-                    vue: "Vue",
-                },
-            },
-        },
-    },
+    }
 });

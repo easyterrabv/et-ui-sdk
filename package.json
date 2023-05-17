@@ -2,15 +2,13 @@
   "name": "et-ui-sdk",
   "version": "0.0.15",
   "description": "",
-  "main": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "scripts": {
     "test": "npx cypress run --component --headless",
     "dev": "vite",
-    "build": "vite build",
     "format": "prettier --write \"src/**/*.{ts,vue}\"",
     "lint": "tslint -p tsconfig.json",
     "tailwind": "npx tailwindcss -i src/tailwind.css -o ./sandbox/style.css --watch",
+    "tailwind:build": "npx tailwindcss -i src/tailwind.css -o ./src/dist.css --minify",
     "postinstall": "node -e \"try { require('child_process').execSync('./install-hooks.sh'); } catch (e) {}\""
   },
   "repository": {
@@ -57,12 +55,11 @@
     "vue": "^3.3.1"
   },
   "files": [
-    "dist/**/*",
     "src/components/**/*",
     "src/helpers/**/*",
     "src/layouts/**/*",
     "src/models/**/*",
-    "src/tailwind.css",
+    "src/dist.css",
     "src/enums.ts",
     "tailwind.config.js"
   ]
