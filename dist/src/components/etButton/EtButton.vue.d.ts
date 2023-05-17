@@ -1,73 +1,79 @@
-import type { PropType as __PropType } from 'vue';
+import { PropType } from "vue-demi";
 import { UI_SIZING, UI_TYPES } from "../../enums";
-export interface Props {
-    disabled?: Boolean;
-    readonly?: Boolean;
-    active?: Boolean;
-    size?: UI_SIZING;
-    type?: UI_TYPES;
-}
-declare const _sfc_main: import("vue").DefineComponent<{
+import { Debounce } from "../../helpers/debounce";
+declare const _sfc_main: import("vue-demi").DefineComponent<{
     disabled: {
-        type: __PropType<Boolean | undefined>;
         required: false;
+        type: BooleanConstructor;
         default: boolean;
     };
     readonly: {
-        type: __PropType<Boolean | undefined>;
         required: false;
+        type: BooleanConstructor;
         default: boolean;
     };
     active: {
-        type: __PropType<Boolean | undefined>;
         required: false;
+        type: BooleanConstructor;
         default: boolean;
     };
     size: {
-        type: __PropType<UI_SIZING | undefined>;
         required: false;
+        type: PropType<UI_SIZING>;
         default: UI_SIZING;
     };
     type: {
-        type: __PropType<UI_TYPES | undefined>;
         required: false;
+        type: PropType<UI_TYPES>;
         default: UI_TYPES;
     };
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click" | "focus" | "blur")[], "click" | "focus" | "blur", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, unknown, {
+    clickDebounce: Debounce;
+}, {
+    computedClasses(): string;
+}, {
+    onClick(event: Event): void;
+    focus(): void;
+    blur(): void;
+}, import("vue-demi").ComponentOptionsMixin, import("vue-demi").ComponentOptionsMixin, {
+    click: (event: Event) => true;
+    focus: () => true;
+    blur: () => true;
+}, string, import("vue-demi").VNodeProps & import("vue-demi").AllowedComponentProps & import("vue-demi").ComponentCustomProps, Readonly<import("vue-demi").ExtractPropTypes<{
     disabled: {
-        type: __PropType<Boolean | undefined>;
         required: false;
+        type: BooleanConstructor;
         default: boolean;
     };
     readonly: {
-        type: __PropType<Boolean | undefined>;
         required: false;
+        type: BooleanConstructor;
         default: boolean;
     };
     active: {
-        type: __PropType<Boolean | undefined>;
         required: false;
+        type: BooleanConstructor;
         default: boolean;
     };
     size: {
-        type: __PropType<UI_SIZING | undefined>;
         required: false;
+        type: PropType<UI_SIZING>;
         default: UI_SIZING;
     };
     type: {
-        type: __PropType<UI_TYPES | undefined>;
         required: false;
+        type: PropType<UI_TYPES>;
         default: UI_TYPES;
     };
 }>> & {
-    onClick?: ((...args: any[]) => any) | undefined;
-    onFocus?: ((...args: any[]) => any) | undefined;
-    onBlur?: ((...args: any[]) => any) | undefined;
+    onFocus?: (() => any) | undefined;
+    onBlur?: (() => any) | undefined;
+    onClick?: ((event: Event) => any) | undefined;
 }, {
-    disabled: Boolean | undefined;
-    readonly: Boolean | undefined;
-    active: Boolean | undefined;
-    size: UI_SIZING | undefined;
-    type: UI_TYPES | undefined;
+    disabled: boolean;
+    readonly: boolean;
+    active: boolean;
+    size: UI_SIZING;
+    type: UI_TYPES;
 }, {}>;
 export default _sfc_main;
