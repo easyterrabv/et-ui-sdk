@@ -1,11 +1,11 @@
 export class Debounce {
-    private readonly callback: (...args: any[]) => void;
+    private readonly callback: ((...args: any[]) => void) | undefined;
     private readonly args: any[];
     private readonly wait: number;
     private timeOutID?: number;
 
     constructor(
-        callback: (...args: any[]) => void,
+        callback: ((...args: any[]) => void) | undefined,
         wait: number,
         ...args: any[]
     ) {
@@ -20,7 +20,7 @@ export class Debounce {
         }
 
         this.timeOutID = window.setTimeout(() => {
-            this.callback.apply(null, [...this.args, ...args]);
+            this.callback?.apply(null, [...this.args, ...args]);
         }, this.wait);
     }
 }

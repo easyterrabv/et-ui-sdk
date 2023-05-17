@@ -1,4 +1,4 @@
-import { PropType } from "vue-demi";
+import type { PropType } from "vue-demi";
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";
 declare const _sfc_main: import("vue-demi").DefineComponent<{

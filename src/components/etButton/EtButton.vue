@@ -13,10 +13,9 @@
 </template>
 
 <script lang="ts">
-import {
-    defineComponent,
-    PropType
-} from "vue-demi";
+import { defineComponent } from "vue-demi";
+import type {PropType} from "vue-demi";
+
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";
 import {
@@ -29,16 +28,24 @@ import {
 
 export default defineComponent({
     props: {
-        disabled: {required: false, type: Boolean, default: false},
-        readonly: {required: false, type: Boolean, default: false},
-        active: {required: false, type: Boolean, default: false},
-        size: {required: false, type: String as PropType<UI_SIZING>, default: UI_SIZING.M },
-        type: {required: false, type: String as PropType<UI_TYPES>, default: UI_TYPES.DEFAULT },
+        disabled: { required: false, type: Boolean, default: false },
+        readonly: { required: false, type: Boolean, default: false },
+        active: { required: false, type: Boolean, default: false },
+        size: {
+            required: false,
+            type: String as PropType<UI_SIZING>,
+            default: UI_SIZING.M
+        },
+        type: {
+            required: false,
+            type: String as PropType<UI_TYPES>,
+            default: UI_TYPES.DEFAULT
+        }
     },
     data() {
         return {
-            clickDebounce: new Debounce(this.onClick, 100),
-        }
+            clickDebounce: new Debounce(this.onClick, 100)
+        };
     },
     computed: {
         computedClasses() {
@@ -47,15 +54,15 @@ export default defineComponent({
                 sizeToClass(this.size)
             ];
 
-            if(!this.disabled && !this.readonly){
+            if (!this.disabled && !this.readonly) {
                 classes.push(typeToButtonHoverClass(this.type));
             }
 
-            if(!this.disabled && this.active) {
+            if (!this.disabled && this.active) {
                 classes.push(typeToButtonActiveClass(this.type));
             }
 
-            if(this.disabled) {
+            if (this.disabled) {
                 classes.push(typeToButtonDisabledClass(this.type));
             }
 
@@ -72,17 +79,17 @@ export default defineComponent({
             this.$emit("click", event);
         },
         focus() {
-            this.$refs.elButton.focus();
+            (this.$refs.elButton as HTMLButtonElement).focus();
         },
         blur() {
-            this.$refs.elButton.blur();
+            (this.$refs.elButton as HTMLButtonElement).blur();
         }
     },
-    expose: ['focus', 'blur'],
+    expose: ["focus", "blur"],
     emits: {
-        click: ( event: Event) => true,
+        click: (event: Event) => true,
         focus: () => true,
-        blur: () => true,
+        blur: () => true
     }
 });
 </script>

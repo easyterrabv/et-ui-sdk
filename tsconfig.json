@@ -12,6 +12,7 @@
         "declaration": true,
         "outDir": "./dist",
         "strict": true,
+        "allowJs": true,
         "types": ["cypress", "node"]
     },
     "include": [

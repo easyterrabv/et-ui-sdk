@@ -2534,7 +2534,8 @@ class tr {
   }
   debounce(...n) {
     this.timeOutID && window.clearTimeout(this.timeOutID), this.timeOutID = window.setTimeout(() => {
-      this.callback.apply(null, [...this.args, ...n]);
+      var a;
+      (a = this.callback) == null || a.apply(null, [...this.args, ...n]);
     }, this.wait);
   }
 }

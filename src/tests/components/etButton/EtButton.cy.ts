@@ -1,5 +1,5 @@
-import EtButton from "../../../src/components/etButton/EtButton.vue";
-import { UI_SIZING, UI_TYPES } from "../../../src/enums";
+import EtButton from "src/components/etButton/EtButton.vue";
+import {UI_SIZING, UI_TYPES} from "src/enums.ts";
 import { mount } from "cypress/vue";
 import {
     sizeToClass,
@@ -7,7 +7,7 @@ import {
     typeToButtonClass,
     typeToButtonDisabledClass,
     typeToButtonHoverClass
-} from "../../../src/helpers/typeToClass";
+} from "src/helpers/typeToClass.ts";
 
 describe(`<EtButton />`, () => {
     Object.keys(UI_SIZING).forEach((uiSize) => {
@@ -47,10 +47,10 @@ describe(`<EtButton />`, () => {
 
                         // TESTS:  Should contain all basic classes related to size and type
                         return [
-                            sizeClasses.every((sizeClass) =>
+                            sizeClasses.every((sizeClass: String) =>
                                 classList.includes(sizeClass)
                             ),
-                            regularTypeClasses.every((regularTypeClass) =>
+                            regularTypeClasses.every((regularTypeClass: String) =>
                                 classList.includes(regularTypeClass)
                             )
                         ].every((check) => check);
@@ -77,11 +77,11 @@ describe(`<EtButton />`, () => {
                         cy.get("button").should("satisfy", ($el) => {
                             const classList = Array.from($el[0].classList);
                             return [
-                                disabledTypeClasses.every((c) =>
+                                disabledTypeClasses.every((c: String) =>
                                     classList.includes(c)
                                 ),
                                 hoverTypeClasses.every(
-                                    (c) => !classList.includes(c)
+                                    (c: String) => !classList.includes(c)
                                 )
                             ].every((check) => check);
                         });
@@ -97,7 +97,7 @@ describe(`<EtButton />`, () => {
                         cy.get("button").should("satisfy", ($el) => {
                             const classList = Array.from($el[0].classList);
                             return hoverTypeClasses.every(
-                                (c) => !classList.includes(c)
+                                (c: String) => !classList.includes(c)
                             );
                         });
                     })
@@ -111,7 +111,7 @@ describe(`<EtButton />`, () => {
 
                         cy.get("button").should("satisfy", ($el) => {
                             const classList = Array.from($el[0].classList);
-                            return activeTypeClasses.every((c) =>
+                            return activeTypeClasses.every((c: String) =>
                                 classList.includes(c)
                             );
                         });
