@@ -19,7 +19,8 @@ import {
     defineEmits,
     defineExpose,
     ref,
-    computed
+    computed,
+    isVue3
 } from "vue-demi";
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";
@@ -81,8 +82,10 @@ const emit = defineEmits<{
     (e: "blur"): void;
 }>();
 
-defineExpose({
-    focus,
-    blur
-});
+if(isVue3) {
+    defineExpose({
+        focus,
+        blur
+    });
+}
 </script>
