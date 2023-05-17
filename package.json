@@ -62,6 +62,8 @@
     "src/helpers/**/*",
     "src/layouts/**/*",
     "src/models/**/*",
+    "src/tailwind.css",
+    "src/enums.ts",
     "tailwind.config.js"
   ]
 }
