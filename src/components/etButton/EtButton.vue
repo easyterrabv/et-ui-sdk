@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import type {PropType} from "vue-demi";
+import type { PropType } from "vue-demi";
 
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { Debounce } from "../../helpers/debounce";

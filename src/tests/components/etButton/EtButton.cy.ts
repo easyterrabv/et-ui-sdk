@@ -1,5 +1,5 @@
 import EtButton from "src/components/etButton/EtButton.vue";
-import {UI_SIZING, UI_TYPES} from "src/enums.ts";
+import { UI_SIZING, UI_TYPES } from "src/enums.ts";
 import { mount } from "cypress/vue";
 import {
     sizeToClass,
@@ -50,8 +50,9 @@ describe(`<EtButton />`, () => {
                             sizeClasses.every((sizeClass: String) =>
                                 classList.includes(sizeClass)
                             ),
-                            regularTypeClasses.every((regularTypeClass: String) =>
-                                classList.includes(regularTypeClass)
+                            regularTypeClasses.every(
+                                (regularTypeClass: String) =>
+                                    classList.includes(regularTypeClass)
                             )
                         ].every((check) => check);
                     })
