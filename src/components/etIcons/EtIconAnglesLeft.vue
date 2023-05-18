@@ -1,5 +1,5 @@
 <template>
-    <EtIcon icon="house" />
+    <EtIcon icon="angles-left" />
 </template>
 
 <script setup>
