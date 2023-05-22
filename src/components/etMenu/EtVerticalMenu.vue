@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import EtIconAnglesLeft from "../etIcons/EtIconAnglesLeft.vue";
-import EtIconAnglesRight from "../etIcons/EtIconAnglesRight.vue";
+import EtIconAnglesLeft from "../etIcon/EtIconAnglesLeft.vue";
+import EtIconAnglesRight from "../etIcon/EtIconAnglesRight.vue";
 
 const localStorageCollapsedKey: string = "etSideMenuIsCollapsed";
 function getIsCollapsed(): boolean {

@@ -63,17 +63,16 @@
 import MenuLeft from "../src/layouts/menuLeft.vue";
 
 import EtButton from "../src/components/etButton/EtButton.vue";
-import EtMenuSection from "../src/components/EtMenuSection.vue";
 import EtMenuItem from "../src/components/etMenu/EtMenuItem.vue";
 import {UI_SIZING, UI_TYPES} from "../src/enums";
 
-import HouseIcon from "../src/components/etIcons/EtIconHouse.vue"
 
 import {
     ref,
 } from "vue-demi";
-import EtIconHouse from "../src/components/etIcons/EtIconHouse.vue";
-import EtIconAnglesLeft from "../src/components/etIcons/EtIconAnglesLeft.vue";
+
+import HouseIcon from "../src/components/etIcon/EtIconHouse.vue"
+import EtIconAnglesLeft from "../src/components/etIcon/EtIconAnglesLeft.vue";
 
 const focusButton = ref<EtButton | null>(null);
 

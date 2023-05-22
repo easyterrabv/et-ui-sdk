@@ -46,9 +46,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import EtIconHouse from "../etIcons/EtIconHouse.vue";
-import EtIconChevronDown from "../etIcons/EtIconChevronDown.vue";
-import EtIconChevronLeft from "../etIcons/EtIconChevronLeft.vue";
+import EtIconHouse from "../etIcon/EtIconHouse.vue";
+import EtIconChevronDown from "../etIcon/EtIconChevronDown.vue";
+import EtIconChevronLeft from "../etIcon/EtIconChevronLeft.vue";
 
 export default defineComponent({
     components: {
