@@ -2,9 +2,7 @@ import EtMenuItem from "src/components/etMenu/EtMenuItem.vue";
 import { mount } from "cypress/vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-    faHouse,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faHouse);
 
@@ -15,10 +13,12 @@ describe(`<EtMenuItem />`, () => {
                 default: "Hello, World!"
             }
         }).then((component) => {
-            cy.wrap(component.wrapper.setProps({
-                isActive: false,
-                isCollapsed: false
-            }));
+            cy.wrap(
+                component.wrapper.setProps({
+                    isActive: false,
+                    isCollapsed: false
+                })
+            );
 
             cy.get(".et-menu-item").should("have.class", "et-menu-item");
 
@@ -35,12 +35,17 @@ describe(`<EtMenuItem />`, () => {
                 default: "Hello, World!"
             }
         }).then((component) => {
-            cy.wrap(component.wrapper.setProps({
-                isActive: true,
-                isCollapsed: false
-            }));
+            cy.wrap(
+                component.wrapper.setProps({
+                    isActive: true,
+                    isCollapsed: false
+                })
+            );
 
-            cy.get(".et-menu-item > div").should("have.class", "!border-primary");
+            cy.get(".et-menu-item > div").should(
+                "have.class",
+                "!border-primary"
+            );
         });
     });
 
@@ -50,10 +55,12 @@ describe(`<EtMenuItem />`, () => {
                 default: "Hello, World!"
             }
         }).then((component) => {
-            cy.wrap(component.wrapper.setProps({
-                isActive: false,
-                isCollapsed: true
-            }));
+            cy.wrap(
+                component.wrapper.setProps({
+                    isActive: false,
+                    isCollapsed: true
+                })
+            );
 
             cy.get(".et-menu-item-content").should("have.class", "hidden");
         });
@@ -65,10 +72,12 @@ describe(`<EtMenuItem />`, () => {
                 default: "Hello, World!"
             }
         }).then((component) => {
-            cy.wrap(component.wrapper.setProps({
-                isActive: true,
-                isCollapsed: true
-            }));
+            cy.wrap(
+                component.wrapper.setProps({
+                    isActive: true,
+                    isCollapsed: true
+                })
+            );
 
             cy.get(".et-menu-item-content").should("have.class", "hidden");
         });
