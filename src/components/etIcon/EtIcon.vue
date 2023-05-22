@@ -1,5 +1,6 @@
 <template>
     <FontAwesomeIcon
+        class="et-icon"
         :icon="['fas', icon]"
         fixed-width
         :pulse="pulse"
