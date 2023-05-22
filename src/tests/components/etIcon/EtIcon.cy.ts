@@ -18,12 +18,12 @@ const icons = [
     faTabletButton,
     faChevronLeft,
     faChevronDown
-]
+];
 
 library.add(...icons);
 
 describe(`<EtIcon />`, () => {
-    icons.forEach(icon => {
+    icons.forEach((icon) => {
         const iconName = icon.iconName;
         it(`renders - icon - ${iconName}`, () => {
             mount(EtIcon, {
