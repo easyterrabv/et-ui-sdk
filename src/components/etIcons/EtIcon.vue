@@ -1,27 +1,32 @@
 <template>
-    <FontAwesomeIcon :icon="['fas', icon]" fixed-width :pulse="pulse" :title="title"></FontAwesomeIcon>
+    <FontAwesomeIcon
+        :icon="['fas', icon]"
+        fixed-width
+        :pulse="pulse"
+        :title="title"
+    ></FontAwesomeIcon>
 </template>
 
 <script lang="ts">
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {defineComponent} from "vue-demi";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { defineComponent } from "vue-demi";
 export default defineComponent({
-    components: {FontAwesomeIcon},
+    components: { FontAwesomeIcon },
     props: {
         icon: {
             required: true,
-            type: String,
+            type: String
         },
         pulse: {
             required: false,
             type: Boolean,
-            default: false,
+            default: false
         },
         title: {
             required: false,
             type: String,
-            default: null,
+            default: null
         }
     }
-})
+});
 </script>
