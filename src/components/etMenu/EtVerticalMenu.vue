@@ -1,7 +1,7 @@
 <template>
     <aside
         :class="[widthClass]"
-        class="h-screen bg-white-off fixed shadow-inner relative transition-[width] ease-in-out duration-150"
+        class="z-10 h-screen bg-white-off fixed shadow-inner relative transition-[width] ease-in-out duration-150"
     >
         <slot :isCollapsed="isCollapsed"></slot>
 
@@ -24,7 +24,6 @@ import EtIconAnglesLeft from "../etIcons/EtIconAnglesLeft.vue";
 import EtIconAnglesRight from "../etIcons/EtIconAnglesRight.vue";
 
 const localStorageCollapsedKey: string = "etSideMenuIsCollapsed";
-
 function getIsCollapsed(): boolean {
     let isCollapsed: boolean = false;
     if (localStorage) {

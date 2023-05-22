@@ -1,12 +1,16 @@
 <template>
-    <EtVerticalMenu class="w-72">
-        <slot name="menu"></slot>
-    </EtVerticalMenu>
-    <main class="ml-72 p-4">
-        <slot></slot>
-    </main>
+    <div class="flex flex-row max-w-full">
+        <EtVerticalMenu>
+            <template #default="scope">
+                <slot name="menu" v-bind="scope"></slot>
+            </template>
+        </EtVerticalMenu>
+        <main class="grow p-4">
+            <slot></slot>
+        </main>
+    </div>
 </template>
 
 <script setup>
-import EtVerticalMenu from "../components/EtVerticalMenu.vue";
+import EtVerticalMenu from "../components/etMenu/EtVerticalMenu.vue";
 </script>
