@@ -1,7 +1,7 @@
 <template>
     <aside
         :class="[widthClass]"
-        class="z-10 h-screen bg-white-off fixed shadow-inner relative transition-[width] ease-in-out duration-150"
+        class="et-vertical-menu z-10 h-screen bg-white-off fixed shadow-inner relative transition-[width] ease-in-out duration-150"
     >
         <slot :isCollapsed="isCollapsed"></slot>
 
