@@ -1,8 +1,8 @@
-import EtVerticalMenu, {localStorageCollapsedKey} from "src/components/etMenu/EtVerticalMenu.vue";
+import EtVerticalMenu from "src/components/etMenu/EtVerticalMenu.vue";
 import { mount } from "cypress/vue";
 
-describe(`<EtIcon />`, () => {
-    it('renders - and collapses', () => {
+describe(`<EtVerticalMenu />`, () => {
+    it("renders - and collapses", () => {
         mount(EtVerticalMenu).then((component) => {
             const componentInstance = component.component;
 
@@ -10,11 +10,9 @@ describe(`<EtIcon />`, () => {
                 .should("have.class", "et-vertical-menu")
                 .should("have.class", "w-56");
 
-            cy.wrap(componentInstance).invoke('toggleCollapse');
+            cy.wrap(componentInstance).invoke("toggleCollapse");
 
             cy.get("aside").should("have.class", "w-14");
         });
-
-
     });
 });

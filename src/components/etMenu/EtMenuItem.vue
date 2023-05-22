@@ -1,5 +1,5 @@
 <template>
-    <div class="group relative">
+    <div class="et-menu-item group relative">
         <div
             class="flex flex-row w-full min-h-16 border-l-4 border-white-off text-grey bg-white-off"
             :class="[activeClass]"
@@ -20,7 +20,7 @@
                     </slot>
                 </div>
                 <div
-                    class="grow leading-4 p-2"
+                    class="et-menu-item-content grow leading-4 p-2"
                     :class="isCollapsed ? 'hidden' : ''"
                 >
                     <slot></slot>
