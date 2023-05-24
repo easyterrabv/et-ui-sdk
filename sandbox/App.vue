@@ -40,39 +40,57 @@
                 </EtMenuItem>
             </template>
 
-            <EtButtonDefault
-                @click="e => console.log('test', e)">
-                Hello!
-            </EtButtonDefault>
+            <div>
+                <EtButtonDefault
+                    @click="e => console.log('test', e)">
+                    Hello!
+                </EtButtonDefault>
 
-            <EtButtonPrimary
-                @click="e => console.log('test', e)">
-                Primary!
-            </EtButtonPrimary>
+                <EtButtonPrimary
+                    class="ml-4"
+                    @click="e => console.log('test', e)">
+                    Primary!
+                </EtButtonPrimary>
+            </div>
+
+            <div class="mt-4">
+                <EtInput v-model="inputTest" placeholder="Test"></EtInput>
+            </div>
         </MenuLeft>
     </div>
 </template>
 
-<script setup lang="ts">
-import MenuLeft from "../src/layouts/menuLeft.vue";
+<script lang="ts">
+import {defineComponent} from "vue-demi";
 
-import EtButton from "../src/components/etButton/EtButton.vue";
-import EtButtonDefault from "../src/components/etButton/EtButtonDefault.vue";
-import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
+import MenuLeft from "../src/layouts/menuLeft.vue";
 import EtMenuItem from "../src/components/etMenu/EtMenuItem.vue";
 
-
-import {ref,} from "vue-demi";
 import EtIconAnglesLeft from "../src/components/etIcon/EtIconAnglesLeft.vue";
 
-const focusButton = ref<EtButton | null>(null);
+import EtButtonDefault from "../src/components/etButton/EtButtonDefault.vue";
+import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
 
-setTimeout(() => {
-    focusButton.value?.focus();
+import EtInput from "../src/components/etForm/etInput.vue";
 
-    setTimeout(() => {
-        focusButton.value?.blur();
-    }, 2000);
-}, 2000);
-
+export default defineComponent({
+    components: {
+        MenuLeft,
+        EtMenuItem,
+        EtIconAnglesLeft,
+        EtButtonDefault,
+        EtButtonPrimary,
+        EtInput
+    },
+    data() {
+        return {
+            inputTest: null
+        }
+    },
+    watch: {
+        inputTest() {
+            console.log(this.inputTest);
+        }
+    }
+});
 </script>
