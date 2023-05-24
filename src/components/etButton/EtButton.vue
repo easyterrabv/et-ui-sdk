@@ -1,7 +1,7 @@
 <template>
     <button
         ref="etButton"
-        class="et-button border-2 rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:ease-in-out motion-safe:duration-150"
+        class="et-button rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:ease-in-out motion-safe:duration-150"
         :class="[...colorClasses, sizeClasses]"
         @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
         @keyup.enter="(e) => clickDebounce.debounce(e)"
@@ -49,21 +49,20 @@ export default defineComponent({
             colorMapping: {
                 [UI_TYPES.DEFAULT]: {
                     default:
-                        "border-default-light bg-white text-black active:border-default hover:border-default focus-visible:outline-default",
+                        "ring-1 ring-inset ring-default-light bg-white text-black active:ring-default hover:ring-default focus-visible:outline-default",
                     disabled:
-                        "!bg-default-light !text-default !cursor-not-allowed hover:!border-default-light active:!border-default-light",
+                        "!bg-default-light !text-default !cursor-not-allowed hover:!ring-default-light active:!ring-default-light",
                     readonly:
-                        "hover:!border-default-light active:!border-default-light !cursor-default",
-                    active: "!border-default"
+                        "hover:!ring-default-light active:!ring-default-light !cursor-default",
+                    active: "!ring-default"
                 },
                 [UI_TYPES.PRIMARY]: {
                     default:
-                        "border-primary bg-primary text-white active:bg-primary-dark active:border-primary-dark hover:bg-primary-dark hover:border-primary-dark focus-visible:outline-primary",
-                    disabled:
-                        "!bg-primary-light !border-primary-light !cursor-not-allowed",
+                        "bg-primary text-white active:bg-primary-dark hover:bg-primary-dark focus-visible:outline-primary",
+                    disabled: "!bg-primary-light !cursor-not-allowed",
                     readonly:
                         "hover:!bg-primary active:!bg-primary !cursor-default",
-                    active: "!bg-primary-dark !border-primary-dark"
+                    active: "!bg-primary-dark"
                 }
             } as { [key in UI_TYPES]: iButtonColoring },
 
