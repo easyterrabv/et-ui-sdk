@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from "vue-demi";
-import {UI_SIZING, UI_TYPES} from "../../enums";
-import {Debounce} from "../../helpers/debounce";
+import { defineComponent, PropType } from "vue-demi";
+import { UI_SIZING, UI_TYPES } from "../../enums";
+import { Debounce } from "../../helpers/debounce";
 
 interface iButtonColoring {
     default: string;
@@ -27,8 +27,8 @@ interface iButtonColoring {
 export const sharedButtonProps = {
     disabled: { required: false, type: Boolean, default: false },
     readonly: { required: false, type: Boolean, default: false },
-    active: { required: false, type: Boolean, default: false },
-}
+    active: { required: false, type: Boolean, default: false }
+};
 
 export default defineComponent({
     props: {
@@ -42,48 +42,55 @@ export default defineComponent({
             required: false,
             type: String as PropType<UI_SIZING>,
             default: UI_SIZING.M
-        },
+        }
     },
-    data(){
+    data() {
         return {
             colorMapping: {
                 [UI_TYPES.DEFAULT]: {
-                    default: "border-default-light bg-white text-black active:border-default hover:border-default focus-visible:outline-default",
-                    disabled: "!bg-default-light !text-default !cursor-not-allowed hover:!border-default-light active:!border-default-light",
-                    readonly: "hover:!border-default-light active:!border-default-light !cursor-default",
-                    active: "!border-default",
+                    default:
+                        "border-default-light bg-white text-black active:border-default hover:border-default focus-visible:outline-default",
+                    disabled:
+                        "!bg-default-light !text-default !cursor-not-allowed hover:!border-default-light active:!border-default-light",
+                    readonly:
+                        "hover:!border-default-light active:!border-default-light !cursor-default",
+                    active: "!border-default"
                 },
                 [UI_TYPES.PRIMARY]: {
-                    default: "border-primary bg-primary text-white active:bg-primary-dark active:border-primary-dark hover:bg-primary-dark hover:border-primary-dark focus-visible:outline-primary",
-                    disabled: "!bg-primary-light !border-primary-light !cursor-not-allowed",
-                    readonly: "hover:!bg-primary active:!bg-primary !cursor-default",
-                    active: "!bg-primary-dark !border-primary-dark",
-                },
+                    default:
+                        "border-primary bg-primary text-white active:bg-primary-dark active:border-primary-dark hover:bg-primary-dark hover:border-primary-dark focus-visible:outline-primary",
+                    disabled:
+                        "!bg-primary-light !border-primary-light !cursor-not-allowed",
+                    readonly:
+                        "hover:!bg-primary active:!bg-primary !cursor-default",
+                    active: "!bg-primary-dark !border-primary-dark"
+                }
             } as { [key in UI_TYPES]: iButtonColoring },
 
             sizeMapping: {
-                [UI_SIZING.M]: 'px-3.5 py-2.5 text-sm'
+                [UI_SIZING.M]: "px-3.5 py-2.5 text-sm"
             } as { [key in UI_SIZING]: string },
 
             clickDebounce: new Debounce(this.onClick, 100)
-        }
+        };
     },
     computed: {
         colorClasses() {
-            const availableColors:iButtonColoring = this.colorMapping[this.type];
+            const availableColors: iButtonColoring =
+                this.colorMapping[this.type];
             const usedColors = [availableColors.default];
 
-            if(this.disabled) {
+            if (this.disabled) {
                 usedColors.push(availableColors.disabled);
-            } else if(this.readonly) {
+            } else if (this.readonly) {
                 usedColors.push(availableColors.readonly);
-            } else if(this.active) {
+            } else if (this.active) {
                 usedColors.push(availableColors.active);
             }
 
             return usedColors;
         },
-        sizeClasses: (vm):string => vm.sizeMapping[vm.size]
+        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
     },
     methods: {
         onClick(event: Event) {
@@ -107,6 +114,5 @@ export default defineComponent({
         focus: () => true,
         blur: () => true
     }
-})
-
+});
 </script>

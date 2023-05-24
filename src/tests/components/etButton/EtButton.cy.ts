@@ -16,7 +16,7 @@ describe(`<EtButton />`, () => {
                     }
                 });
 
-                cy.get("button").should("have.class", "et-button")
+                cy.get("button").should("have.class", "et-button");
             });
         });
     });
@@ -28,59 +28,65 @@ describe(`<EtButton />`, () => {
             }
         });
 
-        cy.get("button").click().then(() => {
-            const emits = Cypress.vueWrapper.emitted();
-            cy.wrap(emits)
-                .should("have.property", "click")
-                .then(() => {
-                    // @ts-ignore
-                    const event = emits.click[0][0];
-                    cy.wrap(event).should("be.instanceof", Event);
-                });
-        });
+        cy.get("button")
+            .click()
+            .then(() => {
+                const emits = Cypress.vueWrapper.emitted();
+                cy.wrap(emits)
+                    .should("have.property", "click")
+                    .then(() => {
+                        // @ts-ignore
+                        const event = emits.click[0][0];
+                        cy.wrap(event).should("be.instanceof", Event);
+                    });
+            });
     });
 
     it(`Does not emit click event on click when disabled`, () => {
         mount(EtButton, {
             props: {
-                disabled: true,
+                disabled: true
             },
             slots: {
                 default: "Click Me!"
             }
         });
 
-        cy.get("button").click().then(() => {
-            const emits = Cypress.vueWrapper.emitted();
-            cy.wrap(emits).should("not.have.property", "click");
-        });
+        cy.get("button")
+            .click()
+            .then(() => {
+                const emits = Cypress.vueWrapper.emitted();
+                cy.wrap(emits).should("not.have.property", "click");
+            });
     });
 
     it(`Does not emit click event on click when readonly`, () => {
         mount(EtButton, {
             props: {
-                readonly: true,
+                readonly: true
             },
             slots: {
                 default: "Dont click Me!"
             }
         });
 
-        cy.get("button").click().then(() => {
-            const emits = Cypress.vueWrapper.emitted();
-            cy.wrap(emits).should("not.have.property", "click");
-        });
+        cy.get("button")
+            .click()
+            .then(() => {
+                const emits = Cypress.vueWrapper.emitted();
+                cy.wrap(emits).should("not.have.property", "click");
+            });
     });
 
     it("Emits focus and blur emits on these events", () => {
         mount(EtButton, {
             props: {
-                readonly: true,
+                readonly: true
             },
             slots: {
                 default: "Focus me!"
             }
-        }).then(component => {
+        }).then((component) => {
             const componentInstance = component.component;
             componentInstance.focus();
             componentInstance.blur();

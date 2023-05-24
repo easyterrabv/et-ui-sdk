@@ -1,12 +1,12 @@
 export enum UI_SIZING {
     // XS = "xs",
     // S = "s",
-    M = "m",
+    M = "m"
     // L = "l"
 }
 export enum UI_TYPES {
     DEFAULT = "default",
-    PRIMARY = "primary",
+    PRIMARY = "primary"
     // SUCCESS = "success",
     // DANGER = "danger",
     // WARNING = "warning",
