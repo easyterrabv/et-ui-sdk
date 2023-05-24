@@ -4,5 +4,5 @@ export * from "./models/sonar";
 import "./tailwind.css";
 
 // Components
-import EtButton from "./components/etButton/EtButton.vue";
+import EtButton from "./components/etButton/EtButtonOld.vue";
 export { EtButton };

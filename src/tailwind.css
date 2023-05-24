@@ -2,167 +2,116 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --white: #FFFFFF;
-    --off-white: #F5F5F5;
-    --dark-white: #DDDDDD;
+/*@layer components {*/
+/*    .sizing__xs {*/
+/*        @apply h-4 px-4 text-xs leading-4;*/
+/*    }*/
 
-    --red-light: #e37b7c;
-    --red: #D53C3E;
-    --red-dark: #CC2C2E;
+/*    .sizing__s {*/
+/*        @apply h-8 px-8 text-sm leading-8;*/
+/*    }*/
 
-    --purple-light: #c8a0bf;
-    --purple: #914281;
-    --purple-dark: #883F79;
+/*    .sizing__m {*/
+/*        @apply h-12 px-12 text-base leading-[3rem];*/
+/*    }*/
 
-    --yellow-light: #FFE581;
-    --yellow: #FFCB03;
-    --yellow-dark: #F4C205;
+/*    .sizing__l {*/
+/*        @apply h-16 px-16 text-lg leading-[4rem];*/
+/*    }*/
 
-    --green-light: #E8F8F0;
-    --green: #24B161;
-    --green-dark: #339532;
+/*    .button-type__default {*/
+/*        @apply bg-gray-500 text-slate-50 border-gray-500;*/
+/*    }*/
 
-    --background: #F4F5F7;
+/*    .button-type__primary {*/
+/*        @apply bg-primary text-slate-50 border-primary;*/
+/*    }*/
 
-    --grey-light: #8A8C93;
-    --grey-dark: #292C30;
+/*    .button-type__success {*/
+/*        @apply bg-success text-slate-50 border-success;*/
+/*    }*/
 
-    --blue-light: #d0e2f6;
-    --blue: #1670D3;
-    --dark-blue: #1569C6;
+/*    .button-type__danger {*/
+/*        @apply bg-danger text-slate-50 border-danger;*/
+/*    }*/
 
-    --danger-light: var(--red-light);
-    --danger: var(--red);
-    --danger-dark: var(--red-dark);
+/*    .button-type__warning {*/
+/*        @apply bg-warning text-slate-50 border-warning;*/
+/*    }*/
 
-    --premium-light: var(--purple-light);
-    --premium: var(--purple);
-    --premium-dark: var(--purple-dark);
+/*    .button-type__premium {*/
+/*        @apply bg-premium text-slate-50 border-premium;*/
+/*    }*/
 
-    --success-light: var(--green-light);
-    --success: var(--green);
-    --success-dark: var(--green-dark);
+/*    .button-type__default__disabled {*/
+/*        @apply bg-gray-200 text-slate-50 border-gray-200;*/
+/*    }*/
 
-    --warning-light: var(--yellow-light);
-    --warning: var(--yellow);
-    --warning-dark: var(--yellow-dark);
+/*    .button-type__primary__disabled {*/
+/*        @apply bg-primary-light border-primary-light;*/
+/*    }*/
 
-    --primary-light: var(--blue-light);
-    --primary: var(--blue);
-    --primary-dark: var(--dark-blue);
-}
+/*    .button-type__success__disabled {*/
+/*        @apply bg-success-light border-success-light;*/
+/*    }*/
 
-@layer components {
-    .sizing__xs {
-        @apply h-4 px-4 text-xs leading-3;
-    }
+/*    .button-type__danger__disabled {*/
+/*        @apply bg-danger-light border-danger-light;*/
+/*    }*/
 
-    .sizing__s {
-        @apply h-8 px-8 text-sm;
-    }
+/*    .button-type__warning__disabled {*/
+/*        @apply bg-warning-light border-warning-light;*/
+/*    }*/
 
-    .sizing__m {
-        @apply h-12 px-12 text-base;
-    }
+/*    .button-type__premium__disabled {*/
+/*        @apply bg-premium-light border-premium-light;*/
+/*    }*/
 
-    .sizing__l {
-        @apply h-16 px-16 text-lg;
-    }
+/*    .button-type__default__active {*/
+/*        @apply bg-gray-600 text-slate-50 border-gray-600;*/
+/*    }*/
 
-    .button-type__default {
-        @apply bg-grey text-white border-grey;
-    }
+/*    .button-type__primary__active {*/
+/*        @apply bg-primary-dark border-primary-dark;*/
+/*    }*/
 
-    .button-type__primary {
-        @apply bg-primary text-white border-primary;
-    }
+/*    .button-type__success__active {*/
+/*        @apply bg-success-dark border-success-dark;*/
+/*    }*/
 
-    .button-type__success {
-        @apply bg-success text-white border-success;
-    }
+/*    .button-type__danger__active {*/
+/*        @apply bg-danger-dark border-danger-dark;*/
+/*    }*/
 
-    .button-type__danger {
-        @apply bg-danger text-white border-danger;
-    }
+/*    .button-type__warning__active {*/
+/*        @apply bg-warning-dark border-warning-dark;*/
+/*    }*/
 
-    .button-type__warning {
-        @apply bg-warning text-white border-warning;
-    }
+/*    .button-type__premium__active {*/
+/*        @apply bg-premium-dark border-premium-dark;*/
+/*    }*/
 
-    .button-type__premium {
-        @apply bg-premium text-white border-premium;
-    }
+/*    .button-type__default__hover {*/
+/*        @apply hover:button-type__default__active;*/
+/*    }*/
 
-    .button-type__default__disabled {
-        @apply bg-grey-light text-white-off border-grey-light;
-    }
+/*    .button-type__primary__hover {*/
+/*        @apply hover:button-type__primary__active;*/
+/*    }*/
 
-    .button-type__primary__disabled {
-        @apply bg-primary-light border-primary-light;
-    }
+/*    .button-type__success__hover {*/
+/*        @apply hover:button-type__success__active;*/
+/*    }*/
 
-    .button-type__success__disabled {
-        @apply bg-success-light border-success-light;
-    }
+/*    .button-type__danger__hover {*/
+/*        @apply hover:button-type__danger__active;*/
+/*    }*/
 
-    .button-type__danger__disabled {
-        @apply bg-danger-light border-danger-light;
-    }
+/*    .button-type__warning__hover {*/
+/*        @apply hover:button-type__warning__active;*/
+/*    }*/
 
-    .button-type__warning__disabled {
-        @apply bg-warning-light border-warning-light;
-    }
-
-    .button-type__premium__disabled {
-        @apply bg-premium-light border-premium-light;
-    }
-
-    .button-type__default__active {
-        @apply bg-grey-dark text-white-off border-grey-dark;
-    }
-
-    .button-type__primary__active {
-        @apply bg-primary-dark border-primary-dark;
-    }
-
-    .button-type__success__active {
-        @apply bg-success-dark border-success-dark;
-    }
-
-    .button-type__danger__active {
-        @apply bg-danger-dark border-danger-dark;
-    }
-
-    .button-type__warning__active {
-        @apply bg-warning-dark border-warning-dark;
-    }
-
-    .button-type__premium__active {
-        @apply bg-premium-dark border-premium-dark;
-    }
-
-    .button-type__default__hover {
-        @apply hover:button-type__default__active;
-    }
-
-    .button-type__primary__hover {
-        @apply hover:button-type__primary__active;
-    }
-
-    .button-type__success__hover {
-        @apply hover:button-type__success__active;
-    }
-
-    .button-type__danger__hover {
-        @apply hover:button-type__danger__active;
-    }
-
-    .button-type__warning__hover {
-        @apply hover:button-type__warning__active;
-    }
-
-    .button-type__premium__hover {
-        @apply hover:button-type__premium__active;
-    }
-}
+/*    .button-type__premium__hover {*/
+/*        @apply hover:button-type__premium__active;*/
+/*    }*/
+/*}*/

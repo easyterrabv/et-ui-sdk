@@ -40,21 +40,15 @@
                 </EtMenuItem>
             </template>
 
-            <template
-                v-for="size in Object.keys(UI_SIZING)">
-                <EtButton
-                    v-for="type in Object.keys(UI_TYPES)"
-                    :size="UI_SIZING[size]"
-                    @click="e => console.log('test', e)"
-                    :type="UI_TYPES[type]">
-                    Hello!
-                </EtButton>
-                <br />
-                <br />
-            </template>
+            <EtButtonDefault
+                @click="e => console.log('test', e)">
+                Hello!
+            </EtButtonDefault>
 
-            <HouseIcon></HouseIcon>
-
+            <EtButtonPrimary
+                @click="e => console.log('test', e)">
+                Primary!
+            </EtButtonPrimary>
         </MenuLeft>
     </div>
 </template>
@@ -63,15 +57,12 @@
 import MenuLeft from "../src/layouts/menuLeft.vue";
 
 import EtButton from "../src/components/etButton/EtButton.vue";
+import EtButtonDefault from "../src/components/etButton/EtButtonDefault.vue";
+import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
 import EtMenuItem from "../src/components/etMenu/EtMenuItem.vue";
-import {UI_SIZING, UI_TYPES} from "../src/enums";
 
 
-import {
-    ref,
-} from "vue-demi";
-
-import HouseIcon from "../src/components/etIcon/EtIconHouse.vue"
+import {ref,} from "vue-demi";
 import EtIconAnglesLeft from "../src/components/etIcon/EtIconAnglesLeft.vue";
 
 const focusButton = ref<EtButton | null>(null);
