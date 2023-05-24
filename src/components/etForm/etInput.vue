@@ -19,13 +19,13 @@
         @keyup.enter="enterEmit"
         @focus="handleFocusEmit"
         @blur="handleBlurEmit"
-
-       class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0  px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-default-light placeholder:text-default focus:ring-1 focus:ring-primary sm:text-sm sm:leading-6">
+        class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-default-light placeholder:text-default focus:ring-1 focus:ring-primary sm:text-sm sm:leading-6"
+    />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import {generateId} from "../../helpers/random";
+import { generateId } from "../../helpers/random";
 
 export default defineComponent({
     props: {
@@ -33,7 +33,7 @@ export default defineComponent({
             type: String,
             required: false,
             default() {
-                return generateId(25, 'input');
+                return generateId(25, "input");
             }
         },
         min: {
@@ -49,21 +49,24 @@ export default defineComponent({
         type: {
             type: String,
             required: false,
-            default: 'text',
+            default: "text",
             validator(val) {
                 const validTypes = [
-                    'text',
-                    'email',
-                    'hidden',
-                    'month',
-                    'password',
-                    'number',
-                    'search',
-                    'tel',
-                    'url'
+                    "text",
+                    "email",
+                    "hidden",
+                    "month",
+                    "password",
+                    "number",
+                    "search",
+                    "tel",
+                    "url"
                 ];
                 if (!validTypes.includes(val)) {
-                    console.error('invalid input type, only choices:', validTypes);
+                    console.error(
+                        "invalid input type, only choices:",
+                        validTypes
+                    );
                     return false;
                 }
                 return true;
@@ -92,11 +95,14 @@ export default defineComponent({
         size: {
             type: String,
             required: false,
-            default: 'm',
+            default: "m",
             validator(val) {
-                const validSizes = ['xs', 's', 'm', 'l'];
-                if (validSizes.includes(val) === false) {
-                    console.error('invalid input size, only choices:', validSizes);
+                const validSizes = ["xs", "s", "m", "l"];
+                if (!validSizes.includes(val)) {
+                    console.error(
+                        "invalid input size, only choices:",
+                        validSizes
+                    );
                     return false;
                 }
                 return true;
@@ -105,11 +111,14 @@ export default defineComponent({
         state: {
             type: String,
             required: false,
-            default: 'neutral',
+            default: "neutral",
             validator(val) {
-                const validStates = ['error', 'neutral', 'valid'];
-                if (validStates.includes(val) === false) {
-                    console.error('invalid input state, only choices:', validStates);
+                const validStates = ["error", "neutral", "valid"];
+                if (!validStates.includes(val)) {
+                    console.error(
+                        "invalid input state, only choices:",
+                        validStates
+                    );
                     return false;
                 }
                 return true;
@@ -123,7 +132,7 @@ export default defineComponent({
         placeholder: {
             type: String,
             required: false,
-            default: ''
+            default: ""
         },
         clearButton: {
             type: Boolean,
@@ -139,21 +148,21 @@ export default defineComponent({
     data() {
         return {
             internalData: null as null | string | number,
-            internalDataBefore: null as null |  string | number
-        }
+            internalDataBefore: null as null | string | number
+        };
     },
     computed: {
-        typeIsNumber: (vm):boolean => ['number', 'month'].includes(vm.type),
-        typeIsString: (vm):boolean => !vm.typeIsNumber,
-        minAttr: (vm):string => vm.typeIsNumber ? 'min' : 'minLength',
-        maxAttr: (vm):string => vm.typeIsNumber ? 'max' : 'maxlength',
+        typeIsNumber: (vm): boolean => ["number", "month"].includes(vm.type),
+        typeIsString: (vm): boolean => !vm.typeIsNumber,
+        minAttr: (vm): string => (vm.typeIsNumber ? "min" : "minLength"),
+        maxAttr: (vm): string => (vm.typeIsNumber ? "max" : "maxlength")
     },
     watch: {
         internalData: {
             immediate: true,
             handler(value) {
                 this.internalData = this.fixValue(value);
-                this.$emit('input', this.internalData);
+                this.$emit("input", this.internalData);
             }
         },
         value: {
@@ -163,7 +172,7 @@ export default defineComponent({
                 const beforeData = this.fixValue(this.internalData);
 
                 if (data !== beforeData) {
-                    this.$emit('change', data);
+                    this.$emit("change", data);
                     this.internalDataBefore = data;
                 }
 
@@ -172,28 +181,30 @@ export default defineComponent({
         }
     },
     methods: {
-        fixValue(value:string | number | boolean | null) : string | number | null {
-            if(this.typeIsNumber && typeof value !== 'number') {
+        fixValue(
+            value: string | number | boolean | null
+        ): string | number | null {
+            if (this.typeIsNumber && typeof value !== "number") {
                 // the input components expects values to be a number. But the value is not a number.
                 switch (typeof value) {
-                    case 'string':
+                    case "string":
                         return parseInt(value);
-                    case 'boolean':
+                    case "boolean":
                         return value ? 1 : 0;
                 }
             }
 
-            if(this.typeIsString && typeof value !== 'string') {
+            if (this.typeIsString && typeof value !== "string") {
                 // the input components expects values to be a string. But the value is not a string.
                 switch (typeof value) {
-                    case 'number':
+                    case "number":
                         return `${value}`;
-                    case 'boolean':
-                        return value ? 'true' : 'false';
+                    case "boolean":
+                        return value ? "true" : "false";
                 }
             }
 
-            if(typeof value === 'number' || typeof value === 'string') {
+            if (typeof value === "number" || typeof value === "string") {
                 return value;
             }
 
@@ -203,22 +214,22 @@ export default defineComponent({
             if (this.disabled || this.readonly) {
                 return;
             }
-            this.$emit('keyup', event);
+            this.$emit("keyup", event);
         },
         emitDirectChange() {
-            this.$emit('directChange', this.internalData);
+            this.$emit("directChange", this.internalData);
         },
         enterEmit(event) {
             if (this.disabled || this.readonly) {
                 return;
             }
-            this.$emit('enter', this.internalData, event)
+            this.$emit("enter", this.internalData, event);
         },
         handleFocusEmit() {
-            this.$emit('focus');
+            this.$emit("focus");
         },
         handleBlurEmit() {
-            this.$emit('blur');
+            this.$emit("blur");
 
             if (this.internalData && this.trim && this.typeIsString) {
                 this.internalData = this.internalData.trim();
@@ -228,7 +239,7 @@ export default defineComponent({
             const beforeData = this.internalDataBefore;
 
             if (data !== beforeData) {
-                this.$emit('change', data);
+                this.$emit("change", data);
                 this.internalDataBefore = data;
             }
         },
@@ -238,42 +249,44 @@ export default defineComponent({
         blur() {
             this.$refs?.input?.blur?.();
         },
-        getValue():string | number | null {
+        getValue(): string | number | null {
             return this.internalData;
         },
-        async setValue(value:string | number | null):Promise<void> {
+        async setValue(value: string | number | null): Promise<void> {
             await new Promise((resolve) => {
                 this.internalData = value;
                 resolve();
-            })
+            });
         },
-        async clear():Promise<void> {
+        async clear(): Promise<void> {
             await this.setValue(null).then(() => {
-                this.$emit('clear')
+                this.$emit("clear");
             });
         }
     },
     emits: {
         // will trigger and usually only update the v-model value
-        input: (value: string | number | null): boolean => ['string', 'number'].includes(typeof value) || value === null,
+        input: (value: string | number | null): boolean =>
+            ["string", "number"].includes(typeof value) || value === null,
         // will trigger if there is an actual change
-        change: (value: string | number | null): boolean => ['string', 'number'].includes(typeof value) || value === null,
+        change: (value: string | number | null): boolean =>
+            ["string", "number"].includes(typeof value) || value === null,
         // will trigger on pretty much any kind of input
-        directChange: (value: string | number | null): boolean => ['string', 'number'].includes(typeof value) || value === null,
+        directChange: (value: string | number | null): boolean =>
+            ["string", "number"].includes(typeof value) || value === null,
         // Will trigger on each key up stroke
         keyup: (event: Event): boolean => !!event,
         // Will trigger on each enter key up stroke
         enter: (value: string | number | null, event: Event): boolean => {
             return (
-                ['string', 'number'].includes(typeof value) || value === null
-                && !!event
-            )
+                ["string", "number"].includes(typeof value) ||
+                (value === null && !!event)
+            );
         },
         // Will trigger on input focus
         focus: () => true,
         // Will trigger on input blur
         blur: () => true
     }
-})
-
+});
 </script>
