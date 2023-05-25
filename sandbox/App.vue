@@ -62,7 +62,10 @@
             </div>
 
             <div class="mt-4">
-                <EtInputGroup>
+                <EtFormGroup>
+                    <template #label>
+                        Hello
+                    </template>
                     <EtInput
                         v-model="inputTest"
                         placeholder="Test"
@@ -72,7 +75,7 @@
                         @click="e => console.log('test', e)">
                         Submit
                     </EtButtonPrimary>
-                </EtInputGroup>
+                </EtFormGroup>
             </div>
         </MenuLeft>
     </div>
@@ -91,6 +94,9 @@ import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
 
 import EtInput from "../src/components/etForm/EtInput.vue";
 import EtInputGroup from "../src/components/etForm/EtInputGroup.vue";
+import EtInputLabel from "../src/components/etForm/EtInputLabel.vue";
+
+import EtFormGroup from "../src/components/etForm/EtFormGroup.vue";
 
 export default defineComponent({
     components: {
@@ -101,7 +107,9 @@ export default defineComponent({
         EtButtonPrimary,
 
         EtInput,
-        EtInputGroup
+        EtInputGroup,
+        EtInputLabel,
+        EtFormGroup
     },
     data() {
         return {
