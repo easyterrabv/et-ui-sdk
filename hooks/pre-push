@@ -22,7 +22,7 @@ if [ "$BRANCH" = "master" ]; then
 
   VERSION=$(node -pe "require('./package.json').version")
   NEW_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-  npm version $NEW_VERSION
+  npm --no-git-tag-version version $NEW_VERSION
 
   git add package.json
   git add src/dist.css
