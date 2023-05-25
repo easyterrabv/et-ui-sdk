@@ -1,33 +1,54 @@
 <template>
-    <input
-        v-model="internalData"
-        ref="et-input"
-        type="text"
-        :name="name"
-        :autocomplete="autocomplete ? 'off' : 'on'"
-        autocapitalize="off"
-        autocorrect="off"
-        spellcheck="false"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :readonly="readonly"
-        :required="required"
-        :[minAttr]="min"
-        :[maxAttr]="max"
-        @keyup="emitKeyup"
-        @input="emitDirectChange"
-        @keyup.enter="enterEmit"
-        @focus="handleFocusEmit"
-        @blur="handleBlurEmit"
-        class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-default-light placeholder:text-default focus:ring-1 focus:ring-primary sm:text-sm sm:leading-6"
-    />
+    <div class="relative">
+        <input
+            v-bind="$attrs"
+            v-model="internalData"
+            ref="et-input"
+            type="text"
+            :name="name"
+            :autocomplete="autocomplete ? 'off' : 'on'"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+            :placeholder="placeholder"
+            :disabled="disabled"
+            :readonly="readonly"
+            :required="required"
+            :[minAttr]="min"
+            :[maxAttr]="max"
+            @keyup="emitKeyup"
+            @input="emitDirectChange"
+            @keyup.enter="enterEmit"
+            @focus="handleFocusEmit"
+            @blur="handleBlurEmit"
+            :class="[
+                {
+                    '!pr-10': clearButton
+                }
+            ]"
+            class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-default-light placeholder:text-default focus:ring-1 focus:ring-primary"
+        />
+        <span
+            class="absolute right-0 top-0 w-max h-max p-2 cursor-pointer"
+            v-if="clearButton && !disabled && !readonly && internalData"
+            @mouseup.left.stop="clear"
+        >
+            <EtIconTimes />
+        </span>
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import { generateId } from "../../helpers/random";
+import { generateId } from "src/helpers/random";
+
+import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
 
 export default defineComponent({
+    inheritAttrs: false,
+    components: {
+        EtIconTimes
+    },
     props: {
         name: {
             type: String,
