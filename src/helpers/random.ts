@@ -14,6 +14,7 @@ export const randomString = (len: number = 10): string => {
         window.crypto.getRandomValues(arr);
         str = Array.from(arr, dec2hex).join("");
     } catch (e) {
+        // tslint:disable-next-line:no-console
         console.info(
             "Something went wrong with generating a random hex using window.crypto",
             e
