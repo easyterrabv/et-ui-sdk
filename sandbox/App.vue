@@ -4,28 +4,29 @@
             <img
                 src="https://cdn.easyterra.com/images/themes/easyterra/logo.svg"
                 alt="EasyTerra"
+                class="mr-4"
                 width="196"
                 height="40" />
 
-            <EtTopBarList>
-                <EtTopBarListItem active>
-                    Tickets
-                </EtTopBarListItem>
-                <EtTopBarListItem>
-                    Messages
-                </EtTopBarListItem>
-                <EtTopBarListItem>
-                    Customers
-                </EtTopBarListItem>
-                <EtTopBarListItem>
-                    Support Desk
-                </EtTopBarListItem>
-            </EtTopBarList>
+            <EtTopBarItem active>
+                Tickets
+            </EtTopBarItem>
+            <EtTopBarItem>
+                Messages
+            </EtTopBarItem>
+            <EtTopBarItem>
+                Customers
+            </EtTopBarItem>
+            <EtTopBarItem>
+                Support Desk
+            </EtTopBarItem>
 
             <template #end>
-                <a href="#">
-                    <EtIconArrowRightFromBracket title="Sign out" />
-                </a>
+                <EtTopBarItem>
+                    <a href="#">
+                        <EtIconArrowRightFromBracket title="Sign out" />
+                    </a>
+                </EtTopBarItem>
             </template>
         </EtTopBar>
         <MenuLeft>
@@ -127,8 +128,7 @@ import {defineComponent} from "vue-demi";
 
 import MenuLeft from "src/layouts/menuLeft.vue";
 import EtTopBar from "src/components/etMenu/EtTopBar.vue";
-import EtTopBarList from "src/components/etMenu/EtTopBarList.vue";
-import EtTopBarListItem from "src/components/etMenu/EtTopBarListItem.vue";
+import EtTopBarItem from "src/components/etMenu/EtTopBarItem.vue";
 import EtMenuItem from "src/components/etMenu/EtMenuItem.vue";
 
 import EtIconAnglesLeft from "src/components/etIcon/EtIconAnglesLeft.vue";
@@ -150,8 +150,7 @@ export default defineComponent({
         MenuLeft,
         EtMenuItem,
         EtTopBar,
-        EtTopBarList,
-        EtTopBarListItem,
+        EtTopBarItem,
 
         EtIconAnglesLeft,
         EtIconArrowRightFromBracket,
