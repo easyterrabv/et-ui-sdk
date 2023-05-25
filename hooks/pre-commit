@@ -12,7 +12,7 @@ fi
 # Run Prettier only on the edited files
 if [[ ${#edited_files[@]} -gt 0 ]]; then
   echo "Formatting edited files..."
-  prettier --write -- "${edited_files[@]}"
+  node_modules/.bin/prettier -- "${edited_files[@]}"
 fi
 
 # Add the formatted files back to the staging area

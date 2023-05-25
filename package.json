@@ -6,6 +6,7 @@
     "test": "npx cypress run --component --headless",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{ts,vue}\"",
+    "formatHook": "prettier",
     "lint": "tslint -p tsconfig.json",
     "tailwind": "npx tailwindcss -i src/tailwind.css -o ./sandbox/style.css --watch",
     "tailwind:build": "npx tailwindcss -i src/tailwind.css -o ./src/dist.css --minify",
