@@ -1,3 +1,22 @@
 #!/bin/bash
 
-npm run format
+# Store the edited files in an array
+edited_files=()
+
+# Check if any files are staged for commit
+if [[ -n $(git diff --name-only --cached) ]]; then
+  # Get the list of edited files
+  edited_files=($(git diff --name-only --cached))
+fi
+
+# Run Prettier only on the edited files
+if [[ ${#edited_files[@]} -gt 0 ]]; then
+  echo "Formatting edited files..."
+  npm run format -- "${edited_files[@]}"
+fi
+
+# Add the formatted files back to the staging area
+if [[ ${#edited_files[@]} -gt 0 ]]; then
+  echo "Adding formatted files back to the staging area..."
+  git add "${edited_files[@]}"
+fi
