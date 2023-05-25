@@ -66,9 +66,37 @@
                     <template #label>
                         Hello
                     </template>
+                    <EtInputGroupAddon>
+                        <EtIconHouse></EtIconHouse>
+                    </EtInputGroupAddon>
                     <EtInput
                         v-model="inputTest"
                         placeholder="Test"
+                        clear-button
+                    ></EtInput>
+                    <EtButtonPrimary
+                        @click="e => console.log('test', e)">
+                        Submit
+                    </EtButtonPrimary>
+                </EtFormGroup>
+            </div>
+
+            <div class="mt-4">
+                <EtFormGroup>
+                    <template #label>
+                        Hello Test
+                    </template>
+                    <EtInput
+                        v-model="inputTest"
+                        placeholder="First"
+                        clear-button
+                    ></EtInput>
+                    <EtInputGroupAddon>
+                        And Then
+                    </EtInputGroupAddon>
+                    <EtInput
+                        v-model="inputTest"
+                        placeholder="Second"
                         clear-button
                     ></EtInput>
                     <EtButtonPrimary
@@ -88,12 +116,14 @@ import MenuLeft from "../src/layouts/menuLeft.vue";
 import EtMenuItem from "../src/components/etMenu/EtMenuItem.vue";
 
 import EtIconAnglesLeft from "../src/components/etIcon/EtIconAnglesLeft.vue";
+import EtIconHouse from "../src/components/etIcon/EtIconHouse.vue";
 
 import EtButtonDefault from "../src/components/etButton/EtButtonDefault.vue";
 import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
 
 import EtInput from "../src/components/etForm/EtInput.vue";
 import EtInputGroup from "../src/components/etForm/EtInputGroup.vue";
+import EtInputGroupAddon from "../src/components/etForm/EtInputGroupAddon.vue";
 import EtInputLabel from "../src/components/etForm/EtInputLabel.vue";
 
 import EtFormGroup from "../src/components/etForm/EtFormGroup.vue";
@@ -102,12 +132,16 @@ export default defineComponent({
     components: {
         MenuLeft,
         EtMenuItem,
+
         EtIconAnglesLeft,
+        EtIconHouse,
+
         EtButtonDefault,
         EtButtonPrimary,
 
         EtInput,
         EtInputGroup,
+        EtInputGroupAddon,
         EtInputLabel,
         EtFormGroup
     },
