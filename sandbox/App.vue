@@ -1,23 +1,36 @@
 <template>
     <div class="w-full">
+        <EtTopBar>
+            <img
+                src="https://cdn.easyterra.com/images/themes/easyterra/logo.svg"
+                alt="EasyTerra"
+                width="196"
+                height="40" />
+
+            <EtTopBarList>
+                <EtTopBarListItem active>
+                    Tickets
+                </EtTopBarListItem>
+                <EtTopBarListItem>
+                    Messages
+                </EtTopBarListItem>
+                <EtTopBarListItem>
+                    Customers
+                </EtTopBarListItem>
+                <EtTopBarListItem>
+                    Support Desk
+                </EtTopBarListItem>
+            </EtTopBarList>
+
+            <template #end>
+                <a href="#">
+                    <EtIconArrowRightFromBracket title="Sign out" />
+                </a>
+            </template>
+        </EtTopBar>
         <MenuLeft>
 
             <template #menu="scope">
-                <div  class="bg-primary w-full h-14" :class="scope.isCollapsed ? 'p-4' : 'p-2'">
-                <img
-                    v-if="!scope.isCollapsed"
-                    class="mx-auto"
-                    src="https://cdn.easyterra.com/images/themes/easyterra/logo.svg"
-                    alt="EasyTerra"
-                    width="196"
-                    height="40" />
-
-                <img
-                    v-else
-                    class="mx-auto"
-                    src="https://cdn.easyterra.com/images/themes/default/favicon.png"
-                />
-                </div>
                 <EtMenuItem :is-collapsed="scope.isCollapsed">
                     <template #icon>
                         <EtIconAnglesLeft title="Buttons" />
@@ -112,28 +125,36 @@
 <script lang="ts">
 import {defineComponent} from "vue-demi";
 
-import MenuLeft from "../src/layouts/menuLeft.vue";
-import EtMenuItem from "../src/components/etMenu/EtMenuItem.vue";
+import MenuLeft from "src/layouts/menuLeft.vue";
+import EtTopBar from "src/components/etMenu/EtTopBar.vue";
+import EtTopBarList from "src/components/etMenu/EtTopBarList.vue";
+import EtTopBarListItem from "src/components/etMenu/EtTopBarListItem.vue";
+import EtMenuItem from "src/components/etMenu/EtMenuItem.vue";
 
-import EtIconAnglesLeft from "../src/components/etIcon/EtIconAnglesLeft.vue";
-import EtIconHouse from "../src/components/etIcon/EtIconHouse.vue";
+import EtIconAnglesLeft from "src/components/etIcon/EtIconAnglesLeft.vue";
+import EtIconArrowRightFromBracket from "src/components/etIcon/EtIconArrowRightFromBracket.vue";
+import EtIconHouse from "src/components/etIcon/EtIconHouse.vue";
 
-import EtButtonDefault from "../src/components/etButton/EtButtonDefault.vue";
-import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
+import EtButtonDefault from "src/components/etButton/EtButtonDefault.vue";
+import EtButtonPrimary from "src/components/etButton/EtButtonPrimary.vue";
 
-import EtInput from "../src/components/etForm/EtInput.vue";
-import EtInputGroup from "../src/components/etForm/EtInputGroup.vue";
-import EtInputGroupAddon from "../src/components/etForm/EtInputGroupAddon.vue";
-import EtInputLabel from "../src/components/etForm/EtInputLabel.vue";
+import EtInput from "src/components/etForm/EtInput.vue";
+import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
+import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
+import EtInputLabel from "src/components/etForm/EtInputLabel.vue";
 
-import EtFormGroup from "../src/components/etForm/EtFormGroup.vue";
+import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 
 export default defineComponent({
     components: {
         MenuLeft,
         EtMenuItem,
+        EtTopBar,
+        EtTopBarList,
+        EtTopBarListItem,
 
         EtIconAnglesLeft,
+        EtIconArrowRightFromBracket,
         EtIconHouse,
 
         EtButtonDefault,

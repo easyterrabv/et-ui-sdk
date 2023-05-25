@@ -10,7 +10,8 @@ import {
     faTabletButton,
     faChevronLeft,
     faChevronDown,
-    faTimes
+    faTimes,
+    faArrowRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -20,7 +21,8 @@ library.add(
     faTabletButton,
     faChevronLeft,
     faChevronDown,
-    faTimes
+    faTimes,
+    faArrowRightFromBracket
 );
 
 const app = createApp(App);
