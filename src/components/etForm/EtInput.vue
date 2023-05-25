@@ -261,10 +261,10 @@ export default defineComponent({
             }
         },
         focus() {
-            this.$refs['et-input'].focus();
+            this.$refs["et-input"].focus();
         },
         blur() {
-            this.$refs['et-input'].blur();
+            this.$refs["et-input"].blur();
         },
         getValue(): string | number | null {
             return this.internalData;
