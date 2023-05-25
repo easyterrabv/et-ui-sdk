@@ -14,7 +14,10 @@ export const randomString = (len: number = 10): string => {
         window.crypto.getRandomValues(arr);
         str = Array.from(arr, dec2hex).join("");
     } catch (e) {
-        console.info("Something went wrong with generating a random hex using window.crypto", e);
+        console.info(
+            "Something went wrong with generating a random hex using window.crypto",
+            e
+        );
     }
 
     for (let i = str.length; i < len; i++) {
