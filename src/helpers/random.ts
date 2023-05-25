@@ -4,7 +4,7 @@ export const randomString = (len: number = 10): string => {
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
 
-    let randomString = "";
+    let str = "";
     try {
         function dec2hex(dec: number): string {
             return dec.toString(16).padStart(2, "0");
@@ -12,16 +12,18 @@ export const randomString = (len: number = 10): string => {
 
         const arr = new Uint8Array((len || 40) / 2);
         window.crypto.getRandomValues(arr);
-        randomString = Array.from(arr, dec2hex).join("");
-    } catch (e) {}
+        str = Array.from(arr, dec2hex).join("");
+    } catch (e) {
+        console.info("Something went wrong with generating a random hex using window.crypto", e);
+    }
 
-    for (let i = randomString.length; i < len; i++) {
+    for (let i = str.length; i < len; i++) {
         result.push(
             characters.charAt(Math.floor(Math.random() * charactersLength))
         );
     }
 
-    return randomString + result.join("");
+    return str + result.join("");
 };
 
 export const generateId = (
