@@ -60,6 +60,20 @@
                     clear-button
                 ></EtInput>
             </div>
+
+            <div class="mt-4">
+                <EtInputGroup>
+                    <EtInput
+                        v-model="inputTest"
+                        placeholder="Test"
+                        clear-button
+                    ></EtInput>
+                    <EtButtonPrimary
+                        @click="e => console.log('test', e)">
+                        Submit
+                    </EtButtonPrimary>
+                </EtInputGroup>
+            </div>
         </MenuLeft>
     </div>
 </template>
@@ -76,6 +90,7 @@ import EtButtonDefault from "../src/components/etButton/EtButtonDefault.vue";
 import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
 
 import EtInput from "../src/components/etForm/EtInput.vue";
+import EtInputGroup from "../src/components/etForm/EtInputGroup.vue";
 
 export default defineComponent({
     components: {
@@ -84,7 +99,9 @@ export default defineComponent({
         EtIconAnglesLeft,
         EtButtonDefault,
         EtButtonPrimary,
-        EtInput
+
+        EtInput,
+        EtInputGroup
     },
     data() {
         return {
