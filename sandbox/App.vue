@@ -75,7 +75,7 @@ import EtIconAnglesLeft from "../src/components/etIcon/EtIconAnglesLeft.vue";
 import EtButtonDefault from "../src/components/etButton/EtButtonDefault.vue";
 import EtButtonPrimary from "../src/components/etButton/EtButtonPrimary.vue";
 
-import EtInput from "../src/components/etForm/etInput.vue";
+import EtInput from "../src/components/etForm/EtInput.vue";
 
 export default defineComponent({
     components: {

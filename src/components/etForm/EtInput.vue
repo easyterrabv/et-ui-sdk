@@ -1,5 +1,5 @@
 <template>
-    <div class="relative">
+    <div class="relative et-input-wrapper">
         <input
             v-bind="$attrs"
             v-model="internalData"
@@ -17,7 +17,6 @@
             :[minAttr]="min"
             :[maxAttr]="max"
             @keyup="emitKeyup"
-            @input="emitDirectChange"
             @keyup.enter="enterEmit"
             @focus="handleFocusEmit"
             @blur="handleBlurEmit"
@@ -237,9 +236,6 @@ export default defineComponent({
             }
             this.$emit("keyup", event);
         },
-        emitDirectChange() {
-            this.$emit("directChange", this.internalData);
-        },
         enterEmit(event) {
             if (this.disabled || this.readonly) {
                 return;
@@ -265,10 +261,10 @@ export default defineComponent({
             }
         },
         focus() {
-            this.$refs?.input?.focus?.();
+            this.$refs['et-input'].focus();
         },
         blur() {
-            this.$refs?.input?.blur?.();
+            this.$refs['et-input'].blur();
         },
         getValue(): string | number | null {
             return this.internalData;
@@ -291,9 +287,6 @@ export default defineComponent({
             ["string", "number"].includes(typeof value) || value === null,
         // will trigger if there is an actual change
         change: (value: string | number | null): boolean =>
-            ["string", "number"].includes(typeof value) || value === null,
-        // will trigger on pretty much any kind of input
-        directChange: (value: string | number | null): boolean =>
             ["string", "number"].includes(typeof value) || value === null,
         // Will trigger on each key up stroke
         keyup: (event: Event): boolean => !!event,
