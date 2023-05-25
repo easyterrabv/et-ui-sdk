@@ -9,7 +9,8 @@ import {
     faAnglesRight,
     faTabletButton,
     faChevronLeft,
-    faChevronDown
+    faChevronDown,
+    faTimes
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -18,7 +19,8 @@ library.add(
     faAnglesRight,
     faTabletButton,
     faChevronLeft,
-    faChevronDown
+    faChevronDown,
+    faTimes
 );
 
 const app = createApp(App);

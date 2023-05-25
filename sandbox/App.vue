@@ -54,7 +54,11 @@
             </div>
 
             <div class="mt-4">
-                <EtInput v-model="inputTest" placeholder="Test"></EtInput>
+                <EtInput
+                    v-model="inputTest"
+                    placeholder="Test"
+                    clear-button
+                ></EtInput>
             </div>
         </MenuLeft>
     </div>
