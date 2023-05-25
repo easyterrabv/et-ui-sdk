@@ -12,7 +12,10 @@ describe(`<EtInput />`, () => {
             const componentInstance = component.component;
 
             cy.wrap(componentInstance).invoke("focus");
-            cy.wrap(componentInstance).invoke("setValue","Hello, setting a value!");
+            cy.wrap(componentInstance).invoke(
+                "setValue",
+                "Hello, setting a value!"
+            );
             cy.wrap(componentInstance).invoke("blur");
 
             const emits = component.wrapper.emitted();
