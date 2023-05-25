@@ -10,7 +10,6 @@ describe(`<EtInput />`, () => {
     it("emits on input", () => {
         mount(EtInput).then((component) => {
             const componentInstance = component.component;
-
             cy.wrap(componentInstance).invoke("focus");
             cy.wrap(componentInstance).invoke(
                 "setValue",
