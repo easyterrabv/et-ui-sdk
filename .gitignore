@@ -6,9 +6,9 @@ node_modules
 /.idea/php.xml
 /.idea/vcs.xml
 /sandbox/style.css
+
+/cypress/.DS_Store
 /cypress/videos/
+/cypress/screenshots/
 
 .DS_Store/
-/cypress/.DS_Store
-/cypress/screenshots/etMenu/EtMenuItem.cy.ts/An uncaught error was detected outside of a test (failed).png
-/cypress/screenshots/etMenu/EtVerticalMenu.cy.ts/An uncaught error was detected outside of a test (failed).png
