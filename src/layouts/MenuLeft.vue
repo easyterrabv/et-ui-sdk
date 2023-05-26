@@ -1,13 +1,13 @@
 <template>
-    <div class="flex flex-row max-w-full">
+    <div class="flex flex-row h-full">
         <EtVerticalMenu>
             <template #default="scope">
                 <slot name="menu" v-bind="scope"></slot>
             </template>
         </EtVerticalMenu>
-        <main class="grow p-4">
+        <div class="grow p-4">
             <slot></slot>
-        </main>
+        </div>
     </div>
 </template>
 
