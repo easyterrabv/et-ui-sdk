@@ -1,9 +1,9 @@
-import EtVerticalMenu from "src/components/etMenu/EtVerticalMenu.vue";
+import EtSideBar from "src/components/etMenu/EtSideBar.vue";
 import { mount } from "cypress/vue";
 
-describe(`<EtVerticalMenu />`, () => {
+describe(`<EtSideBar />`, () => {
     it("renders - and collapses", () => {
-        mount(EtVerticalMenu).then((component) => {
+        mount(EtSideBar).then((component) => {
             const componentInstance = component.component;
 
             cy.get("aside")
