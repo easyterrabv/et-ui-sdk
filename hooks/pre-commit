@@ -13,9 +13,9 @@ npm run format
 edited_files=()
 
 # Check if any files are staged for commit
-if [[ -n $(git diff --name-only) ]]; then
+if [[ -n $(git diff --name-only --cached) ]]; then
   # Get the list of edited files
-  edited_files=($(git diff --name-only))
+  edited_files=($(git diff --name-only --cached))
 fi
 
 # Add the formatted files back to the staging area
