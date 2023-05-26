@@ -11,7 +11,11 @@ import {
     faChevronLeft,
     faChevronDown,
     faTimes,
-    faArrowRightFromBracket
+    faArrowRightFromBracket,
+    faEnvelope,
+    faCircleDot,
+    faTag,
+    faPlus
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -22,7 +26,11 @@ library.add(
     faChevronLeft,
     faChevronDown,
     faTimes,
-    faArrowRightFromBracket
+    faArrowRightFromBracket,
+    faEnvelope,
+    faCircleDot,
+    faTag,
+    faPlus
 );
 
 const app = createApp(App);
