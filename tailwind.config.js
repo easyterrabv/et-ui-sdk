@@ -20,6 +20,11 @@ module.exports = {
                     light: colors.blue["500"],
                     DEFAULT: colors.blue["600"],
                     dark: colors.blue["700"],
+                },
+                text: {
+                    light: colors.slate["300"],
+                    DEFAULT: colors.slate["600"],
+                    dark: colors.slate["900"]
                 }
             }
         },

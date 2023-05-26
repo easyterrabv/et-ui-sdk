@@ -25,7 +25,7 @@
                     '!pr-10': clearButton
                 }
             ]"
-            class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-default-light placeholder:text-default focus:ring-1 focus:ring-primary"
+            class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0 px-3.5 py-2 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary"
         />
         <span
             class="absolute right-0 top-0 w-max h-max p-2 cursor-pointer"

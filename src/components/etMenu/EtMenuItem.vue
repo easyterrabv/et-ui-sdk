@@ -1,7 +1,7 @@
 <template>
     <div class="et-menu-item group relative">
         <div
-            class="flex flex-row w-full min-h-16 border-l-4 border-white-off text-grey bg-white-off"
+            class="flex flex-row w-full min-h-16 border-l-4 border-white-off text-text bg-white-off"
             :class="[activeClass]"
         >
             <div
@@ -77,7 +77,7 @@ export default defineComponent({
     },
     computed: {
         activeClass: (ctx): string =>
-            ctx.isActive ? "!border-primary text-primary !bg-white" : "",
+            ctx.isActive ? "!border-primary !text-primary !bg-white" : "",
         collapsedSubMenuClass: (ctx): string =>
             ctx.isCollapsed
                 ? "absolute hidden group-hover:block drop-shadow-md top-0 left-full z-10 w-max"

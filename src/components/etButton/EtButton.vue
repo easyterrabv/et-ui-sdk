@@ -49,9 +49,9 @@ export default defineComponent({
             colorMapping: {
                 [UI_TYPES.DEFAULT]: {
                     default:
-                        "ring-1 ring-inset ring-default-light bg-white text-gray-700 active:ring-default hover:ring-default focus-visible:outline-default",
+                        "ring-1 ring-inset ring-default-light bg-white text-text active:ring-default hover:ring-default focus-visible:outline-default",
                     disabled:
-                        "!bg-default-light !text-default !cursor-not-allowed hover:!ring-default-light active:!ring-default-light",
+                        "!bg-default-light !text-text !cursor-not-allowed hover:!ring-default-light active:!ring-default-light",
                     readonly:
                         "hover:!ring-default-light active:!ring-default-light !cursor-default",
                     active: "!ring-default"

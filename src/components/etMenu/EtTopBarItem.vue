@@ -1,8 +1,8 @@
 <template>
     <div
-        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
+        class="text-text-light hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
         :class="{
-            'bg-gray-900 text-white': active
+            'bg-slate-900 !text-white': active
         }"
     >
         <slot></slot>

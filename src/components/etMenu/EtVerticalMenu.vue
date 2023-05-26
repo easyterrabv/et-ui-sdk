@@ -1,13 +1,13 @@
 <template>
     <aside
         :class="[widthClass]"
-        class="et-vertical-menu z-10 h-full bg-gray-100 fixed shadow-inner relative transition-[width] ease-in-out duration-150"
+        class="et-vertical-menu z-10 h-full bg-slate-50 fixed shadow-inner relative transition-[width] ease-in-out duration-150"
     >
         <slot :isCollapsed="isCollapsed"></slot>
 
         <div
             @mousedown.left.stop="toggleCollapse"
-            class="absolute bottom-0 right-0 p-4 text-gray-600 hover:text-primary hover:cursor-pointer"
+            class="absolute bottom-0 right-0 p-4 text-text hover:text-primary hover:cursor-pointer"
         >
             <EtIconAnglesLeft
                 title="Hide Menu"
