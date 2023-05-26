@@ -7,7 +7,7 @@ describe(`<EtVerticalMenu />`, () => {
             const componentInstance = component.component;
 
             cy.get("aside")
-                .should("have.class", "et-vertical-menu")
+                .should("have.class", "et-side-bar")
                 .should("have.class", "w-56");
 
             cy.wrap(componentInstance).invoke("toggleCollapse");

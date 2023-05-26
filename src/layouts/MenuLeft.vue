@@ -1,10 +1,10 @@
 <template>
     <div class="flex flex-row h-full">
-        <EtVerticalMenu>
+        <EtSideBar>
             <template #default="scope">
                 <slot name="menu" v-bind="scope"></slot>
             </template>
-        </EtVerticalMenu>
+        </EtSideBar>
         <div class="grow p-4">
             <slot></slot>
         </div>
@@ -12,5 +12,5 @@
 </template>
 
 <script setup>
-import EtVerticalMenu from "../components/etMenu/EtVerticalMenu.vue";
+import EtSideBar from "../components/etMenu/EtSideBar.vue";
 </script>

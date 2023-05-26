@@ -33,26 +33,81 @@
 
             <MenuLeft>
                 <template #menu="scope">
-                    <EtMenuItem :is-collapsed="scope.isCollapsed">
-                        <template #icon>
-                            <EtIconAnglesLeft title="Buttons" />
+
+                    <EtSideBarSection :isCollapsed="scope.isCollapsed">
+                        <template #label>
+                            Status
                         </template>
-                        Buttons
-                    </EtMenuItem>
-                    <EtMenuItem :is-collapsed="scope.isCollapsed" isActive>
-                        Forms
-                        <template #submenu>
-                            <EtMenuItem>
-                                Sub - Buttons
-                            </EtMenuItem>
-                            <EtMenuItem>
-                                Sub - Menu Item With Relatively Long Text
-                            </EtMenuItem>
+                        <EtSideBarItem isActive :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconEnvelope />
+                            </template>
+                            All
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconCircleDot />
+                            </template>
+                            Open
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconCircleDot />
+                            </template>
+                            Closed
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconCircleDot />
+                            </template>
+                            New
+                        </EtSideBarItem>
+                    </EtSideBarSection>
+
+                    <EtSideBarSection :isCollapsed="scope.isCollapsed">
+                        <template #label>
+                            Labels
                         </template>
-                    </EtMenuItem>
-                    <EtMenuItem :is-collapsed="scope.isCollapsed">
-                        Menu Item With Relatively Long Text
-                    </EtMenuItem>
+                        <template #action>
+                            <EtIconPlus />
+                        </template>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconTag class="!text-text" />
+                            </template>
+                            Booking notifications
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconTag class="!text-text" />
+                            </template>
+                            Price Alerts
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconTag class="!text-text" />
+                            </template>
+                            Booking notifications
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconTag class="!text-text" />
+                            </template>
+                            Price Alerts
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconTag class="!text-text" />
+                            </template>
+                            Booking notifications
+                        </EtSideBarItem>
+                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconTag class="!text-text" />
+                            </template>
+                            Price Alerts
+                        </EtSideBarItem>
+                    </EtSideBarSection>
                 </template>
 
                 <div>
@@ -134,9 +189,16 @@ import MenuLeft from "src/layouts/menuLeft.vue";
 import EtTopBarItem from "src/components/etMenu/EtTopBarItem.vue";
 import EtMenuItem from "src/components/etMenu/EtMenuItem.vue";
 
+import EtSideBarSection from "src/components/etMenu/EtSideBarSection.vue";
+import EtSideBarItem from "src/components/etMenu/EtSideBarItem.vue";
+
 import EtIconAnglesLeft from "src/components/etIcon/EtIconAnglesLeft.vue";
 import EtIconArrowRightFromBracket from "src/components/etIcon/EtIconArrowRightFromBracket.vue";
 import EtIconHouse from "src/components/etIcon/EtIconHouse.vue";
+import EtIconEnvelope from "src/components/etIcon/EtIconEnvelope.vue";
+import EtIconCircleDot from "src/components/etIcon/EtIconCircleDot.vue";
+import EtIconTag from "src/components/etIcon/EtIconTag.vue";
+import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
 
 import EtButtonDefault from "src/components/etButton/EtButtonDefault.vue";
 import EtButtonPrimary from "src/components/etButton/EtButtonPrimary.vue";
@@ -144,7 +206,6 @@ import EtButtonPrimary from "src/components/etButton/EtButtonPrimary.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
-import EtInputLabel from "src/components/etForm/EtInputLabel.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 
@@ -159,6 +220,10 @@ export default defineComponent({
         EtIconAnglesLeft,
         EtIconArrowRightFromBracket,
         EtIconHouse,
+        EtIconEnvelope,
+        EtIconCircleDot,
+        EtIconTag,
+        EtIconPlus,
 
         EtButtonDefault,
         EtButtonPrimary,
@@ -166,8 +231,10 @@ export default defineComponent({
         EtInput,
         EtInputGroup,
         EtInputGroupAddon,
-        EtInputLabel,
-        EtFormGroup
+        EtFormGroup,
+
+        EtSideBarSection,
+        EtSideBarItem
     },
     data() {
         return {
