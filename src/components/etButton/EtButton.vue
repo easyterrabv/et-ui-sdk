@@ -27,7 +27,12 @@ interface iButtonColoring {
 export const sharedButtonProps = {
     disabled: { required: false, type: Boolean, default: false },
     readonly: { required: false, type: Boolean, default: false },
-    active: { required: false, type: Boolean, default: false }
+    active: { required: false, type: Boolean, default: false },
+    size: {
+        required: false,
+        type: String as PropType<UI_SIZING>,
+        default: UI_SIZING.M
+    }
 };
 
 export default defineComponent({
@@ -37,11 +42,6 @@ export default defineComponent({
             required: false,
             type: String as PropType<UI_TYPES>,
             default: UI_TYPES.DEFAULT
-        },
-        size: {
-            required: false,
-            type: String as PropType<UI_SIZING>,
-            default: UI_SIZING.M
         }
     },
     data() {
@@ -91,6 +91,7 @@ export default defineComponent({
             } as { [key in UI_TYPES]: iButtonColoring },
 
             sizeMapping: {
+                [UI_SIZING.S]: "px-2.5 py-1.5 text-sm",
                 [UI_SIZING.M]: "px-3.5 py-2.5 text-sm"
             } as { [key in UI_SIZING]: string },
 

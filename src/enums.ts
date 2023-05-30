@@ -1,6 +1,6 @@
 export enum UI_SIZING {
     // XS = "xs",
-    // S = "s",
+    S = "s",
     M = "m"
     // L = "l"
 }

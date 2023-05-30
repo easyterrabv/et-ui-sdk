@@ -142,6 +142,42 @@
                 </div>
 
                 <div class="mt-4">
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="e => console.log('test', e)">
+                        Hello!
+                    </EtButtonDefault>
+
+                    <EtButtonPrimary
+                        :size="UI_SIZING.S"
+                        class="ml-4"
+                        @click="e => console.log('test', e)">
+                        Primary!
+                    </EtButtonPrimary>
+
+                    <EtButtonSuccess
+                        :size="UI_SIZING.S"
+                        class="ml-4"
+                        @click="e => console.log('test', e)">
+                        Success!
+                    </EtButtonSuccess>
+
+                    <EtButtonDanger
+                        :size="UI_SIZING.S"
+                        class="ml-4"
+                        @click="e => console.log('test', e)">
+                        Danger!
+                    </EtButtonDanger>
+
+                    <EtButtonWarning
+                        :size="UI_SIZING.S"
+                        class="ml-4"
+                        @click="e => console.log('test', e)">
+                        Warning!
+                    </EtButtonWarning>
+                </div>
+
+                <div class="mt-4">
                     <EtInput
                         v-model="inputTest"
                         placeholder="Test"
@@ -228,8 +264,14 @@ import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
+import {UI_SIZING} from "../src/enums";
 
 export default defineComponent({
+    computed: {
+        UI_SIZING() {
+            return UI_SIZING
+        }
+    },
     components: {
         EtFull,
         EtMenuTop,
