@@ -121,6 +121,24 @@
                         @click="e => console.log('test', e)">
                         Primary!
                     </EtButtonPrimary>
+
+                    <EtButtonSuccess
+                        class="ml-4"
+                        @click="e => console.log('test', e)">
+                        Success!
+                    </EtButtonSuccess>
+
+                    <EtButtonDanger
+                        class="ml-4"
+                        @click="e => console.log('test', e)">
+                        Danger!
+                    </EtButtonDanger>
+
+                    <EtButtonWarning
+                        class="ml-4"
+                        @click="e => console.log('test', e)">
+                        Warning!
+                    </EtButtonWarning>
                 </div>
 
                 <div class="mt-4">
@@ -201,6 +219,9 @@ import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
 
 import EtButtonDefault from "src/components/etButton/EtButtonDefault.vue";
 import EtButtonPrimary from "src/components/etButton/EtButtonPrimary.vue";
+import EtButtonSuccess from "src/components/etButton/EtButtonSuccess.vue";
+import EtButtonDanger from "src/components/etButton/EtButtonDanger.vue";
+import EtButtonWarning from "src/components/etButton/EtButtonWarning.vue";
 
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
@@ -225,6 +246,9 @@ export default defineComponent({
 
         EtButtonDefault,
         EtButtonPrimary,
+        EtButtonSuccess,
+        EtButtonDanger,
+        EtButtonWarning,
 
         EtInput,
         EtInputGroup,

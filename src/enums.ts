@@ -6,9 +6,8 @@ export enum UI_SIZING {
 }
 export enum UI_TYPES {
     DEFAULT = "default",
-    PRIMARY = "primary"
-    // SUCCESS = "success",
-    // DANGER = "danger",
-    // WARNING = "warning",
-    // PREMIUM = "premium"
+    PRIMARY = "primary",
+    SUCCESS = "success",
+    DANGER = "danger",
+    WARNING = "warning"
 }

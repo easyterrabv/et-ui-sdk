@@ -63,6 +63,30 @@ export default defineComponent({
                     readonly:
                         "hover:!bg-primary active:!bg-primary !cursor-default",
                     active: "!bg-primary-dark"
+                },
+                [UI_TYPES.SUCCESS]: {
+                    default:
+                        "bg-success text-white active:bg-success-dark hover:bg-success-dark focus-visible:outline-success",
+                    disabled: "!bg-success-light !cursor-not-allowed",
+                    readonly:
+                        "hover:!bg-success active:!bg-success !cursor-default",
+                    active: "!bg-success-dark"
+                },
+                [UI_TYPES.DANGER]: {
+                    default:
+                        "bg-danger text-white active:bg-danger-dark hover:bg-danger-dark focus-visible:outline-danger",
+                    disabled: "!bg-danger-light !cursor-not-allowed",
+                    readonly:
+                        "hover:!bg-danger active:!bg-danger !cursor-default",
+                    active: "!bg-danger-dark"
+                },
+                [UI_TYPES.WARNING]: {
+                    default:
+                        "bg-warning text-white active:bg-warning-dark hover:bg-warning-dark focus-visible:outline-warning",
+                    disabled: "!bg-warning-light !cursor-not-allowed",
+                    readonly:
+                        "hover:!bg-warning active:!bg-warning !cursor-default",
+                    active: "!bg-warning-dark"
                 }
             } as { [key in UI_TYPES]: iButtonColoring },
 

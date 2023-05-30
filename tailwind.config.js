@@ -21,6 +21,21 @@ module.exports = {
                     DEFAULT: colors.blue["600"],
                     dark: colors.blue["700"],
                 },
+                success: {
+                    light: colors.emerald["300"],
+                    DEFAULT: colors.emerald["500"],
+                    dark: colors.emerald["700"],
+                },
+                danger: {
+                    light: colors.rose["300"],
+                    DEFAULT: colors.rose["500"],
+                    dark: colors.rose["700"],
+                },
+                warning: {
+                    light: colors.amber["300"],
+                    DEFAULT: colors.amber["500"],
+                    dark: colors.amber["700"],
+                },
                 text: {
                     light: colors.slate["300"],
                     DEFAULT: colors.slate["600"],
