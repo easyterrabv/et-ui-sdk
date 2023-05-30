@@ -112,10 +112,20 @@
 
                 <EtDrawer :drawerOpen="drawerOpen">
                     <template #drawer>
-                        Hi, this is drawer content!
+                        <EtHeaderBlock>
+                            Hi, this is drawer content!
+                        </EtHeaderBlock>
                     </template>
 
-
+                    <EtHeaderBlock>
+                        Various Components
+                        <template #actions>
+                            <EtButtonPrimary
+                                @click="e => drawerOpen = !drawerOpen">
+                                Toggle Drawer!
+                            </EtButtonPrimary>
+                        </template>
+                    </EtHeaderBlock>
 
                     <div class="p-4">
                         <div>
@@ -147,12 +157,6 @@
                                 @click="e => console.log('test', e)">
                                 Warning!
                             </EtButtonWarning>
-
-                            <EtButtonPrimary
-                                class="float-right"
-                                @click="e => drawerOpen = !drawerOpen">
-                                Toggle Drawer!
-                            </EtButtonPrimary>
                         </div>
 
                         <div class="mt-4">
@@ -313,6 +317,7 @@ import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
+import EtHeaderBlock from "src/components/EtHeaderBlock.vue";
 import EtCard from "src/components/EtCard.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
@@ -353,6 +358,7 @@ export default defineComponent({
         EtSideBarSection,
         EtSideBarItem,
 
+        EtHeaderBlock,
         EtCard
     },
     data() {
