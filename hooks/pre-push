@@ -25,6 +25,7 @@ if [ "$BRANCH" = "master" ]; then
   npm --no-git-tag-version version $NEW_VERSION
 
   git add package.json
+  git add package-lock.json
   git add src/dist.css
 
   git tag -a v$NEW_VERSION -m "Version $NEW_VERSION"
