@@ -5,7 +5,7 @@
                 <slot name="menu" v-bind="scope"></slot>
             </template>
         </EtSideBar>
-        <div class="grow p-4">
+        <div class="grow">
             <slot></slot>
         </div>
     </div>

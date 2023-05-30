@@ -31,7 +31,7 @@
                 </EtTopBarItem>
             </template>
 
-            <MenuLeft>
+            <EtMenuLeft>
                 <template #menu="scope">
 
                     <EtSideBarSection :isCollapsed="scope.isCollapsed">
@@ -110,159 +110,175 @@
                     </EtSideBarSection>
                 </template>
 
-                <div>
-                    <EtButtonDefault
-                        @click="e => console.log('test', e)">
-                        Hello!
-                    </EtButtonDefault>
-
-                    <EtButtonPrimary
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Primary!
-                    </EtButtonPrimary>
-
-                    <EtButtonSuccess
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Success!
-                    </EtButtonSuccess>
-
-                    <EtButtonDanger
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Danger!
-                    </EtButtonDanger>
-
-                    <EtButtonWarning
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Warning!
-                    </EtButtonWarning>
-                </div>
-
-                <div class="mt-4">
-                    <EtButtonDefault
-                        :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
-                        Hello!
-                    </EtButtonDefault>
-
-                    <EtButtonPrimary
-                        :size="UI_SIZING.S"
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Primary!
-                    </EtButtonPrimary>
-
-                    <EtButtonSuccess
-                        :size="UI_SIZING.S"
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Success!
-                    </EtButtonSuccess>
-
-                    <EtButtonDanger
-                        :size="UI_SIZING.S"
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Danger!
-                    </EtButtonDanger>
-
-                    <EtButtonWarning
-                        :size="UI_SIZING.S"
-                        class="ml-4"
-                        @click="e => console.log('test', e)">
-                        Warning!
-                    </EtButtonWarning>
-                </div>
-
-                <div class="mt-4">
-                    <EtInput
-                        v-model="inputTest"
-                        placeholder="Test"
-                        clear-button
-                    ></EtInput>
-                </div>
-
-                <div class="mt-4">
-                    <EtFormGroup>
-                        <template #label>
-                            Hello
-                        </template>
-                        <EtInputGroupAddon>
-                            <EtIconHouse></EtIconHouse>
-                        </EtInputGroupAddon>
-                        <EtInput
-                            v-model="inputTest"
-                            placeholder="Test"
-                            clear-button
-                        ></EtInput>
-                        <EtButtonPrimary
-                            @click="e => console.log('test', e)">
-                            Submit
-                        </EtButtonPrimary>
-                    </EtFormGroup>
-                </div>
-
-                <div class="mt-4">
-                    <EtFormGroup>
-                        <template #label>
-                            Hello Test
-                        </template>
-                        <EtInput
-                            v-model="inputTest"
-                            placeholder="First"
-                            clear-button
-                        ></EtInput>
-                        <EtInputGroupAddon>
-                            And Then
-                        </EtInputGroupAddon>
-                        <EtInput
-                            v-model="inputTest"
-                            placeholder="Second"
-                            clear-button
-                        ></EtInput>
-                        <EtButtonPrimary
-                            @click="e => console.log('test', e)">
-                            Submit
-                        </EtButtonPrimary>
-                    </EtFormGroup>
-                </div>
-
-                <EtCard class="mt-4">
-                    <template #header>
-                        Card header with small inputs
+                <EtDrawer :drawerOpen="drawerOpen">
+                    <template #drawer>
+                        Hi, this is drawer content!
                     </template>
-                    <EtFormGroup>
-                        <template #label>
-                            Hello Test Smaller Size
-                        </template>
-                        <EtInput
-                            :size="UI_SIZING.S"
-                            v-model="inputTest"
-                            placeholder="First"
-                            clear-button
-                        ></EtInput>
-                        <EtInputGroupAddon
-                            :size="UI_SIZING.S"
-                        >
-                            And Then
-                        </EtInputGroupAddon>
-                        <EtInput
-                            :size="UI_SIZING.S"
-                            v-model="inputTest"
-                            placeholder="Second"
-                            clear-button
-                        ></EtInput>
-                        <EtButtonSuccess
-                            :size="UI_SIZING.S"
-                            @click="e => console.log('test', e)">
-                            Submit
-                        </EtButtonSuccess>
-                    </EtFormGroup>
-                </EtCard>
-            </MenuLeft>
+
+
+
+                    <div class="p-4">
+                        <div>
+                            <EtButtonDefault
+                                @click="e => console.log('test', e)">
+                                Hello!
+                            </EtButtonDefault>
+
+                            <EtButtonPrimary
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Primary!
+                            </EtButtonPrimary>
+
+                            <EtButtonSuccess
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Success!
+                            </EtButtonSuccess>
+
+                            <EtButtonDanger
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Danger!
+                            </EtButtonDanger>
+
+                            <EtButtonWarning
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Warning!
+                            </EtButtonWarning>
+
+                            <EtButtonPrimary
+                                class="float-right"
+                                @click="e => drawerOpen = !drawerOpen">
+                                Toggle Drawer!
+                            </EtButtonPrimary>
+                        </div>
+
+                        <div class="mt-4">
+                            <EtButtonDefault
+                                :size="UI_SIZING.S"
+                                @click="e => console.log('test', e)">
+                                Hello!
+                            </EtButtonDefault>
+
+                            <EtButtonPrimary
+                                :size="UI_SIZING.S"
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Primary!
+                            </EtButtonPrimary>
+
+                            <EtButtonSuccess
+                                :size="UI_SIZING.S"
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Success!
+                            </EtButtonSuccess>
+
+                            <EtButtonDanger
+                                :size="UI_SIZING.S"
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Danger!
+                            </EtButtonDanger>
+
+                            <EtButtonWarning
+                                :size="UI_SIZING.S"
+                                class="ml-4"
+                                @click="e => console.log('test', e)">
+                                Warning!
+                            </EtButtonWarning>
+                        </div>
+
+                        <div class="mt-4">
+                            <EtInput
+                                v-model="inputTest"
+                                placeholder="Test"
+                                clear-button
+                            ></EtInput>
+                        </div>
+
+                        <div class="mt-4">
+                            <EtFormGroup>
+                                <template #label>
+                                    Hello
+                                </template>
+                                <EtInputGroupAddon>
+                                    <EtIconHouse></EtIconHouse>
+                                </EtInputGroupAddon>
+                                <EtInput
+                                    v-model="inputTest"
+                                    placeholder="Test"
+                                    clear-button
+                                ></EtInput>
+                                <EtButtonPrimary
+                                    @click="e => console.log('test', e)">
+                                    Submit
+                                </EtButtonPrimary>
+                            </EtFormGroup>
+                        </div>
+
+                        <div class="mt-4">
+                            <EtFormGroup>
+                                <template #label>
+                                    Hello Test
+                                </template>
+                                <EtInput
+                                    v-model="inputTest"
+                                    placeholder="First"
+                                    clear-button
+                                ></EtInput>
+                                <EtInputGroupAddon>
+                                    And Then
+                                </EtInputGroupAddon>
+                                <EtInput
+                                    v-model="inputTest"
+                                    placeholder="Second"
+                                    clear-button
+                                ></EtInput>
+                                <EtButtonPrimary
+                                    @click="e => console.log('test', e)">
+                                    Submit
+                                </EtButtonPrimary>
+                            </EtFormGroup>
+                        </div>
+
+                        <EtCard class="mt-4">
+                            <template #header>
+                                Card header with small inputs
+                            </template>
+                            <EtFormGroup>
+                                <template #label>
+                                    Hello Test Smaller Size
+                                </template>
+                                <EtInput
+                                    :size="UI_SIZING.S"
+                                    v-model="inputTest"
+                                    placeholder="First"
+                                    clear-button
+                                ></EtInput>
+                                <EtInputGroupAddon
+                                    :size="UI_SIZING.S"
+                                >
+                                    And Then
+                                </EtInputGroupAddon>
+                                <EtInput
+                                    :size="UI_SIZING.S"
+                                    v-model="inputTest"
+                                    placeholder="Second"
+                                    clear-button
+                                ></EtInput>
+                                <EtButtonSuccess
+                                    :size="UI_SIZING.S"
+                                    @click="e => console.log('test', e)">
+                                    Submit
+                                </EtButtonSuccess>
+                            </EtFormGroup>
+                        </EtCard>
+                    </div>
+                </EtDrawer>
+            </EtMenuLeft>
         </EtMenuTop>
     </EtFull>
 </template>
@@ -272,9 +288,10 @@ import {defineComponent} from "vue-demi";
 
 import EtFull from "src/layouts/Full.vue";
 import EtMenuTop from "src/layouts/MenuTop.vue";
-import MenuLeft from "src/layouts/menuLeft.vue";
-import EtTopBarItem from "src/components/etMenu/EtTopBarItem.vue";
+import EtMenuLeft from "src/layouts/MenuLeft.vue";
+import EtDrawer from "src/layouts/Drawer.vue";
 
+import EtTopBarItem from "src/components/etMenu/EtTopBarItem.vue";
 import EtSideBarSection from "src/components/etMenu/EtSideBarSection.vue";
 import EtSideBarItem from "src/components/etMenu/EtSideBarItem.vue";
 
@@ -310,7 +327,8 @@ export default defineComponent({
     components: {
         EtFull,
         EtMenuTop,
-        MenuLeft,
+        EtMenuLeft,
+        EtDrawer,
         EtTopBarItem,
 
         EtIconAnglesLeft,
@@ -339,7 +357,8 @@ export default defineComponent({
     },
     data() {
         return {
-            inputTest: null
+            inputTest: null,
+            drawerOpen: false,
         }
     },
     watch: {
