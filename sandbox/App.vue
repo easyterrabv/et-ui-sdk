@@ -187,7 +187,6 @@ import EtFull from "src/layouts/Full.vue";
 import EtMenuTop from "src/layouts/MenuTop.vue";
 import MenuLeft from "src/layouts/menuLeft.vue";
 import EtTopBarItem from "src/components/etMenu/EtTopBarItem.vue";
-import EtMenuItem from "src/components/etMenu/EtMenuItem.vue";
 
 import EtSideBarSection from "src/components/etMenu/EtSideBarSection.vue";
 import EtSideBarItem from "src/components/etMenu/EtSideBarItem.vue";
@@ -214,7 +213,6 @@ export default defineComponent({
         EtFull,
         EtMenuTop,
         MenuLeft,
-        EtMenuItem,
         EtTopBarItem,
 
         EtIconAnglesLeft,
