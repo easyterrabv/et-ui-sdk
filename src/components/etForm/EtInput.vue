@@ -23,9 +23,10 @@
             :class="[
                 {
                     '!pr-10': clearButton
-                }
+                },
+                sizeClasses
             ]"
-            class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0 px-3.5 py-2 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary"
+            class="et-input block w-full rounded-md border-0 ring-inset focus:ring-inset focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary"
         />
         <span
             class="absolute right-0 top-0 w-max h-max p-2 cursor-pointer"
@@ -38,10 +39,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent, PropType } from "vue-demi";
 import { generateId } from "src/helpers/random";
 
 import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
+import { UI_SIZING } from "../../enums";
 
 export default defineComponent({
     inheritAttrs: false,
@@ -112,38 +114,6 @@ export default defineComponent({
             required: false,
             default: false
         },
-        size: {
-            type: String,
-            required: false,
-            default: "m",
-            validator(val) {
-                const validSizes = ["xs", "s", "m", "l"];
-                if (!validSizes.includes(val)) {
-                    console.error(
-                        "invalid input size, only choices:",
-                        validSizes
-                    );
-                    return false;
-                }
-                return true;
-            }
-        },
-        state: {
-            type: String,
-            required: false,
-            default: "neutral",
-            validator(val) {
-                const validStates = ["error", "neutral", "valid"];
-                if (!validStates.includes(val)) {
-                    console.error(
-                        "invalid input state, only choices:",
-                        validStates
-                    );
-                    return false;
-                }
-                return true;
-            }
-        },
         required: {
             type: Boolean,
             required: false,
@@ -163,19 +133,30 @@ export default defineComponent({
             type: Boolean,
             required: false,
             default: false
+        },
+        size: {
+            required: false,
+            type: String as PropType<UI_SIZING>,
+            default: UI_SIZING.M
         }
     },
     data() {
         return {
             internalData: null as null | string | number,
-            internalDataBefore: null as null | string | number
+            internalDataBefore: null as null | string | number,
+
+            sizeMapping: {
+                [UI_SIZING.S]: "px-2.5 py-1",
+                [UI_SIZING.M]: "px-3.5 py-2"
+            } as { [key in UI_SIZING]: string }
         };
     },
     computed: {
         typeIsNumber: (vm): boolean => ["number", "month"].includes(vm.type),
         typeIsString: (vm): boolean => !vm.typeIsNumber,
         minAttr: (vm): string => (vm.typeIsNumber ? "min" : "minLength"),
-        maxAttr: (vm): string => (vm.typeIsNumber ? "max" : "maxlength")
+        maxAttr: (vm): string => (vm.typeIsNumber ? "max" : "maxlength"),
+        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
     },
     watch: {
         internalData: {

@@ -229,6 +229,36 @@
                         </EtButtonPrimary>
                     </EtFormGroup>
                 </div>
+
+                <div class="mt-4">
+                    <EtFormGroup>
+                        <template #label>
+                            Hello Test Smaller Size
+                        </template>
+                        <EtInput
+                            :size="UI_SIZING.S"
+                            v-model="inputTest"
+                            placeholder="First"
+                            clear-button
+                        ></EtInput>
+                        <EtInputGroupAddon
+                            :size="UI_SIZING.S"
+                        >
+                            And Then
+                        </EtInputGroupAddon>
+                        <EtInput
+                            :size="UI_SIZING.S"
+                            v-model="inputTest"
+                            placeholder="Second"
+                            clear-button
+                        ></EtInput>
+                        <EtButtonSuccess
+                            :size="UI_SIZING.S"
+                            @click="e => console.log('test', e)">
+                            Submit
+                        </EtButtonSuccess>
+                    </EtFormGroup>
+                </div>
             </MenuLeft>
         </EtMenuTop>
     </EtFull>
