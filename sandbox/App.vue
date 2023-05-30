@@ -230,7 +230,10 @@
                     </EtFormGroup>
                 </div>
 
-                <div class="mt-4">
+                <EtCard class="mt-4">
+                    <template #header>
+                        Card header with small inputs
+                    </template>
                     <EtFormGroup>
                         <template #label>
                             Hello Test Smaller Size
@@ -258,7 +261,7 @@
                             Submit
                         </EtButtonSuccess>
                     </EtFormGroup>
-                </div>
+                </EtCard>
             </MenuLeft>
         </EtMenuTop>
     </EtFull>
@@ -292,6 +295,8 @@ import EtButtonWarning from "src/components/etButton/EtButtonWarning.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
+
+import EtCard from "src/components/EtCard.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 import {UI_SIZING} from "../src/enums";
@@ -328,7 +333,9 @@ export default defineComponent({
         EtFormGroup,
 
         EtSideBarSection,
-        EtSideBarItem
+        EtSideBarItem,
+
+        EtCard
     },
     data() {
         return {
