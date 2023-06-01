@@ -134,25 +134,27 @@
                         </EtSection>
                     </template>
 
-                    <EtHeaderBlock>
-                        Various Components
+                    <EtContent>
+                        <template #header>
+                            <EtHeaderBlock>
+                                Various Components
 
-                        <EtBadge
-                            class="mx-4"
-                            :type="UI_TYPES.SUCCESS"
-                        >
-                            Random Badge
-                        </EtBadge>
+                                <EtBadge
+                                    class="mx-4"
+                                    :type="UI_TYPES.SUCCESS"
+                                >
+                                    Random Badge
+                                </EtBadge>
 
-                        <template #actions>
-                            <EtButtonPrimary
-                                @click="e => drawerOpen = !drawerOpen">
-                                Toggle Drawer!
-                            </EtButtonPrimary>
+                                <template #actions>
+                                    <EtButtonPrimary
+                                        @click="e => drawerOpen = !drawerOpen">
+                                        Toggle Drawer!
+                                    </EtButtonPrimary>
+                                </template>
+                            </EtHeaderBlock>
                         </template>
-                    </EtHeaderBlock>
 
-                    <div class="p-4">
                         <div>
                             <EtButtonDefault
                                 @click="e => console.log('test', e)">
@@ -387,7 +389,40 @@
                                 </EtButtonSuccess>
                             </EtFormGroup>
                         </EtCard>
-                    </div>
+
+                        <div>
+                            <EtAlert
+                                class="mt-4"
+                                :type="UI_TYPES.DEFAULT"
+                            >
+                                Hi! This is a default alert
+                            </EtAlert>
+                            <EtAlert
+                                class="mt-4"
+                                :type="UI_TYPES.PRIMARY"
+                            >
+                                Hi! This is a primary alert
+                            </EtAlert>
+                            <EtAlert
+                                class="mt-4"
+                                :type="UI_TYPES.SUCCESS"
+                            >
+                                Hi! This is a success alert
+                            </EtAlert>
+                            <EtAlert
+                                class="mt-4"
+                                :type="UI_TYPES.DANGER"
+                            >
+                                Hi! This is a danger alert
+                            </EtAlert>
+                            <EtAlert
+                                class="mt-4"
+                                :type="UI_TYPES.WARNING"
+                            >
+                                Hi! This is a warning alert
+                            </EtAlert>
+                        </div>
+                    </EtContent>
                 </EtDrawer>
             </EtMenuLeft>
         </EtMenuTop>
@@ -401,6 +436,7 @@ import EtFull from "src/layouts/Full.vue";
 import EtMenuTop from "src/layouts/MenuTop.vue";
 import EtMenuLeft from "src/layouts/MenuLeft.vue";
 import EtDrawer from "src/layouts/Drawer.vue";
+import EtContent from "src/layouts/Content.vue";
 
 import EtTopBarItem from "src/components/etMenu/EtTopBarItem.vue";
 import EtSideBarSection from "src/components/etMenu/EtSideBarSection.vue";
@@ -428,6 +464,7 @@ import EtHeaderBlock from "src/components/EtHeaderBlock.vue";
 import EtCard from "src/components/EtCard.vue";
 import EtSection from "src/components/EtSection.vue";
 import EtBadge from "src/components/etBadge/EtBadge.vue";
+import EtAlert from "src/components/etAlert/EtAlert.vue";
 
 import EtTabs from "src/components/etTabs/EtTabs.vue";
 import EtTab from "src/components/etTabs/EtTab.vue";
@@ -449,6 +486,7 @@ export default defineComponent({
         EtMenuTop,
         EtMenuLeft,
         EtDrawer,
+        EtContent,
         EtTopBarItem,
 
         EtIconAnglesLeft,
@@ -477,6 +515,7 @@ export default defineComponent({
         EtCard,
         EtSection,
         EtBadge,
+        EtAlert,
 
         EtTabs,
         EtTab

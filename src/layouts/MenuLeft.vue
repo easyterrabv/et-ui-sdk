@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row h-full">
+    <div class="flex flex-row h-full max-h-full">
         <EtSideBar>
             <template #default="scope">
                 <slot name="menu" v-bind="scope"></slot>

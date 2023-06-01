@@ -1,6 +1,8 @@
 <template>
-    <div class="et-drawer-layout w-full h-full flex flex-row">
-        <div class="grow">
+    <div
+        class="et-drawer-layout w-full max-w-full h-full max-h-full flex flex-row"
+    >
+        <div class="grow max-h-full overflow-auto flex flex-col">
             <slot></slot>
         </div>
         <div

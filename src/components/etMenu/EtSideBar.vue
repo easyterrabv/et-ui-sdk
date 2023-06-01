@@ -1,7 +1,7 @@
 <template>
     <aside
         :class="[widthClass]"
-        class="et-side-bar pt-6 z-10 h-full bg-slate-50 fixed shadow-inner relative transition-[width] ease-in-out duration-150"
+        class="et-side-bar pt-6 z-10 h-full max-h-full bg-slate-50 fixed shadow-inner relative transition-[width] ease-in-out duration-150"
     >
         <div>
             <slot :isCollapsed="isCollapsed"></slot>

@@ -1,12 +1,12 @@
 <template>
-    <div class="w-full h-full flex flex-col">
+    <div class="w-full h-full flex flex-col max-h-full max-w-full">
         <EtTopBar>
             <slot name="top"></slot>
             <template #end>
                 <slot name="topEnd"></slot>
             </template>
         </EtTopBar>
-        <div class="grow">
+        <div class="grow h-full max-h-full overflow-auto">
             <slot></slot>
         </div>
     </div>
