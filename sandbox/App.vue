@@ -265,6 +265,88 @@
                             </EtFormGroup>
                         </div>
 
+                        <div class="mt-4">
+                            <EtBadge
+                                :size="UI_SIZING.M"
+                                :type="UI_TYPES.DEFAULT"
+                            >
+                                Default
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.M"
+                                :type="UI_TYPES.PRIMARY"
+                            >
+                                Primary
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.M"
+                                :type="UI_TYPES.SUCCESS"
+                            >
+                                Success
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.M"
+                                :type="UI_TYPES.DANGER"
+                            >
+                                Danger
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.M"
+                                :type="UI_TYPES.WARNING"
+                            >
+                                Warning
+                            </EtBadge>
+                        </div>
+
+                        <div class="mt-4">
+                            <EtBadge
+                                :size="UI_SIZING.S"
+                                :type="UI_TYPES.DEFAULT"
+                            >
+                                Default
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.S"
+                                :type="UI_TYPES.PRIMARY"
+                            >
+                                Primary
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.S"
+                                :type="UI_TYPES.SUCCESS"
+                            >
+                                Success
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.S"
+                                :type="UI_TYPES.DANGER"
+                            >
+                                Danger
+                            </EtBadge>
+
+                            <EtBadge
+                                class="ml-4"
+                                :size="UI_SIZING.S"
+                                :type="UI_TYPES.WARNING"
+                            >
+                                Warning
+                            </EtBadge>
+                        </div>
+
                         <EtCard class="mt-4">
                             <template #header>
                                 Card header with small inputs
@@ -337,15 +419,19 @@ import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 import EtHeaderBlock from "src/components/EtHeaderBlock.vue";
 import EtCard from "src/components/EtCard.vue";
 import EtSection from "src/components/EtSection.vue";
+import EtBadge from "src/components/etBadge/EtBadge.vue";
 
 import EtTabs from "src/components/etTabs/EtTabs.vue";
 import EtTab from "src/components/etTabs/EtTab.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
-import {UI_SIZING} from "../src/enums";
+import {UI_SIZING, UI_TYPES} from "../src/enums";
 
 export default defineComponent({
     computed: {
+        UI_TYPES() {
+            return UI_TYPES
+        },
         UI_SIZING() {
             return UI_SIZING
         }
@@ -382,6 +468,7 @@ export default defineComponent({
         EtHeaderBlock,
         EtCard,
         EtSection,
+        EtBadge,
 
         EtTabs,
         EtTab
