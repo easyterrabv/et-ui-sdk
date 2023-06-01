@@ -31,8 +31,7 @@ export default defineComponent({
     data() {
         return {
             colorMapping: {
-                [UI_TYPES.DEFAULT]:
-                    "bg-default-extra-light ring-1 ring-inset ring-default-extra-light",
+                [UI_TYPES.DEFAULT]: "bg-default-extra-light text-default-dark",
                 [UI_TYPES.PRIMARY]: "bg-primary-extra-light text-primary-dark",
                 [UI_TYPES.SUCCESS]: "bg-success-extra-light text-success-dark",
                 [UI_TYPES.DANGER]: "bg-danger-extra-light text-danger-dark",
