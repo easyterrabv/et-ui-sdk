@@ -1,5 +1,5 @@
 <template>
-    <EtBox class="et-card p-0">
+    <EtBox class="et-card !p-0">
         <EtSection>
             <template #header>
                 <slot name="header"></slot>

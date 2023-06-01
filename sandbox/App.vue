@@ -115,6 +115,23 @@
                         <EtHeaderBlock>
                             Hi, this is drawer content!
                         </EtHeaderBlock>
+                        <EtSection>
+                            <template #header>
+                                Recent Interactions
+                            </template>
+                            <template #tabs>
+                                <EtTabs>
+                                    <EtTab isActive>
+                                        Tab 1
+                                    </EtTab>
+                                    <EtTab>
+                                        Tab 2
+                                    </EtTab>
+                                </EtTabs>
+                            </template>
+                            A bit of content <br />
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lectus sapien, semper quis est quis, tempus porttitor enim. Proin posuere enim sed accumsan sodales. Suspendisse sit amet diam vel nisl bibendum ornare et eu sem.
+                        </EtSection>
                     </template>
 
                     <EtHeaderBlock>
@@ -319,6 +336,10 @@ import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
 import EtHeaderBlock from "src/components/EtHeaderBlock.vue";
 import EtCard from "src/components/EtCard.vue";
+import EtSection from "src/components/EtSection.vue";
+
+import EtTabs from "src/components/etTabs/EtTabs.vue";
+import EtTab from "src/components/etTabs/EtTab.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 import {UI_SIZING} from "../src/enums";
@@ -359,7 +380,11 @@ export default defineComponent({
         EtSideBarItem,
 
         EtHeaderBlock,
-        EtCard
+        EtCard,
+        EtSection,
+
+        EtTabs,
+        EtTab
     },
     data() {
         return {
