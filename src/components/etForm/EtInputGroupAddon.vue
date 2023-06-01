@@ -1,7 +1,7 @@
 <template>
     <label
         :class="[sizeClasses]"
-        class="rounded-md border-0 ring-inset bg-slate-100 text-text shadow-sm ring-1 ring-default-light"
+        class="rounded-md border-0 bg-slate-100 text-text shadow-sm ring-1 ring-default-light"
     >
         <slot></slot>
     </label>

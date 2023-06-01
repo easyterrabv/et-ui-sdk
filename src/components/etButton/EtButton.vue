@@ -1,8 +1,15 @@
 <template>
     <button
         ref="etButton"
-        class="et-button rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:ease-in-out motion-safe:duration-150"
-        :class="[...colorClasses, sizeClasses]"
+        class="et-button ring-1 text-white rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:ease-in-out motion-safe:duration-150"
+        :class="[
+            {
+                '!cursor-not-allowed': disabled,
+                '!cursor-default': readonly
+            },
+            ...colorClasses,
+            sizeClasses
+        ]"
         @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
         @keyup.enter="(e) => clickDebounce.debounce(e)"
         @focus="$emit('focus')"
@@ -49,43 +56,43 @@ export default defineComponent({
             colorMapping: {
                 [UI_TYPES.DEFAULT]: {
                     default:
-                        "ring-1 ring-inset ring-default-light bg-white text-text active:ring-default hover:ring-default focus-visible:outline-default",
+                        "ring-default-light bg-white !text-text active:ring-default hover:ring-default focus-visible:outline-default",
                     disabled:
-                        "!bg-default-light !text-text !cursor-not-allowed hover:!ring-default-light active:!ring-default-light",
+                        "!bg-default-light !text-text hover:!ring-default-light active:!ring-default-light",
                     readonly:
-                        "hover:!ring-default-light active:!ring-default-light !cursor-default",
+                        "hover:!ring-default-light active:!ring-default-light",
                     active: "!ring-default"
                 },
                 [UI_TYPES.PRIMARY]: {
                     default:
-                        "bg-primary text-white active:bg-primary-dark hover:bg-primary-dark focus-visible:outline-primary",
-                    disabled: "!bg-primary-light !cursor-not-allowed",
-                    readonly:
-                        "hover:!bg-primary active:!bg-primary !cursor-default",
+                        "ring-primary bg-primary active:bg-primary-dark hover:bg-primary-dark focus-visible:outline-primary",
+                    disabled:
+                        "!bg-primary-light !ring-primary-light hover:!ring-primary-light active:!ring-primary-light",
+                    readonly: "hover:!bg-primary active:!bg-primary",
                     active: "!bg-primary-dark"
                 },
                 [UI_TYPES.SUCCESS]: {
                     default:
-                        "bg-success text-white active:bg-success-dark hover:bg-success-dark focus-visible:outline-success",
-                    disabled: "!bg-success-light !cursor-not-allowed",
-                    readonly:
-                        "hover:!bg-success active:!bg-success !cursor-default",
+                        "ring-success bg-success active:bg-success-dark hover:bg-success-dark focus-visible:outline-success",
+                    disabled:
+                        "!bg-success-light !ring-success-light hover:!ring-success-light active:!ring-success-light",
+                    readonly: "hover:!bg-success active:!bg-success",
                     active: "!bg-success-dark"
                 },
                 [UI_TYPES.DANGER]: {
                     default:
-                        "bg-danger text-white active:bg-danger-dark hover:bg-danger-dark focus-visible:outline-danger",
-                    disabled: "!bg-danger-light !cursor-not-allowed",
-                    readonly:
-                        "hover:!bg-danger active:!bg-danger !cursor-default",
+                        "ring-danger bg-danger active:bg-danger-dark hover:bg-danger-dark focus-visible:outline-danger",
+                    disabled:
+                        "!bg-danger-light !ring-danger-light hover:!ring-danger-light active:!ring-danger-light",
+                    readonly: "hover:!bg-danger active:!bg-danger",
                     active: "!bg-danger-dark"
                 },
                 [UI_TYPES.WARNING]: {
                     default:
-                        "bg-warning text-white active:bg-warning-dark hover:bg-warning-dark focus-visible:outline-warning",
-                    disabled: "!bg-warning-light !cursor-not-allowed",
-                    readonly:
-                        "hover:!bg-warning active:!bg-warning !cursor-default",
+                        "ring-warning bg-warning active:bg-warning-dark hover:bg-warning-dark focus-visible:outline-warning",
+                    disabled:
+                        "!bg-warning-light !ring-warning-light hover:!ring-warning-light active:!ring-warning-light",
+                    readonly: "hover:!bg-warning active:!bg-warning",
                     active: "!bg-warning-dark"
                 }
             } as { [key in UI_TYPES]: iButtonColoring },
