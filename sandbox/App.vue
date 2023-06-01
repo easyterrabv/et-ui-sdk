@@ -136,6 +136,14 @@
 
                     <EtHeaderBlock>
                         Various Components
+
+                        <EtBadge
+                            class="mx-4"
+                            :type="UI_TYPES.SUCCESS"
+                        >
+                            Random Badge
+                        </EtBadge>
+
                         <template #actions>
                             <EtButtonPrimary
                                 @click="e => drawerOpen = !drawerOpen">

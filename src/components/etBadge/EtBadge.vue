@@ -10,17 +10,22 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue-demi";
 import { UI_SIZING, UI_TYPES } from "../../enums";
+
+export const sharedProps = {
+    size: {
+        required: false,
+        type: String as PropType<UI_SIZING>,
+        default: UI_SIZING.S
+    }
+};
+
 export default defineComponent({
     props: {
+        ...sharedProps,
         type: {
             required: false,
             type: String as PropType<UI_TYPES>,
             default: UI_TYPES.DEFAULT
-        },
-        size: {
-            required: false,
-            type: String as PropType<UI_SIZING>,
-            default: UI_SIZING.M
         }
     },
     data() {
