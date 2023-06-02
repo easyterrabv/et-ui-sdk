@@ -1,0 +1,24 @@
+<template>
+    <EtAlert
+        class="et-alert-default"
+        v-on="$listeners"
+        :type="UI_TYPES.DEFAULT"
+    >
+        <slot></slot>
+    </EtAlert>
+</template>
+
+<script lang="ts">
+import EtAlert from "./EtAlert.vue";
+import { defineComponent } from "vue-demi";
+import { UI_TYPES } from "../../enums";
+
+export default defineComponent({
+    computed: {
+        UI_TYPES() {
+            return UI_TYPES;
+        }
+    },
+    components: { EtAlert }
+});
+</script>
