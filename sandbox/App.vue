@@ -289,6 +289,25 @@
                         </div>
 
                         <div class="mt-4">
+                            <EtFormGroup>
+                                <template #label>
+                                    Toggle Test
+                                </template>
+                                <EtInputGroupAddon>
+                                    <EtToggle
+                                        v-model="disabledToggleInput">
+                                    </EtToggle>
+                                </EtInputGroupAddon>
+                                <EtInput
+                                    v-model="inputTest"
+                                    :disabled="disabledToggleInput"
+                                    placeholder="Test"
+                                    clear-button
+                                ></EtInput>
+                            </EtFormGroup>
+                        </div>
+
+                        <div class="mt-4">
                             <EtBadge
                                 :size="UI_SIZING.M"
                                 :type="UI_TYPES.DEFAULT"
@@ -540,7 +559,8 @@ export default defineComponent({
             inputTest: null,
             toggleTest: false,
 
-            drawerOpen: false
+            drawerOpen: false,
+            disabledToggleInput: true
         }
     },
     watch: {
