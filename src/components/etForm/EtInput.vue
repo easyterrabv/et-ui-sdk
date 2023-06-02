@@ -22,7 +22,8 @@
             @blur="handleBlurEmit"
             :class="[
                 {
-                    '!pr-10': clearButton
+                    '!pr-10': clearButton,
+                    'bg-default-extra-light cursor-not-allowed': disabled
                 },
                 sizeClasses
             ]"
