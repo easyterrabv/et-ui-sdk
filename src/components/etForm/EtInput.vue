@@ -46,6 +46,11 @@ import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
 import { UI_SIZING } from "../../enums";
 
 export default defineComponent({
+    model: {
+        // backwards compatibility with vue2.x
+        prop: "modelValue",
+        event: "update:modelValue"
+    },
     inheritAttrs: false,
     components: {
         EtIconTimes
@@ -99,7 +104,7 @@ export default defineComponent({
             required: false,
             default: false
         },
-        value: {
+        modelValue: {
             type: [String, Number],
             required: false,
             default: null
@@ -163,13 +168,13 @@ export default defineComponent({
             immediate: true,
             handler(value) {
                 this.internalData = this.fixValue(value);
-                this.$emit("input", this.internalData);
+                this.$emit("update:modelValue", this.internalData);
             }
         },
-        value: {
+        modelValue: {
             immediate: true,
-            handler(value) {
-                const data = this.fixValue(value);
+            handler(modelValue) {
+                const data = this.fixValue(modelValue);
                 const beforeData = this.fixValue(this.internalData);
 
                 if (data !== beforeData) {
@@ -264,8 +269,9 @@ export default defineComponent({
     },
     emits: {
         // will trigger and usually only update the v-model value
-        input: (value: string | number | null): boolean =>
-            ["string", "number"].includes(typeof value) || value === null,
+        "update:modelValue": (modelValue: string | number | null): boolean =>
+            ["string", "number"].includes(typeof modelValue) ||
+            modelValue === null,
         // will trigger if there is an actual change
         change: (value: string | number | null): boolean =>
             ["string", "number"].includes(typeof value) || value === null,
