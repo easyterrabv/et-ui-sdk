@@ -276,6 +276,19 @@
                         </div>
 
                         <div class="mt-4">
+                            <EtToggle
+                                v-model="toggleTest"
+                                :size="UI_SIZING.S">
+                                Click to toggle nothing at all!
+                            </EtToggle>
+                            <EtToggle
+                                v-model="toggleTest"
+                                :size="UI_SIZING.M">
+                                Click to toggle nothing at all!
+                            </EtToggle>
+                        </div>
+
+                        <div class="mt-4">
                             <EtBadge
                                 :size="UI_SIZING.M"
                                 :type="UI_TYPES.DEFAULT"
@@ -459,6 +472,7 @@ import EtButtonWarning from "src/components/etButton/EtButtonWarning.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
+import EtToggle from "src/components/etForm/EtToggle.vue";
 
 import EtHeaderBlock from "src/components/EtHeaderBlock.vue";
 import EtCard from "src/components/EtCard.vue";
@@ -507,6 +521,7 @@ export default defineComponent({
         EtInputGroup,
         EtInputGroupAddon,
         EtFormGroup,
+        EtToggle,
 
         EtSideBarSection,
         EtSideBarItem,
@@ -523,7 +538,9 @@ export default defineComponent({
     data() {
         return {
             inputTest: null,
-            drawerOpen: false,
+            toggleTest: false,
+
+            drawerOpen: false
         }
     },
     watch: {
