@@ -54,7 +54,7 @@ export default defineComponent({
         size: {
             required: false,
             type: String as PropType<UI_SIZING>,
-            default: UI_SIZING.M
+            default: UI_SIZING.S
         },
         disabled: {
             required: false,
