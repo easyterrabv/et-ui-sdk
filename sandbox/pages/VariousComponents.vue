@@ -178,6 +178,18 @@
             </div>
 
             <div class="mt-4">
+                <EtPopover>
+                    <template #toggle>
+                        <EtButtonDefault
+                            :size="UI_SIZING.S"
+                            @click="e => console.log('test', e)">
+                            Toggle PopOver
+                        </EtButtonDefault>
+                    </template>
+                </EtPopover>
+            </div>
+
+            <div class="mt-4">
                 <EtFormGroup>
                     <template #label>
                         Toggle Test
@@ -373,6 +385,8 @@ import EtSection from "src/components/EtSection.vue";
 import EtBadge from "src/components/etBadge/EtBadge.vue";
 import EtAlert from "src/components/etAlert/EtAlert.vue";
 
+import EtPopover from "src/components/EtPopover.vue";
+
 import EtTabs from "src/components/etTabs/EtTabs.vue";
 import EtTab from "src/components/etTabs/EtTab.vue";
 
@@ -410,6 +424,7 @@ export default defineComponent({
         EtSection,
         EtBadge,
         EtAlert,
+        EtPopover,
 
         EtTabs,
         EtTab
