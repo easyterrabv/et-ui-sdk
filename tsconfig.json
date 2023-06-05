@@ -9,7 +9,9 @@
     "include": [
         "env.d.ts",
         "src/**/*",
-        "src/**/*.vue"
+        "src/**/*.vue",
+        "sandbox/**/*",
+        "sandbox/**/*.vue"
     ],
     "exclude": ["node_modules", "**/__tests__/*"]
 }

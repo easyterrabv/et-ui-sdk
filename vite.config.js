@@ -8,7 +8,8 @@ export default defineConfig({
     plugins: [vue(), dts()],
     resolve:{
         alias:{
-            'src' : path.resolve(__dirname, './src')
+            'src' : path.resolve(__dirname, './src'),
+            'sandbox' : path.resolve(__dirname, './sandbox')
         },
     },
     optimizeDeps: {

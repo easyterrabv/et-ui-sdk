@@ -1,10 +1,12 @@
 <template>
-    <EtLabel>
-        <slot name="label"></slot>
-    </EtLabel>
-    <EtInputGroup>
-        <slot></slot>
-    </EtInputGroup>
+    <div>
+        <EtLabel>
+            <slot name="label"></slot>
+        </EtLabel>
+        <EtInputGroup>
+            <slot></slot>
+        </EtInputGroup>
+    </div>
 </template>
 
 <script>
