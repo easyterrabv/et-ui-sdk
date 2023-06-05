@@ -112,6 +112,58 @@
             </div>
 
             <div class="mt-4">
+                <EtButtonGroup>
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="e => console.log('test', e)">
+                        Hello! 1
+                    </EtButtonDefault>
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="e => console.log('test', e)">
+                        Hello! 2
+                    </EtButtonDefault>
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="e => console.log('test', e)">
+                        Hello! 3
+                    </EtButtonDefault>
+                </EtButtonGroup>
+            </div>
+
+            <div class="mt-4">
+                <EtButtonGroup isVertical>
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="e => console.log('test', e)">
+                        Hello! 1
+                    </EtButtonDefault>
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="e => console.log('test', e)">
+                        Hello! 2
+                    </EtButtonDefault>
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="e => console.log('test', e)">
+                        Hello! 3
+                    </EtButtonDefault>
+                    <EtButtonGroup>
+                        <EtButtonDanger
+                            :size="UI_SIZING.S"
+                            @click="e => console.log('test', e)">
+                            Danger!
+                        </EtButtonDanger>
+                        <EtButtonSuccess
+                            :size="UI_SIZING.S"
+                            @click="e => console.log('test', e)">
+                            Success!
+                        </EtButtonSuccess>
+                    </EtButtonGroup>
+                </EtButtonGroup>
+            </div>
+
+            <div class="mt-4">
                 <EtInput
                     v-model="inputTest"
                     placeholder="Test"
@@ -371,6 +423,7 @@ import EtContent from "src/layouts/Content.vue";
 
 import EtIconHouse from "src/components/etIcon/EtIconHouse.vue";
 
+import EtButtonGroup from "src/components/etButton/EtButtonGroup.vue";
 import EtButtonDefault from "src/components/etButton/EtButtonDefault.vue";
 import EtButtonPrimary from "src/components/etButton/EtButtonPrimary.vue";
 import EtButtonSuccess from "src/components/etButton/EtButtonSuccess.vue";
@@ -411,6 +464,7 @@ export default defineComponent({
 
         EtIconHouse,
 
+        EtButtonGroup,
         EtButtonDefault,
         EtButtonPrimary,
         EtButtonSuccess,
