@@ -48,6 +48,7 @@ export default defineComponent({
             } else {
                 setTimeout(() => {
                     this.hasFocus = false;
+                    this.$refs.button.blur();
                 }, 75);
             }
         }
