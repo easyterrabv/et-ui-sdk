@@ -18,7 +18,7 @@ describe(`<EtInput />`, () => {
             cy.wrap(componentInstance).invoke("blur");
 
             const emits = component.wrapper.emitted();
-            cy.wrap(emits).should("have.property", "input");
+            cy.wrap(emits).should("have.property", "update:modelValue");
             cy.wrap(emits).should("have.property", "focus");
             cy.wrap(emits).should("have.property", "blur");
         });
