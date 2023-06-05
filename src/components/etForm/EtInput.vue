@@ -27,7 +27,7 @@
                 },
                 sizeClasses
             ]"
-            class="et-input block w-full rounded-md border-0 focus: focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary"
+            class="et-input block w-full rounded-md border-0 focus: focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
         />
         <span
             class="absolute right-0 top-0 w-max h-max p-2 cursor-pointer"
