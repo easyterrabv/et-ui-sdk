@@ -3,8 +3,9 @@
         <div @click="togglePopover">
             <slot name="toggle"></slot>
         </div>
-        <EtBox
-            class="absolute right-0 z-10 mt-2 transition ease-out duration-75 transform rounded-md"
+        <div
+            v-if="$slots.default"
+            class="absolute right-0 z-10 mt-2 transition ease-out duration-75 transform"
             :class="{
                 'opacity-0 scale-80': !visible,
                 'opacity-100 scale-100': visible,
@@ -12,13 +13,12 @@
             }"
         >
             <slot></slot>
-        </EtBox>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import EtBox from "src/components/EtBox.vue";
 
 export default defineComponent({
     props: {
@@ -27,9 +27,6 @@ export default defineComponent({
             required: false,
             default: false
         }
-    },
-    components: {
-        EtBox
     },
     data() {
         return {

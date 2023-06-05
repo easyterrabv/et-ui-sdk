@@ -186,6 +186,9 @@
                             Toggle PopOver
                         </EtButtonDefault>
                     </template>
+                    <EtBox>
+                        Hello!
+                    </EtBox>
                 </EtPopover>
             </div>
 
@@ -380,6 +383,7 @@ import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 import EtToggle from "src/components/etForm/EtToggle.vue";
 
 import EtHeaderBlock from "src/components/EtHeaderBlock.vue";
+import EtBox from "src/components/EtBox.vue";
 import EtCard from "src/components/EtCard.vue";
 import EtSection from "src/components/EtSection.vue";
 import EtBadge from "src/components/etBadge/EtBadge.vue";
@@ -421,6 +425,7 @@ export default defineComponent({
 
         EtHeaderBlock,
         EtCard,
+        EtBox,
         EtSection,
         EtBadge,
         EtAlert,
