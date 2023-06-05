@@ -232,15 +232,27 @@
             <div class="mt-4">
                 <EtPopover>
                     <template #toggle>
-                        <EtButtonDefault
-                            :size="UI_SIZING.S"
-                            @click="e => console.log('test', e)">
+                        <EtButtonDefault :size="UI_SIZING.S">
                             Toggle PopOver
                         </EtButtonDefault>
                     </template>
-                    <EtBox>
-                        Hello!
-                    </EtBox>
+                    <EtButtonGroup isVertical>
+                        <EtButtonDefault
+                            :size="UI_SIZING.S"
+                            @click="e => console.log('test', e)">
+                            Button One
+                        </EtButtonDefault>
+                        <EtButtonDefault
+                            :size="UI_SIZING.S"
+                            @click="e => console.log('test', e)">
+                            Button Two
+                        </EtButtonDefault>
+                        <EtButtonDefault
+                            :size="UI_SIZING.S"
+                            @click="e => console.log('test', e)">
+                            Button Three
+                        </EtButtonDefault>
+                    </EtButtonGroup>
                 </EtPopover>
             </div>
 

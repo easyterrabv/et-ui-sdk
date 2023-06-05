@@ -97,7 +97,17 @@
                     </EtSideBarSection>
                 </template>
 
-                <router-view></router-view>
+                <router-view v-slot="{ Component }">
+                    <transition
+                        class="transition ease-out duration-75"
+                        enter-from-class="opacity-0"
+                        enter-to-class="delay-75 opacity-100"
+                        leave-from-class="opacity-100"
+                        leave-to-class="opacity-0"
+                    >
+                        <component :is="Component" />
+                    </transition>
+                </router-view>
             </EtMenuLeft>
         </EtMenuTop>
     </EtFull>
