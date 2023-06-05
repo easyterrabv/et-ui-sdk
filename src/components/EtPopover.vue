@@ -3,17 +3,19 @@
         <div @click="togglePopover">
             <slot name="toggle"></slot>
         </div>
-        <div
+        <transition
+            enter-from-class="opacity-0"
+            enter-to-class="opacity-100"
+            leave-from-class="opacity-100"
+            leave-to-class="opacity-0"
             v-if="$slots.default"
-            class="absolute right-0 z-10 mt-2 transition ease-out duration-75 transform"
+            class="absolute right-0 z-10 mt-2 transition ease-out duration-70"
             :class="{
-                'opacity-0 scale-80': !visible,
-                'opacity-100 scale-100': visible,
                 'w-full': fitToggle
             }"
         >
-            <slot></slot>
-        </div>
+            <slot v-if="visible"></slot>
+        </transition>
     </div>
 </template>
 
