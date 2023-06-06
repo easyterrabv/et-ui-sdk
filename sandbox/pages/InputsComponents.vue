@@ -49,7 +49,7 @@
             <template #header>
                 Date pickers
             </template>
-            <EtDatePicker v-model="selectedDate"></EtDatePicker>
+            <EtInputDate v-model="selectedDate"></EtInputDate>
         </EtCard>
     </EtContent>
 </template>
@@ -67,7 +67,7 @@ import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 
-import EtDatePicker from "src/components/EtDatePicker/EtDatePicker.vue";
+import EtInputDate from "src/components/etForm/EtInputDate.vue";
 
 export default defineComponent({
     components: {
@@ -78,7 +78,7 @@ export default defineComponent({
         EtInputGroup,
         EtInputGroupAddon,
 
-        EtDatePicker
+        EtInputDate
     },
     data() {
         return {

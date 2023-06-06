@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="et-datepicker inline-block shadow bg-white p-4 rounded"
-        v-if="selectedDate"
-    >
+    <div class="et-datepicker inline-block shadow bg-white p-4 rounded">
         <div class="flex flex-row">
             <div
                 class="p-2 hover:bg-default-extra-light rounded-md cursor-pointer"
@@ -66,6 +63,7 @@
                     class="p-2 text-center cursor-pointer hover:bg-default-extra-light rounded-md transition-all ease-in-out duration-150"
                     :class="{
                         'bg-primary-light !text-white hover:!bg-primary':
+                            selectedDate &&
                             viewMode === VIEW_MODES.MONTH &&
                             selectedDate.getFullYear() === viewingYear &&
                             selectedDate.getMonth() === viewingMonth &&
@@ -136,15 +134,15 @@ export default defineComponent({
 
             selectedDate: null as Date | null,
 
-            viewingDate: now as Date,
+            viewingDate: now as Date | null,
             viewMode: VIEW_MODES.MONTH as VIEW_MODES,
             VIEW_MODES
         };
     },
     computed: {
-        viewingYear: (vm) => vm.viewingDate.getFullYear(),
-        viewingMonth: (vm) => vm.viewingDate.getMonth(),
-        viewingDayOfMonth: (vm) => vm.viewingDate.getDate(),
+        viewingYear: (vm) => vm.viewingDate?.getFullYear(),
+        viewingMonth: (vm) => vm.viewingDate?.getMonth(),
+        viewingDayOfMonth: (vm) => vm.viewingDate?.getDate(),
         viewingPeriod(): [Date, Date] {
             const currentYear = this.viewingYear;
             const currentMonth = this.viewingMonth;
@@ -250,6 +248,7 @@ export default defineComponent({
     },
     watch: {
         selectedDate: {
+            deep: true,
             handler() {
                 this.$emit("update:modelValue", this.selectedDate);
             }
@@ -258,7 +257,7 @@ export default defineComponent({
             immediate: true,
             handler(modelValue) {
                 this.selectedDate = modelValue;
-                this.viewingDate = modelValue;
+                this.viewingDate = modelValue || now;
                 this.viewMode = VIEW_MODES.MONTH;
             }
         }
@@ -267,9 +266,9 @@ export default defineComponent({
         monthToNameShort,
         monthToNameFull,
         pickOption(e, option) {
-            let currentYear = this.selectedDate.getFullYear();
-            let currentMonth = this.selectedDate.getMonth();
-            let currentDate = this.selectedDate.getDate();
+            let currentYear = this.selectedDate?.getFullYear();
+            let currentMonth = this.selectedDate?.getMonth();
+            let currentDate = this.selectedDate?.getDate();
 
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
@@ -314,6 +313,7 @@ export default defineComponent({
                         currentMonth,
                         currentDate
                     );
+
                     this.viewingDate = this.selectedDate;
 
                     break;

@@ -56,3 +56,12 @@ export const monthToNameFull = (month: string): string => {
 export const monthToNameShort = (month: string): string => {
     return month in monthMap ? monthMap[month].short : "Unknown";
 };
+
+export const parseDate = (input: string | number): Date | null => {
+    const timestamp = Date.parse(input.toString());
+    if (!isNaN(timestamp)) {
+        return new Date(timestamp);
+    } else {
+        return null;
+    }
+};

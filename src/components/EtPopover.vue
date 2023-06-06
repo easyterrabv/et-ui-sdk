@@ -26,10 +26,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
+import { wait } from "../helpers/misc";
 
 export default defineComponent({
     props: {
         fitToggle: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        manual: {
             type: Boolean,
             required: false,
             default: false
@@ -41,17 +47,32 @@ export default defineComponent({
         };
     },
     methods: {
-        setPopoverFocus(focus, immediate = false) {
+        async setPopoverFocus(focus, immediate = false) {
+            if (this.manual) {
+                return;
+            }
+
             if (focus || immediate) {
-                this.hasFocus = !!focus;
+                this.focus();
                 this.$refs.button.focus();
             } else {
-                setTimeout(() => {
-                    this.hasFocus = false;
-                    this.$refs.button.blur();
-                }, 75);
+                await this.blur();
+                this.$refs.button.blur();
             }
+        },
+        focus() {
+            this.hasFocus = true;
+            this.$emit("focus");
+        },
+        async blur() {
+            await wait(150);
+            this.hasFocus = false;
+            this.$emit("blur");
         }
+    },
+    emits: {
+        focus: () => true,
+        blur: () => true
     }
 });
 </script>
