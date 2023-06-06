@@ -288,7 +288,9 @@ export default defineComponent({
         // Will trigger on input focus
         focus: () => true,
         // Will trigger on input blur
-        blur: () => true
+        blur: () => true,
+        // Will trigger on input blur
+        clear: () => true
     }
 });
 </script>
