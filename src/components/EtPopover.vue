@@ -1,25 +1,31 @@
 <template>
-    <div class="relative inline-block">
+    <div class="relative z-20 inline-block">
         <div
             :tabindex="0"
-            ref="button"
-            @click="(e) => setPopoverFocus(!hasFocus, true)"
+            ref="toggle"
+            @click="(e) => setPopoverFocus(true)"
             @blur="(e) => setPopoverFocus(false)"
         >
             <slot name="toggle"></slot>
         </div>
         <transition
-            class="absolute right-0 z-10 mt-2 transition ease-out duration-75"
+            class="transition ease-out duration-75"
+            :style="positionalStyling"
             enter-from-class="opacity-0"
             enter-to-class="opacity-100"
             leave-from-class="opacity-100"
             leave-to-class="opacity-0"
-            v-if="$slots.default"
             :class="{
                 'w-full': fitToggle
             }"
         >
-            <slot v-if="hasFocus"></slot>
+            <div
+                ref="content"
+                class="absolute right-0 z-10 my-2"
+                v-if="hasFocus"
+            >
+                <slot></slot>
+            </div>
         </transition>
     </div>
 </template>
@@ -43,36 +49,66 @@ export default defineComponent({
     },
     data() {
         return {
-            hasFocus: false
+            hasFocus: false,
+            toggleHeight: 0,
+            popTop: false
         };
     },
+    computed: {
+        positionalStyling() {
+            if (this.popTop) {
+                return {
+                    bottom: this.toggleHeight + "px"
+                };
+            }
+            return {};
+        }
+    },
     methods: {
-        async setPopoverFocus(focus, immediate = false) {
+        async setPopoverFocus(focus) {
             if (this.manual) {
                 return;
             }
 
-            if (focus || immediate) {
-                this.focus();
-                this.$refs.button.focus();
+            if (focus) {
+                await this.open();
+                this.$refs.toggle.focus();
             } else {
-                await this.blur();
-                this.$refs.button.blur();
+                await this.hide();
+                this.$refs.toggle.blur();
             }
         },
-        focus() {
+        async open() {
             this.hasFocus = true;
             this.$emit("focus");
+
+            await this.$nextTick();
+            this.checkPopDirection();
         },
-        async blur() {
+        async hide() {
             await wait(150);
             this.hasFocus = false;
             this.$emit("blur");
+        },
+        checkPopDirection() {
+            const contentBounds = this.$refs.content.getBoundingClientRect();
+            const inputBounds = this.$refs.content.getBoundingClientRect();
+            const contentHeight = contentBounds.height;
+            const distanceToEnd =
+                window.innerHeight - (inputBounds.y + this.toggleHeight);
+            this.popTop = distanceToEnd < contentHeight;
+        },
+        calculateToggleHeight() {
+            const bounds = this.$refs.toggle.getBoundingClientRect();
+            this.toggleHeight = bounds.height;
         }
     },
     emits: {
         focus: () => true,
         blur: () => true
+    },
+    mounted() {
+        this.calculateToggleHeight();
     }
 });
 </script>
