@@ -1,5 +1,10 @@
 <template>
-    <div class="et-input-date" :tabindex="0" @blur="(e) => onInputBlur()">
+    <div
+        class="et-input-date inline-block"
+        ref="wrapper"
+        :tabindex="0"
+        @blur="(e) => setPopoverFocus(false)"
+    >
         <EtPopover ref="popover" manual>
             <template #toggle>
                 <EtInput
@@ -7,7 +12,7 @@
                     :modelValue="internalInputValue"
                     @change="(value) => (internalInputValue = value)"
                     @enter="onInputEnter"
-                    @focus="onInputFocus"
+                    @focus="(e) => setPopoverFocus(true)"
                     @clear="onInputClear"
                     clearButton
                 ></EtInput>
@@ -24,6 +29,7 @@ import EtPopover from "src/components/EtPopover.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtDatePicker from "src/components/etDatePicker/EtDatePicker.vue";
 import { parseDate } from "../../helpers/date";
+import { wait } from "../../helpers/misc";
 
 export default defineComponent({
     model: {
@@ -50,13 +56,18 @@ export default defineComponent({
         };
     },
     watch: {
-        internalDateValue() {
+        async internalDateValue() {
             this.$emit("update:modelValue", this.internalDateValue);
-            this.internalInputValue = this.internalDateValue
-                ? `${this.internalDateValue?.getFullYear()}-${
-                      this.internalDateValue?.getMonth() + 1
-                  }-${this.internalDateValue?.getDate()}`
-                : null;
+
+            if (this.internalDateValue) {
+                const year = this.internalDateValue?.getFullYear();
+                const month = this.internalDateValue?.getMonth();
+                const date = this.internalDateValue?.getDate();
+                this.internalInputValue = `${year}-${month + 1}-${date}`;
+                await this.setPopoverFocus(false);
+            } else {
+                this.internalInputValue = null;
+            }
         },
         internalInputValue() {
             this.internalDateValue = this.internalInputValue
@@ -65,19 +76,23 @@ export default defineComponent({
         }
     },
     methods: {
-        onInputFocus() {
-            this.$refs.popover.focus();
-        },
-        onInputBlur() {
-            this.$refs.popover.blur();
+        async setPopoverFocus(focus) {
+            if (focus) {
+                await this.$refs.popover.open();
+                this.$refs.wrapper.focus();
+            } else {
+                await wait(50);
+                await this.$refs.popover.hide();
+                this.$refs.wrapper.blur();
+            }
         },
         onInputClear() {
             this.internalInputValue = null;
             this.internalDateValue = null;
         },
-        onInputEnter(value, e) {
+        async onInputEnter(value, e) {
             this.internalInputValue = value;
-            this.onInputBlur();
+            await this.setPopoverFocus(false);
         }
     }
 });
