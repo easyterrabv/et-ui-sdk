@@ -50,7 +50,6 @@
                 Date pickers
             </template>
             <EtDatePicker v-model="selectedDate"></EtDatePicker>
-            <EtDatePicker v-model="selectedDate"></EtDatePicker>
         </EtCard>
     </EtContent>
 </template>

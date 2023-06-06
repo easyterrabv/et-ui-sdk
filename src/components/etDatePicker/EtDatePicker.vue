@@ -209,6 +209,10 @@ export default defineComponent({
                     endNumber = secondOption.getDate();
                     const dayOfWeek = firstOption.getDay();
                     preFillerCount = dayOfWeek - 1;
+                    if (preFillerCount === -1) {
+                        // Edge case when month starts on sunday
+                        preFillerCount = 6;
+                    }
                     break;
             }
 
