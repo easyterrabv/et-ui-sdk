@@ -92,10 +92,10 @@ export default defineComponent({
         },
         checkPopDirection() {
             const contentBounds = this.$refs.content.getBoundingClientRect();
-            const inputBounds = this.$refs.content.getBoundingClientRect();
+            const inputBounds = this.$refs.toggle.getBoundingClientRect();
             const contentHeight = contentBounds.height;
             const distanceToEnd =
-                window.innerHeight - (inputBounds.y + this.toggleHeight);
+                window.innerHeight - (inputBounds.top + this.toggleHeight);
             this.popTop = distanceToEnd < contentHeight;
         },
         calculateToggleHeight() {
