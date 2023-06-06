@@ -38,6 +38,20 @@
                 <EtInput placeholder="Second Input"/>
             </EtFormGroup>
         </EtCard>
+
+        <EtCard class="mt-4">
+            <template #header>
+                Select
+            </template>
+        </EtCard>
+
+        <EtCard class="mt-4">
+            <template #header>
+                Date pickers
+            </template>
+            <EtDatePicker v-model="selectedDate"></EtDatePicker>
+            <EtDatePicker v-model="selectedDate"></EtDatePicker>
+        </EtCard>
     </EtContent>
 </template>
 
@@ -54,20 +68,30 @@ import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 
+import EtDatePicker from "src/components/EtDatePicker/EtDatePicker.vue";
+
 export default defineComponent({
-    computed: {
-        UI_SIZING() {
-            return UI_SIZING
-        }
-    },
     components: {
         EtContent,
         EtCard,
         EtFormGroup,
         EtInput,
         EtInputGroup,
-        EtInputGroupAddon
-    }
+        EtInputGroupAddon,
+
+        EtDatePicker
+    },
+    data() {
+        return {
+            selectedDate: new Date(),
+        }
+    },
+    computed: {
+        UI_SIZING() {
+            return UI_SIZING
+        }
+    },
+
 })
 
 </script>
