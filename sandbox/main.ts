@@ -21,7 +21,8 @@ import {
     faEnvelope,
     faCircleDot,
     faTag,
-    faPlus
+    faPlus,
+    faCalendarDays
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -37,7 +38,8 @@ library.add(
     faEnvelope,
     faCircleDot,
     faTag,
-    faPlus
+    faPlus,
+    faCalendarDays
 );
 
 const app = createApp(App);

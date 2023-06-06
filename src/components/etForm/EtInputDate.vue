@@ -5,17 +5,27 @@
         :tabindex="0"
         @blur="(e) => setPopoverFocus(false)"
     >
-        <EtPopover ref="popover" manual>
+        <EtPopover ref="popover" manual fitToggle>
             <template #toggle>
-                <EtInput
-                    ref="input"
-                    :modelValue="internalInputValue"
-                    @change="(value) => (internalInputValue = value)"
-                    @enter="onInputEnter"
-                    @focus="(e) => setPopoverFocus(true)"
-                    @clear="onInputClear"
-                    clearButton
-                ></EtInput>
+                <div class="relative">
+                    <EtInput
+                        ref="input"
+                        class="pl-10"
+                        :modelValue="internalInputValue"
+                        @change="(value) => (internalInputValue = value)"
+                        @enter="onInputEnter"
+                        @focus="(e) => setPopoverFocus(true)"
+                        @blur="(e) => setPopoverFocus(false)"
+                        @clear="onInputClear"
+                        clearButton
+                    ></EtInput>
+
+                    <span
+                        class="absolute left-0 top-0 w-max h-max p-2 text-text-light"
+                    >
+                        <EtIconCalendar />
+                    </span>
+                </div>
             </template>
             <EtDatePicker v-model="internalDateValue"></EtDatePicker>
         </EtPopover>
@@ -30,6 +40,7 @@ import EtInput from "src/components/etForm/EtInput.vue";
 import EtDatePicker from "src/components/etDatePicker/EtDatePicker.vue";
 import { parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/misc";
+import EtIconCalendar from "src/components/etIcon/EtIconCalendar.vue";
 
 export default defineComponent({
     model: {
@@ -47,7 +58,8 @@ export default defineComponent({
     components: {
         EtPopover,
         EtInput,
-        EtDatePicker
+        EtDatePicker,
+        EtIconCalendar
     },
     data() {
         return {
@@ -79,7 +91,7 @@ export default defineComponent({
         async setPopoverFocus(focus) {
             if (focus) {
                 await this.$refs.popover.open();
-                this.$refs.wrapper.focus();
+                // this.$refs.wrapper.focus();
             } else {
                 await wait(50);
                 await this.$refs.popover.hide();

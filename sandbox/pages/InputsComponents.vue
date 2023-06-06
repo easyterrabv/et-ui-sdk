@@ -45,7 +45,7 @@
             </template>
         </EtCard>
 
-        <EtCard class="mt-4">
+        <EtCard class="mt-4 relative z-10">
             <template #header>
                 Date pickers
             </template>
