@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import { wait } from "../helpers/misc";
+import { wait } from "../helpers/async";
 
 export default defineComponent({
     props: {

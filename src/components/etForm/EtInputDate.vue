@@ -39,7 +39,7 @@ import EtPopover from "src/components/EtPopover.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtDatePicker from "src/components/etDatePicker/EtDatePicker.vue";
 import { parseDate } from "../../helpers/date";
-import { wait } from "../../helpers/misc";
+import { wait } from "../../helpers/async";
 import EtIconCalendar from "src/components/etIcon/EtIconCalendar.vue";
 
 export default defineComponent({
