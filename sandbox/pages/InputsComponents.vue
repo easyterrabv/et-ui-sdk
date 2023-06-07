@@ -43,6 +43,9 @@
             <template #header>
                 Select
             </template>
+
+            <EtSelect v-model="singleSelectedOption" :options="options"></EtSelect>
+            <EtSelect v-model="multipleSelectedOptions" :options="options" multiple></EtSelect>
         </EtCard>
 
         <EtCard class="mt-4 relative z-10">
@@ -66,8 +69,10 @@ import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
+import EtInputDate from "src/components/etForm/EtInputDate.vue"
 
-import EtInputDate from "src/components/etForm/EtInputDate.vue";
+import EtSelect from "src/components/etSelect/EtSelect.vue";
+import {OptionModel} from "../../src/models/Option";
 
 export default defineComponent({
     components: {
@@ -78,11 +83,33 @@ export default defineComponent({
         EtInputGroup,
         EtInputGroupAddon,
 
-        EtInputDate
+        EtInputDate,
+        EtSelect
     },
     data() {
         return {
             selectedDate: new Date(),
+
+            singleSelectedOption: null,
+            multipleSelectedOptions: [],
+            options: [
+                new OptionModel({
+                    value: 'test 1',
+                    label: 'Test 1'
+                }),
+                new OptionModel({
+                    value: 'test 2',
+                    label: 'Test 2'
+                }),
+                new OptionModel({
+                    value: 'test 3',
+                    label: 'Test 3'
+                }),
+                new OptionModel({
+                    value: 'test 4',
+                    label: 'Test 4'
+                }),
+            ],
         }
     },
     computed: {
