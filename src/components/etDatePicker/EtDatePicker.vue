@@ -1,5 +1,10 @@
 <template>
-    <div class="et-datepicker inline-block shadow bg-white p-4 rounded">
+    <div
+        class="et-datepicker inline-block shadow bg-white p-4 rounded"
+        :tabindex="0"
+        @keyup.esc="(e) => onEscape()"
+        @blur="(e) => onBlur()"
+    >
         <div class="flex flex-row">
             <div
                 class="p-2 hover:bg-default-extra-light rounded-md cursor-pointer"
@@ -316,8 +321,11 @@ export default defineComponent({
 
                     this.viewingDate = this.selectedDate;
 
+                    this.$emit("dateSelect");
+
                     break;
             }
+
             this.modeDown();
         },
         modeUp() {
@@ -331,6 +339,8 @@ export default defineComponent({
                     this.viewMode = VIEW_MODES.YEAR;
                     break;
             }
+
+            this.$emit("interaction");
         },
         modeDown() {
             switch (this.viewMode) {
@@ -343,6 +353,8 @@ export default defineComponent({
                 case VIEW_MODES.MONTH:
                     break;
             }
+
+            this.$emit("interaction");
         },
         prevPage() {
             this.switchPage(false);
@@ -376,12 +388,24 @@ export default defineComponent({
                     );
                     break;
             }
+
+            this.$emit("interaction");
+        },
+        onEscape() {
+            this.$emit("escape");
+        },
+        onBlur() {
+            this.$emit("blur");
         }
     },
     emits: {
         // will trigger and usually only update the v-model value
         "update:modelValue": (modelValue: Date): boolean =>
-            typeof modelValue === typeof Date
+            typeof modelValue === typeof Date,
+        interaction: (): boolean => true,
+        dateSelect: (value): boolean => true,
+        escape: (): boolean => true,
+        blur: (): boolean => true
     }
 });
 </script>

@@ -1,22 +1,24 @@
 <template>
     <div
-        class="et-input-date inline-block"
+        class="et-input-date inline-block w-full"
         ref="wrapper"
         :tabindex="0"
-        @blur="(e) => setPopoverFocus(false)"
+        @keyup.esc="(e) => onEscape()"
     >
         <EtPopover ref="popover" manual fitToggle>
             <template #toggle>
-                <div class="relative">
+                <div
+                    class="relative"
+                    @mouseup.left.stop="(e) => onInputClick()"
+                >
                     <EtInput
                         ref="input"
                         class="pl-10"
                         :modelValue="internalInputValue"
                         @change="(value) => (internalInputValue = value)"
                         @enter="onInputEnter"
-                        @focus="(e) => setPopoverFocus(true)"
-                        @blur="(e) => setPopoverFocus(false)"
                         @clear="onInputClear"
+                        @blur="onInputBlur"
                         clearButton
                     ></EtInput>
 
@@ -27,7 +29,13 @@
                     </span>
                 </div>
             </template>
-            <EtDatePicker v-model="internalDateValue"></EtDatePicker>
+            <EtDatePicker
+                @escape="(e) => onEscape()"
+                @interaction="onInteraction"
+                @blur="(e) => onInputBlur()"
+                @dateSelect="(value) => onDateSelect(value)"
+                v-model="internalDateValue"
+            ></EtDatePicker>
         </EtPopover>
     </div>
 </template>
@@ -53,6 +61,11 @@ export default defineComponent({
             type: Date,
             required: false,
             default: null
+        },
+        closeOnSelect: {
+            type: Boolean,
+            required: false,
+            default: true
         }
     },
     components: {
@@ -64,7 +77,9 @@ export default defineComponent({
     data() {
         return {
             internalInputValue: null as String | null,
-            internalDateValue: null as Date | null
+            internalDateValue: null as Date | null,
+
+            hasInteraction: false as Boolean
         };
     },
     watch: {
@@ -76,7 +91,7 @@ export default defineComponent({
                 const month = this.internalDateValue?.getMonth();
                 const date = this.internalDateValue?.getDate();
                 this.internalInputValue = `${year}-${month + 1}-${date}`;
-                await this.setPopoverFocus(false);
+                // await this.setPopoverFocus(false);
             } else {
                 this.internalInputValue = null;
             }
@@ -88,15 +103,42 @@ export default defineComponent({
         }
     },
     methods: {
-        async setPopoverFocus(focus) {
-            if (focus) {
-                await this.$refs.popover.open();
-                // this.$refs.wrapper.focus();
-            } else {
-                await wait(50);
-                await this.$refs.popover.hide();
-                this.$refs.wrapper.blur();
+        async onInputClick() {
+            if (this.$refs.popover.isOpen()) {
+                this.$refs.popover.hide();
+                return;
             }
+            this.$refs.popover.open();
+        },
+        onEscape() {
+            this.hasInteraction = false;
+            this.onInputBlur();
+        },
+        async onInputBlur() {
+            // Important. Otherwise, this method will trigger before justToggleOption has a chance to be set.
+            await this.$nextTick();
+            await wait(150);
+
+            if (this.hasInteraction) {
+                this.hasInteraction = false;
+                return;
+            }
+
+            if (this.$refs.popover.isOpen()) {
+                this.$refs.popover.hide();
+                return;
+            }
+        },
+
+        onDateSelect(value) {
+            if (this.closeOnSelect) {
+                this.hasInteraction = false;
+                this.onInputBlur();
+            }
+        },
+
+        onInteraction() {
+            this.hasInteraction = true;
         },
         onInputClear() {
             this.internalInputValue = null;
@@ -104,7 +146,6 @@ export default defineComponent({
         },
         async onInputEnter(value, e) {
             this.internalInputValue = value;
-            await this.setPopoverFocus(false);
         }
     }
 });
