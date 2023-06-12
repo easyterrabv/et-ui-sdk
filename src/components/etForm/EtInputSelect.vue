@@ -18,7 +18,7 @@
                     ></EtInput>
                     <div
                         v-show="!hasInputFocus"
-                        class="block w-full h-10 px-3.5 py-2 cursor-text rounded-md border-0 focus: focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+                        class="block w-80 h-10 px-3.5 py-2 cursor-text rounded-md border-0 focus: focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
                     >
                         <span
                             v-if="

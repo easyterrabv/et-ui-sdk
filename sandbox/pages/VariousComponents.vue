@@ -231,8 +231,8 @@
 
             <div class="mt-4">
                 <EtPopover>
-                    <template #toggle>
-                        <EtButtonDefault :size="UI_SIZING.S">
+                    <template #toggle="props">
+                        <EtButtonDefault :size="UI_SIZING.S" @click="props.togglePopover()">
                             Toggle PopOver
                         </EtButtonDefault>
                     </template>

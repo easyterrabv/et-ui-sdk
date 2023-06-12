@@ -5,7 +5,7 @@
         :tabindex="0"
         @keyup.esc="(e) => onEscape()"
     >
-        <EtPopover ref="popover" manual fitToggle>
+        <EtPopover ref="popover" manual fitToggle class="w-full">
             <template #toggle>
                 <div
                     class="relative"
@@ -13,7 +13,7 @@
                 >
                     <EtInput
                         ref="input"
-                        class="pl-10"
+                        class="pl-10 w-full"
                         :modelValue="internalInputValue"
                         @change="(value) => (internalInputValue = value)"
                         @enter="onInputEnter"

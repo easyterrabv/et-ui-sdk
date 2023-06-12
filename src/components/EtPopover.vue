@@ -1,19 +1,21 @@
 <template>
-    <div class="inline-block w-full">
+    <div>
         <div
             :tabindex="0"
+            class="w-fit"
             ref="toggle"
             @mouseup.left.stop="(e) => setPopoverFocus(true)"
             @blur="(e) => setPopoverFocus(false)"
         >
-            <slot name="toggle"></slot>
+            <slot name="toggle" :togglePopover="togglePopover"></slot>
         </div>
         <Teleport to="body">
             <div
                 ref="content"
-                :style="{
-                    width: toggleWidth + 'px'
+                :class="{
+                    'w-fit': !fitToggle
                 }"
+                :style="styles"
                 v-show="hasFocus"
             >
                 <slot></slot>
@@ -50,7 +52,28 @@ export default defineComponent({
             popperInstance: null as Instance
         };
     },
+    computed: {
+        styles() {
+            if (this.fitToggle) {
+                return {
+                    width: this.toggleWidth + "px"
+                };
+            }
+            return {};
+        }
+    },
     methods: {
+        async togglePopover() {
+            if (this.manual) {
+                return;
+            }
+
+            if (this.hasFocus) {
+                return await this.setPopoverFocus(false);
+            }
+
+            return await this.setPopoverFocus(true);
+        },
         async setPopoverFocus(focus) {
             if (this.manual) {
                 return;
@@ -58,10 +81,10 @@ export default defineComponent({
 
             if (focus) {
                 await this.open();
-                this.$refs.toggle.focus();
+                this.buttonElement.focus();
             } else {
                 await this.hide();
-                this.$refs.toggle.blur();
+                this.buttonElement.blur();
             }
         },
         async open() {
@@ -77,7 +100,7 @@ export default defineComponent({
             await this.popperInstance.update();
         },
         calculateToggleWidth() {
-            const bounds = this.$refs.toggle.getBoundingClientRect();
+            const bounds = this.buttonElement.getBoundingClientRect();
             this.toggleWidth = bounds.width;
         },
         isOpen() {
@@ -89,8 +112,6 @@ export default defineComponent({
         blur: () => true
     },
     mounted() {
-        this.calculateToggleWidth();
-
         this.buttonElement = this.$refs.toggle;
         this.tooltipElement = this.$refs.content;
         this.popperInstance = createPopper(
@@ -100,6 +121,8 @@ export default defineComponent({
                 placement: "bottom"
             }
         );
+
+        this.calculateToggleWidth();
     }
 });
 </script>

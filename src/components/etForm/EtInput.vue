@@ -1,5 +1,5 @@
 <template>
-    <div class="relative et-input-wrapper max-w-full">
+    <div class="relative et-input-wrapper w-80 max-w-full">
         <input
             v-bind="$attrs"
             v-model="internalData"
