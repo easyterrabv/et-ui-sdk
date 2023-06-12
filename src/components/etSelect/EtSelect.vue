@@ -1,7 +1,7 @@
 <template>
-    <div class="et-select inline-block shadow bg-white py-2 rounded">
+    <div class="et-select inline-block shadow bg-white py-2 rounded w-full">
         <div
-            class="relative cursor-pointer py-1 px-3 text-text"
+            class="cursor-pointer py-1 px-3 text-text"
             :class="{
                 'bg-primary-extra-light': isSelected(option) && !multiple,
                 'hover:bg-default-extra-light': !multiple,
@@ -128,18 +128,34 @@ export default defineComponent({
                 ) > -1
             );
         },
-        select(option: OptionModel) {
-            if (!this.multiple) {
-                this.internalSelected = option;
-                return;
+        fixInterSelectedIntegrity() {
+            if (!this.multiple && Array.isArray(this.internalSelected)) {
+                const firstItem =
+                    this.internalSelected.length > 0
+                        ? this.internalSelected[0]
+                        : null;
+
+                if (firstItem instanceof OptionModel) {
+                    this.internalSelected = firstItem || null;
+                } else {
+                    this.internalSelected = null;
+                }
             }
 
-            if (!Array.isArray(this.internalSelected)) {
+            if (this.multiple && !Array.isArray(this.internalSelected)) {
                 const currentValue = this.internalSelected;
                 this.internalSelected = [];
                 if (currentValue instanceof OptionModel) {
                     this.internalSelected.push(currentValue);
                 }
+            }
+        },
+        select(option: OptionModel) {
+            this.fixInterSelectedIntegrity();
+
+            if (!this.multiple) {
+                this.internalSelected = option;
+                return;
             }
 
             const isAlreadySelected =
@@ -153,6 +169,34 @@ export default defineComponent({
             } else {
                 this.internalSelected.push(option);
             }
+
+            this.$emit("optionToggled", option);
+        },
+        deSelectOption(option: OptionModel) {
+            this.fixInterSelectedIntegrity();
+
+            if (!this.multiple) {
+                if (this.internalSelected.guid === option.guid) {
+                    this.internalSelected = null;
+                }
+                return;
+            }
+
+            if (!Array.isArray(this.internalSelected)) {
+                this.internalSelected = null;
+                return;
+            }
+
+            const isSelected =
+                this.internalSelected.findIndex(
+                    (opt) => opt.guid === option.guid
+                ) > -1;
+
+            if (isSelected) {
+                this.internalSelected = this.internalSelected.filter(
+                    (opt) => opt.guid !== option.guid
+                );
+            }
         }
     },
     emits: {
@@ -165,7 +209,8 @@ export default defineComponent({
                 Array.isArray(modelValue) ||
                 modelValue === null
             );
-        }
+        },
+        optionToggled: (OptionModel): boolean => true
     }
 });
 </script>

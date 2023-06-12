@@ -1,38 +1,32 @@
 <template>
-    <div class="relative z-20 inline-block">
+    <div class="inline-block w-full">
         <div
             :tabindex="0"
             ref="toggle"
-            @click="(e) => setPopoverFocus(true)"
+            @mouseup.left.stop="(e) => setPopoverFocus(true)"
             @blur="(e) => setPopoverFocus(false)"
         >
             <slot name="toggle"></slot>
         </div>
-        <transition
-            class="transition ease-out duration-75"
-            :style="positionalStyling"
-            enter-from-class="opacity-0"
-            enter-to-class="opacity-100"
-            leave-from-class="opacity-100"
-            leave-to-class="opacity-0"
-            :class="{
-                'w-full': fitToggle
-            }"
-        >
+        <Teleport to="body">
             <div
                 ref="content"
-                class="absolute right-0 z-10 my-2"
-                v-if="hasFocus"
+                :style="{
+                    width: toggleWidth + 'px'
+                }"
+                v-show="hasFocus"
             >
                 <slot></slot>
             </div>
-        </transition>
+        </Teleport>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 import { wait } from "../helpers/async";
+import { createPopper } from "@popperjs/core";
+import type { Instance } from "@popperjs/core/lib/types";
 
 export default defineComponent({
     props: {
@@ -49,20 +43,12 @@ export default defineComponent({
     },
     data() {
         return {
-            hasFocus: false,
-            toggleHeight: 0,
-            popTop: false
+            hasFocus: false as Boolean,
+            toggleWidth: 0 as Number,
+            buttonElement: null as HTMLElement,
+            tooltipElement: null as HTMLElement,
+            popperInstance: null as Instance
         };
-    },
-    computed: {
-        positionalStyling() {
-            if (this.popTop) {
-                return {
-                    bottom: this.toggleHeight + "px"
-                };
-            }
-            return {};
-        }
     },
     methods: {
         async setPopoverFocus(focus) {
@@ -79,28 +65,23 @@ export default defineComponent({
             }
         },
         async open() {
+            this.calculateToggleWidth();
             this.hasFocus = true;
             this.$emit("focus");
-
-            await this.$nextTick();
-            this.checkPopDirection();
+            await this.popperInstance.update();
         },
         async hide() {
             await wait(150);
             this.hasFocus = false;
             this.$emit("blur");
+            await this.popperInstance.update();
         },
-        checkPopDirection() {
-            const contentBounds = this.$refs.content.getBoundingClientRect();
-            const inputBounds = this.$refs.toggle.getBoundingClientRect();
-            const contentHeight = contentBounds.height;
-            const distanceToEnd =
-                window.innerHeight - (inputBounds.top + this.toggleHeight);
-            this.popTop = distanceToEnd < contentHeight;
-        },
-        calculateToggleHeight() {
+        calculateToggleWidth() {
             const bounds = this.$refs.toggle.getBoundingClientRect();
-            this.toggleHeight = bounds.height;
+            this.toggleWidth = bounds.width;
+        },
+        isOpen() {
+            return this.hasFocus;
         }
     },
     emits: {
@@ -108,7 +89,17 @@ export default defineComponent({
         blur: () => true
     },
     mounted() {
-        this.calculateToggleHeight();
+        this.calculateToggleWidth();
+
+        this.buttonElement = this.$refs.toggle;
+        this.tooltipElement = this.$refs.content;
+        this.popperInstance = createPopper(
+            this.buttonElement,
+            this.tooltipElement,
+            {
+                placement: "bottom"
+            }
+        );
     }
 });
 </script>
