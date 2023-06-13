@@ -25,10 +25,10 @@
                         {{ viewingPeriod[1].getFullYear() }}
                     </span>
                 </span>
-                <span v-if="viewMode === VIEW_MODES.YEAR">
+                <span v-else-if="viewMode === VIEW_MODES.YEAR">
                     {{ viewingYear }}
                 </span>
-                <span v-if="viewMode === VIEW_MODES.MONTH">
+                <span v-else-if="viewMode === VIEW_MODES.MONTH">
                     {{ viewingYear }} - {{ monthToNameFull(viewingMonth) }}
                 </span>
             </div>
@@ -68,26 +68,40 @@
                     class="p-2 text-center cursor-pointer hover:bg-default-extra-light rounded-md transition-all ease-in-out duration-150"
                     :class="{
                         'bg-primary-light !text-white hover:!bg-primary':
-                            selectedDate &&
                             viewMode === VIEW_MODES.MONTH &&
-                            selectedDate.getFullYear() === viewingYear &&
-                            selectedDate.getMonth() === viewingMonth &&
-                            String(selectedDate.getDate()) === String(option),
+                            isASelectedDate(option),
+                        'rounded-l-md':
+                            viewMode === VIEW_MODES.MONTH &&
+                            multiple &&
+                            firstDate &&
+                            isSameDates(firstDate, option),
+                        'rounded-r-md':
+                            viewMode === VIEW_MODES.MONTH &&
+                            multiple &&
+                            secondDate &&
+                            isSameDates(secondDate, option),
+                        'bg-primary-extra-light rounded-none hover:!text-white hover:!bg-primary':
+                            viewMode === VIEW_MODES.MONTH &&
+                            multiple &&
+                            firstDate &&
+                            secondDate &&
+                            dateInbetweenDates(option, firstDate, secondDate),
                         'ring-1 ring-danger-extra-light':
                             viewMode === VIEW_MODES.MONTH &&
-                            today.getFullYear() === viewingYear &&
-                            today.getMonth() === viewingMonth &&
-                            String(today.getDate()) === String(option),
+                            isSameDates(today, option),
                         'font-light text-text-light':
-                            String(option).startsWith('-') ||
-                            String(option).startsWith('+')
+                            viewMode === VIEW_MODES.MONTH &&
+                            option.getMonth() !== viewingDate?.getMonth()
                     }"
                 >
-                    <span v-if="viewMode === VIEW_MODES.YEAR">
+                    <span v-if="viewMode === VIEW_MODES.DECADE">
+                        {{ option.getFullYear() }}
+                    </span>
+                    <span v-else-if="viewMode === VIEW_MODES.YEAR">
                         {{ monthToNameShort(option) }}
                     </span>
-                    <span v-else>
-                        {{ String(option).replace("-", "").replace("+", "") }}
+                    <span v-else-if="viewMode === VIEW_MODES.MONTH">
+                        {{ option.getDate() }}
                     </span>
                 </div>
             </div>
@@ -101,7 +115,15 @@ import { Debounce } from "../../helpers/debounce";
 
 import EtIconChevronRight from "src/components/etIcon/EtIconChevronRight.vue";
 import EtIconChevronLeft from "src/components/etIcon/EtIconChevronLeft.vue";
-import { monthToNameFull, monthToNameShort } from "../../helpers/date";
+import {
+    monthToNameFull,
+    monthToNameShort,
+    isSameDates,
+    getYearsBetweenDates,
+    getMonthsBetweenDates,
+    getDaysBetweenDates,
+    dateInbetweenDates
+} from "../../helpers/date";
 
 const now = new Date();
 
@@ -119,9 +141,14 @@ export default defineComponent({
     },
     props: {
         modelValue: {
-            type: Date,
+            type: [Date, Array<Date>],
             required: false,
             default: null
+        },
+        multiple: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     components: {
@@ -131,13 +158,14 @@ export default defineComponent({
     data() {
         return {
             today: now,
+            setting: "first" as "first" | "second",
 
             prevPageDebounce: new Debounce(this.prevPage, 50),
             nextPageDebounce: new Debounce(this.nextPage, 50),
             modeUpDebounce: new Debounce(this.modeUp, 50),
             pickOptionDebounce: new Debounce(this.pickOption, 50),
 
-            selectedDate: null as Date | null,
+            selectedDates: null as [Date] | [Date | null, Date | null] | null,
 
             viewingDate: now as Date | null,
             viewMode: VIEW_MODES.MONTH as VIEW_MODES,
@@ -184,7 +212,7 @@ export default defineComponent({
 
             return [];
         },
-        viewingOptions(): String[] {
+        viewingOptions(): Date[] {
             if (!this.viewingPeriod || this.viewingPeriod.length < 2) {
                 return [];
             }
@@ -193,23 +221,17 @@ export default defineComponent({
 
             const firstOption = this.viewingPeriod[0];
             const secondOption = this.viewingPeriod[1];
-
             let preFillerCount = 0;
-            let startNumber;
-            let endNumber;
 
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
-                    startNumber = firstOption.getFullYear();
-                    endNumber = secondOption.getFullYear();
+                    options = getYearsBetweenDates(firstOption, secondOption);
                     break;
                 case VIEW_MODES.YEAR:
-                    startNumber = firstOption.getMonth();
-                    endNumber = secondOption.getMonth();
+                    options = getMonthsBetweenDates(firstOption, secondOption);
                     break;
                 case VIEW_MODES.MONTH:
-                    startNumber = firstOption.getDate();
-                    endNumber = secondOption.getDate();
+                    options = getDaysBetweenDates(firstOption, secondOption);
                     const dayOfWeek = firstOption.getDay();
                     preFillerCount = dayOfWeek - 1;
                     if (preFillerCount === -1) {
@@ -221,105 +243,120 @@ export default defineComponent({
 
             if (this.viewMode === VIEW_MODES.MONTH) {
                 const preFillers = [];
-                for (let p = 0; p < preFillerCount; p++) {
-                    const lastDateOfPreviousMonth = new Date(
-                        firstOption.getFullYear(),
-                        firstOption.getMonth(),
-                        firstOption.getDate() - 1
-                    );
+                for (let pr = 0; pr < preFillerCount; pr++) {
                     preFillers.push(
-                        "-" + (lastDateOfPreviousMonth.getDate() - p)
+                        new Date(
+                            firstOption.getFullYear(),
+                            firstOption.getMonth(),
+                            firstOption.getDate() - (1 + pr)
+                        )
                     );
                 }
 
                 options = [...preFillers.reverse(), ...options];
-            }
 
-            for (let i = startNumber; i < endNumber + 1; i++) {
-                options.push(i);
-            }
-
-            if (this.viewMode === VIEW_MODES.MONTH) {
+                const lastDate = options[options.length - 1];
                 const postFillers = [];
-                for (let p = 0; p < 7 - (options.length % 7); p++) {
-                    postFillers.push("+" + (p + 1));
+                for (let po = 0; po < 7 - (options.length % 7); po++) {
+                    postFillers.push(
+                        new Date(
+                            lastDate.getFullYear(),
+                            lastDate.getMonth(),
+                            lastDate.getDate() + (1 + po)
+                        )
+                    );
                 }
 
                 options = [...options, ...postFillers];
             }
 
+            // if (this.viewMode === VIEW_MODES.MONTH) {
+            //     const postFillers = [];
+            //     for (let p = 0; p < 7 - (options.length % 7); p++) {
+            //         postFillers.push("+" + (p + 1));
+            //     }
+            //
+            //     options = [...options, ...postFillers];
+            // }
+
             return options;
+        },
+        emittingData() {
+            if (this.multiple) {
+                return this.selectedDates;
+            }
+
+            if (this.selectedDates && this.selectedDates.length > 0) {
+                return this.selectedDates[0];
+            }
+
+            return null;
+        },
+        firstDate(): Date | null {
+            return this.selectedDates && this.selectedDates.length > 0
+                ? this.selectedDates[0]
+                : null;
+        },
+        secondDate(): Date | null {
+            return this.selectedDates && this.selectedDates.length > 1
+                ? this.selectedDates[1]
+                : null;
         }
     },
     watch: {
-        selectedDate: {
+        selectedDates: {
             deep: true,
             handler() {
-                this.$emit("update:modelValue", this.selectedDate);
+                this.$emit("update:modelValue", this.emittingData);
             }
         },
         modelValue: {
             immediate: true,
             handler(modelValue) {
-                this.selectedDate = modelValue;
-                this.viewingDate = modelValue || now;
+                let arrayData = modelValue;
+                if (modelValue && !Array.isArray(modelValue)) {
+                    arrayData = [modelValue];
+                }
+
+                this.selectedDates = arrayData;
+                this.viewingDate = this.firstDate || now;
                 this.viewMode = VIEW_MODES.MONTH;
             }
         }
     },
     methods: {
+        isSameDates,
         monthToNameShort,
         monthToNameFull,
+        dateInbetweenDates,
+        isASelectedDate(date: Date): boolean {
+            return !!(
+                (this.firstDate && isSameDates(date, this.firstDate)) ||
+                (this.secondDate && isSameDates(date, this.secondDate))
+            );
+        },
         pickOption(e, option) {
-            let currentYear = this.selectedDate?.getFullYear();
-            let currentMonth = this.selectedDate?.getMonth();
-            let currentDate = this.selectedDate?.getDate();
-
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
-                    this.viewingDate = new Date(
-                        option,
-                        this.viewingMonth,
-                        this.viewingDayOfMonth
-                    );
-                    break;
                 case VIEW_MODES.YEAR:
-                    this.viewingDate = new Date(
-                        this.viewingYear,
-                        option,
-                        this.viewingDayOfMonth
-                    );
+                    this.viewingDate = new Date(option);
                     break;
                 case VIEW_MODES.MONTH:
-                    const isPrev = String(option).startsWith("-");
-                    const isNext = String(option).startsWith("+");
-                    currentDate = parseInt(
-                        String(option).replace("-", "").replace("+", "")
-                    );
-                    if (isPrev) {
-                        currentMonth -= 1;
-                        if (currentMonth < 0) {
-                            currentYear -= 1;
-                            currentMonth = 11;
-                        }
-                    } else if (isNext) {
-                        currentMonth += 1;
-                        if (currentMonth > 11) {
-                            currentYear += 1;
-                            currentMonth = 0;
+                    const date = new Date(option);
+
+                    if (this.multiple) {
+                        if (this.setting === "first") {
+                            this.selectedDates = [date, date];
+                            this.setting = "second";
+                        } else {
+                            this.selectedDates = [this.firstDate, date];
+                            this.setting = "first";
                         }
                     } else {
-                        currentYear = this.viewingYear;
-                        currentMonth = this.viewingMonth;
+                        this.selectedDates = [date];
                     }
 
-                    this.selectedDate = new Date(
-                        currentYear,
-                        currentMonth,
-                        currentDate
-                    );
-
-                    this.viewingDate = this.selectedDate;
+                    this.viewingDate = date;
 
                     this.$emit("dateSelect");
 

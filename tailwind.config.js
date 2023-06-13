@@ -19,7 +19,7 @@ module.exports = {
                 },
                 primary: {
                     'extra-light': colors.blue["100"],
-                    light: colors.blue["500"],
+                    light: colors.blue["300"],
                     DEFAULT: colors.blue["600"],
                     dark: colors.blue["700"],
                 },

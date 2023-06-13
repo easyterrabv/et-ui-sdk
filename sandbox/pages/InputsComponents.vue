@@ -52,6 +52,14 @@
                 Date pickers
             </template>
             <EtInputDate v-model="selectedDate"></EtInputDate>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <EtDatePicker multiple v-model="selectedDateRange"></EtDatePicker>
+            {{selectedDateRange}}
         </EtCard>
     </EtContent>
 </template>
@@ -71,6 +79,8 @@ import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 import EtInputDate from "src/components/etForm/EtInputDate.vue"
 import EtInputSelect from "src/components/etForm/EtInputSelect.vue";
 
+import EtDatePicker from "src/components/etDatePicker/etDatePicker.vue";
+
 import {OptionModel} from "../../src/models/Option";
 
 export default defineComponent({
@@ -83,11 +93,14 @@ export default defineComponent({
         EtInputGroupAddon,
 
         EtInputDate,
-        EtInputSelect
+        EtInputSelect,
+
+        EtDatePicker
     },
     data() {
         return {
             selectedDate: new Date(),
+            selectedDateRange: [],
 
             singleSelectedOption: null,
             multipleSelectedOptions: [],
