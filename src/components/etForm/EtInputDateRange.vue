@@ -1,41 +1,49 @@
 <template>
-    <div
-        class="et-input-date inline-block w-full"
-        ref="wrapper"
-        :tabindex="0"
-        @keyup.esc="(e) => onEscape()"
-    >
+    <div class="et-input-date inline-block w-full" ref="wrapper" :tabindex="0">
         <EtPopover ref="popover" manual fitToggle class="w-full">
             <template #toggle>
-                <div
-                    class="relative"
-                    @mouseup.left.stop="(e) => onInputClick()"
-                >
-                    <EtInput
-                        ref="input"
-                        class="pl-10 w-full"
-                        :modelValue="internalInputValue"
-                        @change="(value) => (internalInputValue = value)"
-                        @enter="onInputEnter"
-                        @clear="onInputClear"
-                        @blur="onInputBlur"
-                        clearButton
-                    ></EtInput>
-
-                    <span
-                        class="absolute left-0 top-0 w-max h-max p-2 text-text-light"
-                    >
-                        <EtIconCalendar />
-                    </span>
-                </div>
+                <EtInputGroup>
+                    <div class="w-40 relative">
+                        <EtInput
+                            ref="input"
+                            class="pl-10"
+                            :modelValue="firstDateDisplayFormat"
+                            @focus="onFirstInputFocus"
+                            @blur="onFirstInputBlur"
+                            @enter="(value) => onInputChange(value, 'first')"
+                            @change="(value) => onInputChange(value, 'first')"
+                        ></EtInput>
+                        <span
+                            class="absolute left-0 top-0 w-max h-max p-2 text-text-light"
+                        >
+                            <EtIconCalendar />
+                        </span>
+                    </div>
+                    <EtInputGroupAddon> Until </EtInputGroupAddon>
+                    <div class="w-40 relative">
+                        <EtInput
+                            ref="input"
+                            class="pl-10"
+                            @focus="onSecondInputFocus"
+                            @blur="onSecondInputBlur"
+                            :modelValue="secondDateDisplayFormat"
+                            @enter="(value) => onInputChange(value, 'second')"
+                            @change="(value) => onInputChange(value, 'second')"
+                        ></EtInput>
+                        <span
+                            class="absolute left-0 top-0 w-max h-max p-2 text-text-light"
+                        >
+                            <EtIconCalendar />
+                        </span>
+                    </div>
+                </EtInputGroup>
             </template>
             <EtDatePicker
-                @escape="(e) => onEscape()"
-                @interaction="onInteraction"
-                @blur="(e) => onInputBlur()"
-                @dateSelect="(value) => onDateSelect(value)"
+                multiple
                 v-model="internalDateValue"
-            ></EtDatePicker>
+                @blur="onPickerBlur"
+                @focus="onPickerFocus"
+            />
         </EtPopover>
     </div>
 </template>
@@ -43,10 +51,13 @@
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 
-import EtPopover from "src/components/EtPopover.vue";
+import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
+import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
+
+import EtPopover from "src/components/EtPopover.vue";
 import EtDatePicker from "src/components/etDatePicker/EtDatePicker.vue";
-import { parseDate } from "../../helpers/date";
+import { dateToYMD, parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
 import EtIconCalendar from "src/components/etIcon/EtIconCalendar.vue";
 
@@ -69,6 +80,8 @@ export default defineComponent({
         }
     },
     components: {
+        EtInputGroup,
+        EtInputGroupAddon,
         EtPopover,
         EtInput,
         EtDatePicker,
@@ -76,75 +89,115 @@ export default defineComponent({
     },
     data() {
         return {
-            internalInputValue: null as String | null,
-            internalDateValue: null as Date | null,
+            firstDateInput: null as String | null,
+            secondDateInput: null as String | null,
 
-            hasInteraction: false as Boolean
+            internalDateValue: null as [Date | null, Date | null] | null,
+
+            isOpen: false,
+            currentFocus: null as "inputOne" | "inputTwo" | "datePicker" | null
         };
     },
     watch: {
         async internalDateValue() {
             this.$emit("update:modelValue", this.internalDateValue);
-
-            if (this.internalDateValue) {
-                const year = this.internalDateValue?.getFullYear();
-                const month = this.internalDateValue?.getMonth();
-                const date = this.internalDateValue?.getDate();
-                this.internalInputValue = `${year}-${month + 1}-${date}`;
-            } else {
-                this.internalInputValue = null;
-            }
-        },
-        internalInputValue() {
-            this.internalDateValue = this.internalInputValue
-                ? parseDate(this.internalInputValue)
-                : null;
+            //
+            // if (this.internalDateValue) {
+            //     const year = this.internalDateValue?.getFullYear();
+            //     const month = this.internalDateValue?.getMonth();
+            //     const date = this.internalDateValue?.getDate();
+            //     this.internalInputValue = `${year}-${month + 1}-${date}`;
+            // } else {
+            //     this.internalInputValue = null;
+            // }
         }
+        // internalInputValue() {
+        //     this.internalDateValue = this.internalInputValue
+        //         ? parseDate(this.internalInputValue)
+        //         : null;
+        // }
+    },
+    computed: {
+        firstDate(): Date | null {
+            return this.internalDateValue && this.internalDateValue.length > 0
+                ? this.internalDateValue[0]
+                : null;
+        },
+        secondDate(): Date | null {
+            return this.internalDateValue && this.internalDateValue.length > 1
+                ? this.internalDateValue[1]
+                : null;
+        },
+        firstDateDisplayFormat: (vm): string =>
+            vm.firstDate ? dateToYMD(vm.firstDate) : "",
+        secondDateDisplayFormat: (vm): string =>
+            vm.secondDate ? dateToYMD(vm.secondDate) : ""
     },
     methods: {
-        async onInputClick() {
-            if (this.$refs.popover.isOpen()) {
-                this.$refs.popover.hide();
+        open() {
+            if (this.isOpen) {
                 return;
             }
+
+            this.isOpen = true;
             this.$refs.popover.open();
         },
-        onEscape() {
-            this.hasInteraction = false;
-            this.onInputBlur();
+        onFirstInputFocus() {
+            this.currentFocus = "inputOne";
+            this.open();
         },
-        async onInputBlur() {
-            // Important. Otherwise, this method will trigger before justToggleOption has a chance to be set.
-            await this.$nextTick();
+        onSecondInputFocus() {
+            this.currentFocus = "inputTwo";
+            this.open();
+        },
+        onPickerFocus() {
+            this.currentFocus = "datePicker";
+            this.open();
+        },
+        async onFirstInputBlur() {
+            if (this.currentFocus === "inputOne") {
+                this.currentFocus = null;
+            }
+
+            await this.onCommonBlur();
+        },
+        async onSecondInputBlur() {
+            if (this.currentFocus === "inputTwo") {
+                this.currentFocus = null;
+            }
+
+            await this.onCommonBlur();
+        },
+        async onPickerBlur() {
+            if (this.currentFocus === "datePicker") {
+                this.currentFocus = null;
+            }
+
+            await this.onCommonBlur();
+        },
+        async onCommonBlur() {
             await wait(150);
-
-            if (this.hasInteraction) {
-                this.hasInteraction = false;
-                return;
-            }
-
-            if (this.$refs.popover.isOpen()) {
+            if (!this.currentFocus) {
+                this.isOpen = false;
                 this.$refs.popover.hide();
-                return;
             }
         },
+        onInputChange(input: string, whatInput: "first" | "second") {
+            const parsedDate = parseDate(input);
 
-        onDateSelect(value) {
-            if (this.closeOnSelect) {
-                this.hasInteraction = false;
-                this.onInputBlur();
+            if (whatInput === "first") {
+                const currentSecond =
+                    this.secondDate ||
+                    parseDate(this.secondDateDisplayFormat) ||
+                    null;
+                this.internalDateValue = [parsedDate, currentSecond];
+            } else if (whatInput === "second") {
+                const currentFirst =
+                    this.firstDate ||
+                    parseDate(this.firstDateDisplayFormat) ||
+                    null;
+                this.internalDateValue = [currentFirst, parsedDate];
             }
-        },
-
-        onInteraction() {
-            this.hasInteraction = true;
-        },
-        onInputClear() {
-            this.internalInputValue = null;
-            this.internalDateValue = null;
-        },
-        async onInputEnter(value, e) {
-            this.internalInputValue = value;
         }
     }
 });

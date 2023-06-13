@@ -69,16 +69,8 @@ export const parseDate = (input: string | number): Date | null => {
 };
 
 export const isSameDates = (dateOne: Date, dateTwo: Date): boolean => {
-    const epochTimeOne = new Date(
-        dateOne.getFullYear(),
-        dateOne.getMonth(),
-        dateOne.getDate()
-    ).getTime();
-    const epochTimeTwo = new Date(
-        dateTwo.getFullYear(),
-        dateTwo.getMonth(),
-        dateTwo.getDate()
-    ).getTime();
+    const epochTimeOne = dateToBase(dateOne).getTime();
+    const epochTimeTwo = dateToBase(dateTwo).getTime();
     return epochTimeOne === epochTimeTwo;
 };
 
@@ -89,10 +81,10 @@ export const getDatesBetween = (
     inclusive = false
 ): Date[] => {
     const dates: Date[] = [];
-    const walkerDate = new Date(startDate);
+    const walkerDate = dateToBase(startDate);
 
     while (walkerDate < endDate) {
-        dates.push(new Date(walkerDate));
+        dates.push(dateToBase(walkerDate));
 
         // Move to the next interval
         if (interval === "day") {
@@ -105,7 +97,7 @@ export const getDatesBetween = (
     }
 
     if (inclusive) {
-        dates.push(new Date(walkerDate));
+        dates.push(dateToBase(walkerDate));
     }
 
     return dates;
@@ -140,6 +132,29 @@ export const dateInbetweenDates = (
     dateOne: Date,
     dateTwo: Date
 ): boolean => {
-    const needleTime = needle.getTime();
-    return dateOne.getTime() <= needleTime && needleTime <= dateTwo.getTime();
+    const needleTime = dateToBase(needle).getTime();
+    return (
+        dateToBase(dateOne).getTime() <= needleTime &&
+        needleTime <= dateToBase(dateTwo).getTime()
+    );
+};
+
+export const dateToBase = (date: Date): Date => {
+    // Returns new date with reset time values
+    return new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        0,
+        0,
+        0,
+        0
+    );
+};
+
+export const dateToYMD = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    return `${year}-${month + 1}-${day}`;
 };

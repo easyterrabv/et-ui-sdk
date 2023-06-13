@@ -3,6 +3,7 @@
         class="et-datepicker inline-block shadow bg-white p-4 rounded"
         :tabindex="0"
         @keyup.esc="(e) => onEscape()"
+        @focus="(e) => onFocus()"
         @blur="(e) => onBlur()"
     >
         <div class="flex flex-row">
@@ -431,6 +432,9 @@ export default defineComponent({
         onEscape() {
             this.$emit("escape");
         },
+        onFocus() {
+            this.$emit("focus");
+        },
         onBlur() {
             this.$emit("blur");
         }
@@ -442,6 +446,7 @@ export default defineComponent({
         interaction: (): boolean => true,
         dateSelect: (value): boolean => true,
         escape: (): boolean => true,
+        focus: (): boolean => true,
         blur: (): boolean => true
     }
 });
