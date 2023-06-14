@@ -1,7 +1,7 @@
 <template>
     <div
         class="et-datepicker inline-block shadow bg-white p-4 rounded"
-        :tabindex="0"
+        :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
         @focus="(e) => onFocus()"
         @blur="(e) => onBlur()"

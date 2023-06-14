@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            :tabindex="0"
+            :tabindex="-1"
             class="w-fit"
             ref="toggle"
             @mouseup.left.stop="(e) => setPopoverFocus(true)"

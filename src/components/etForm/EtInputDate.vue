@@ -2,7 +2,7 @@
     <div
         class="et-input-date inline-block w-full"
         ref="wrapper"
-        :tabindex="0"
+        :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
     >
         <EtPopover ref="popover" manual fitToggle class="w-full">

@@ -1,5 +1,5 @@
 <template>
-    <div class="et-input-date inline-block w-full" ref="wrapper" :tabindex="0">
+    <div class="et-input-date inline-block w-full" ref="wrapper" :tabindex="-1">
         <EtPopover ref="popover" manual fitToggle class="w-full">
             <template #toggle>
                 <EtInputGroup>
