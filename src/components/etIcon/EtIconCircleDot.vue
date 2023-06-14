@@ -3,5 +3,9 @@
 </template>
 
 <script setup>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
+library.add(faCircleDot);
+
 import EtIcon from "src/components/etIcon/EtIcon.vue";
 </script>
