@@ -43,6 +43,7 @@
                 v-model="internalDateValue"
                 @blur="onPickerBlur"
                 @focus="onPickerFocus"
+                @onSecondChange="onSecondDateChange"
             />
         </EtPopover>
     </div>
@@ -101,21 +102,7 @@ export default defineComponent({
     watch: {
         async internalDateValue() {
             this.$emit("update:modelValue", this.internalDateValue);
-            //
-            // if (this.internalDateValue) {
-            //     const year = this.internalDateValue?.getFullYear();
-            //     const month = this.internalDateValue?.getMonth();
-            //     const date = this.internalDateValue?.getDate();
-            //     this.internalInputValue = `${year}-${month + 1}-${date}`;
-            // } else {
-            //     this.internalInputValue = null;
-            // }
         }
-        // internalInputValue() {
-        //     this.internalDateValue = this.internalInputValue
-        //         ? parseDate(this.internalInputValue)
-        //         : null;
-        // }
     },
     computed: {
         firstDate(): Date | null {
@@ -198,6 +185,10 @@ export default defineComponent({
                     null;
                 this.internalDateValue = [currentFirst, parsedDate];
             }
+        },
+        onSecondDateChange() {
+            this.currentFocus = null;
+            this.onCommonBlur();
         }
     }
 });

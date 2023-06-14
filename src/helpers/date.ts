@@ -127,7 +127,7 @@ export const getDaysBetweenDates = (
     return getDatesBetween(dateOne, dateTwo, "day", inclusive);
 };
 
-export const dateInbetweenDates = (
+export const dateInBetweenDates = (
     needle: Date,
     dateOne: Date,
     dateTwo: Date

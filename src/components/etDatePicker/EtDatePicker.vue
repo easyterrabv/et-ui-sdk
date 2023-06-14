@@ -86,7 +86,7 @@
                             multiple &&
                             firstDate &&
                             secondDate &&
-                            dateInbetweenDates(option, firstDate, secondDate),
+                            dateInBetweenDates(option, firstDate, secondDate),
                         'ring-1 ring-danger-extra-light':
                             viewMode === VIEW_MODES.MONTH &&
                             isSameDates(today, option),
@@ -123,7 +123,7 @@ import {
     getYearsBetweenDates,
     getMonthsBetweenDates,
     getDaysBetweenDates,
-    dateInbetweenDates
+    dateInBetweenDates
 } from "../../helpers/date";
 
 const now = new Date();
@@ -271,15 +271,6 @@ export default defineComponent({
                 options = [...options, ...postFillers];
             }
 
-            // if (this.viewMode === VIEW_MODES.MONTH) {
-            //     const postFillers = [];
-            //     for (let p = 0; p < 7 - (options.length % 7); p++) {
-            //         postFillers.push("+" + (p + 1));
-            //     }
-            //
-            //     options = [...options, ...postFillers];
-            // }
-
             return options;
         },
         emittingData() {
@@ -329,7 +320,7 @@ export default defineComponent({
         isSameDates,
         monthToNameShort,
         monthToNameFull,
-        dateInbetweenDates,
+        dateInBetweenDates,
         isASelectedDate(date: Date): boolean {
             return !!(
                 (this.firstDate && isSameDates(date, this.firstDate)) ||
@@ -348,9 +339,11 @@ export default defineComponent({
                     if (this.multiple) {
                         if (this.setting === "first") {
                             this.selectedDates = [date, date];
+                            this.$emit("onFirstChange", date);
                             this.setting = "second";
                         } else {
                             this.selectedDates = [this.firstDate, date];
+                            this.$emit("onSecondChange", date);
                             this.setting = "first";
                         }
                     } else {
@@ -447,7 +440,9 @@ export default defineComponent({
         dateSelect: (value): boolean => true,
         escape: (): boolean => true,
         focus: (): boolean => true,
-        blur: (): boolean => true
+        blur: (): boolean => true,
+        onFirstChange: (): boolean => true,
+        onSecondChange: (): boolean => true
     }
 });
 </script>

@@ -52,8 +52,10 @@
                 Date pickers
             </template>
             <EtInputDate v-model="selectedDate"></EtInputDate>
-            <EtInputDateRange v-model="selectedDateRange"></EtInputDateRange>
-            {{selectedDateRange}}
+            <div class="mt-4">
+                <EtInputDateRange v-model="selectedDateRange"></EtInputDateRange>
+                {{selectedDateRange}}
+            </div>
         </EtCard>
     </EtContent>
 </template>
