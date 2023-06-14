@@ -54,7 +54,10 @@
             <EtInputDate v-model="selectedDate"></EtInputDate>
             <div class="mt-4">
                 <EtInputDateRange v-model="selectedDateRange"></EtInputDateRange>
-                {{selectedDateRange}}
+            </div>
+            <div class="mt-4">
+                <EtTextarea v-model="textareaContent" placeholder="Type something" />
+                {{textareaContent}}
             </div>
         </EtCard>
     </EtContent>
@@ -75,8 +78,7 @@ import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 import EtInputDate from "src/components/etForm/EtInputDate.vue";
 import EtInputDateRange from "src/components/etForm/EtInputDateRange.vue";
 import EtInputSelect from "src/components/etForm/EtInputSelect.vue";
-
-import EtDatePicker from "src/components/etDatePicker/etDatePicker.vue";
+import EtTextarea from "src/components/etForm/EtTextarea.vue";
 
 import {OptionModel} from "../../src/models/Option";
 
@@ -93,7 +95,7 @@ export default defineComponent({
         EtInputDateRange,
         EtInputSelect,
 
-        EtDatePicker
+        EtTextarea,
     },
     data() {
         return {
@@ -120,6 +122,8 @@ export default defineComponent({
                     label: 'Test 4'
                 }),
             ],
+
+            textareaContent: ''
         }
     },
     computed: {

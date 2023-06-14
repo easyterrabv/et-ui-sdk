@@ -27,7 +27,7 @@
                 },
                 sizeClasses
             ]"
-            class="et-input block w-full rounded-md border-0 focus: focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+            class="et-input block w-full rounded-md border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
         />
         <span
             class="absolute right-0 top-0 w-max h-max p-2 cursor-pointer text-text-light"
@@ -46,6 +46,41 @@ import { generateId } from "src/helpers/random";
 import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
 import { UI_SIZING } from "../../enums";
 
+export const commonInputProps = {
+    name: {
+        type: String,
+        required: false,
+        default() {
+            return generateId(25, "input");
+        }
+    },
+    autocomplete: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    disabled: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    readonly: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    required: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    placeholder: {
+        type: String,
+        required: false,
+        default: ""
+    }
+};
+
 export default defineComponent({
     model: {
         // backwards compatibility with vue2.x
@@ -57,13 +92,6 @@ export default defineComponent({
         EtIconTimes
     },
     props: {
-        name: {
-            type: String,
-            required: false,
-            default() {
-                return generateId(25, "input");
-            }
-        },
         min: {
             type: [Number, String],
             required: false,
@@ -100,35 +128,10 @@ export default defineComponent({
                 return true;
             }
         },
-        autocomplete: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
         modelValue: {
             type: [String, Number],
             required: false,
             default: null
-        },
-        disabled: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        readonly: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        required: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        placeholder: {
-            type: String,
-            required: false,
-            default: ""
         },
         clearButton: {
             type: Boolean,
@@ -144,7 +147,8 @@ export default defineComponent({
             required: false,
             type: String as PropType<UI_SIZING>,
             default: UI_SIZING.M
-        }
+        },
+        ...commonInputProps
     },
     data() {
         return {
