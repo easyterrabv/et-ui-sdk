@@ -340,7 +340,9 @@ export default defineComponent({
             handler(value) {
                 this.$emit("update:modelValue", this.innerData);
             }
-        }
+        },
+        disabled: "setEditable",
+        readonly: "setEditable"
     },
     methods: {
         runEditorMethod(method, ...args) {
