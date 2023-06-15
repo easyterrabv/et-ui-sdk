@@ -78,6 +78,11 @@ export const commonInputProps = {
         type: String,
         required: false,
         default: ""
+    },
+    size: {
+        required: false,
+        type: String as PropType<UI_SIZING>,
+        default: UI_SIZING.M
     }
 };
 
@@ -142,11 +147,6 @@ export default defineComponent({
             type: Boolean,
             required: false,
             default: false
-        },
-        size: {
-            required: false,
-            type: String as PropType<UI_SIZING>,
-            default: UI_SIZING.M
         },
         ...commonInputProps
     },
