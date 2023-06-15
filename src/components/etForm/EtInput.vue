@@ -1,5 +1,8 @@
 <template>
-    <div class="relative et-input-wrapper w-80 max-w-full">
+    <div
+        class="relative et-input-wrapper w-80 max-w-full"
+        :class="[wrapperClasses]"
+    >
         <input
             v-bind="$attrs"
             v-model="internalData"
@@ -147,6 +150,11 @@ export default defineComponent({
             type: Boolean,
             required: false,
             default: false
+        },
+        wrapperClasses: {
+            type: String,
+            required: false,
+            default: ""
         },
         ...commonInputProps
     },
