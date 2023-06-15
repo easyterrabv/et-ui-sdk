@@ -230,9 +230,9 @@
             </div>
 
             <div class="mt-4">
-                <EtPopover>
+                <EtPopover class="w-40" fitToggle>
                     <template #toggle="props">
-                        <EtButtonDefault :size="UI_SIZING.S" @click="props.togglePopover()">
+                        <EtButtonDefault class="w-40" :size="UI_SIZING.S" @click="props.togglePopover()">
                             Toggle PopOver
                         </EtButtonDefault>
                     </template>
