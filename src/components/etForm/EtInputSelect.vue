@@ -21,39 +21,55 @@
                         v-show="!hasInputFocus"
                         :tabindex="0"
                         :class="[sizeClasses]"
-                        class="et-input-like block cursor-text rounded-md border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+                        class="et-input-like pr-10 relative block cursor-text rounded-md border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
                     >
-                        <span
+                        <div
+                            class="w-full scrollbar-none whitespace-nowrap overflow-x-auto"
                             v-if="
                                 internalOptionValue &&
-                                !multiple &&
-                                !Array.isArray(internalOptionValue)
+                                ((multiple &&
+                                    Array.isArray(internalOptionValue) &&
+                                    internalOptionValue.length > 0) ||
+                                    (!multiple &&
+                                        !Array.isArray(internalOptionValue)))
                             "
                         >
-                            {{ internalOptionValue.label }}
-                        </span>
-                        <span
-                            v-if="
-                                internalOptionValue &&
-                                multiple &&
-                                Array.isArray(internalOptionValue)
-                            "
-                        >
-                            <EtBadgeDefault
-                                class="mr-2"
-                                v-for="option in internalOptionValue"
-                                :key="option.guid"
+                            <span
+                                v-if="
+                                    multiple &&
+                                    !Array.isArray(internalOptionValue)
+                                "
                             >
-                                {{ option.label }}
-                                <span
-                                    class="cursor-pointer"
-                                    @mouseup.left.stop="
-                                        (e) => deSelectOption(option)
-                                    "
+                                {{ internalOptionValue.label }}
+                            </span>
+                            <span
+                                v-if="
+                                    multiple &&
+                                    Array.isArray(internalOptionValue)
+                                "
+                            >
+                                <EtBadgeDefault
+                                    class="mr-2"
+                                    v-for="option in internalOptionValue"
+                                    :key="option.guid"
                                 >
-                                    <EtIconTimes />
-                                </span>
-                            </EtBadgeDefault>
+                                    {{ option.label }}
+                                    <span
+                                        class="cursor-pointer"
+                                        @mouseup.left.stop="
+                                            (e) => deSelectOption(option)
+                                        "
+                                    >
+                                        <EtIconTimes />
+                                    </span>
+                                </EtBadgeDefault>
+                            </span>
+                        </div>
+                        <span
+                            :class="[chevronSizeClasses]"
+                            class="absolute right-0 top-0 w-max h-max cursor-pointer hover:bg-default-extra-light text-text-light ring-default-light ring-1 bg-white rounded-md"
+                        >
+                            <EtIconChevronDown />
                         </span>
                     </div>
                 </div>
@@ -78,6 +94,7 @@ import EtInput from "src/components/etForm/EtInput.vue";
 import EtBadgeDefault from "src/components/etBadge/EtBadgeDefault.vue";
 import EtSelect from "src/components/etSelect/EtSelect.vue";
 import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
+import EtIconChevronDown from "src/components/etIcon/EtIconChevronDown.vue";
 
 import { wait } from "../../helpers/async";
 import { OptionModel } from "../../models/Option";
@@ -109,6 +126,7 @@ export default defineComponent({
         ...commonInputProps
     },
     components: {
+        EtIconChevronDown,
         EtIconTimes,
         EtPopover,
         EtInput,
@@ -126,11 +144,17 @@ export default defineComponent({
             sizeMapping: {
                 [UI_SIZING.S]: "h-8 px-2.5 py-1",
                 [UI_SIZING.M]: "h-10 px-3.5 py-2"
+            } as { [key in UI_SIZING]: string },
+
+            sizeMappingChevron: {
+                [UI_SIZING.S]: "p-1",
+                [UI_SIZING.M]: "p-2"
             } as { [key in UI_SIZING]: string }
         };
     },
     computed: {
-        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
+        sizeClasses: (vm): string => vm.sizeMapping[vm.size],
+        chevronSizeClasses: (vm): string => vm.sizeMappingChevron[vm.size]
     },
     watch: {
         modelValue: {
