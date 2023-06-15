@@ -1,6 +1,6 @@
 <template>
     <div
-        class="et-input-date inline-block w-full"
+        class="et-input-date inline-block w-80"
         ref="wrapper"
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
@@ -10,6 +10,7 @@
                 <div @mouseup.left.stop="(e) => onInputClick()">
                     <EtInput
                         ref="input"
+                        :size="size"
                         v-show="hasInputFocus"
                         v-model="internalFilterValue"
                         @clear="onInputClear"
@@ -19,7 +20,8 @@
                     <div
                         v-show="!hasInputFocus"
                         :tabindex="0"
-                        class="block w-80 h-10 px-3.5 py-2 cursor-text rounded-md border-0 focus: focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+                        :class="[sizeClasses]"
+                        class="et-input-like block cursor-text rounded-md border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
                     >
                         <span
                             v-if="
@@ -80,6 +82,9 @@ import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
 import { wait } from "../../helpers/async";
 import { OptionModel } from "../../models/Option";
 
+import { commonInputProps } from "src/components/etForm/EtInput.vue";
+import { UI_SIZING } from "../../enums";
+
 export default defineComponent({
     model: {
         // backwards compatibility with vue2.x
@@ -100,7 +105,8 @@ export default defineComponent({
             type: Boolean,
             required: false,
             default: false
-        }
+        },
+        ...commonInputProps
     },
     components: {
         EtIconTimes,
@@ -115,10 +121,24 @@ export default defineComponent({
             internalOptionValue: null as OptionModel | OptionModel[] | null,
 
             hasInputFocus: false as Boolean,
-            justToggledOption: false
+            justToggledOption: false,
+
+            sizeMapping: {
+                [UI_SIZING.S]: "h-8 px-2.5 py-1",
+                [UI_SIZING.M]: "h-10 px-3.5 py-2"
+            } as { [key in UI_SIZING]: string }
         };
     },
+    computed: {
+        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
+    },
     watch: {
+        modelValue: {
+            immediate: true,
+            handler() {
+                this.internalOptionValue = this.modelValue;
+            }
+        },
         internalOptionValue() {
             this.$emit("update:modelValue", this.internalOptionValue);
         }
