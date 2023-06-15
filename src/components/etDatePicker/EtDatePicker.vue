@@ -342,7 +342,12 @@ export default defineComponent({
                             this.$emit("onFirstChange", date);
                             this.setting = "second";
                         } else {
-                            this.selectedDates = [this.firstDate, date];
+                            if (date < this.firstDate) {
+                                this.selectedDates = [date, this.firstDate];
+                            } else {
+                                this.selectedDates = [this.firstDate, date];
+                            }
+
                             this.$emit("onSecondChange", date);
                             this.setting = "first";
                         }
