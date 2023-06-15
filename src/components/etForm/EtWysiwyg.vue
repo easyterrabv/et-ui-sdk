@@ -448,7 +448,7 @@ export default defineComponent({
         });
     },
     beforeUnmount() {
-        this.editor.destroy();
+        this.editor?.destroy();
     }
 });
 </script>
