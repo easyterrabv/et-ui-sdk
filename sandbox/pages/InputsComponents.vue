@@ -14,6 +14,16 @@
                 <template #label>Simple Input small size</template>
                 <EtInput :size="UI_SIZING.S"/>
             </EtFormGroup>
+
+            <EtFormGroup class="mt-4">
+                <template #label>Simple textarea</template>
+                <EtTextarea v-model="textareaContent" placeholder="Type something" />
+            </EtFormGroup>
+
+            <EtFormGroup class="mt-4">
+                <template #label>WYSIWYG</template>
+                <EtWysiwyg v-model="wysiwygContent"></EtWysiwyg>
+            </EtFormGroup>
         </EtCard>
 
         <EtCard class="mt-4">
@@ -55,10 +65,6 @@
             <div class="mt-4">
                 <EtInputDateRange v-model="selectedDateRange"></EtInputDateRange>
             </div>
-            <div class="mt-4">
-                <EtTextarea v-model="textareaContent" placeholder="Type something" />
-                {{textareaContent}}
-            </div>
         </EtCard>
     </EtContent>
 </template>
@@ -79,6 +85,7 @@ import EtInputDate from "src/components/etForm/EtInputDate.vue";
 import EtInputDateRange from "src/components/etForm/EtInputDateRange.vue";
 import EtInputSelect from "src/components/etForm/EtInputSelect.vue";
 import EtTextarea from "src/components/etForm/EtTextarea.vue";
+import EtWysiwyg from "src/components/etForm/EtWysiwyg.vue";
 
 import {OptionModel} from "../../src/models/Option";
 
@@ -96,6 +103,7 @@ export default defineComponent({
         EtInputSelect,
 
         EtTextarea,
+        EtWysiwyg
     },
     data() {
         return {
@@ -123,7 +131,8 @@ export default defineComponent({
                 }),
             ],
 
-            textareaContent: ''
+            textareaContent: '',
+            wysiwygContent: ''
         }
     },
     computed: {

@@ -28,6 +28,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@popperjs/core": "^2.11.8",
+    "@tiptap/extension-link": "^2.0.3",
+    "@tiptap/extension-text-align": "^2.0.3",
+    "@tiptap/extension-typography": "^2.0.3",
+    "@tiptap/extension-underline": "^2.0.3",
+    "@tiptap/pm": "^2.0.3",
+    "@tiptap/starter-kit": "^2.0.3",
+    "@tiptap/vue-3": "^2.0.3",
     "@vue/tsconfig": "^0.4.0",
     "vue-demi": "latest",
     "vue-tsc": "^1.6.5"
@@ -43,6 +50,7 @@
   },
   "devDependencies": {
     "@cypress/vue": "^3.1.0",
+    "@tailwindcss/typography": "^0.5.9",
     "@vitejs/plugin-vue": "^4.2.2",
     "autoprefixer": "^10.4.14",
     "cypress": "^12.12.0",
