@@ -422,7 +422,7 @@ export default defineComponent({
             editable: !(this.disabled || this.readonly),
             editorProps: {
                 attributes: {
-                    class: "prose prose-sm !max-w-full rounded-b-md border-0 p-2 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+                    class: "prose prose-sm !max-w-full min-h-[300px] rounded-b-md border-0 p-2 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
                 }
             },
             extensions: [
@@ -452,9 +452,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style>
-.et-wysiwyg-editor .ProseMirror {
-    min-height: 300px;
-}
-</style>
