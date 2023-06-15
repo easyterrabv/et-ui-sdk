@@ -1,17 +1,18 @@
 <template>
-    <div>
+    <div class="et-popover-wrapper">
         <div
             :tabindex="-1"
-            class="w-fit"
+            class="et-popover-toggle w-full"
             ref="toggle"
-            @mouseup.left.stop="(e) => setPopoverFocus(true)"
-            @blur="(e) => setPopoverFocus(false)"
+            @mouseup.left.stop="(e) => !manual && setPopoverFocus(true)"
+            @blur="(e) => !manual && setPopoverFocus(false)"
         >
             <slot name="toggle" :togglePopover="togglePopover"></slot>
         </div>
         <Teleport to="body">
             <div
                 ref="content"
+                class="et-popover-content"
                 :class="{
                     'w-fit': !fitToggle
                 }"
@@ -64,10 +65,6 @@ export default defineComponent({
     },
     methods: {
         async togglePopover() {
-            if (this.manual) {
-                return;
-            }
-
             if (this.hasFocus) {
                 return await this.setPopoverFocus(false);
             }
@@ -75,10 +72,6 @@ export default defineComponent({
             return await this.setPopoverFocus(true);
         },
         async setPopoverFocus(focus) {
-            if (this.manual) {
-                return;
-            }
-
             if (focus) {
                 await this.open();
                 this.buttonElement.focus();
