@@ -153,6 +153,7 @@ export default defineComponent({
             }
             this.hasInputFocus = true;
             this.$refs.popover.open();
+            this.$emit("focus");
             await this.$nextTick();
             this.$refs.input.focus();
         },
@@ -175,6 +176,7 @@ export default defineComponent({
             }
 
             await this.onInputClick();
+            this.$emit("blur");
         },
         onInputClear() {
             this.internalFilterValue = null;
@@ -182,6 +184,10 @@ export default defineComponent({
         deSelectOption(option: OptionModel) {
             this.$refs.select.deSelectOption(option);
         }
+    },
+    emits: {
+        focus: () => true,
+        blur: () => true
     }
 });
 </script>
