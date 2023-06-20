@@ -27,7 +27,12 @@
 
             <EtFormGroup class="mt-4">
                 <template #label>Min Max</template>
-                <EtMinMax v-model="wysiwygContent"></EtMinMax>
+                <EtInputNumberRange v-model="numberRange"></EtInputNumberRange>
+            </EtFormGroup>
+
+            <EtFormGroup class="mt-4">
+                <template #label>Min Max</template>
+                <EtInputNumberRange v-model="numberRange" :size="UI_SIZING.S"></EtInputNumberRange>
             </EtFormGroup>
         </EtCard>
 
@@ -91,7 +96,7 @@ import EtInputDateRange from "src/components/etForm/EtInputDateRange.vue";
 import EtInputSelect from "src/components/etForm/EtInputSelect.vue";
 import EtTextarea from "src/components/etForm/EtTextarea.vue";
 import EtWysiwyg from "src/components/etForm/EtWysiwyg.vue";
-import EtMinMax from "src/components/etMinMax/EtMinMax.vue";
+import EtInputNumberRange from "src/components/etForm/EtInputNumberRange.vue";
 
 import {OptionModel} from "../../src/models/Option";
 
@@ -110,7 +115,7 @@ export default defineComponent({
 
         EtTextarea,
         EtWysiwyg,
-        EtMinMax
+        EtInputNumberRange
     },
     data() {
         return {
@@ -155,7 +160,8 @@ export default defineComponent({
             ],
 
             textareaContent: '',
-            wysiwygContent: ''
+            wysiwygContent: '',
+            numberRange: [],
         }
     },
     computed: {
