@@ -31,8 +31,8 @@
             </EtFormGroup>
 
             <EtFormGroup class="mt-4">
-                <template #label>Min Max</template>
-                <EtInputNumberRange v-model="numberRange" :size="UI_SIZING.S"></EtInputNumberRange>
+                <template #label>File Drop Input</template>
+                <EtInputFileDrop />
             </EtFormGroup>
         </EtCard>
 
@@ -97,6 +97,7 @@ import EtInputSelect from "src/components/etForm/EtInputSelect.vue";
 import EtTextarea from "src/components/etForm/EtTextarea.vue";
 import EtWysiwyg from "src/components/etForm/EtWysiwyg.vue";
 import EtInputNumberRange from "src/components/etForm/EtInputNumberRange.vue";
+import EtInputFileDrop from "src/components/etForm/EtInputFileDrop.vue";
 
 import {OptionModel} from "../../src/models/Option";
 
@@ -115,7 +116,8 @@ export default defineComponent({
 
         EtTextarea,
         EtWysiwyg,
-        EtInputNumberRange
+        EtInputNumberRange,
+        EtInputFileDrop
     },
     data() {
         return {
