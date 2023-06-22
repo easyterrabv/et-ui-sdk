@@ -7,5 +7,5 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faItalic } from "@fortawesome/free-solid-svg-icons";
 library.add(faItalic);
 
-import EtIcon from "src/components/etIcon/EtIcon.vue";
+import EtIcon from "./EtIcon.vue";
 </script>

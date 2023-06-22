@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import EtBox from "src/components/EtBox.vue";
-import EtSection from "src/components/EtSection.vue";
+import EtBox from "./EtBox.vue";
+import EtSection from "./EtSection.vue";
 import { defineComponent } from "vue-demi";
 
 export default defineComponent({

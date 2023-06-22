@@ -43,12 +43,12 @@
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 
-import EtPopover from "src/components/EtPopover.vue";
-import EtInput from "src/components/etForm/EtInput.vue";
-import EtDatePicker from "src/components/etDatePicker/EtDatePicker.vue";
+import EtPopover from "../EtPopover.vue";
+import EtInput from "./EtInput.vue";
+import EtDatePicker from "../etDatePicker/EtDatePicker.vue";
 import { parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
-import EtIconCalendar from "src/components/etIcon/EtIconCalendar.vue";
+import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
 export default defineComponent({
     model: {

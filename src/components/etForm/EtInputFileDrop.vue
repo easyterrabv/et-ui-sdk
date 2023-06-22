@@ -39,9 +39,9 @@
 </template>
 
 <script lang="ts">
-import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
-import EtIconArrowDown from "src/components/etIcon/EtIconArrowDown.vue";
-import EtIconSpinner from "src/components/etIcon/EtIconSpinner.vue";
+import EtIconPlus from "../etIcon/EtIconPlus.vue";
+import EtIconArrowDown from "../etIcon/EtIconArrowDown.vue";
+import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
 import { defineComponent } from "vue-demi";
 
 export default defineComponent({

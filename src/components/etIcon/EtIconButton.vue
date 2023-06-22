@@ -7,5 +7,5 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTabletButton } from "@fortawesome/free-solid-svg-icons";
 library.add(faTabletButton);
 
-import EtIcon from "src/components/etIcon/EtIcon.vue";
+import EtIcon from "./EtIcon.vue";
 </script>

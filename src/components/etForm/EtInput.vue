@@ -46,7 +46,7 @@
 import { defineComponent, PropType } from "vue-demi";
 import { generateId } from "src/helpers/random";
 
-import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
+import EtIconTimes from "../etIcon/EtIconTimes.vue";
 import { UI_SIZING } from "../../enums";
 
 export const commonInputProps = {

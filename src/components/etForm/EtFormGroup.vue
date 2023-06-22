@@ -12,8 +12,8 @@
 <script>
 import { defineComponent } from "vue-demi";
 
-import EtLabel from "src/components/EtLabel.vue";
-import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
+import EtLabel from "../EtLabel.vue";
+import EtInputGroup from "./EtInputGroup.vue";
 
 export default defineComponent({
     components: {

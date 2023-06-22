@@ -89,17 +89,17 @@
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 
-import EtPopover from "src/components/EtPopover.vue";
-import EtInput from "src/components/etForm/EtInput.vue";
-import EtBadgeDefault from "src/components/etBadge/EtBadgeDefault.vue";
-import EtSelect from "src/components/etSelect/EtSelect.vue";
-import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
-import EtIconChevronDown from "src/components/etIcon/EtIconChevronDown.vue";
+import EtPopover from "../EtPopover.vue";
+import EtInput from "./EtInput.vue";
+import EtBadgeDefault from "../etBadge/EtBadgeDefault.vue";
+import EtSelect from "../etSelect/EtSelect.vue";
+import EtIconTimes from "../etIcon/EtIconTimes.vue";
+import EtIconChevronDown from "../etIcon/EtIconChevronDown.vue";
 
 import { wait } from "../../helpers/async";
 import { OptionModel } from "../../models/Option";
 
-import { commonInputProps } from "src/components/etForm/EtInput.vue";
+import { commonInputProps } from "./EtInput.vue";
 import { UI_SIZING } from "../../enums";
 
 export default defineComponent({

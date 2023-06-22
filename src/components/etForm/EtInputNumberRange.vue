@@ -31,9 +31,9 @@
 </template>
 
 <script lang="ts">
-import EtInput, { commonInputProps } from "src/components/etForm/EtInput.vue";
-import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
-import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
+import EtInput, { commonInputProps } from "./EtInput.vue";
+import EtInputGroup from "./EtInputGroup.vue";
+import EtInputGroupAddon from "./EtInputGroupAddon.vue";
 import { defineComponent } from "vue-demi";
 
 export default defineComponent({

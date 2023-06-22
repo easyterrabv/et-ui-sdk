@@ -52,15 +52,15 @@
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 
-import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
-import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
-import EtInput from "src/components/etForm/EtInput.vue";
+import EtInputGroup from "./EtInputGroup.vue";
+import EtInputGroupAddon from "./EtInputGroupAddon.vue";
+import EtInput from "./EtInput.vue";
 
-import EtPopover from "src/components/EtPopover.vue";
-import EtDatePicker from "src/components/etDatePicker/EtDatePicker.vue";
+import EtPopover from "../EtPopover.vue";
+import EtDatePicker from "../etDatePicker/EtDatePicker.vue";
 import { dateToYMD, parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
-import EtIconCalendar from "src/components/etIcon/EtIconCalendar.vue";
+import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
 export default defineComponent({
     model: {

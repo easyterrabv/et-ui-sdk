@@ -114,8 +114,8 @@
 import { defineComponent } from "vue-demi";
 import { Debounce } from "../../helpers/debounce";
 
-import EtIconChevronRight from "src/components/etIcon/EtIconChevronRight.vue";
-import EtIconChevronLeft from "src/components/etIcon/EtIconChevronLeft.vue";
+import EtIconChevronRight from "../etIcon/EtIconChevronRight.vue";
+import EtIconChevronLeft from "../etIcon/EtIconChevronLeft.vue";
 import {
     monthToNameFull,
     monthToNameShort,

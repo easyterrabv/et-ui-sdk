@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 
-import { commonInputProps } from "src/components/etForm/EtInput.vue";
+import { commonInputProps } from "./EtInput.vue";
 
 export default defineComponent({
     model: {

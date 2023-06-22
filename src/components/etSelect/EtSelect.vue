@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import EtCheckbox from "src/components/etForm/EtCheckbox.vue";
+import EtCheckbox from "../etForm/EtCheckbox.vue";
 import { OptionModel } from "../../models/Option";
 import { Debounce } from "../../helpers/debounce";
 import { needleFixer } from "../../helpers/misc";

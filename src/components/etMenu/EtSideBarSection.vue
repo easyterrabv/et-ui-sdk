@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue-demi";
-import EtLabel from "src/components/EtLabel.vue";
+import EtLabel from "../EtLabel.vue";
 
 export default defineComponent({
     components: {
