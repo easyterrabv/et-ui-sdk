@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue-demi";
-import { generateId } from "src/helpers/random";
+import { generateId } from "../../helpers/random";
 
 import EtIconTimes from "../etIcon/EtIconTimes.vue";
 import { UI_SIZING } from "../../enums";

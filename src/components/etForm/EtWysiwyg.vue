@@ -249,7 +249,7 @@ import EtInputSelect from "./EtInputSelect.vue";
 import { UI_SIZING, UI_TYPES } from "../../enums";
 import { OptionModel } from "../../models/Option";
 import { wait } from "../../helpers/async";
-import { generateId } from "src/helpers/random";
+import { generateId } from "../../helpers/random";
 
 export default defineComponent({
     model: {
