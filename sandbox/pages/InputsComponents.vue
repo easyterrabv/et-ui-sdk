@@ -75,6 +75,9 @@
             <div class="mt-4">
                 <EtInputDateRange v-model="selectedDateRange"></EtInputDateRange>
             </div>
+            <div class="mt-4">
+                <EtInputDateRange :size="UI_SIZING.S" v-model="selectedDateRange"></EtInputDateRange>
+            </div>
         </EtCard>
     </EtContent>
 </template>

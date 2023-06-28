@@ -5,8 +5,19 @@
                 <EtInputGroup>
                     <div class="w-40 relative">
                         <EtInput
+                            :name="name + '_first'"
                             ref="input"
-                            class="pl-10"
+                            :disabled="disabled"
+                            :readonly="readonly"
+                            :required="required"
+                            :placeholder="placeholder"
+                            :size="size"
+                            :class="[
+                                {
+                                    'pl-10': size === UI_SIZING.M,
+                                    'pl-7': size === UI_SIZING.S
+                                }
+                            ]"
                             :modelValue="firstDateDisplayFormat"
                             @focus="onFirstInputFocus"
                             @blur="onFirstInputBlur"
@@ -14,16 +25,32 @@
                             @change="(value) => onInputChange(value, 'first')"
                         ></EtInput>
                         <span
-                            class="absolute left-0 top-0 w-max h-max p-2 text-text-light"
+                            class="absolute left-0 top-0 w-max h-max text-text-light"
+                            :class="[
+                                {
+                                    'p-2': size === UI_SIZING.M,
+                                    'p-1': size === UI_SIZING.S
+                                }
+                            ]"
                         >
                             <EtIconCalendar />
                         </span>
                     </div>
-                    <EtInputGroupAddon> Until </EtInputGroupAddon>
+                    <EtInputGroupAddon :size="size"> Until </EtInputGroupAddon>
                     <div class="w-40 relative">
                         <EtInput
+                            :name="name + '_second'"
                             ref="input"
-                            class="pl-10"
+                            :disabled="disabled"
+                            :readonly="readonly"
+                            :required="required"
+                            :size="size"
+                            :class="[
+                                {
+                                    'pl-10': size === UI_SIZING.M,
+                                    'pl-7': size === UI_SIZING.S
+                                }
+                            ]"
                             @focus="onSecondInputFocus"
                             @blur="onSecondInputBlur"
                             :modelValue="secondDateDisplayFormat"
@@ -31,7 +58,13 @@
                             @change="(value) => onInputChange(value, 'second')"
                         ></EtInput>
                         <span
-                            class="absolute left-0 top-0 w-max h-max p-2 text-text-light"
+                            class="absolute left-0 top-0 w-max h-max text-text-light"
+                            :class="[
+                                {
+                                    'p-2': size === UI_SIZING.M,
+                                    'p-1': size === UI_SIZING.S
+                                }
+                            ]"
                         >
                             <EtIconCalendar />
                         </span>
@@ -54,7 +87,7 @@ import { defineComponent } from "vue-demi";
 
 import EtInputGroup from "./EtInputGroup.vue";
 import EtInputGroupAddon from "./EtInputGroupAddon.vue";
-import EtInput from "./EtInput.vue";
+import EtInput, { commonInputProps } from "./EtInput.vue";
 
 import EtPopover from "../EtPopover.vue";
 import EtDatePicker from "../etDatePicker/EtDatePicker.vue";
@@ -62,13 +95,11 @@ import { dateToYMD, parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
 import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
+import { UI_SIZING } from "../../enums";
+
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
+        ...commonInputProps,
         modelValue: {
             type: Date,
             required: false,
@@ -90,6 +121,7 @@ export default defineComponent({
     },
     data() {
         return {
+            UI_SIZING,
             firstDateInput: null as String | null,
             secondDateInput: null as String | null,
 
@@ -102,6 +134,9 @@ export default defineComponent({
     watch: {
         async internalDateValue() {
             this.$emit("update:modelValue", this.internalDateValue);
+        },
+        modelValue() {
+            this.internalDateValue = this.modelValue;
         }
     },
     computed: {
