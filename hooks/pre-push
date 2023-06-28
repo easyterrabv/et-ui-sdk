@@ -28,9 +28,9 @@ if [ "$BRANCH" = "master" ]; then
   git add package-lock.json
   git add src/dist.css
 
-  git tag -a v$NEW_VERSION -m "Version $NEW_VERSION"
-
   git commit -m "AUTOMATIC: build + bump version to $NEW_VERSION"
+
+  git tag -a v$NEW_VERSION -m "Version $NEW_VERSION"
 
   git push --no-verify
   git push --no-verify --tags

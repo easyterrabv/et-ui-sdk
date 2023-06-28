@@ -135,8 +135,11 @@ export default defineComponent({
         async internalDateValue() {
             this.$emit("update:modelValue", this.internalDateValue);
         },
-        modelValue() {
-            this.internalDateValue = this.modelValue;
+        modelValue: {
+            immediate: true,
+            handler() {
+                this.internalDateValue = this.modelValue;
+            }
         }
     },
     computed: {
