@@ -440,7 +440,7 @@ export default defineComponent({
     emits: {
         // will trigger and usually only update the v-model value
         "update:modelValue": (modelValue: Date): boolean =>
-            typeof modelValue === typeof Date,
+            typeof modelValue === typeof Date || Array.isArray(modelValue),
         interaction: (): boolean => true,
         dateSelect: (value): boolean => true,
         escape: (): boolean => true,
