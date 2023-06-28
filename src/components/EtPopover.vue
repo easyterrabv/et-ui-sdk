@@ -12,7 +12,7 @@
         <Teleport to="body">
             <div
                 ref="content"
-                class="et-popover-content"
+                class="et-popover-content z-[20000]"
                 :class="{
                     'w-fit': !fitToggle
                 }"
