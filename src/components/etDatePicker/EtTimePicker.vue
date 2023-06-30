@@ -2,6 +2,9 @@
     <div
         class="et-timepicker inline-block shadow bg-white p-4 rounded"
         :tabindex="-1"
+        @keyup.esc="(e) => onEscape()"
+        @focus="(e) => onFocus()"
+        @blur="(e) => onBlur()"
     >
         <div class="flex flex-row gap-4">
             <div class="et-timepicker-hour-list w-1/2 font-semibold">Hours</div>
@@ -86,9 +89,11 @@ export default defineComponent({
     watch: {
         hour() {
             this.innerValue[0] = this.hour;
+            this.$emit("interaction");
         },
         minute() {
             this.innerValue[1] = this.minute;
+            this.$emit("interaction");
         },
         innerValue: {
             deep: true,
@@ -100,8 +105,8 @@ export default defineComponent({
             immediate: true,
             deep: true,
             handler() {
-                this.hour = this.modelValue[0];
-                this.minute = this.modelValue[1];
+                this.hour = this.modelValue?.[0];
+                this.minute = this.modelValue?.[1];
             }
         }
     },
@@ -109,6 +114,15 @@ export default defineComponent({
         async setDragging(value: boolean) {
             await wait(50);
             this.dragging = value;
+        },
+        onEscape() {
+            this.$emit("escape");
+        },
+        onFocus() {
+            this.$emit("focus");
+        },
+        onBlur() {
+            this.$emit("blur");
         }
     },
     created() {
@@ -124,6 +138,6 @@ export default defineComponent({
         this.$refs.hourOptions.scrollTo(this.hour * optionHeight);
         this.$refs.minuteOptions.scrollTo(this.minute * optionHeight);
     },
-    emits: ["update:modelValue"]
+    emits: ["update:modelValue", "interaction", "escape", "focus", "blur"]
 });
 </script>
