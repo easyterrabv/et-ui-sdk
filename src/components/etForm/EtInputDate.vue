@@ -13,6 +13,12 @@
                 >
                     <EtInput
                         ref="input"
+                        :disabled="disabled"
+                        :readonly="readonly"
+                        :required="required"
+                        :placeholder="placeholder"
+                        :autocomplete="autocomplete"
+                        :size="size"
                         class="pl-10 w-full"
                         :modelValue="internalInputValue"
                         @change="(value) => (internalInputValue = value)"
@@ -23,7 +29,13 @@
                     ></EtInput>
 
                     <span
-                        class="absolute left-0 top-0 w-max h-max p-2 text-text-light"
+                        class="absolute left-0 top-0 w-max h-max text-text-light"
+                        :class="[
+                            {
+                                'p-2': size === UI_SIZING.M,
+                                'p-1': size === UI_SIZING.S
+                            }
+                        ]"
                     >
                         <EtIconCalendar />
                     </span>
@@ -44,19 +56,17 @@
 import { defineComponent } from "vue-demi";
 
 import EtPopover from "../EtPopover.vue";
-import EtInput from "./EtInput.vue";
+import EtInput, { commonInputProps } from "./EtInput.vue";
 import EtDatePicker from "../etDatePicker/EtDatePicker.vue";
 import { parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
 import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
+import { UI_SIZING } from "../../enums";
+
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
+        ...commonInputProps,
         modelValue: {
             type: Date,
             required: false,
@@ -76,6 +86,7 @@ export default defineComponent({
     },
     data() {
         return {
+            UI_SIZING,
             internalInputValue: null as String | null,
             internalDateValue: null as Date | null,
 
