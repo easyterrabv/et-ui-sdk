@@ -81,6 +81,9 @@
             <div class="mt-4">
                 <EtInputTime v-model="selectedTime"></EtInputTime>
             </div>
+            <div class="mt-4">
+                <EtInputTime :size="UI_SIZING.S" v-model="selectedTime"></EtInputTime>
+            </div>
         </EtCard>
     </EtContent>
 </template>
