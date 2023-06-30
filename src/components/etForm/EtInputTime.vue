@@ -15,6 +15,13 @@
                         ref="input"
                         class="w-full"
                         :modelValue="internalInputValue"
+                        :name="name"
+                        :autocomplete="autocomplete"
+                        :disabled="disabled"
+                        :readonly="readonly"
+                        :required="required"
+                        :placeholder="placeholder"
+                        :size="size"
                         @change="(value) => (internalInputValue = value)"
                         @enter="onInputEnter"
                         @clear="onInputClear"
@@ -38,21 +45,17 @@ import { defineComponent } from "vue-demi";
 
 import EtPopover from "src/components/EtPopover.vue";
 import EtTimePicker from "src/components/etDatePicker/EtTimePicker.vue";
-import EtInput from "src/components/etForm/EtInput.vue";
+import EtInput, { commonInputProps } from "./EtInput.vue";
 import { wait } from "../../helpers/async";
 import { addLeadingZero } from "../../helpers/misc";
 
 export default defineComponent({
     props: {
+        ...commonInputProps,
         modelValue: {
             type: Date,
             required: false,
             default: null
-        },
-        closeOnSelect: {
-            type: Boolean,
-            required: false,
-            default: true
         }
     },
     components: {
@@ -62,7 +65,7 @@ export default defineComponent({
     },
     data() {
         return {
-            internalInputValue: null as String | null,
+            internalInputValue: "" as String,
             internalTimeValue: null as Array<Number> | null,
 
             hasInteraction: false as Boolean
@@ -89,6 +92,10 @@ export default defineComponent({
     },
     methods: {
         async onInputClick() {
+            if (this.disabled || this.readonly) {
+                return;
+            }
+
             if (this.$refs.popover.isOpen()) {
                 this.$refs.popover.hide();
                 return;
