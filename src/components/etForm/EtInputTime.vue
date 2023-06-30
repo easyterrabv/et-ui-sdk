@@ -43,8 +43,8 @@
 <script lang="ts">
 import { defineComponent } from "vue-demi";
 
-import EtPopover from "src/components/EtPopover.vue";
-import EtTimePicker from "src/components/etDatePicker/EtTimePicker.vue";
+import EtPopover from "../EtPopover.vue";
+import EtTimePicker from "../etDatePicker/EtTimePicker.vue";
 import EtInput, { commonInputProps } from "./EtInput.vue";
 import { wait } from "../../helpers/async";
 import { addLeadingZero } from "../../helpers/misc";
