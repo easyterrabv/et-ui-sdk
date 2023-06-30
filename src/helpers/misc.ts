@@ -20,3 +20,23 @@ export const needleFixer = (
 
     return (innerVal || "").toLowerCase().trim();
 };
+
+export const addLeadingZero = (input: string | number): string => {
+    let inputAsNumber;
+    if (typeof input === "string") {
+        inputAsNumber = parseInt(input, 10);
+    } else {
+        inputAsNumber = input;
+    }
+
+    // Parse the input as an integer
+    if (!isNaN(inputAsNumber) && inputAsNumber < 10) {
+        return "0" + inputAsNumber; // Add a leading zero if the number meets the condition
+    }
+
+    if (isNaN(inputAsNumber)) {
+        return "00";
+    }
+
+    return String(inputAsNumber); // Otherwise, return the input as a string
+};
