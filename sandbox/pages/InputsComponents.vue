@@ -78,6 +78,9 @@
             <div class="mt-4">
                 <EtInputDateRange :size="UI_SIZING.S" v-model="selectedDateRange"></EtInputDateRange>
             </div>
+            <div class="mt-4">
+                <EtInputTime v-model="selectedTime"></EtInputTime>
+            </div>
         </EtCard>
     </EtContent>
 </template>
@@ -102,6 +105,8 @@ import EtWysiwyg from "src/components/etForm/EtWysiwyg.vue";
 import EtInputNumberRange from "src/components/etForm/EtInputNumberRange.vue";
 import EtInputFileDrop from "src/components/etForm/EtInputFileDrop.vue";
 
+import EtInputTime from "src/components/etForm/EtInputTime.vue";
+
 import {OptionModel} from "../../src/models/Option";
 
 export default defineComponent({
@@ -120,7 +125,9 @@ export default defineComponent({
         EtTextarea,
         EtWysiwyg,
         EtInputNumberRange,
-        EtInputFileDrop
+        EtInputFileDrop,
+
+        EtInputTime
     },
     data() {
         return {
@@ -167,6 +174,8 @@ export default defineComponent({
             textareaContent: '',
             wysiwygContent: '',
             numberRange: [],
+
+            selectedTime: [13, 22]
         }
     },
     computed: {
