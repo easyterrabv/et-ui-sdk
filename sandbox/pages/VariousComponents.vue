@@ -422,6 +422,12 @@
                     Hi! This is a warning alert
                 </EtAlert>
             </div>
+
+
+            <EtResizable>
+                This is a resizable box
+            </EtResizable>
+
         </EtContent>
     </EtDrawer>
 </template>
@@ -460,6 +466,7 @@ import EtTabs from "src/components/etTabs/EtTabs.vue";
 import EtTab from "src/components/etTabs/EtTab.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
+import EtResizable from "src/components/etUtilities/EtResizable.vue";
 
 export default defineComponent({
     computed: {
@@ -498,7 +505,9 @@ export default defineComponent({
         EtPopover,
 
         EtTabs,
-        EtTab
+        EtTab,
+
+        EtResizable
     },
     data() {
         return {
