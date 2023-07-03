@@ -1,29 +1,29 @@
 <template>
     <div
-        class="resizable"
+        class="border border-default-light border-dashed overflow-hidden relative"
         :style="{ width: innerWidth + 'px', height: innerHeight + 'px' }"
     >
+        <slot></slot>
         <div
-            class="resize-handle top-left"
+            class="absolute bg-default-extra-light w-2 h-2 top-0 left-0 cursor-nwse-resize"
             v-if="resizeDirections.includes('top-left')"
             @mousedown="(event) => startResize(event, 'top-left')"
         ></div>
         <div
-            class="resize-handle top-right"
+            class="absolute bg-default-extra-light w-2 h-2 top-0 right-0 cursor-nesw-resize"
             v-if="resizeDirections.includes('top-right')"
             @mousedown="(event) => startResize(event, 'top-right')"
         ></div>
         <div
-            class="resize-handle bottom-right"
+            class="absolute bg-default-extra-light w-2 h-2 bottom-0 right-0 cursor-nwse-resize"
             v-if="resizeDirections.includes('bottom-right')"
             @mousedown="(event) => startResize(event, 'bottom-right')"
         ></div>
         <div
-            class="resize-handle bottom-left"
+            class="absolute bg-default-extra-light w-2 h-2 bottom-0 left-0 cursor-nesw-resize"
             v-if="resizeDirections.includes('bottom-left')"
             @mousedown="(event) => startResize(event, 'bottom-left')"
         ></div>
-        <slot></slot>
     </div>
 </template>
 
@@ -127,29 +127,3 @@ export default {
     emits: ["resizestop", "resizestart"]
 };
 </script>
-
-<style scoped>
-.resizable {
-    @apply border border-default-light border-dashed overflow-hidden relative;
-}
-
-.resize-handle {
-    @apply absolute bg-default-extra-light w-2 h-2;
-}
-
-.resize-handle.top-left {
-    @apply top-0 left-0 cursor-nwse-resize;
-}
-
-.resize-handle.top-right {
-    @apply top-0 right-0 cursor-nesw-resize;
-}
-
-.resize-handle.bottom-right {
-    @apply bottom-0 right-0 cursor-nwse-resize;
-}
-
-.resize-handle.bottom-left {
-    @apply bottom-0 left-0 cursor-nesw-resize;
-}
-</style>
