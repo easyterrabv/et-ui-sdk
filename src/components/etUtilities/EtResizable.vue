@@ -78,6 +78,7 @@ export default {
 
             document.addEventListener("mousemove", this.resize);
             document.addEventListener("mouseup", this.stopResize);
+            this.$emit("resizestart");
         },
         resize(event) {
             if (!this.isResizing) {
@@ -114,8 +115,16 @@ export default {
             this.isResizing = false;
             document.removeEventListener("mousemove", this.resize);
             document.removeEventListener("mouseup", this.stopResize);
+            this.$emit("resizestop");
         }
-    }
+    },
+    beforeUnmount() {
+        try {
+            document.removeEventListener("mousemove", this.resize);
+            document.removeEventListener("mouseup", this.stopResize);
+        } catch (e) {}
+    },
+    emits: ["resizestop", "resizestart"]
 };
 </script>
 
