@@ -88,6 +88,13 @@ export default defineComponent({
                 splitInput ? parseInt(splitInput[0]) : 0,
                 splitInput ? parseInt(splitInput[1]) : 0
             ];
+        },
+        modelValue: {
+            immediate: true,
+            deep: true,
+            handler() {
+                this.internalTimeValue = this.modelValue;
+            }
         }
     },
     methods: {
