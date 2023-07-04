@@ -2,8 +2,8 @@
     <form
         :method="method"
         onsubmit="return false;"
-        @submit.stop.prevent="debounceSubmit"
-        @keyup.enter.stop.prevent="debounceSubmit"
+        @submit.stop="(e) => debounceSubmit(e)"
+        @keyup.enter.stop="(e) => debounceSubmit(e)"
     >
         <slot />
     </form>
@@ -27,7 +27,8 @@ export default defineComponent({
         };
     },
     methods: {
-        debounceSubmit() {
+        debounceSubmit(e) {
+            e.preventDefault();
             this.handleSubmitDebounce.debounce();
         },
         handleSubmit() {
