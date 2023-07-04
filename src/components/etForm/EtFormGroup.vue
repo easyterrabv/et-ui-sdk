@@ -3,7 +3,7 @@
         <EtLabel>
             <slot name="label"></slot>
         </EtLabel>
-        <EtInputGroup class="w-full">
+        <EtInputGroup class="!w-full">
             <slot></slot>
         </EtInputGroup>
     </div>
