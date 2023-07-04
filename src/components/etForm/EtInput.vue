@@ -4,7 +4,7 @@
         :class="[wrapperClasses]"
     >
         <input
-            v-bind="{ ...$attrs, ...$props }"
+            v-bind="$attrs"
             v-model="internalData"
             ref="et-input"
             :type="type"
