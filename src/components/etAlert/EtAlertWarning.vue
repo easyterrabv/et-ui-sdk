@@ -1,7 +1,7 @@
 <template>
     <EtAlert
         class="et-alert-warning"
-        v-on="$listeners"
+        v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.WARNING"
     >
         <slot></slot>

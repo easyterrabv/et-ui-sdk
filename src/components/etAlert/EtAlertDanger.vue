@@ -1,5 +1,9 @@
 <template>
-    <EtAlert class="et-alert-danger" v-on="$listeners" :type="UI_TYPES.DANGER">
+    <EtAlert
+        class="et-alert-danger"
+        v-bind="{ ...$props, ...$attrs }"
+        :type="UI_TYPES.DANGER"
+    >
         <slot></slot>
     </EtAlert>
 </template>
@@ -8,6 +12,7 @@
 import EtAlert from "./EtAlert.vue";
 import { defineComponent } from "vue-demi";
 import { UI_TYPES } from "../../enums";
+import EtButton from "../etButton/EtButton.vue";
 
 export default defineComponent({
     computed: {
@@ -15,6 +20,6 @@ export default defineComponent({
             return UI_TYPES;
         }
     },
-    components: { EtAlert }
+    components: { EtButton, EtAlert }
 });
 </script>

@@ -1,8 +1,7 @@
 <template>
     <EtBadge
         class="et-badge-primary"
-        v-bind="$props"
-        v-on="$listeners"
+        v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.PRIMARY"
     >
         <slot></slot>
@@ -13,6 +12,7 @@
 import EtBadge, { sharedProps } from "./EtBadge.vue";
 import { defineComponent } from "vue-demi";
 import { UI_TYPES } from "../../enums";
+import EtAlert from "../etAlert/EtAlert.vue";
 
 export default defineComponent({
     computed: {
@@ -20,7 +20,7 @@ export default defineComponent({
             return UI_TYPES;
         }
     },
-    components: { EtBadge },
+    components: { EtAlert, EtBadge },
     props: sharedProps
 });
 </script>

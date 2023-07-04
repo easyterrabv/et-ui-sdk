@@ -1,7 +1,7 @@
 <template>
     <EtAlert
         class="et-alert-success"
-        v-on="$listeners"
+        v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.SUCCESS"
     >
         <slot></slot>

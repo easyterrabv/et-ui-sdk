@@ -1,8 +1,7 @@
 <template>
     <EtButton
         class="et-button-warning"
-        v-bind="$props"
-        v-on="$listeners"
+        v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.WARNING"
     >
         <slot></slot>

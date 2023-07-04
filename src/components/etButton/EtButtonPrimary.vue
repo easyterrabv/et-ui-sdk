@@ -1,8 +1,7 @@
 <template>
     <EtButton
         class="et-button-primary"
-        v-bind="$props"
-        v-on="$listeners"
+        v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.PRIMARY"
     >
         <slot></slot>
