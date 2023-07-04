@@ -4,10 +4,10 @@
         :class="[wrapperClasses]"
     >
         <input
-            v-bind="$attrs"
+            v-bind="{ ...$attrs, ...$props }"
             v-model="internalData"
             ref="et-input"
-            type="text"
+            :type="type"
             :name="name"
             :autocomplete="autocomplete ? 'off' : 'on'"
             autocapitalize="off"
@@ -92,6 +92,11 @@ export const commonInputProps = {
         required: false,
         type: String as PropType<UI_SIZING>,
         default: UI_SIZING.M
+    },
+    type: {
+        type: String,
+        required: false,
+        default: "text"
     }
 };
 

@@ -11,6 +11,11 @@
             </EtFormGroup>
 
             <EtFormGroup class="mt-4">
+                <template #label>Password Input</template>
+                <EtInput type="password"/>
+            </EtFormGroup>
+
+            <EtFormGroup class="mt-4">
                 <template #label>Simple Input small size</template>
                 <EtInput :size="UI_SIZING.S"/>
             </EtFormGroup>
