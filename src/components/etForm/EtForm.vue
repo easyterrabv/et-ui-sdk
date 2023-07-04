@@ -1,8 +1,9 @@
 <template>
     <form
         :method="method"
-        :onsubmit="onsubmit"
-        @keyup.enter.stop="$emit('submit')"
+        onsubmit="return false;"
+        @submit.stop.prevent=""
+        @keyup.enter.stop.prevent="$emit('submit')"
     >
         <slot />
     </form>
@@ -17,13 +18,6 @@ export default defineComponent({
             type: String,
             required: false,
             default: "post"
-        },
-        onsubmit: {
-            type: Function,
-            required: false,
-            default() {
-                return () => false;
-            }
         }
     },
     emits: {
