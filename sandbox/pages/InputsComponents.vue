@@ -5,15 +5,17 @@
                 Basic inputs
             </template>
 
-            <EtFormGroup>
-                <template #label>Simple Input</template>
-                <EtInput/>
-            </EtFormGroup>
+            <EtForm @submit="doSubmit">
+                <EtFormGroup>
+                    <template #label>Simple Input</template>
+                    <EtInput/>
+                </EtFormGroup>
 
-            <EtFormGroup class="mt-4">
-                <template #label>Password Input</template>
-                <EtInput type="password"/>
-            </EtFormGroup>
+                <EtFormGroup class="mt-4">
+                    <template #label>Password Input</template>
+                    <EtInput type="password"/>
+                </EtFormGroup>
+            </EtForm>
 
             <EtFormGroup class="mt-4">
                 <template #label>Simple Input small size</template>
@@ -104,6 +106,7 @@ import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
+import EtForm from "src/components/etForm/EtForm.vue";
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 import EtInputDate from "src/components/etForm/EtInputDate.vue";
 import EtInputDateRange from "src/components/etForm/EtInputDateRange.vue";
@@ -121,6 +124,7 @@ export default defineComponent({
     components: {
         EtContent,
         EtCard,
+        EtForm,
         EtFormGroup,
         EtInput,
         EtInputGroup,
@@ -191,6 +195,11 @@ export default defineComponent({
             return UI_SIZING
         }
     },
+    methods: {
+        doSubmit() {
+            alert('do Submit');
+        }
+    }
 
 })
 

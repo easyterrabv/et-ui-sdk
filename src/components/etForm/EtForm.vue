@@ -2,8 +2,12 @@
     <form
         :method="method"
         onsubmit="return false;"
-        @submit.stop.prevent=""
-        @keyup.enter.stop.prevent="$emit('submit')"
+        @submit.stop.prevent="
+            (e) => {
+                return;
+            }
+        "
+        @keyup.enter.stop.prevent="(e) => $emit('submit')"
     >
         <slot />
     </form>
