@@ -1,19 +1,13 @@
 <template>
-    <form
-        :method="method"
-        onsubmit="return false;"
-        @submit.stop="(e) => debounceSubmit(e)"
-        @keyup.enter.stop="(e) => debounceSubmit(e)"
-    >
+    <form :method="method" @submit.prevent="(e) => debounceSubmit(e)">
         <slot />
     </form>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue-demi";
-import { Debounce } from "../../helpers/debounce";
+<script>
+import { Debounce } from "src/helpers/debounce";
 
-export default defineComponent({
+export default {
     props: {
         method: {
             type: String,
@@ -38,5 +32,5 @@ export default defineComponent({
     emits: {
         submit: () => true
     }
-});
+};
 </script>
