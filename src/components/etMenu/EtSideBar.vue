@@ -56,6 +56,14 @@ export default defineComponent({
             isCollapsed: false
         };
     },
+    watch: {
+        isCollapsed: {
+            immediate: true,
+            handler() {
+                this.$emit("isCollapsed", this.isCollapsed);
+            }
+        }
+    },
     computed: {
         widthClass: (ctx): string =>
             ctx.isCollapsed
@@ -87,6 +95,7 @@ export default defineComponent({
             "storage",
             this.handleIsCollapsedStorageUpdate
         );
-    }
+    },
+    emits: ["isCollapsed"]
 });
 </script>
