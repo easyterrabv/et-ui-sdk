@@ -12,16 +12,6 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue-demi";
-
-import EtFull from "src/layouts/Full.vue";
-import EtTopBar from "src/components/etMenu/EtTopBar.vue";
-
-export default defineComponent({
-    components: {
-        EtFull,
-        EtTopBar
-    }
-});
+<script setup>
+import EtTopBar from "../components/etMenu/EtTopBar.vue";
 </script>
