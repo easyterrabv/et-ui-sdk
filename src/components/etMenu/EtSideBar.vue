@@ -57,7 +57,10 @@ export default defineComponent({
         };
     },
     computed: {
-        widthClass: (ctx): string => (ctx.isCollapsed ? "w-14" : "w-56"),
+        widthClass: (ctx): string =>
+            ctx.isCollapsed
+                ? "min-w-14 w-14 max-w-14"
+                : "min-w-56 w-56 max-w-56",
         storageKey: (ctx): string =>
             [localStorageCollapsedKey, ctx.name].filter((n) => !!n).join("-")
     },
