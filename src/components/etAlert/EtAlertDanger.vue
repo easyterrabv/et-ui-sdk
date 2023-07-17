@@ -12,7 +12,6 @@
 import EtAlert from "./EtAlert.vue";
 import { defineComponent } from "vue-demi";
 import { UI_TYPES } from "../../enums";
-import EtButton from "../etButton/EtButton.vue";
 
 export default defineComponent({
     computed: {
@@ -20,6 +19,6 @@ export default defineComponent({
             return UI_TYPES;
         }
     },
-    components: { EtButton, EtAlert }
+    components: { EtAlert }
 });
 </script>
