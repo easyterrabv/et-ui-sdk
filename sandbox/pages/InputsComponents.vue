@@ -23,6 +23,14 @@
             </EtFormGroup>
 
             <EtFormGroup class="mt-4">
+                <template #label>Simple Input size with alert</template>
+                <EtInput />
+                <template #after>
+                    <EtAlertDanger>Danger</EtAlertDanger>
+                </template>
+            </EtFormGroup>
+
+            <EtFormGroup class="mt-4">
                 <template #label>Simple textarea</template>
                 <EtTextarea v-model="textareaContent" placeholder="Type something" />
             </EtFormGroup>
@@ -118,6 +126,8 @@ import EtInputFileDrop from "src/components/etForm/EtInputFileDrop.vue";
 
 import EtInputTime from "src/components/etForm/EtInputTime.vue";
 
+import EtAlertDanger from "src/components/etAlert/EtAlertDanger.vue";
+
 import {OptionModel} from "../../src/models/Option";
 
 export default defineComponent({
@@ -139,7 +149,8 @@ export default defineComponent({
         EtInputNumberRange,
         EtInputFileDrop,
 
-        EtInputTime
+        EtInputTime,
+        EtAlertDanger
     },
     data() {
         return {

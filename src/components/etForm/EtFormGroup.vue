@@ -6,6 +6,9 @@
         <EtInputGroup class="!w-full">
             <slot></slot>
         </EtInputGroup>
+        <div v-if="$slots.after" class="mt-2">
+            <slot name="after"></slot>
+        </div>
     </div>
 </template>
 
