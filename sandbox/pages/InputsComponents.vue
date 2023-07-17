@@ -24,7 +24,7 @@
 
             <EtFormGroup class="mt-4">
                 <template #label>Simple Input size with alert</template>
-                <EtInput />
+                <EtInput error />
                 <template #after>
                     <EtAlertDanger>Danger</EtAlertDanger>
                 </template>

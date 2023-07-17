@@ -26,7 +26,10 @@
             :class="[
                 {
                     '!pr-10': clearButton,
-                    'bg-default-extra-light cursor-not-allowed': disabled
+                    'bg-default-extra-light cursor-not-allowed': disabled,
+                    '!ring-success-light': success,
+                    '!ring-warning-light': warning,
+                    '!ring-danger-light': error
                 },
                 sizeClasses
             ]"
@@ -97,6 +100,21 @@ export const commonInputProps = {
         type: String,
         required: false,
         default: "text"
+    },
+    error: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    warning: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    success: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 };
 
