@@ -1,5 +1,9 @@
 <template>
-    <form :method="method" @submit.prevent="(e) => debounceSubmit(e)">
+    <form
+        :method="method"
+        @submit.prevent="(e) => debounceSubmit(e)"
+        class="flex flex-col gap-4"
+    >
         <slot />
     </form>
 </template>
