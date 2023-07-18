@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, type PropType } from "vue";
 import { generateId } from "../../helpers/random";
 
 import EtIconTimes from "../etIcon/EtIconTimes.vue";
