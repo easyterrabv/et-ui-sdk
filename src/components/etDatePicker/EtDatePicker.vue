@@ -111,7 +111,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 import { Debounce } from "../../helpers/debounce";
 
 import EtIconChevronRight from "../etIcon/EtIconChevronRight.vue";

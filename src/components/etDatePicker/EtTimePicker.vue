@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 import EtDragScrollBox from "../etUtilities/EtDragScrollBox.vue";
 import { wait } from "../../helpers/async";
 

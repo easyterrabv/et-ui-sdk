@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue-demi";
+import { defineComponent, PropType } from "vue";
 import { UI_SIZING, UI_TYPES } from "../../enums";
 
 export const sharedProps = {

@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 export default defineComponent({
     components: { FontAwesomeIcon },
     props: {

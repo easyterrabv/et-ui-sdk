@@ -34,7 +34,7 @@
 import EtInput, { commonInputProps } from "./EtInput.vue";
 import EtInputGroup from "./EtInputGroup.vue";
 import EtInputGroupAddon from "./EtInputGroupAddon.vue";
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 
 export default defineComponent({
     props: {

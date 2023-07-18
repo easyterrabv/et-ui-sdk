@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue-demi";
+import {defineComponent} from "vue";
 
 import EtFull from "src/layouts/Full.vue";
 import EtMenuTop from "src/layouts/MenuTop.vue";

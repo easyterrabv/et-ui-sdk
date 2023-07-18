@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import EtButton, { sharedButtonProps } from "./EtButton.vue";
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 import { UI_TYPES } from "../../enums";
 
 export default defineComponent({

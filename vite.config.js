@@ -11,8 +11,5 @@ export default defineConfig({
             'src' : path.resolve(__dirname, './src'),
             'sandbox' : path.resolve(__dirname, './sandbox')
         },
-    },
-    optimizeDeps: {
-        exclude: ['vue-demi']
     }
 });

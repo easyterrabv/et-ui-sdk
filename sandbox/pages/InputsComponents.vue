@@ -104,7 +104,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue-demi";
+import {defineComponent} from "vue";
 import {UI_SIZING} from "../../src/enums";
 
 import EtContent from "src/layouts/Content.vue";

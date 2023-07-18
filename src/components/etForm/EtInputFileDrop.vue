@@ -42,7 +42,7 @@
 import EtIconPlus from "../etIcon/EtIconPlus.vue";
 import EtIconArrowDown from "../etIcon/EtIconArrowDown.vue";
 import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 
 export default defineComponent({
     components: {

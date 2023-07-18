@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import EtBadge, { sharedProps } from "./EtBadge.vue";
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 import { UI_TYPES } from "../../enums";
 import EtAlert from "../etAlert/EtAlert.vue";
 

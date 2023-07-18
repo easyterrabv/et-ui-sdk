@@ -1,6 +1,6 @@
 import { EtModel } from "./Model";
 import { needleFixer } from "../helpers/misc";
-import { reactive } from "vue-demi";
+import { reactive } from "vue";
 
 let OPTION_COUNT = 0;
 

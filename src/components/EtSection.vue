@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import EtHeaderBlock from "./EtHeaderBlock.vue";
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 
 export default defineComponent({
     components: {

@@ -83,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 
 import EtInputGroup from "./EtInputGroup.vue";
 import EtInputGroupAddon from "./EtInputGroupAddon.vue";

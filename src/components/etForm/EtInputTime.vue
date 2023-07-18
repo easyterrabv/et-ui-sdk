@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 
 import EtPopover from "../EtPopover.vue";
 import EtTimePicker from "../etDatePicker/EtTimePicker.vue";

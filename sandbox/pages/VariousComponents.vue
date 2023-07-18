@@ -433,7 +433,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue-demi";
+import {defineComponent} from "vue";
 import {UI_SIZING, UI_TYPES} from "../../src/enums";
 
 import EtDrawer from "src/layouts/Drawer.vue";

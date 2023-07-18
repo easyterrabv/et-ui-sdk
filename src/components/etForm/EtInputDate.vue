@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 
 import EtPopover from "../EtPopover.vue";
 import EtInput, { commonInputProps } from "./EtInput.vue";

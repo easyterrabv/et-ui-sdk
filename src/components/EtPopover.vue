@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 import { wait } from "../helpers/async";
 import { createPopper } from "@popperjs/core";
 import type { Instance } from "@popperjs/core/lib/types";

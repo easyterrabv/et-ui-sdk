@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue-demi";
+import { defineComponent } from "vue";
 
 import EtLabel from "../EtLabel.vue";
 import EtInputGroup from "./EtInputGroup.vue";
