@@ -1,5 +1,6 @@
 <template>
     <aside
+        v-if="$slots.default"
         :class="[widthClass]"
         class="et-side-bar pt-6 z-10 h-full max-h-full bg-slate-50 shadow-inner relative transition-[width] ease-in-out duration-150"
     >
