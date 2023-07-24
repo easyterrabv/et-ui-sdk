@@ -13,6 +13,7 @@ module.exports = {
             colors: {
                 default: {
                     'extra-light': colors.slate["100"],
+                    'medium-light': colors.slate["100"],
                     light: colors.slate["300"],
                     DEFAULT: colors.slate["500"],
                     dark: colors.slate["700"],
@@ -47,6 +48,12 @@ module.exports = {
                     DEFAULT: colors.slate["600"],
                     dark: colors.slate["900"]
                 }
+            },
+            maxWidth: {
+                'screen': '100vw',
+            },
+            maxHeight: {
+                'screen': '100vh',
             }
         },
     },
