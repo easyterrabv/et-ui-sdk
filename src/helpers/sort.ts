@@ -4,7 +4,7 @@ export type SortConfig = {
     [key: string]: SortOrder;
 };
 
-export const sortByProperties = (array: T[], sortConfig: SortConfig): T[] => {
+export const sortByProperties = (array: [], sortConfig: SortConfig): [] => {
     const compare = (
         a: any,
         b: any,

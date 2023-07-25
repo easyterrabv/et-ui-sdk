@@ -167,16 +167,16 @@
 <script>
 import { defineComponent } from "vue";
 
-import { Debounce } from "src/helpers/debounce";
-import { sortByProperties } from "src/helpers/sort";
+import { Debounce } from "../../helpers/debounce.ts";
+import { sortByProperties } from "../../helpers/sort.ts";
 
-import EtIconSpinner from "src/components/etIcon/EtIconSpinner.vue";
-import EtPagination from "src/components/etTable/EtPagination.vue";
-import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
-import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
-import EtInput from "src/components/etForm/EtInput.vue";
-import EtCheckbox from "src/components/etForm/EtCheckbox.vue";
-import EtButtonSuccess from "src/components/etButton/EtButtonSuccess.vue";
+import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
+import EtPagination from "./EtPagination.vue";
+import EtInputGroup from "../etForm/EtInputGroup.vue";
+import EtInputGroupAddon from "../etForm/EtInputGroupAddon.vue";
+import EtInput from "../etForm/EtInput.vue";
+import EtCheckbox from "../etForm/EtCheckbox.vue";
+import EtButtonSuccess from "../etButton/EtButtonSuccess.vue";
 
 export default defineComponent({
     components: {
