@@ -2,7 +2,9 @@
     <EtContent>
         <EtTable
             :dataGetter="dataGetter"
+            rowKey="key"
             isClickable
+            isSelectable
         >
             <template #header="{toggleSorting}">
                 <th class="w-12 cursor-pointer" @click="toggleSorting('key')">

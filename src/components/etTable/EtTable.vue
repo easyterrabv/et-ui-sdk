@@ -11,7 +11,7 @@
                 <tr
                     v-if="$slots.header"
                     :class="[
-                        '[&_th:not(.filler)]:px-4 text-left',
+                        '[&_th:not(.filler)]:px-4 text-left', // this styles the <th> elements
                         {
                             '[&_th:not(.filler)]:py-2': !(
                                 $slots.filters && !isStatic
@@ -21,6 +21,17 @@
                         }
                     ]"
                 >
+                    <th
+                        v-if="isSelectable"
+                        class="w-4"
+                        @click="toggleSelectAll"
+                    >
+                        <EtCheckbox
+                            readonly
+                            :checked="allChecked"
+                            :indeterminate="someChecked"
+                        ></EtCheckbox>
+                    </th>
                     <slot
                         name="header"
                         :sorting="sorting"
@@ -35,6 +46,7 @@
                         '[&_td:not(.filler)]:px-4 [&_td:not(.filler)]:pb-2' // default <td> styling
                     ]"
                 >
+                    <th v-if="isSelectable"></th>
                     <slot
                         name="filters"
                         :filters="filters"
@@ -66,10 +78,20 @@
                         'transition-all ease-in-out duration-150', // animations
                         {
                             'hover:bg-default-extra-light cursor-pointer':
-                                isClickable // row hovers
+                                isClickable, // row hover
+                            'bg-primary-extra-light': selectedRows.includes(
+                                row[rowKey]
+                            )
                         }
                     ]"
+                    @click="() => handleRowClick(row)"
                 >
+                    <td v-if="isSelectable" @click.stop="toggleRowSelect(row)">
+                        <EtCheckbox
+                            readonly
+                            :checked="selectedRows.includes(row[rowKey])"
+                        ></EtCheckbox>
+                    </td>
                     <slot :row="row"></slot>
                     <td class="filler max-w-full"></td>
                 </tr>
@@ -142,6 +164,7 @@ import EtPagination from "src/components/etTable/EtPagination.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
+import EtCheckbox from "src/components/etForm/EtCheckbox.vue";
 import EtButtonSuccess from "src/components/etButton/EtButtonSuccess.vue";
 
 export default defineComponent({
@@ -151,6 +174,7 @@ export default defineComponent({
         EtInputGroup,
         EtInputGroupAddon,
         EtInput,
+        EtCheckbox,
         EtButtonSuccess
     },
     props: {
@@ -169,6 +193,11 @@ export default defineComponent({
             required: false,
             default: false
         },
+        isSelectable: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
         staticData: {
             type: Array,
             required: false,
@@ -183,6 +212,11 @@ export default defineComponent({
             type: Function,
             required: false,
             default: null
+        },
+        rowKey: {
+            type: String,
+            required: false,
+            default: "guid"
         }
     },
     data() {
@@ -196,6 +230,7 @@ export default defineComponent({
             ready: false,
 
             data: [],
+            selectedRows: [],
             totalRows: 0,
             debouncerFetchData: new Debounce(this.fetchData, 200)
         };
@@ -215,6 +250,15 @@ export default defineComponent({
             }
 
             return this.data;
+        },
+        allChecked() {
+            return (
+                this.sortedRows.length === this.selectedRows.length &&
+                this.sortedRows.length > 0
+            );
+        },
+        someChecked() {
+            return !this.allChecked && this.selectedRows.length > 0;
         }
     },
     watch: {
@@ -242,6 +286,8 @@ export default defineComponent({
 
             // do something async
             this.ready = true;
+            this.selectedRows = [];
+            this.data = [];
             this.debounceFetchData();
         },
         debounceFetchData() {
@@ -294,6 +340,9 @@ export default defineComponent({
                 return;
             }
 
+            this.selectedRows = [];
+            this.data = [];
+
             this.loading = true;
             const [rows, totalRows] = await this.dataGetter({
                 filters: this.filters,
@@ -309,10 +358,48 @@ export default defineComponent({
         },
         setPerPage(perPage) {
             this.internalPerPage = parseInt(perPage, 10);
+        },
+        toggleRowSelect(row) {
+            const rowKey = row[this.rowKey];
+            if (!rowKey) {
+                return;
+            }
+            this.toggleSelect(rowKey);
+        },
+        toggleSelect(rowKey) {
+            const isSelected = this.selectedRows.includes(rowKey);
+            if (isSelected) {
+                this.selectedRows = this.selectedRows.filter(
+                    (key) => key !== rowKey
+                );
+            } else {
+                this.selectedRows.push(rowKey);
+            }
+
+            this.$emit("onRowSelect", this.selectedRows);
+        },
+        toggleSelectAll() {
+            if (this.someChecked || this.selectedRows.length <= 0) {
+                this.selectedRows = this.sortedRows
+                    .map((row) => row[this.rowKey])
+                    .filter((v) => !!v);
+            } else {
+                this.selectedRows = [];
+            }
+
+            this.$emit("onRowSelect", this.selectedRows);
+        },
+        handleRowClick(row) {
+            if (!this.isClickable) {
+                return;
+            }
+
+            this.$emit("onRowClick", row);
         }
     },
     async mounted() {
         await this.init();
-    }
+    },
+    emits: ["onRowSelect", "onRowClick"]
 });
 </script>
