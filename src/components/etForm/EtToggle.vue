@@ -73,6 +73,11 @@ export default defineComponent({
             clickDebounce: new Debounce(this.onClick, 100),
 
             sizeMapping: {
+                [UI_SIZING.XS]: {
+                    button: "w-4",
+                    handle: "h-2 w-2",
+                    text: "text-xs"
+                },
                 [UI_SIZING.S]: {
                     button: "w-8",
                     handle: "h-4 w-4",

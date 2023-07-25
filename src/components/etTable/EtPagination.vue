@@ -1,14 +1,14 @@
 <template>
     <EtButtonGroup class="et-pagination">
         <EtButton
-            size="s"
+            size="xs"
             :disabled="innerValue === 1"
             @click="innerValue = innerValue - 1"
         >
             <EtIconChevronLeft title="Previous page" />
         </EtButton>
         <EtButton
-            size="s"
+            size="xs"
             :type="1 === innerValue ? UI_TYPES.PRIMARY : UI_TYPES.DEFAULT"
             @click="innerValue = 1"
         >
@@ -17,7 +17,7 @@
         <EtButton
             v-for="(v, index) in betweenButtons"
             :key="index"
-            size="s"
+            size="xs"
             :type="v === innerValue ? UI_TYPES.PRIMARY : UI_TYPES.DEFAULT"
             :readonly="v === '...'"
             @click="innerValue = v"
@@ -25,7 +25,7 @@
             {{ v }}
         </EtButton>
         <EtButton
-            size="s"
+            size="xs"
             v-if="perPage !== totalRows"
             :type="pages === innerValue ? UI_TYPES.PRIMARY : UI_TYPES.DEFAULT"
             @click="innerValue = pages"
@@ -33,7 +33,7 @@
             {{ pages }}
         </EtButton>
         <EtButton
-            size="s"
+            size="xs"
             :disabled="innerValue === pages"
             @click="innerValue = innerValue + 1"
         >

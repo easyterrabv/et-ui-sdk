@@ -39,6 +39,7 @@ export default defineComponent({
             } as { [key in UI_TYPES]: string },
 
             sizeMapping: {
+                [UI_SIZING.XS]: "px-1 py-0.5 text-xs",
                 [UI_SIZING.S]: "px-2 py-0.5 text-xs",
                 [UI_SIZING.M]: "px-3 py-1 text-sm"
             } as { [key in UI_SIZING]: string }

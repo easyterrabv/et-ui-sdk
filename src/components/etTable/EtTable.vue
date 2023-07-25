@@ -125,15 +125,15 @@
                                     <EtInput
                                         ref="perPageInput"
                                         :modelValue="internalPerPage"
-                                        size="s"
+                                        size="xs"
                                         wrapperClasses="!w-24"
                                         @enter="setPerPage"
                                     />
-                                    <EtInputGroupAddon size="s">
+                                    <EtInputGroupAddon size="xs">
                                         Per page
                                     </EtInputGroupAddon>
                                     <EtButtonSuccess
-                                        size="s"
+                                        size="xs"
                                         @click="
                                             (e) =>
                                                 setPerPage(

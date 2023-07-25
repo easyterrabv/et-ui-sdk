@@ -98,6 +98,7 @@ export default defineComponent({
             } as { [key in UI_TYPES]: iButtonColoring },
 
             sizeMapping: {
+                [UI_SIZING.XS]: "px-1.5 py-0.5 text-sm",
                 [UI_SIZING.S]: "px-2.5 py-1.5 text-sm",
                 [UI_SIZING.M]: "px-3.5 py-2.5 text-sm"
             } as { [key in UI_SIZING]: string },

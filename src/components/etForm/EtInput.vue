@@ -194,6 +194,7 @@ export default defineComponent({
             internalDataBefore: null as null | string | number,
 
             sizeMapping: {
+                [UI_SIZING.XS]: "px-1.5 py-0.5",
                 [UI_SIZING.S]: "px-2.5 py-1",
                 [UI_SIZING.M]: "px-3.5 py-2"
             } as { [key in UI_SIZING]: string }
