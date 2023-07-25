@@ -130,14 +130,6 @@ export default defineComponent({
     },
     methods: {
         async dataGetter({filters, sorting, page, perPage, offset}){
-            console.log({
-                filters,
-                sorting,
-                page,
-                perPage,
-                offset
-            });
-
             await wait(1500);
 
             return [

@@ -11,19 +11,19 @@
                 <tr
                     v-if="$slots.header"
                     :class="[
-                        '[&_th:not(.filler)]:px-4 text-left', // this styles the <th> elements
+                        '[&_th:not(.filler)]:px-1 text-left', // this styles the <th> elements
                         {
-                            '[&_th:not(.filler)]:py-2': !(
+                            '[&_th:not(.filler)]:py-1': !(
                                 $slots.filters && !isStatic
                             ),
-                            '[&_th:not(.filler)]:pt-2':
+                            '[&_th:not(.filler)]:pt-1':
                                 $slots.filters && !isStatic
                         }
                     ]"
                 >
                     <th
                         v-if="isSelectable"
-                        class="w-4"
+                        class="w-2"
                         @click="toggleSelectAll"
                     >
                         <EtCheckbox
@@ -43,7 +43,7 @@
                 <tr
                     v-if="$slots.filters && !isStatic"
                     :class="[
-                        '[&_td:not(.filler)]:px-4 [&_td:not(.filler)]:pb-2' // default <td> styling
+                        '[&_td:not(.filler)]:px-2 [&_td:not(.filler)]:pb-1' // default <td> styling
                     ]"
                 >
                     <th v-if="isSelectable"></th>
@@ -59,7 +59,7 @@
                 <tr>
                     <td colspan="10000">
                         <div
-                            class="w-full max-w-screen text-center text-2xl p-8"
+                            class="w-full max-w-screen text-center text-2xl p-4"
                         >
                             <EtIconSpinner pulse></EtIconSpinner>
                             <span v-if="!ready"> Preparing Table </span>
@@ -74,7 +74,7 @@
                     :key="row.key"
                     :class="[
                         'border-b-2 border-default-extra-light', // default styling
-                        '[&_td:not(.filler)]:px-4 [&_td:not(.filler)]:py-2', // default <td> styling
+                        '[&_td:not(.filler)]:p-1', // default <td> styling
                         'transition-all ease-in-out duration-150', // animations
                         {
                             'hover:bg-default-extra-light cursor-pointer':
@@ -106,12 +106,12 @@
                 <tr>
                     <td colspan="10000">
                         <div class="flex flex-row">
-                            <div class="p-2 w-60 text-default-light">
+                            <div class="p-1 w-60 text-default-light">
                                 <small v-if="totalRows"
                                     >Total: {{ totalRows }}</small
                                 >
                             </div>
-                            <div class="flex-grow p-2">
+                            <div class="flex-grow p-1">
                                 <div class="flex justify-center">
                                     <EtPagination
                                         v-model="currentPage"
@@ -120,7 +120,7 @@
                                     ></EtPagination>
                                 </div>
                             </div>
-                            <div class="p-2 w-60">
+                            <div class="p-1 w-60">
                                 <EtInputGroup>
                                     <EtInput
                                         ref="perPageInput"
@@ -390,6 +390,11 @@ export default defineComponent({
             this.$emit("onRowSelect", this.selectedRows);
         },
         handleRowClick(row) {
+            if (this.isSelectable && this.selectedRows.length > 0) {
+                this.toggleRowSelect(row);
+                return;
+            }
+
             if (!this.isClickable) {
                 return;
             }
