@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import EtButtonGroup from "src/components/etButton/EtButtonGroup.vue";
-import EtButton from "src/components/etButton/EtButton.vue";
+import EtButtonGroup from "../etButton/EtButtonGroup.vue";
+import EtButton from "../etButton/EtButton.vue";
 
-import EtIconChevronLeft from "src/components/etIcon/EtIconChevronLeft.vue";
-import EtIconChevronRight from "src/components/etIcon/EtIconChevronRight.vue";
-import { UI_TYPES } from "src/enums";
+import EtIconChevronLeft from "../etIcon/EtIconChevronLeft.vue";
+import EtIconChevronRight from "../etIcon/EtIconChevronRight.vue";
+import { UI_TYPES } from "../../enums";
 
 export default {
     components: {
