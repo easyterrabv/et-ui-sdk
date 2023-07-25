@@ -77,11 +77,22 @@
                         '[&_td:not(.filler)]:p-1', // default <td> styling
                         'transition-all ease-in-out duration-150', // animations
                         {
+                            // Hover is row is clickable
                             'hover:bg-default-extra-light cursor-pointer':
-                                isClickable, // row hover
-                            'bg-primary-extra-light': selectedRows.includes(
+                                isClickable,
+                            // Darker hover is row is clickable & striped rows is used
+                            'hover:bg-default-medium-light':
+                                isClickable && isStriped,
+                            // Row color when row is selected
+                            '!bg-primary-extra-light': selectedRows.includes(
                                 row[rowKey]
-                            )
+                            ),
+                            // Darker row color if row is clickable & selected
+                            'hover:!bg-primary-light':
+                                isClickable &&
+                                selectedRows.includes(row[rowKey]),
+                            // darker row color for odd rows when table is striped.
+                            'odd:bg-default-extra-light': isStriped
                         }
                     ]"
                     @click="() => handleRowClick(row)"
@@ -194,6 +205,11 @@ export default defineComponent({
             default: false
         },
         isSelectable: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        isStriped: {
             type: Boolean,
             required: false,
             default: false

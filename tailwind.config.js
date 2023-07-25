@@ -13,7 +13,7 @@ module.exports = {
             colors: {
                 default: {
                     'extra-light': colors.slate["100"],
-                    'medium-light': colors.slate["100"],
+                    'medium-light': colors.slate["200"],
                     light: colors.slate["300"],
                     DEFAULT: colors.slate["500"],
                     dark: colors.slate["700"],
