@@ -269,6 +269,7 @@ export default defineComponent({
             if (this.disabled || this.readonly) {
                 return;
             }
+            this.blur();
             this.$emit("enter", this.internalData, event);
         },
         handleFocusEmit() {
