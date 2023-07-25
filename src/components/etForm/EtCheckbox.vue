@@ -1,16 +1,18 @@
 <template>
-    <input
+    <div
         ref="checkbox"
-        v-model="internalChecked"
         class="et-checkbox appearance-none align-middle outline-none cursor-pointer bg-white rounded-sm ring-1 relative text-primary fill-primary text-center checked:after:content-['\2713'] indeterminate:after:content-['\2014'] w-3 h-3 text-base leading-3 font-extrabold after:absolute after:-left-[1px] after:-top-[1px]"
         type="checkbox"
         :tabindex="tabindex"
         :name="name"
         :disabled="disabled"
-        :onclick="readonly ? 'return false;' : ''"
+        @click="handleOnClick"
         :indeterminate="internalIndeterminate"
         @keyup.enter="internalChecked = !internalChecked"
-    />
+    >
+        <div v-if="checked">&check;</div>
+        <div v-else-if="indeterminate">&minus;</div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -88,6 +90,15 @@ export default defineComponent({
                 });
                 this.$emit("update:indeterminate", this.internalIndeterminate);
             }
+        }
+    },
+    methods: {
+        handleOnClick() {
+            if (this.readonly || this.disabled) {
+                return;
+            }
+
+            this.internalChecked = !this.internalChecked;
         }
     },
     emits: {
