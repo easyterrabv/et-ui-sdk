@@ -35,7 +35,7 @@ export default defineComponent({
     },
     data() {
         return {
-            internalData: null as null | string
+            internalData: this.modelValue || (null as null | string)
         };
     },
     watch: {

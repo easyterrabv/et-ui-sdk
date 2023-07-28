@@ -11,7 +11,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('toggleBold')"
                 >
                     <EtIconBold title="Make Bold" />
@@ -23,7 +23,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('toggleItalic')"
                 >
                     <EtIconItalic title="Make Italic" />
@@ -35,7 +35,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('toggleUnderline')"
                 >
                     <EtIconUnderline title="Underline Text" />
@@ -50,7 +50,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('toggleBulletList')"
                 >
                     <EtIconListUl title="Make Unordered List" />
@@ -62,7 +62,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('toggleOrderedList')"
                 >
                     <EtIconListOl title="Make Ordered List" />
@@ -77,7 +77,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('setTextAlign', 'left')"
                 >
                     <EtIconAlignLeft title="Align Text Left" />
@@ -89,7 +89,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('setTextAlign', 'center')"
                 >
                     <EtIconAlignCenter title="Align Text Center" />
@@ -101,7 +101,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('setTextAlign', 'right')"
                 >
                     <EtIconAlignRight title="Align Text Right" />
@@ -116,7 +116,7 @@
                             ? UI_TYPES.PRIMARY
                             : UI_TYPES.DEFAULT
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="runEditorMethod('toggleBlockquote')"
                 >
                     <EtIconQuoteLeft title="Make Quote" />
@@ -129,7 +129,7 @@
                             :type="
                                 editor.isActive('link') ? 'primary' : 'default'
                             "
-                            :disabled="disabled || readonly"
+                            :disabled="hasDisabledInput"
                         >
                             <EtIconLink title="Make Link" />
                         </EtButton>
@@ -146,12 +146,14 @@
                                 @enter="() => addLink()"
                                 @focus="() => onInputFocus()"
                                 @blur="() => onInputBlur()"
+                                :disabled="hasDisabledInput"
                                 placeholder="Url"
                             />
                             <EtInputSelect
                                 :options="urlTargetOptions"
                                 v-model="urlTarget"
                                 :size="UI_SIZING.S"
+                                :disabled="hasDisabledInput"
                                 @focus="() => onSelectFocus()"
                                 @blur="() => onSelectBlur()"
                                 class="!w-24"
@@ -167,21 +169,21 @@
                                         addLink();
                                     }
                                 "
-                                :disabled="disabled || readonly"
+                                :disabled="hasDisabledInput"
                             >
                                 <EtIconTrash></EtIconTrash>
                             </EtButtonDanger>
                             <EtButtonDefault
                                 @click="() => cancelLink()"
                                 :size="UI_SIZING.S"
-                                :disabled="disabled || readonly"
+                                :disabled="hasDisabledInput"
                             >
                                 cancel
                             </EtButtonDefault>
                             <EtButtonSuccess
                                 @click="() => addLink()"
                                 :size="UI_SIZING.S"
-                                :disabled="disabled || readonly"
+                                :disabled="hasDisabledInput"
                             >
                                 Save
                             </EtButtonSuccess>
@@ -200,7 +202,7 @@
                             ? 'primary'
                             : 'default'
                     "
-                    :disabled="disabled || readonly"
+                    :disabled="hasDisabledInput"
                     @click="
                         runEditorMethod('toggleHeading', { level: heading })
                     "
@@ -208,9 +210,35 @@
                     H{{ heading }}
                 </EtButton>
             </EtButtonGroup>
+
+            <EtButtonGroup class="ml-auto">
+                <EtButton
+                    :size="UI_SIZING.S"
+                    type="default"
+                    @click="toggleEditMode"
+                >
+                    <EtIconCode
+                        v-if="editMode === EDIT_MODES.WYSIWYG"
+                        title="Show code"
+                    />
+                    <EtIconFont
+                        v-else-if="editMode === EDIT_MODES.CODE"
+                        title="Show WYSIWYG"
+                    />
+                </EtButton>
+            </EtButtonGroup>
         </div>
         <div class="et-wysiwyg-content">
-            <EditorContent class="et-wysiwyg-editor" :editor="editor" />
+            <EditorContent
+                class="et-wysiwyg-editor"
+                :editor="editor"
+                v-if="editMode === EDIT_MODES.WYSIWYG"
+            />
+            <EtTextarea
+                v-else-if="editMode === EDIT_MODES.CODE"
+                rows="12"
+                v-model="innerData"
+            />
         </div>
     </div>
 </template>
@@ -240,6 +268,8 @@ import EtIconAlignRight from "../etIcon/EtIconAlignRight.vue";
 import EtIconQuoteLeft from "../etIcon/EtIconQuoteLeft.vue";
 import EtIconLink from "../etIcon/EtIconLink.vue";
 import EtIconTrash from "../etIcon/EtIconTrash.vue";
+import EtIconCode from "../etIcon/EtIconCode.vue";
+import EtIconFont from "../etIcon/EtIconFont.vue";
 import EtPopover from "../EtPopover.vue";
 import EtBox from "../EtBox.vue";
 import EtInputGroup from "./EtInputGroup.vue";
@@ -250,6 +280,12 @@ import { UI_SIZING, UI_TYPES } from "../../enums";
 import { OptionModel } from "../../models/Option";
 import { wait } from "../../helpers/async";
 import { generateId } from "../../helpers/random";
+import EtTextarea from "./EtTextarea.vue";
+
+export const EDIT_MODES = {
+    WYSIWYG: "WYSIWYG",
+    CODE: "CODE"
+};
 
 export default defineComponent({
     model: {
@@ -276,20 +312,13 @@ export default defineComponent({
             default: false
         },
         modelValue: {
-            type: String,
+            type: [String, Number],
             required: false,
             default: null
         }
     },
-    computed: {
-        UI_SIZING() {
-            return UI_SIZING;
-        },
-        UI_TYPES() {
-            return UI_TYPES;
-        }
-    },
     components: {
+        EtTextarea,
         EtPopover,
         EtBox,
         EditorContent,
@@ -315,10 +344,13 @@ export default defineComponent({
         EtIconAlignRight,
         EtIconQuoteLeft,
         EtIconLink,
-        EtIconTrash
+        EtIconTrash,
+        EtIconCode,
+        EtIconFont
     },
     data() {
         return {
+            EDIT_MODES,
             editor: null as Editor,
             innerData: null as string | null,
 
@@ -331,20 +363,48 @@ export default defineComponent({
                 new OptionModel({ label: "Parent", value: "_parent" }),
                 new OptionModel({ label: "Top", value: "_top" })
             ],
-            urlFocusPoint: null as "input" | "select" | null
+            urlFocusPoint: null as "input" | "select" | null,
+
+            editMode: EDIT_MODES.WYSIWYG
         };
+    },
+    computed: {
+        hasDisabledInput() {
+            return (
+                this.disabled ||
+                this.readonly ||
+                this.editMode === EDIT_MODES.CODE
+            );
+        },
+        UI_SIZING() {
+            return UI_SIZING;
+        },
+        UI_TYPES() {
+            return UI_TYPES;
+        }
     },
     watch: {
         innerData: {
             immediate: true,
             handler(value) {
                 this.$emit("update:modelValue", this.innerData);
+                if (this.editMode === EDIT_MODES.CODE) {
+                    this.editor.commands.setContent(this.innerData, false);
+                }
             }
         },
         disabled: "setEditable",
-        readonly: "setEditable"
+        readonly: "setEditable",
+        editMode: "setEditable"
     },
     methods: {
+        toggleEditMode() {
+            if (this.editMode === EDIT_MODES.WYSIWYG) {
+                this.editMode = EDIT_MODES.CODE;
+            } else if (this.editMode === EDIT_MODES.CODE) {
+                this.editMode = EDIT_MODES.WYSIWYG;
+            }
+        },
         runEditorMethod(method, ...args) {
             this.editor
                 ?.chain()
@@ -353,6 +413,9 @@ export default defineComponent({
                 .run();
         },
         onInputFocus() {
+            if (this.hasDisabledInput) {
+                return;
+            }
             this.urlFocusPoint = "input";
         },
         onSelectFocus() {
@@ -415,13 +478,13 @@ export default defineComponent({
             this.cancelLink();
         },
         setEditable() {
-            this.editor.setEditable(!(this.disabled || this.readonly));
+            this.editor.setEditable(!this.hasDisabledInput);
         }
     },
     mounted() {
         this.editor = new Editor({
             content: this.innerData,
-            editable: !(this.disabled || this.readonly),
+            editable: !this.hasDisabledInput,
             editorProps: {
                 attributes: {
                     class: "prose prose-sm !max-w-full min-h-[300px] rounded-b-md border-0 p-2 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
@@ -446,6 +509,7 @@ export default defineComponent({
             ],
             onUpdate: () => {
                 this.innerData = this.editor.getHTML();
+                console.log(this.innerData);
             }
         });
     },
