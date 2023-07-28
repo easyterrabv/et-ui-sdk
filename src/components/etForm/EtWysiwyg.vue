@@ -509,12 +509,12 @@ export default defineComponent({
             ],
             onUpdate: () => {
                 this.innerData = this.editor.getHTML();
-                console.log(this.innerData);
             }
         });
     },
     beforeUnmount() {
         this.editor?.destroy();
-    }
+    },
+    emits: ["update:modelValue"]
 });
 </script>
