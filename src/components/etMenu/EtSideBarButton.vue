@@ -1,6 +1,6 @@
 <template>
     <div
-        class="max-w-full w-full"
+        class="et-sidebar-button max-w-full w-full py-1"
         :class="[
             {
                 'px-4': !isCollapsed,
