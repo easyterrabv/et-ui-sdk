@@ -105,6 +105,19 @@
                             Price Alerts
                         </EtSideBarItem>
                     </EtSideBarSection>
+
+                    <EtSideBarSection :isCollapsed="scope.isCollapsed">
+                        <template #label>
+                            Buttons
+                        </template>
+
+                        <EtSideBarButton :isCollapsed="scope.isCollapsed">
+                            <template #icon>
+                                <EtIconTag class="!text-text" />
+                            </template>
+                            Test
+                        </EtSideBarButton>
+                    </EtSideBarSection>
                 </template>
 
                 <router-view v-slot="{ Component }">
@@ -135,6 +148,7 @@ import EtIconArrowRightFromBracket from "src/components/etIcon/EtIconArrowRightF
 
 import EtSideBarSection from "src/components/etMenu/EtSideBarSection.vue";
 import EtSideBarItem from "src/components/etMenu/EtSideBarItem.vue";
+import EtSideBarButton from "src/components/etMenu/EtSideBarButton.vue";
 
 import EtIconAnglesLeft from "src/components/etIcon/EtIconAnglesLeft.vue";
 import EtIconHouse from "src/components/etIcon/EtIconHouse.vue";
@@ -160,6 +174,7 @@ export default defineComponent({
         EtMenuLeft,
 
         EtTopBarItem,
+        EtSideBarButton,
         EtIconArrowRightFromBracket,
         EtSideBarSection,
         EtSideBarItem,
