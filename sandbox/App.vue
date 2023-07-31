@@ -111,7 +111,7 @@
                             Buttons
                         </template>
 
-                        <EtSideBarButton :isCollapsed="scope.isCollapsed">
+                        <EtSideBarButton :isCollapsed="scope.isCollapsed" @mouseup.left.stop="(e) => console.log('test')">
                             <template #icon>
                                 <EtIconTag class="!text-text" />
                             </template>

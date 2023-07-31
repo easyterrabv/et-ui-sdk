@@ -17,6 +17,7 @@
             :active="isActive"
             :disabled="disabled"
             :readonly="readonly"
+            v-bind="{ ...$attrs }"
         >
             <span v-if="$slots.icon">
                 <slot name="icon"></slot>
