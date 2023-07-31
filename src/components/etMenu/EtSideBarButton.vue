@@ -46,7 +46,11 @@ export default defineComponent({
             required: false,
             default: false
         },
-        disabled: { required: false, type: Boolean, default: false },
+        disabled: {
+            required: false,
+            type: [Boolean, Function],
+            default: false
+        },
         readonly: { required: false, type: Boolean, default: false },
         type: {
             required: false,
