@@ -4,7 +4,7 @@
         class="et-button ring-1 text-white rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:ease-in-out motion-safe:duration-150"
         :class="[
             {
-                '!cursor-not-allowed': disabled,
+                '!cursor-not-allowed': internalDisabled,
                 '!cursor-default': readonly
             },
             ...colorClasses,
@@ -32,7 +32,7 @@ interface iButtonColoring {
 }
 
 export const sharedButtonProps = {
-    disabled: { required: false, type: Boolean, default: false },
+    disabled: { required: false, type: [Boolean, Function], default: false },
     readonly: { required: false, type: Boolean, default: false },
     active: { required: false, type: Boolean, default: false },
     size: {
@@ -122,11 +122,17 @@ export default defineComponent({
 
             return usedColors;
         },
-        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
+        sizeClasses: (vm): string => vm.sizeMapping[vm.size],
+        internalDisabled() {
+            if (typeof this.disabled === "boolean") {
+                return this.disabled;
+            }
+            return this.disabled?.();
+        }
     },
     methods: {
         onClick(event: Event) {
-            if (this.disabled || this.readonly) {
+            if (this.internalDisabled || this.readonly) {
                 event.preventDefault();
                 return;
             }
