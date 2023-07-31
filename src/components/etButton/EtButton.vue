@@ -112,7 +112,7 @@ export default defineComponent({
                 this.colorMapping[this.type];
             const usedColors = [availableColors.default];
 
-            if (this.disabled) {
+            if (this.internalDisabled) {
                 usedColors.push(availableColors.disabled);
             } else if (this.readonly) {
                 usedColors.push(availableColors.readonly);
