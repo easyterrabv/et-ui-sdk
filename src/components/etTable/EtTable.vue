@@ -136,20 +136,17 @@
                                     <EtInput
                                         ref="perPageInput"
                                         :modelValue="internalPerPage"
-                                        size="xs"
+                                        :size="UI_SIZING.XS"
                                         wrapperClasses="!w-24"
                                         @enter="setPerPage"
                                     />
-                                    <EtInputGroupAddon size="xs">
+                                    <EtInputGroupAddon :size="UI_SIZING.XS">
                                         Per page
                                     </EtInputGroupAddon>
                                     <EtButtonSuccess
-                                        size="xs"
+                                        :size="UI_SIZING.XS"
                                         @click="
-                                            (e) =>
-                                                setPerPage(
-                                                    $refs.perPageInput.getValue()
-                                                )
+                                            () => setPerPage(getPerPageValue())
                                         "
                                     >
                                         Set
@@ -164,11 +161,11 @@
     </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
 
-import { Debounce } from "../../helpers/debounce.ts";
-import { sortByProperties } from "../../helpers/sort.ts";
+import { Debounce } from "../../helpers/debounce";
+import { sortByProperties } from "../../helpers/sort";
 
 import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
 import EtPagination from "./EtPagination.vue";
@@ -177,6 +174,16 @@ import EtInputGroupAddon from "../etForm/EtInputGroupAddon.vue";
 import EtInput from "../etForm/EtInput.vue";
 import EtCheckbox from "../etForm/EtCheckbox.vue";
 import EtButtonSuccess from "../etButton/EtButtonSuccess.vue";
+import type {
+    DataGetterCallback,
+    filter,
+    ICriteria,
+    IFiltering,
+    ISorting,
+    sortDirections
+} from "../../interfaces/table";
+import { EtModel } from "../../models/Model";
+import { UI_SIZING } from "../../enums";
 
 export default defineComponent({
     components: {
@@ -215,9 +222,9 @@ export default defineComponent({
             default: false
         },
         staticData: {
-            type: Array,
+            type: Array as PropType<EtModel[]>,
             required: false,
-            default: () => []
+            default: (): EtModel[] => []
         },
         perPage: {
             type: Number,
@@ -225,7 +232,7 @@ export default defineComponent({
             default: 30
         },
         dataGetter: {
-            type: Function,
+            type: Function as PropType<DataGetterCallback>,
             required: false,
             default: null
         },
@@ -236,31 +243,34 @@ export default defineComponent({
         }
     },
     data() {
+        const self: any = this;
         return {
-            sorting: {},
-            filters: {},
-            internalPerPage: this.perPage,
+            UI_SIZING,
+            sorting: {} as ISorting,
+            filters: {} as IFiltering,
+            internalPerPage: this.perPage as number,
             currentPage: 1,
 
             loading: false,
             ready: false,
 
-            data: [],
-            selectedRows: [],
+            data: [] as EtModel[],
+            selectedRows: [] as string[], // keys/guids
             totalRows: 0,
-            debouncerFetchData: new Debounce(this.fetchData, 200)
+            debouncerFetchData: new Debounce(self.fetchData, 200)
         };
     },
     computed: {
-        sortedRows() {
+        sortedRows(): EtModel[] {
+            const self: any = this;
             if (!this.isStatic) {
                 // If using dynamic data (from api) the sorting is already done on server side
                 return this.internalRows;
             }
 
-            return sortByProperties(this.internalRows, this.sorting);
+            return sortByProperties(self.internalRows, this.sorting);
         },
-        internalRows() {
+        internalRows(): EtModel[] {
             if (this.isStatic) {
                 return this.staticData || [];
             }
@@ -309,9 +319,9 @@ export default defineComponent({
         debounceFetchData() {
             this.debouncerFetchData.debounce();
         },
-        toggleSorting(field) {
+        toggleSorting(field: string) {
             const currentDirection = (this.sorting[field] || "").toUpperCase();
-            let newDirection = null;
+            let newDirection: sortDirections = null;
 
             switch (currentDirection) {
                 case "ASC":
@@ -327,8 +337,8 @@ export default defineComponent({
 
             this.sort(field, newDirection);
         },
-        sort(field, direction) {
-            let newSortValues = {};
+        sort(field: string, direction: sortDirections) {
+            let newSortValues: ISorting = {};
             if (this.isMultiSort) {
                 newSortValues = this.sorting;
             }
@@ -336,7 +346,7 @@ export default defineComponent({
             newSortValues[field] = direction;
             this.sorting = newSortValues;
         },
-        filter(field, value) {
+        filter(field: string, value: filter) {
             this.filters[field] = value;
         },
         async fetchData() {
@@ -360,29 +370,41 @@ export default defineComponent({
             this.data = [];
 
             this.loading = true;
-            const [rows, totalRows] = await this.dataGetter({
+
+            const criteria: ICriteria = {
                 filters: this.filters,
                 sorting: this.sorting,
                 page: this.currentPage,
                 perPage: this.internalPerPage,
                 offset: (this.currentPage - 1) * this.internalPerPage
-            });
+            };
 
-            this.data = rows;
-            this.totalRows = totalRows;
-            this.loading = false;
+            const [rows, totalRows] = await this.dataGetter(criteria);
+
+            const self: any = this;
+            self.data = rows;
+            self.totalRows = totalRows;
+            self.loading = false;
         },
-        setPerPage(perPage) {
-            this.internalPerPage = parseInt(perPage, 10);
+        getPerPageValue() {
+            const input = this.$refs.perPageInput as any;
+            return input.getValue();
         },
-        toggleRowSelect(row) {
+        setPerPage(perPage: string | number | null) {
+            if (typeof perPage === "string") {
+                this.internalPerPage = parseInt(perPage, 10);
+            } else {
+                this.internalPerPage = perPage || 30;
+            }
+        },
+        toggleRowSelect(row: EtModel) {
             const rowKey = row[this.rowKey];
             if (!rowKey) {
                 return;
             }
             this.toggleSelect(rowKey);
         },
-        toggleSelect(rowKey) {
+        toggleSelect(rowKey: string) {
             const isSelected = this.selectedRows.includes(rowKey);
             if (isSelected) {
                 this.selectedRows = this.selectedRows.filter(
@@ -397,7 +419,7 @@ export default defineComponent({
         toggleSelectAll() {
             if (this.someChecked || this.selectedRows.length <= 0) {
                 this.selectedRows = this.sortedRows
-                    .map((row) => row[this.rowKey])
+                    .map((row: EtModel) => row[this.rowKey])
                     .filter((v) => !!v);
             } else {
                 this.selectedRows = [];
@@ -405,7 +427,7 @@ export default defineComponent({
 
             this.$emit("onRowSelect", this.selectedRows);
         },
-        handleRowClick(row) {
+        handleRowClick(row: EtModel) {
             if (this.isSelectable && this.selectedRows.length > 0) {
                 this.toggleRowSelect(row);
                 return;
