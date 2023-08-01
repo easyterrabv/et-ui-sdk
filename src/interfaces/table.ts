@@ -27,3 +27,10 @@ export interface ISortable {
 export interface ICriteria extends ISortable {
     filters: IFiltering;
 }
+
+export interface IPagination {
+    totalItems: number;
+    page: number;
+    pages: number;
+    limit: number;
+}
