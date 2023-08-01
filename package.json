@@ -61,7 +61,7 @@
     "src/helpers/**/*",
     "src/layouts/**/*",
     "src/models/**/*",
-    "src/interface/**/*",
+    "src/interfaces/**/*",
     "src/dist.css",
     "src/enums.ts",
     "tailwind.config.js"
