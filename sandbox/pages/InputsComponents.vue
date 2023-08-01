@@ -195,7 +195,7 @@ export default defineComponent({
             ],
 
             textareaContent: '',
-            wysiwygContent: '',
+            wysiwygContent: 'Preset test content in here <strong>Bold and strong</strong>',
             numberRange: [],
 
             selectedTime: [13, 22]
@@ -211,7 +211,6 @@ export default defineComponent({
             alert('do Submit');
         }
     }
-
 })
 
 </script>

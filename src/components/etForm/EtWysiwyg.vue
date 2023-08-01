@@ -352,7 +352,7 @@ export default defineComponent({
         return {
             EDIT_MODES,
             editor: null as Editor,
-            innerData: null as string | null,
+            innerData: this.modelValue as string | number | null,
 
             urlHref: null,
             urlTarget: null as OptionModel | null,
@@ -392,6 +392,10 @@ export default defineComponent({
                     this.editor.commands.setContent(this.innerData, false);
                 }
             }
+        },
+        modelValue() {
+            this.innerData = this.modelValue;
+            this.editor.commands.setContent(this.innerData, false);
         },
         disabled: "setEditable",
         readonly: "setEditable",
