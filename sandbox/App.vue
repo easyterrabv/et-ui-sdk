@@ -44,7 +44,7 @@
                                 :isActive="$route.matched.some(({path}) => path === '/inputs')"
                                 :isCollapsed="scope.isCollapsed">
                                 <template #icon>
-                                    <EtIconCircleDot />
+                                    <EtIconTurnRight />
                                 </template>
                                 Inputs
                             </EtSideBarItem>
@@ -163,6 +163,7 @@ import EtIconEnvelope from "src/components/etIcon/EtIconEnvelope.vue";
 import EtIconCircleDot from "src/components/etIcon/EtIconCircleDot.vue";
 import EtIconTag from "src/components/etIcon/EtIconTag.vue";
 import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
+import EtIconTurnRight from "src/components/etIcon/EtIconTurnRight.vue";
 
 import {UI_SIZING, UI_TYPES} from "../src/enums";
 
@@ -191,7 +192,8 @@ export default defineComponent({
         EtIconEnvelope,
         EtIconCircleDot,
         EtIconTag,
-        EtIconPlus
+        EtIconPlus,
+        EtIconTurnRight
     }
 });
 </script>

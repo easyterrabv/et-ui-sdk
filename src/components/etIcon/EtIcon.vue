@@ -1,32 +1,22 @@
 <template>
     <FontAwesomeIcon
         class="et-icon"
-        :icon="['fas', icon]"
         fixed-width
-        :pulse="pulse"
-        :title="title"
+        v-bind="{ ...$props, ...$attrs }"
+        :icon="['fas', icon]"
     ></FontAwesomeIcon>
 </template>
 
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { defineComponent } from "vue";
+import EtAlert from "../etAlert/EtAlert.vue";
 export default defineComponent({
-    components: { FontAwesomeIcon },
+    components: { EtAlert, FontAwesomeIcon },
     props: {
         icon: {
             required: true,
             type: String
-        },
-        pulse: {
-            required: false,
-            type: Boolean,
-            default: false
-        },
-        title: {
-            required: false,
-            type: String,
-            default: null
         }
     }
 });
