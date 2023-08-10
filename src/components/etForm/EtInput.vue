@@ -244,6 +244,15 @@ export default defineComponent({
                 }
             }
 
+            // typeof NaN === "number" - true
+            if (
+                this.typeIsNumber &&
+                typeof value === "number" &&
+                isNaN(value)
+            ) {
+                return null;
+            }
+
             if (this.typeIsString && typeof value !== "string") {
                 // the input components expects values to be a string. But the value is not a string.
                 switch (typeof value) {
