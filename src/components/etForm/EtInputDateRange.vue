@@ -96,6 +96,7 @@ import { wait } from "../../helpers/async";
 import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
 import { UI_SIZING } from "../../enums";
+import { OptionModel } from "../../models/Option";
 
 export default defineComponent({
     props: {
@@ -228,6 +229,11 @@ export default defineComponent({
             this.currentFocus = null;
             this.onCommonBlur();
         }
+    },
+    emits: {
+        "update:modelValue": (
+            dates: [Date | null, Date | null] | null
+        ): boolean => true
     }
 });
 </script>
