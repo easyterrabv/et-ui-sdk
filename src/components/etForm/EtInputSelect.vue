@@ -114,7 +114,7 @@ export default defineComponent({
             required: true
         },
         modelValue: {
-            type: Date,
+            type: [OptionModel, Array<OptionModel>],
             required: false,
             default: null
         },
