@@ -53,7 +53,7 @@ export default defineComponent({
     props: {
         ...commonInputProps,
         modelValue: {
-            type: Date,
+            type: Array,
             required: false,
             default: null
         }

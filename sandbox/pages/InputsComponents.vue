@@ -79,7 +79,7 @@
                 Select
             </template>
 
-            <EtInputSelect v-model="singleSelectedOption" :options="options" multiple></EtInputSelect>
+            <EtInputSelect v-model="multipleSelectedOptions" :options="options" multiple></EtInputSelect>
         </EtCard>
 
         <EtCard class="mt-4" style="height: 800px;">
@@ -210,6 +210,13 @@ export default defineComponent({
         doSubmit() {
             alert('do Submit');
         }
+    },
+    mounted() {
+        this.multipleSelectedOptions = [
+            this.options.find(opt => opt.value === 'test 2'),
+            this.options.find(opt => opt.value === 'test 3'),
+            this.options.find(opt => opt.value === 'test 4'),
+        ];
     }
 })
 
