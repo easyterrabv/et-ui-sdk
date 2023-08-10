@@ -74,7 +74,7 @@ export default defineComponent({
         modelValue: {
             immediate: true,
             handler(modelValue) {
-                this.internalData = modelValue;
+                this.internalSelected = modelValue;
             }
         }
     },
