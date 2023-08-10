@@ -103,11 +103,6 @@ import { commonInputProps } from "./EtInput.vue";
 import { UI_SIZING } from "../../enums";
 
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
         options: {
             type: Array<OptionModel>,
@@ -135,8 +130,11 @@ export default defineComponent({
     },
     data() {
         return {
-            internalFilterValue: null as String | null,
-            internalOptionValue: null as OptionModel | OptionModel[] | null,
+            internalFilterValue: "",
+            internalOptionValue: undefined as
+                | OptionModel
+                | OptionModel[]
+                | undefined,
 
             hasInputFocus: false as Boolean,
             justToggledOption: false,
@@ -153,13 +151,18 @@ export default defineComponent({
         };
     },
     computed: {
-        sizeClasses: (vm): string => vm.sizeMapping[vm.size],
-        chevronSizeClasses: (vm): string => vm.sizeMappingChevron[vm.size]
+        sizeClasses(): string {
+            return this.sizeMapping[this.size];
+        },
+        chevronSizeClasses(): string {
+            return this.sizeMappingChevron[this.size];
+        }
     },
     watch: {
         modelValue: {
             immediate: true,
             handler() {
+                console.log(this.modelValue);
                 this.internalOptionValue = this.modelValue;
             }
         },
@@ -169,24 +172,25 @@ export default defineComponent({
     },
     methods: {
         async onInputClick() {
-            if (this.$refs.popover.isOpen()) {
-                this.$refs.popover.hide();
-                this.internalFilterValue = null;
+            const popover = this.$refs.popover as typeof EtPopover;
+            if (popover.isOpen()) {
+                popover.hide();
+                this.internalFilterValue = "";
                 this.hasInputFocus = false;
                 return;
             }
             this.hasInputFocus = true;
-            this.$refs.popover.open();
+            popover.open();
             this.$emit("focus");
             await this.$nextTick();
-            this.$refs.input.focus();
+            (this.$refs.input as typeof EtInput).focus();
         },
         onEscape() {
-            this.$refs.popover.hide();
+            (this.$refs.popover as typeof EtPopover).hide();
             this.onInputBlur();
         },
         onOptionToggle() {
-            this.$refs.input.focus();
+            (this.$refs.input as typeof EtInput).focus();
             this.justToggledOption = true;
         },
         async onInputBlur() {
@@ -203,16 +207,18 @@ export default defineComponent({
             this.$emit("blur");
         },
         onInputClear() {
-            this.internalFilterValue = null;
+            this.internalFilterValue = "";
         },
         deSelectOption(option: OptionModel) {
-            this.$refs.select.deSelectOption(option);
+            (this.$refs.select as typeof EtSelect).deSelectOption(option);
         }
     },
     emits: {
         focus: () => true,
         blur: () => true,
-        "update:modelValue": () => true
+        "update:modelValue": (
+            data: OptionModel | OptionModel[] | undefined
+        ): boolean => true
     }
 });
 </script>
