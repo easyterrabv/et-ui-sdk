@@ -211,7 +211,8 @@ export default defineComponent({
     },
     emits: {
         focus: () => true,
-        blur: () => true
+        blur: () => true,
+        "update:modelValue": () => true
     }
 });
 </script>
