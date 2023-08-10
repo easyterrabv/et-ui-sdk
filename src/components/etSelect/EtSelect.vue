@@ -1,7 +1,7 @@
 <template>
     <div class="et-select inline-block shadow bg-white py-2 rounded w-full">
         <div
-            class="cursor-pointer py-1 px-3 text-text"
+            class="cursor-pointer py-1 px-3 text-text flex flex-row"
             :class="{
                 'bg-primary-extra-light': isSelected(option) && !multiple,
                 'hover:bg-default-extra-light': !multiple,
@@ -11,12 +11,12 @@
             v-for="option in sortedOptions"
             :key="option.guid"
         >
-            <EtCheckbox
-                :checked="isSelected(option)"
-                readonly
-                v-if="multiple"
-            ></EtCheckbox>
-            {{ option.label }}
+            <div v-if="multiple" class="pr-2 pt-1">
+                <EtCheckbox :checked="isSelected(option)" readonly></EtCheckbox>
+            </div>
+            <div class="flex-grow">
+                {{ option.label }}
+            </div>
         </div>
     </div>
 </template>
