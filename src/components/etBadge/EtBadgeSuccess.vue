@@ -20,7 +20,7 @@ export default defineComponent({
             return UI_TYPES;
         }
     },
-    components: { EtAlert, EtBadge },
+    components: { EtBadge },
     props: sharedProps
 });
 </script>
