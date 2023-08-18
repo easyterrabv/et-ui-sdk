@@ -162,7 +162,6 @@ export default defineComponent({
         modelValue: {
             immediate: true,
             handler() {
-                console.log(this.modelValue);
                 this.internalOptionValue = this.modelValue;
             }
         },
