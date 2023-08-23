@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import EtLabel from "../EtLabel.vue";
+import EtLabel from "../etText/EtLabel.vue";
 
 export default defineComponent({
     components: {

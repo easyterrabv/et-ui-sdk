@@ -15,7 +15,7 @@
 <script>
 import { defineComponent } from "vue";
 
-import EtLabel from "../EtLabel.vue";
+import EtLabel from "../etText/EtLabel.vue";
 import EtInputGroup from "./EtInputGroup.vue";
 
 export default defineComponent({
