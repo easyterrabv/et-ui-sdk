@@ -428,6 +428,9 @@
                 This is a resizable box
             </EtResizable>
 
+            <template v-for="formatDate in formatDates">
+                <EtDate :date="formatDate"></EtDate><br/>
+            </template>
         </EtContent>
     </EtDrawer>
 </template>
@@ -468,6 +471,8 @@ import EtTab from "src/components/etTabs/EtTab.vue";
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 import EtResizable from "src/components/etUtilities/EtResizable.vue";
 
+import EtDate from "src/components/etText/EtDate.vue";
+
 export default defineComponent({
     computed: {
         UI_TYPES() {
@@ -507,7 +512,8 @@ export default defineComponent({
         EtTabs,
         EtTab,
 
-        EtResizable
+        EtResizable,
+        EtDate
     },
     data() {
         return {
@@ -515,7 +521,14 @@ export default defineComponent({
             toggleTest: false,
 
             drawerOpen: false,
-            disabledToggleInput: true
+            disabledToggleInput: true,
+
+            formatDates: [
+                new Date(1993, 2, 8),
+                new Date(2023, 2, 8),
+                new Date(2004, 10, 20),
+                new Date(2023, 10, 15)
+            ]
         }
     },
 })

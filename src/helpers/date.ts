@@ -49,12 +49,12 @@ const monthMap: { [key: string]: { full: string; short: string } } = {
     }
 };
 
-export const monthToNameFull = (month: string | Date): string => {
+export const monthToNameFull = (month: string | number | Date): string => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
     return _month in monthMap ? monthMap[_month].full : "Unknown";
 };
 
-export const monthToNameShort = (month: string | Date | number): string => {
+export const monthToNameShort = (month: string | number | Date): string => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
     return _month in monthMap ? monthMap[_month].short : "Unknown";
 };
@@ -157,4 +157,68 @@ export const dateToYMD = (date: Date): string => {
     const month = date.getMonth();
     const day = date.getDate();
     return `${year}-${month + 1}-${day}`;
+};
+
+export const dateToFormattedString = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = monthToNameFull(date.getMonth());
+    const day = date.getDate();
+    return `${day} ${month} ${year}`;
+};
+
+export const timeSince = (
+    date: Date
+): {
+    years: number;
+    months: number;
+    weeks: number;
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    inFuture: boolean;
+} => {
+    const currentDate = new Date();
+    let timeDifference = currentDate.getTime() - date.getTime();
+    const inFuture = timeDifference < 0;
+    timeDifference = Math.abs(timeDifference);
+
+    const millisecondsInSecond = 1000;
+    const millisecondsInMinute = millisecondsInSecond * 60;
+    const millisecondsInHour = millisecondsInMinute * 60;
+    const millisecondsInDay = millisecondsInHour * 24;
+    const millisecondsInWeek = millisecondsInDay * 7;
+    const millisecondsInMonth = millisecondsInDay * 30.44; // Average month length
+    const millisecondsInYear = millisecondsInDay * 365.25; // Average year length
+
+    const years = Math.floor(timeDifference / millisecondsInYear);
+    const months = Math.floor(
+        (timeDifference % millisecondsInYear) / millisecondsInMonth
+    );
+    const weeks = Math.floor(
+        (timeDifference % millisecondsInMonth) / millisecondsInWeek
+    );
+    const days = Math.floor(
+        (timeDifference % millisecondsInWeek) / millisecondsInDay
+    );
+    const hours = Math.floor(
+        (timeDifference % millisecondsInDay) / millisecondsInHour
+    );
+    const minutes = Math.floor(
+        (timeDifference % millisecondsInHour) / millisecondsInMinute
+    );
+    const seconds = Math.floor(
+        (timeDifference % millisecondsInMinute) / millisecondsInSecond
+    );
+
+    return {
+        years,
+        months,
+        weeks,
+        days,
+        hours,
+        minutes,
+        seconds,
+        inFuture
+    };
 };
