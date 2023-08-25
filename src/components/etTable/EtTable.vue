@@ -375,7 +375,7 @@ export default defineComponent({
                 filters: this.filters,
                 sorting: this.sorting,
                 page: this.currentPage,
-                perPage: this.internalPerPage,
+                limit: this.internalPerPage,
                 offset: (this.currentPage - 1) * this.internalPerPage
             };
 

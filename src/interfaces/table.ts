@@ -19,9 +19,10 @@ export interface IFiltering {
 
 export interface ISortable {
     sorting: ISorting;
-    page: number;
-    perPage: number;
-    offset: number;
+    limit?: number;
+    offset?: number;
+    page?: number;
+    cursor?: number;
 }
 
 export interface ICriteria extends ISortable {
@@ -29,8 +30,10 @@ export interface ICriteria extends ISortable {
 }
 
 export interface IPagination {
-    totalItems: number;
-    page: number;
-    pages: number;
-    limit: number;
+    currentPage: number;
+    lastPage: number;
+    perPage: number;
+    from: number;
+    to: number;
+    total: number;
 }
