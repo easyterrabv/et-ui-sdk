@@ -374,9 +374,11 @@ export default defineComponent({
             const criteria: ICriteria = {
                 filters: this.filters,
                 sorting: this.sorting,
-                page: this.currentPage,
-                limit: this.internalPerPage,
-                offset: (this.currentPage - 1) * this.internalPerPage
+                page: {
+                    page: this.currentPage,
+                    limit: this.internalPerPage,
+                    offset: (this.currentPage - 1) * this.internalPerPage
+                }
             };
 
             const [rows, totalRows] = await this.dataGetter(criteria);
