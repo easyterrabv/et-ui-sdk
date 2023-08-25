@@ -18,7 +18,7 @@ export interface IFiltering {
 }
 
 export interface ISortable {
-    sorting: ISorting;
+    sorting?: ISorting;
     limit?: number;
     offset?: number;
     page?: number;
@@ -26,7 +26,7 @@ export interface ISortable {
 }
 
 export interface ICriteria extends ISortable {
-    filters: IFiltering;
+    filters?: IFiltering;
 }
 
 export interface IPagination {
