@@ -17,23 +17,30 @@ export interface IFiltering {
     [key: string]: filter;
 }
 
-export interface ISortable {
-    sorting?: ISorting;
+export interface IPagination {
     limit?: number;
     offset?: number;
     page?: number;
     cursor?: number;
 }
 
-export interface ICriteria extends ISortable {
-    filters?: IFiltering;
-}
-
-export interface IPagination {
+export interface IPaginationResponse {
     currentPage: number;
     lastPage: number;
     perPage: number;
     from: number;
     to: number;
     total: number;
+}
+
+export interface IPaginationRequest {
+    page: IPagination | IPaginationResponse;
+}
+
+export interface ISortable {
+    sorting?: ISorting;
+}
+
+export interface ICriteria extends ISortable, IPaginationRequest {
+    filters?: IFiltering;
 }
