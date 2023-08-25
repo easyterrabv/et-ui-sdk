@@ -14,7 +14,7 @@ export default defineComponent({
     props: {
         date: {
             required: true,
-            type: Date
+            type: [Date, String]
         },
         hideDate: {
             required: false,
@@ -38,6 +38,12 @@ export default defineComponent({
         }
     },
     computed: {
+        innerDate() {
+            if (typeof this.date === "string") {
+                return new Date(this.date);
+            }
+            return this.date;
+        },
         showDate(): boolean {
             return !this.hideDate;
         },
@@ -48,27 +54,27 @@ export default defineComponent({
             return !this.hideAgo;
         },
         formattedDate(): string | null {
-            if (!this.date) {
+            if (!this.innerDate) {
                 return null;
             }
 
             if (this.dateFormatter) {
-                return this.dateFormatter(this.date);
+                return this.dateFormatter(this.innerDate);
             }
 
-            return dateToFormattedString(this.date);
+            return dateToFormattedString(this.innerDate);
         },
         formattedTime(): string | null {
-            if (!this.date) {
+            if (!this.innerDate) {
                 return null;
             }
 
             if (this.timeFormatter) {
-                return this.timeFormatter(this.date);
+                return this.timeFormatter(this.innerDate);
             }
 
-            let hours: string | number = this.date.getHours();
-            let minutes: string | number = this.date.getMinutes();
+            let hours: string | number = this.innerDate.getHours();
+            let minutes: string | number = this.innerDate.getMinutes();
 
             hours = hours < 10 ? `0${hours}` : String(hours);
             minutes = minutes < 10 ? `0${minutes}` : String(minutes);
@@ -76,7 +82,7 @@ export default defineComponent({
             return `${hours}:${minutes}`;
         },
         timeAgo(): string | null {
-            if (!this.date) {
+            if (!this.innerDate) {
                 return null;
             }
 
@@ -89,7 +95,7 @@ export default defineComponent({
                 minutes,
                 seconds,
                 inFuture
-            } = timeSince(this.date);
+            } = timeSince(this.innerDate);
 
             const timeUnits = [
                 { unit: "year", value: years },
