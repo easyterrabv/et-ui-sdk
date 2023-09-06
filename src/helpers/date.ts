@@ -59,7 +59,7 @@ export const monthToNameShort = (month: string | number | Date): string => {
     return _month in monthMap ? monthMap[_month].short : "Unknown";
 };
 
-export const isToday = (date: Date): boolean => {
+export const isToday = (date: string | Date): boolean => {
     const today = new Date();
     const _date = new Date(date);
     const sameYear = _date.getFullYear() === today.getFullYear();
