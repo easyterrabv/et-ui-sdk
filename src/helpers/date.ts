@@ -59,6 +59,14 @@ export const monthToNameShort = (month: string | number | Date): string => {
     return _month in monthMap ? monthMap[_month].short : "Unknown";
 };
 
+export const isToday = (date: Date): boolean => {
+    const today = new Date();
+    const sameYear = date.getFullYear() === today.getFullYear();
+    const sameMonth = date.getMonth() === today.getMonth();
+    const sameDay = date.getDate() === today.getDate();
+    return sameYear && sameMonth && sameDay;
+};
+
 export const parseDate = (input: string | number): Date | null => {
     const timestamp = Date.parse(input.toString());
     if (!isNaN(timestamp)) {
