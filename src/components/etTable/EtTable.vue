@@ -3,10 +3,7 @@
         <table class="w-full">
             <thead
                 v-if="$slots.header || ($slots.filters && !isStatic)"
-                :class="[
-                    'border-b-2 border-default-light',
-                    'sticky top-0 z-10 bg-white'
-                ]"
+                :class="['sticky top-0 z-10 bg-white']"
             >
                 <tr
                     v-if="$slots.header"

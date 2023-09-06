@@ -18,7 +18,7 @@
                 </th>
             </template>
             <template #filters="{filter, filters}">
-                <td class="w-12"></td>
+                <td></td>
                 <td>
                     <EtInput size="s" :modelValue="filters['name']" @change="(val) => filter('name', val)"></EtInput>
                 </td>
