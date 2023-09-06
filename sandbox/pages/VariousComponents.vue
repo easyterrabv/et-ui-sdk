@@ -431,6 +431,21 @@
             <template v-for="formatDate in formatDates">
                 <EtDate :date="formatDate"></EtDate><br/>
             </template>
+
+            <EtListGroup>
+                <li>
+                    Test 1 with some pretty long text, the point is that it shouldn't wrap line
+                </li>
+                <li>
+                    Test 2
+                </li>
+                <li>
+                    Test 3
+                </li>
+                <li>
+                    Test 4
+                </li>
+            </EtListGroup>
         </EtContent>
     </EtDrawer>
 </template>
@@ -469,7 +484,9 @@ import EtTabs from "src/components/etTabs/EtTabs.vue";
 import EtTab from "src/components/etTabs/EtTab.vue";
 
 import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
-import EtResizable from "src/components/etUtilities/EtResizable.vue";
+import EtResizable from "src/components/etUtilities/EtResizable.vue"
+
+import EtListGroup from "src/components/etUtilities/EtListGroup.vue";
 
 import EtDate from "src/components/etText/EtDate.vue";
 
@@ -513,7 +530,9 @@ export default defineComponent({
         EtTab,
 
         EtResizable,
-        EtDate
+        EtDate,
+
+        EtListGroup
     },
     data() {
         return {
