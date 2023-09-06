@@ -61,9 +61,10 @@ export const monthToNameShort = (month: string | number | Date): string => {
 
 export const isToday = (date: Date): boolean => {
     const today = new Date();
-    const sameYear = date.getFullYear() === today.getFullYear();
-    const sameMonth = date.getMonth() === today.getMonth();
-    const sameDay = date.getDate() === today.getDate();
+    const _date = new Date(date);
+    const sameYear = _date.getFullYear() === today.getFullYear();
+    const sameMonth = _date.getMonth() === today.getMonth();
+    const sameDay = _date.getDate() === today.getDate();
     return sameYear && sameMonth && sameDay;
 };
 
