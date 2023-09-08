@@ -5,6 +5,7 @@
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
     >
+        {{ internalOptionValue }}
         <EtPopover ref="popover" manual fitToggle>
             <template #toggle>
                 <div @mouseup.left.stop="(e) => onInputClick()">
@@ -45,6 +46,7 @@
                             <span
                                 v-if="
                                     multiple &&
+                                    internalOptionValue &&
                                     Array.isArray(internalOptionValue)
                                 "
                             >
@@ -166,10 +168,38 @@ export default defineComponent({
             }
         },
         internalOptionValue() {
-            this.$emit("update:modelValue", this.internalOptionValue);
+            if (this.isDifferent()) {
+                this.$emit("update:modelValue", this.internalOptionValue);
+            }
         }
     },
     methods: {
+        isDifferent(): boolean {
+            const currentModel = (
+                Array.isArray(this.modelValue)
+                    ? this.modelValue
+                    : [this.modelValue]
+            ).filter((opt: OptionModel) => !!opt);
+            const currentInnerModel = (
+                Array.isArray(this.internalOptionValue)
+                    ? this.internalOptionValue
+                    : [this.internalOptionValue]
+            ).filter((opt: OptionModel) => !!opt);
+
+            return (
+                currentModel.length !== currentInnerModel.length ||
+                !currentModel.every((opt: OptionModel) =>
+                    currentInnerModel.find(
+                        (opt2: OptionModel) => opt.guid === opt2.guid
+                    )
+                ) ||
+                !currentInnerModel.every((opt: OptionModel) =>
+                    currentModel.find(
+                        (opt2: OptionModel) => opt.guid === opt2.guid
+                    )
+                )
+            );
+        },
         async onInputClick() {
             const popover = this.$refs.popover as typeof EtPopover;
             if (popover.isOpen()) {

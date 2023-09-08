@@ -216,11 +216,11 @@ export default defineComponent({
         }
     },
     mounted() {
-        this.multipleSelectedOptions = [
-            this.options.find(opt => opt.value === 'test 2'),
-            this.options.find(opt => opt.value === 'test 3'),
-            this.options.find(opt => opt.value === 'test 4'),
-        ];
+        // this.multipleSelectedOptions = [
+        //     this.options.find(opt => opt.value === 'test 2'),
+        //     this.options.find(opt => opt.value === 'test 3'),
+        //     this.options.find(opt => opt.value === 'test 4'),
+        // ];
     }
 })
 

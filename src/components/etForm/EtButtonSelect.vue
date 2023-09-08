@@ -52,49 +52,54 @@ export default defineComponent({
     data() {
         return {
             UI_TYPES,
-            internalOptionValue: undefined as
-                | OptionModel
-                | OptionModel[]
-                | undefined
+            internalOptionValue: [] as OptionModel | OptionModel[]
         };
     },
     watch: {
         modelValue: {
             immediate: true,
             handler() {
-                const modelIsArray = Array.isArray(this.modelValue);
-
-                if (!this.modelValue) {
-                    this.internalOptionValue = [];
-                }
-
-                if (this.multiple && !modelIsArray) {
-                    this.internalOptionValue = [this.modelValue];
-                } else if (
-                    !this.multiple &&
-                    modelIsArray &&
-                    this.modelValue.length > 0
-                ) {
-                    this.internalOptionValue = [this.modelValue[0]];
-                } else {
-                    this.internalOptionValue = this.modelValue;
-                }
+                this.internalOptionValue = this.modelValue;
             }
         },
         internalOptionValue() {
-            let emitValue = this.internalOptionValue || null;
-            if (
-                !this.multiple &&
-                Array.isArray(emitValue) &&
-                emitValue.length > 0
-            ) {
-                emitValue = emitValue[0];
+            if (this.isDifferent()) {
+                this.$emit("update:modelValue", this.internalOptionValue);
             }
-            this.$emit("update:modelValue", emitValue);
         }
     },
     methods: {
+        isDifferent(): boolean {
+            const currentModel = (
+                Array.isArray(this.modelValue)
+                    ? this.modelValue
+                    : [this.modelValue]
+            ).filter((opt: OptionModel) => !!opt);
+            const currentInnerModel = (
+                Array.isArray(this.internalOptionValue)
+                    ? this.internalOptionValue
+                    : [this.internalOptionValue]
+            ).filter((opt: OptionModel) => !!opt);
+
+            return (
+                currentModel.length !== currentInnerModel.length ||
+                !currentModel.every((opt: OptionModel) =>
+                    currentInnerModel.find(
+                        (opt2: OptionModel) => opt.guid === opt2.guid
+                    )
+                ) ||
+                !currentInnerModel.every((opt: OptionModel) =>
+                    currentModel.find(
+                        (opt2: OptionModel) => opt.guid === opt2.guid
+                    )
+                )
+            );
+        },
         isSelected(option: OptionModel) {
+            if (!option) {
+                return false;
+            }
+
             if (this.internalOptionValue === option) {
                 return true;
             }
@@ -104,9 +109,9 @@ export default defineComponent({
                 valuesArray = [valuesArray];
             }
 
-            return valuesArray.find(
-                (value: OptionModel) => value.guid === option.guid
-            );
+            return valuesArray
+                .filter((opt: OptionModel) => !!opt)
+                .find((value: OptionModel) => value.guid === option.guid);
         },
         toggleOption(option: OptionModel) {
             if (this.isSelected(option)) {
@@ -139,7 +144,7 @@ export default defineComponent({
                 this.internalOptionValue = [
                     ...this.internalOptionValue,
                     option
-                ];
+                ].filter((opt: OptionModel) => !!opt);
             }
         }
     }

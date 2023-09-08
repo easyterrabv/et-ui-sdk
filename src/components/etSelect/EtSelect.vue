@@ -210,7 +210,7 @@ export default defineComponent({
                 modelValue === null
             );
         },
-        optionToggled: (OptionModel): boolean => true
+        optionToggled: (opt: OptionModel): boolean => true
     }
 });
 </script>
