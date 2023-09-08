@@ -1,6 +1,7 @@
 <template>
     <button
         ref="etButton"
+        type="button"
         class="et-button ring-1 text-white rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:ease-in-out motion-safe:duration-150"
         :class="[
             {
