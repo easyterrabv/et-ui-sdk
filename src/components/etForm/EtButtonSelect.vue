@@ -6,6 +6,7 @@
             :disabled="disabled"
             :readonly="readonly"
             :size="size"
+            style="font-size: inherit"
             @click="toggleOption(option)"
             :type="
                 isSelected(option)
