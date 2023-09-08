@@ -1,18 +1,15 @@
 import { EtModel } from "./Model";
 import { needleFixer } from "../helpers/misc";
 import { reactive } from "vue";
+import { UI_TYPES } from "../enums";
 
 let OPTION_COUNT = 0;
-
-export enum OptionTypes {
-    default = "default"
-}
 
 export interface IOption {
     value: string | boolean | number | Date;
     label?: string | null;
     tags?: string[];
-    type?: OptionTypes;
+    type?: UI_TYPES;
 }
 export class OptionModel extends EtModel {
     constructor(option: IOption) {

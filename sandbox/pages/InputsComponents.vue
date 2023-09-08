@@ -80,6 +80,7 @@
             </template>
 
             <EtInputSelect v-model="multipleSelectedOptions" :options="options" multiple></EtInputSelect>
+            <EtButtonSelect v-model="multipleSelectedOptions" :options="options" multiple></EtButtonSelect>
         </EtCard>
 
         <EtCard class="mt-4" style="height: 800px;">
@@ -105,7 +106,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {UI_SIZING} from "../../src/enums";
+import {UI_SIZING, UI_TYPES} from "../../src/enums";
 
 import EtContent from "src/layouts/Content.vue";
 import EtCard from "src/components/EtCard.vue";
@@ -119,6 +120,7 @@ import EtFormGroup from "src/components/etForm/EtFormGroup.vue";
 import EtInputDate from "src/components/etForm/EtInputDate.vue";
 import EtInputDateRange from "src/components/etForm/EtInputDateRange.vue";
 import EtInputSelect from "src/components/etForm/EtInputSelect.vue";
+import EtButtonSelect from "src/components/etForm/EtButtonSelect.vue";
 import EtTextarea from "src/components/etForm/EtTextarea.vue";
 import EtWysiwyg from "src/components/etForm/EtWysiwyg.vue";
 import EtInputNumberRange from "src/components/etForm/EtInputNumberRange.vue";
@@ -143,6 +145,7 @@ export default defineComponent({
         EtInputDate,
         EtInputDateRange,
         EtInputSelect,
+        EtButtonSelect,
 
         EtTextarea,
         EtWysiwyg,
@@ -182,7 +185,8 @@ export default defineComponent({
                 }),
                 new OptionModel({
                     value: 'test 6',
-                    label: 'Test 6'
+                    label: 'Test 6',
+                    type: UI_TYPES.DANGER
                 }),
                 new OptionModel({
                     value: 'test 7',
