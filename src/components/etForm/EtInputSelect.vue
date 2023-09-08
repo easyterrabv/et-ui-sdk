@@ -5,7 +5,6 @@
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
     >
-        {{ internalOptionValue }}
         <EtPopover ref="popover" manual fitToggle>
             <template #toggle>
                 <div @mouseup.left.stop="(e) => onInputClick()">
