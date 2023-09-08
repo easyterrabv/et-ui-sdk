@@ -43,7 +43,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@vitejs/plugin-vue": "^4.2.3",
     "autoprefixer": "^10.4.14",
-    "cypress": "^12.17.1",
+    "cypress": "^13.1.0",
     "postcss": "^8.4.26",
     "prettier": "^3.0.0",
     "tailwind-scrollbar": "^3.0.4",
