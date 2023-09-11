@@ -142,12 +142,14 @@ export default defineComponent({
 
             sizeMapping: {
                 [UI_SIZING.S]: "h-8 px-2.5 py-1",
-                [UI_SIZING.M]: "h-10 px-3.5 py-2"
+                [UI_SIZING.M]: "h-10 px-3.5 py-2",
+                [UI_SIZING.L]: "h-10 px-4.5 py-3"
             } as { [key in UI_SIZING]: string },
 
             sizeMappingChevron: {
                 [UI_SIZING.S]: "p-1",
-                [UI_SIZING.M]: "p-2"
+                [UI_SIZING.M]: "p-2",
+                [UI_SIZING.L]: "p-3"
             } as { [key in UI_SIZING]: string }
         };
     },

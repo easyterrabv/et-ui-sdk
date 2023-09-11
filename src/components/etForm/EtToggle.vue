@@ -87,6 +87,11 @@ export default defineComponent({
                     button: "w-12",
                     handle: "h-6 w-6",
                     text: "text-base"
+                },
+                [UI_SIZING.L]: {
+                    button: "w-16",
+                    handle: "h-8 w-8",
+                    text: "text-lg"
                 }
             } as {
                 [key in UI_SIZING]: {

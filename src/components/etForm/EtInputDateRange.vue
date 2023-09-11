@@ -14,6 +14,7 @@
                             :size="size"
                             :class="[
                                 {
+                                    'pl-12': size === UI_SIZING.L,
                                     'pl-10': size === UI_SIZING.M,
                                     'pl-7': size === UI_SIZING.S
                                 }
@@ -28,6 +29,7 @@
                             class="absolute left-0 top-0 w-max h-max text-text-light"
                             :class="[
                                 {
+                                    'p-3': size === UI_SIZING.L,
                                     'p-2': size === UI_SIZING.M,
                                     'p-1': size === UI_SIZING.S
                                 }
@@ -47,6 +49,7 @@
                             :size="size"
                             :class="[
                                 {
+                                    'pl-12': size === UI_SIZING.L,
                                     'pl-10': size === UI_SIZING.M,
                                     'pl-7': size === UI_SIZING.S
                                 }
@@ -61,6 +64,7 @@
                             class="absolute left-0 top-0 w-max h-max text-text-light"
                             :class="[
                                 {
+                                    'p-3': size === UI_SIZING.L,
                                     'p-2': size === UI_SIZING.M,
                                     'p-1': size === UI_SIZING.S
                                 }
