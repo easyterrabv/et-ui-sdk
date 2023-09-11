@@ -3,6 +3,19 @@
         class="relative et-input-wrapper w-80 max-w-full"
         :class="[wrapperClasses]"
     >
+        <span
+            v-if="$slots.preIcon"
+            class="absolute left-0 top-0 w-max h-max text-text-light"
+            :class="[
+                {
+                    'p-3': size === UI_SIZING.L,
+                    'p-2': size === UI_SIZING.M,
+                    'p-1': size === UI_SIZING.S
+                }
+            ]"
+        >
+            <slot name="preIcon"></slot>
+        </span>
         <input
             v-bind="$attrs"
             v-model="internalData"
@@ -25,6 +38,7 @@
             @blur="handleBlurEmit"
             :class="[
                 {
+                    '!pl-10': $slots.preIcon,
                     '!pr-10': clearButton,
                     'bg-default-extra-light cursor-not-allowed': disabled,
                     '!ring-success-light': success,
@@ -198,7 +212,7 @@ export default defineComponent({
                 [UI_SIZING.XS]: "px-1.5 py-0.5",
                 [UI_SIZING.S]: "px-2.5 py-1",
                 [UI_SIZING.M]: "px-3.5 py-2",
-                [UI_SIZING.L]: "px-4.5 py-3"
+                [UI_SIZING.L]: "px-4 py-3"
             } as { [key in UI_SIZING]: string }
         };
     },
