@@ -39,7 +39,10 @@
             :class="[
                 {
                     '!pl-10': $slots.preIcon,
-                    '!pr-10': clearButton,
+                    '!pr-10':
+                        (clearButton && !$slots.preIcon) ||
+                        (!clearButton && $slots.preIcon),
+                    '!pr-20': clearButton && $slots.preIcon,
                     'bg-default-extra-light cursor-not-allowed': disabled,
                     '!ring-success-light': success,
                     '!ring-warning-light': warning,
@@ -53,6 +56,8 @@
             class="absolute right-0 top-0 w-max h-max cursor-pointer text-text-light"
             :class="[
                 {
+                    'right-0': !$slots.postIcon,
+                    'right-8': $slots.postIcon,
                     'p-3': size === UI_SIZING.L,
                     'p-2': size === UI_SIZING.M,
                     'p-1': size === UI_SIZING.S
@@ -62,6 +67,19 @@
             @mouseup.left.stop="clear"
         >
             <EtIconTimes />
+        </span>
+        <span
+            v-if="$slots.postIcon"
+            class="absolute right-0 top-0 w-max h-max text-text-light"
+            :class="[
+                {
+                    'p-3': size === UI_SIZING.L,
+                    'p-2': size === UI_SIZING.M,
+                    'p-1': size === UI_SIZING.S
+                }
+            ]"
+        >
+            <slot name="postIcon"></slot>
         </span>
     </div>
 </template>
@@ -114,7 +132,25 @@ export const commonInputProps = {
     type: {
         type: String,
         required: false,
-        default: "text"
+        default: "text",
+        validator(val: string) {
+            const validTypes = [
+                "text",
+                "email",
+                "hidden",
+                "month",
+                "password",
+                "number",
+                "search",
+                "tel",
+                "url"
+            ];
+            if (!validTypes.includes(val)) {
+                console.error("invalid input type, only choices:", validTypes);
+                return false;
+            }
+            return true;
+        }
     },
     error: {
         type: Boolean,
@@ -154,32 +190,6 @@ export default defineComponent({
             required: false,
             default: null
         },
-        type: {
-            type: String,
-            required: false,
-            default: "text",
-            validator(val) {
-                const validTypes = [
-                    "text",
-                    "email",
-                    "hidden",
-                    "month",
-                    "password",
-                    "number",
-                    "search",
-                    "tel",
-                    "url"
-                ];
-                if (!validTypes.includes(val)) {
-                    console.error(
-                        "invalid input type, only choices:",
-                        validTypes
-                    );
-                    return false;
-                }
-                return true;
-            }
-        },
         modelValue: {
             type: [String, Number],
             required: false,
@@ -217,11 +227,21 @@ export default defineComponent({
         };
     },
     computed: {
-        typeIsNumber: (vm): boolean => ["number", "month"].includes(vm.type),
-        typeIsString: (vm): boolean => !vm.typeIsNumber,
-        minAttr: (vm): string => (vm.typeIsNumber ? "min" : "minLength"),
-        maxAttr: (vm): string => (vm.typeIsNumber ? "max" : "maxlength"),
-        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
+        typeIsNumber(): boolean {
+            return ["number", "month"].includes(this.type);
+        },
+        typeIsString(): boolean {
+            return !this.typeIsNumber;
+        },
+        minAttr(): string {
+            return this.typeIsNumber ? "min" : "minLength";
+        },
+        maxAttr(): string {
+            return this.typeIsNumber ? "max" : "maxlength";
+        },
+        sizeClasses(): string {
+            return this.sizeMapping[this.size];
+        }
     },
     watch: {
         internalData: {
@@ -285,13 +305,13 @@ export default defineComponent({
 
             return null;
         },
-        emitKeyup(event) {
+        emitKeyup(event: KeyboardEvent) {
             if (this.disabled || this.readonly) {
                 return;
             }
             this.$emit("keyup", event);
         },
-        enterEmit(event) {
+        enterEmit(event: KeyboardEvent) {
             if (this.disabled || this.readonly) {
                 return;
             }
@@ -304,7 +324,12 @@ export default defineComponent({
         handleBlurEmit() {
             this.$emit("blur");
 
-            if (this.internalData && this.trim && this.typeIsString) {
+            if (
+                this.internalData &&
+                this.trim &&
+                this.typeIsString &&
+                typeof this.internalData === "string"
+            ) {
                 this.internalData = this.internalData.trim();
             }
 
@@ -317,16 +342,16 @@ export default defineComponent({
             }
         },
         focus() {
-            this.$refs["et-input"].focus();
+            (this.$refs["et-input"] as any).focus();
         },
         blur() {
-            this.$refs["et-input"].blur();
+            (this.$refs["et-input"] as any).blur();
         },
         getValue(): string | number | null {
             return this.internalData;
         },
         async setValue(value: string | number | null): Promise<void> {
-            await new Promise((resolve) => {
+            await new Promise<void>((resolve) => {
                 this.internalData = value;
                 resolve();
             });
@@ -339,12 +364,18 @@ export default defineComponent({
     },
     emits: {
         // will trigger and usually only update the v-model value
-        "update:modelValue": (modelValue: string | number | null): boolean =>
-            ["string", "number"].includes(typeof modelValue) ||
-            modelValue === null,
+        "update:modelValue"(modelValue: string | number | null): boolean {
+            return (
+                ["string", "number"].includes(typeof modelValue) ||
+                modelValue === null
+            );
+        },
         // will trigger if there is an actual change
-        change: (value: string | number | null): boolean =>
-            ["string", "number"].includes(typeof value) || value === null,
+        change(value: string | number | null): boolean {
+            return (
+                ["string", "number"].includes(typeof value) || value === null
+            );
+        },
         // Will trigger on each key up stroke
         keyup: (event: Event): boolean => !!event,
         // Will trigger on each enter key up stroke
@@ -354,7 +385,7 @@ export default defineComponent({
                 (value === null && !!event)
             );
         },
-        // Will trigger on input focus
+        // Will trigger on input focusß
         focus: () => true,
         // Will trigger on input blur
         blur: () => true,
