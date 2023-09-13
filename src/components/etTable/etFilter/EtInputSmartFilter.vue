@@ -27,7 +27,7 @@
                         <template #preIcon>
                             <EtSearchIcon></EtSearchIcon>
                         </template>
-                        <template #postIcon>
+                        <template #postIcon v-if="$slots.default">
                             <EtIconSliders
                                 class="cursor-pointer"
                                 @click="() => toggleFilters()"
