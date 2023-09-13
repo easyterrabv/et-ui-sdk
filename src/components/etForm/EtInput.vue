@@ -360,6 +360,9 @@ export default defineComponent({
             await this.setValue(null).then(() => {
                 this.$emit("clear");
             });
+        },
+        setSelectionRange(start: number, end: number) {
+            (this.$refs["et-input"] as any).setSelectionRange(start, end);
         }
     },
     emits: {
