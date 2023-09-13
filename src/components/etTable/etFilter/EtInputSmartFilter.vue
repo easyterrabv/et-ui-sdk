@@ -40,7 +40,7 @@
             <EtBox
                 ref="filterBox"
                 :tabindex="-1"
-                v-if="popoverState === 'FILTERS'"
+                v-if="popoverState === 'FILTERS' && $slots.default"
                 @blur="() => closeFilters()"
                 @keyup.esc="() => closeFilters()"
             >
@@ -64,26 +64,27 @@
                 <div class="clear-both"></div>
             </EtBox>
 
-            <EtBox v-if="popoverState === 'SUGGESTIONS'">
-                <template v-if="selectableFilterOptions">
-                    <small>Available Filters</small>
-                    <ul>
-                        <li
-                            class="hover:bg-default-extra-light px-2 my-0.5 rounded-full cursor-pointer"
-                            :class="{
-                                'bg-default-extra-light':
-                                    selectedFilterIndex === index
-                            }"
-                            v-for="(
-                                filterOption, index
-                            ) in selectableFilterOptions"
-                            @click="insertFilter(filterOption)"
-                            :key="filterOption.code"
-                        >
-                            - {{ filterOption.label }}:
-                        </li>
-                    </ul>
-                </template>
+            <EtBox
+                v-if="
+                    popoverState === 'SUGGESTIONS' &&
+                    selectableFilterOptions.length > 0
+                "
+            >
+                <small>Available Filters</small>
+                <ul>
+                    <li
+                        class="hover:bg-default-extra-light px-2 my-0.5 rounded-full cursor-pointer"
+                        :class="{
+                            'bg-default-extra-light':
+                                selectedFilterIndex === index
+                        }"
+                        v-for="(filterOption, index) in selectableFilterOptions"
+                        @click="insertFilter(filterOption)"
+                        :key="filterOption.code"
+                    >
+                        - {{ filterOption.label }}:
+                    </li>
+                </ul>
             </EtBox>
         </EtPopover>
     </div>
@@ -189,11 +190,13 @@ export default defineComponent({
                 .join(" ");
         },
         selectableFilterOptions() {
-            return this.filterOptions.filter((option: IFilterOption) => {
-                return !Object.keys(this.mappedValues).includes(
-                    (option.code || "").toLowerCase()
-                );
-            });
+            return (this.filterOptions || []).filter(
+                (option: IFilterOption) => {
+                    return !Object.keys(this.mappedValues).includes(
+                        (option.code || "").toLowerCase()
+                    );
+                }
+            );
         }
     },
     methods: {
