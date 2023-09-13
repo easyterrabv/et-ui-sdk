@@ -102,7 +102,7 @@ export default defineComponent({
                 [UI_SIZING.XS]: "px-1.5 py-0.5 text-sm",
                 [UI_SIZING.S]: "px-2.5 py-1.5 text-sm",
                 [UI_SIZING.M]: "px-3.5 py-2.5 text-sm",
-                [UI_SIZING.L]: "px-4.5 py-3.5 text-sm"
+                [UI_SIZING.L]: "px-4 py-3.5 text-sm"
             } as { [key in UI_SIZING]: string },
 
             clickDebounce: new Debounce(this.onClick, 100)
