@@ -40,9 +40,9 @@
                 {
                     '!pl-10': $slots.preIcon,
                     '!pr-10':
-                        (clearButton && !$slots.preIcon) ||
-                        (!clearButton && $slots.preIcon),
-                    '!pr-20': clearButton && $slots.preIcon,
+                        (clearButton && !$slots.postIcon) ||
+                        (!clearButton && $slots.postIcon),
+                    '!pr-20': clearButton && $slots.postIcon,
                     'bg-default-extra-light cursor-not-allowed': disabled,
                     '!ring-success-light': success,
                     '!ring-warning-light': warning,
