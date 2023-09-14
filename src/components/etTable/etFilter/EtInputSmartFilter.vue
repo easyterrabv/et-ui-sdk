@@ -107,7 +107,12 @@ import EtPopover from "../../EtPopover.vue";
 import { UI_SIZING } from "../../../enums";
 import { wait } from "../../../helpers/async";
 
-type iFilterValueValue = string | boolean | null | undefined | Array<unknown>;
+export type iFilterValueValue =
+    | string
+    | boolean
+    | null
+    | undefined
+    | Array<unknown>;
 
 export interface iFilterValue {
     name: string;
