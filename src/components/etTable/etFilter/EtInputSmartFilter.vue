@@ -109,12 +109,12 @@ import { wait } from "../../../helpers/async";
 
 type iFilterValueValue = string | boolean | null | undefined | Array<unknown>;
 
-interface iFilterValue {
+export interface iFilterValue {
     name: string;
     value: iFilterValueValue;
 }
 
-interface IFilterOption {
+export interface IFilterOption {
     code: string;
     label: string;
 }
