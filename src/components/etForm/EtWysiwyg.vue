@@ -394,8 +394,10 @@ export default defineComponent({
             }
         },
         modelValue() {
-            this.innerData = this.modelValue;
-            this.editor.commands.setContent(this.innerData, false);
+            if (this.innerData !== this.modelValue) {
+                this.innerData = this.modelValue;
+                this.editor.commands.setContent(this.innerData, false);
+            }
         },
         disabled: "setEditable",
         readonly: "setEditable",
