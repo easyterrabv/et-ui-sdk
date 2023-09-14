@@ -346,6 +346,9 @@ export default defineComponent({
         filter(field: string, value: filter) {
             this.filters[field] = value;
         },
+        setFilters(filters: IFiltering) {
+            this.filters = filters;
+        },
         async fetchData() {
             if (this.isStatic) {
                 return;
