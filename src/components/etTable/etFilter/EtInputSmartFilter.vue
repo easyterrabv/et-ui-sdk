@@ -195,13 +195,14 @@ export default defineComponent({
                 .join(" ");
         },
         selectableFilterOptions() {
-            return (this.filterOptions || []).filter(
-                (option: IFilterOption) => {
-                    return !Object.keys(this.mappedValues).includes(
-                        (option.code || "").toLowerCase()
-                    );
-                }
-            );
+            return this.filterOptions || [];
+            // return (this.filterOptions || []).filter(
+            //     (option: IFilterOption) => {
+            //         return !Object.keys(this.mappedValues).includes(
+            //             (option.code || "").toLowerCase()
+            //         );
+            //     }
+            // );
         }
     },
     methods: {
@@ -280,16 +281,21 @@ export default defineComponent({
 
             const newValues = [] as iFilterValue[];
             let found = false;
-            (currentValues || this.values || []).forEach((val) => {
-                const _name = val.name;
-                if (name !== _name || found) {
-                    newValues.push(val);
-                    return;
-                }
+            (currentValues || this.values || []).forEach(
+                (val: iFilterValue) => {
+                    const _name = val.name;
+                    if (name !== _name || found) {
+                        newValues.push(val);
+                        return;
+                    }
 
-                newValues.push({ name, value });
-                found = true;
-            });
+                    const combinedValue = val.value
+                        ? val.value + " " + value
+                        : value;
+                    newValues.push({ name, value: combinedValue });
+                    found = true;
+                }
+            );
 
             if (!found) {
                 newValues.push({ name, value });
@@ -368,6 +374,9 @@ export default defineComponent({
         async insertFilter(filterOption: IFilterOption) {
             this.processingInput = true;
             this.keepPopoverOpen = true;
+
+            await wait(150);
+
             const newValue = `${this.inputValue} ${(
                 filterOption.code || ""
             ).toLowerCase()}:()`;
@@ -384,6 +393,7 @@ export default defineComponent({
             );
 
             await wait(150);
+
             this.processingInput = false;
             this.keepPopoverOpen = false;
         },
