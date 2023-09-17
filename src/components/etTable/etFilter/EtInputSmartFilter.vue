@@ -230,9 +230,10 @@ export default defineComponent({
             // const valueFields = values.match(regex);
 
             const valueFields = values
-                .split(/(\w+:\([\w\s]+\)|\w+:\w+)/g)
+                .split(/([\w\-]+:\((?:[^\\()]+|\\\\.|\\[()])*?\))|([\w]+)/gm)
                 .filter(Boolean)
-                .map((s) => s.trim());
+                .map((s) => s.trim())
+                .filter(Boolean);
 
             let newValues: iFilterValue[] = [];
 
@@ -380,6 +381,8 @@ export default defineComponent({
             const newValue = `${this.inputValue} ${(
                 filterOption.code || ""
             ).toLowerCase()}:()`;
+
+            console.log({ newValue });
 
             const inputComponent = this.$refs.input as any;
             inputComponent.setValue(newValue);
