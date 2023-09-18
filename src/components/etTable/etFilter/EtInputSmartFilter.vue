@@ -138,11 +138,6 @@ export default defineComponent({
     },
     props: {
         ...commonInputProps,
-        mainFilterName: {
-            required: false,
-            type: String,
-            default: null
-        },
         filterOptions: {
             required: false,
             type: Array<IFilterOption>,
@@ -183,14 +178,15 @@ export default defineComponent({
                     // TODO fix display value for different value types
                     let renderValue = value.value;
                     if (typeof renderValue === "string") {
-                        const multiword =
-                            (renderValue || "").split(" ").length > 1;
-                        if (multiword) {
-                            renderValue = `(${renderValue})`;
+                        // take value out of braces
+                        const match = renderValue.match(/\(([^)]+)\)/);
+                        if (match) {
+                            renderValue = match[1];
                         }
+                        renderValue = `${renderValue}`;
                     }
 
-                    return `${value.name}:${renderValue}`;
+                    return `${value.name}:(${renderValue})`;
                 })
                 .join(" ");
         },
@@ -213,10 +209,9 @@ export default defineComponent({
                 return;
             }
 
-            this.values = [];
-            await (this.$refs.input as any)?.clear?.();
-
             if (!values) {
+                this.values = [];
+                await (this.$refs.input as any)?.clear?.();
                 return;
             }
 
@@ -239,73 +234,53 @@ export default defineComponent({
 
             (valueFields || []).forEach((valueField) => {
                 let [name, value] = valueField.split(":");
-
-                if (!value && this.mainFilterName) {
-                    value = name;
-                    name = this.mainFilterName;
-                }
-
                 name = name.toLowerCase();
 
                 if (!value) {
                     return;
                 }
 
-                const regex = /\(([^)]+)\)/;
-
-                const match = value.match(regex);
+                // take value out of braces
+                const match = value.match(/\(([^)]+)\)/);
                 if (match) {
                     value = match[1];
                 }
 
-                newValues = this.makeNewValues(name, value, newValues);
+                newValues.push({ name, value } as iFilterValue);
             });
 
             this.values = newValues;
             await wait(250);
             this.processingInput = false;
         },
-        makeNewValues(
-            name: string,
-            value: iFilterValueValue,
-            currentValues?: iFilterValue[]
-        ): iFilterValue[] {
-            // Be specific here, as we allow for value to be false
-            if (
-                value === undefined ||
-                value === null ||
-                (Array.isArray(value) && value.length <= 0)
-            ) {
-                this.removeValue(name);
-                return this.values;
-            }
+        setValueFromInput(name: string, value: iFilterValueValue): void {
+            // this.values = this.makeNewValues(name, value);
+            const currentValues: iFilterValue[] = this.values || [];
+            const newValues: iFilterValue[] = [];
 
-            const newValues = [] as iFilterValue[];
             let found = false;
-            (currentValues || this.values || []).forEach(
-                (val: iFilterValue) => {
-                    const _name = val.name;
-                    if (name !== _name || found) {
-                        newValues.push(val);
-                        return;
-                    }
-
-                    const combinedValue = val.value
-                        ? val.value + " " + value
-                        : value;
-                    newValues.push({ name, value: combinedValue });
+            currentValues.forEach((filterValue: iFilterValue) => {
+                if (!value) {
                     found = true;
+                    return;
                 }
-            );
+
+                const isCurrentEditingFilter = filterValue.name === name;
+                if (isCurrentEditingFilter) {
+                    found = true;
+                    filterValue.value = value;
+                }
+
+                newValues.push(filterValue);
+            });
 
             if (!found) {
-                newValues.push({ name, value });
+                newValues.push({ name, value } as iFilterValue);
             }
 
-            return newValues;
-        },
-        setValueFromInput(name: string, value: iFilterValueValue): void {
-            this.values = this.makeNewValues(name, value);
+            this.values = newValues.filter(
+                (filterValue: iFilterValue) => !!filterValue.value
+            );
         },
         removeValue(name: string): void {
             this.values = (this.values || []).filter(
@@ -381,8 +356,6 @@ export default defineComponent({
             const newValue = `${this.inputValue} ${(
                 filterOption.code || ""
             ).toLowerCase()}:()`;
-
-            console.log({ newValue });
 
             const inputComponent = this.$refs.input as any;
             inputComponent.setValue(newValue);
