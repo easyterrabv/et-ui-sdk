@@ -2,6 +2,7 @@
     <EtContent>
         <EtInputSmartFilter
             mainFilterName="from"
+            @filters="console.log"
             :filterOptions="[
                 {code: 'from', label: 'From'},
                 {code: 'to', label: 'To'},

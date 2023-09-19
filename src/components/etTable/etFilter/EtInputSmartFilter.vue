@@ -12,6 +12,7 @@
                         @blur="() => onInputBlur()"
                         @keyup.down="() => selectFilterDown()"
                         @keyup.up="() => selectFilterUp()"
+                        @clear="() => handleClear()"
                         :name="name"
                         :autocomplete="false"
                         :disabled="disabled"
@@ -106,6 +107,7 @@ import EtPopover from "../../EtPopover.vue";
 
 import { UI_SIZING } from "../../../enums";
 import { wait } from "../../../helpers/async";
+import { Debounce } from "../../../helpers/debounce";
 
 export type iFilterValueValue =
     | string
@@ -150,6 +152,7 @@ export default defineComponent({
         }
     },
     data() {
+        const self = this;
         return {
             UI_SIZING,
             currentFocusElement: null,
@@ -161,7 +164,9 @@ export default defineComponent({
 
             selectedFilterIndex: null as number | null,
 
-            popoverState: null as "FILTERS" | "SUGGESTIONS" | null
+            popoverState: null as "FILTERS" | "SUGGESTIONS" | null,
+
+            emitFiltersDebounce: new Debounce(() => self.emitFilters(), 100)
         };
     },
     computed: {
@@ -326,7 +331,7 @@ export default defineComponent({
             (this.$refs.popover as any).hide();
         },
         onFilterSearchClick() {
-            this.emitFilters();
+            this.emitFiltersDebounce.debounce();
             this.closeFilters();
         },
         handleOnInputEnter() {
@@ -336,7 +341,7 @@ export default defineComponent({
                 filterOption && this.insertFilter(filterOption);
                 this.selectedFilterIndex = null;
             } else {
-                this.emitFilters();
+                this.emitFiltersDebounce.debounce();
                 this.hidePopover();
             }
         },
@@ -405,6 +410,10 @@ export default defineComponent({
         async emitFilters() {
             await wait(150);
             this.$emit("filters", this.mappedValues);
+        },
+        async handleClear() {
+            this.values = [];
+            this.emitFiltersDebounce.debounce();
         }
     }
 });
