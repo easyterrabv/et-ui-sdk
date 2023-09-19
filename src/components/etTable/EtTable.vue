@@ -120,7 +120,10 @@
                                 >
                             </div>
                             <div class="flex-grow p-1">
-                                <div class="flex justify-center">
+                                <div
+                                    class="flex justify-center"
+                                    v-if="totalRows > internalPerPage"
+                                >
                                     <EtPagination
                                         v-model="currentPage"
                                         :perPage="internalPerPage"
