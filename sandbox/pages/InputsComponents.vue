@@ -1,8 +1,9 @@
 <template>
     <EtContent>
         <EtInputSmartFilter
-            mainFilterName="from"
             @filters="console.log"
+            name="testFilter"
+            :saveFilters="true"
             :filterOptions="[
                 {code: 'from', label: 'From'},
                 {code: 'to', label: 'To'},

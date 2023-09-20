@@ -145,6 +145,16 @@ export default defineComponent({
             type: Array<IFilterOption>,
             default: null
         },
+        name: {
+            // Overwrites name from commonInputProps
+            type: String,
+            required: false
+        },
+        saveFilters: {
+            required: false,
+            type: Boolean,
+            default: false
+        },
         size: {
             required: false,
             type: String as PropType<UI_SIZING>,
@@ -197,13 +207,9 @@ export default defineComponent({
         },
         selectableFilterOptions() {
             return this.filterOptions || [];
-            // return (this.filterOptions || []).filter(
-            //     (option: IFilterOption) => {
-            //         return !Object.keys(this.mappedValues).includes(
-            //             (option.code || "").toLowerCase()
-            //         );
-            //     }
-            // );
+        },
+        canSaveFilters() {
+            return this.saveFilters && !!this.name;
         }
     },
     methods: {
@@ -225,9 +231,6 @@ export default defineComponent({
             if (typeof values === "number") {
                 values = String(values);
             }
-
-            // const regex = /(\w+:\([\w\s]+\)|\w+:\w+)/g;
-            // const valueFields = values.match(regex);
 
             const valueFields = values
                 .split(/([\w\-]+:\((?:[^\\()]+|\\\\.|\\[()])*?\))|([\w]+)/gm)
@@ -259,7 +262,6 @@ export default defineComponent({
             this.processingInput = false;
         },
         setValueFromInput(name: string, value: iFilterValueValue): void {
-            // this.values = this.makeNewValues(name, value);
             const currentValues: iFilterValue[] = this.values || [];
             const newValues: iFilterValue[] = [];
 
@@ -409,11 +411,70 @@ export default defineComponent({
         },
         async emitFilters() {
             await wait(150);
+            this.saveFiltersToUrl();
             this.$emit("filters", this.mappedValues);
         },
         async handleClear() {
             this.values = [];
             this.emitFiltersDebounce.debounce();
+        },
+        saveFiltersToUrl() {
+            if (!this.canSaveFilters) {
+                return;
+            }
+
+            const queryKey = `${this.name}SmartFilter`;
+            const currentDataString = this.$route.query[queryKey] || "";
+
+            let newDataString = "";
+            if (Object.keys(this.mappedValues).length > 0) {
+                newDataString = btoa(JSON.stringify(this.mappedValues));
+            }
+
+            if (currentDataString !== newDataString) {
+                const query = { ...this.$route.query };
+                if (newDataString) {
+                    query[queryKey] = newDataString;
+                } else if (currentDataString && currentDataString !== "{}") {
+                    delete query[queryKey];
+                }
+
+                try {
+                    this.$router.push({ query });
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        },
+        loadFiltersFromUrl() {
+            if (!this.canSaveFilters) {
+                return;
+            }
+
+            const queryKey = `${this.name}SmartFilter`;
+            const dataString: string = (this.$route.query[queryKey] ||
+                "") as string;
+
+            if (!dataString) {
+                return;
+            }
+
+            const dataObject = JSON.parse(atob(dataString));
+            this.values = Object.entries(dataObject || {}).map(
+                ([name, value]) => {
+                    return {
+                        name,
+                        value: value as iFilterValueValue
+                    };
+                }
+            );
+        }
+    },
+    mounted() {
+        if (this.saveFilters && !this.name) {
+            console.warn("Name prop required if saveFilters = true");
+        } else {
+            this.loadFiltersFromUrl();
         }
     }
 });
