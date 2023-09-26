@@ -46,8 +46,9 @@
 
             <div>
                 <EtButtonDefault
+                    disabled
                     @click="e => console.log('test', e)">
-                    Hello!
+                    Hello Disabled!
                 </EtButtonDefault>
 
                 <EtButtonPrimary
