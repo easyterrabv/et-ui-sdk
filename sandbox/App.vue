@@ -111,14 +111,14 @@
                             Buttons
                         </template>
 
-                        <EtSideBarButton :isCollapsed="scope.isCollapsed" @mouseup.left.stop="(e) => console.log('test')">
+                        <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="(e) => console.log('Aii, I am disabled, you should not see this')">
                             <template #icon>
                                 <EtIconTag class="!text-text" />
                             </template>
-                            Test
+                            Disabled
                         </EtSideBarButton>
 
-                        <EtSideBarButton :isCollapsed="scope.isCollapsed" @mouseup.left.stop="(e) => console.log('test')">
+                        <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="(e) => console.log('test')">
                             <template #icon>
                                 <EtIconTag class="!text-text" />
                             </template>

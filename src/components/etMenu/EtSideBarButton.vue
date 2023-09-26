@@ -9,7 +9,9 @@
         ]"
     >
         <EtButton
+            ref="etButton"
             :type="type"
+            @click="onClick"
             :size="UI_SIZING.S"
             :class="{
                 'w-full': !isCollapsed
@@ -65,6 +67,28 @@ export default defineComponent({
         return {
             UI_SIZING
         };
+    },
+    methods: {
+        onClick(event: Event) {
+            if (this.disabled || this.readonly) {
+                event.preventDefault();
+                return;
+            }
+
+            this.$emit("click", event);
+        },
+        focus() {
+            (this.$refs.etButton as any).focus();
+        },
+        blur() {
+            (this.$refs.etButton as any).blur();
+        }
+    },
+    expose: ["focus", "blur"],
+    emits: {
+        click: (event: Event) => !!event,
+        focus: () => true,
+        blur: () => true
     }
 });
 </script>
