@@ -250,6 +250,10 @@ import StarterKit from "@tiptap/starter-kit";
 import { Underline } from "@tiptap/extension-underline";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
+import { Table } from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 import { Link } from "@tiptap/extension-link";
 import { Heading } from "@tiptap/extension-heading";
 import EtButtonGroup from "../etButton/EtButtonGroup.vue";
@@ -500,6 +504,10 @@ export default defineComponent({
                 StarterKit,
                 Underline,
                 Typography,
+                Table,
+                TableCell,
+                TableHeader,
+                TableRow,
                 Link.configure({
                     openOnClick: false,
                     HTMLAttributes: {
