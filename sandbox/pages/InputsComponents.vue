@@ -264,7 +264,7 @@ export default defineComponent({
             ],
 
             textareaContent: '',
-            wysiwygContent: 'Preset test content in here <strong>Bold and strong</strong>',
+            wysiwygContent: 'Preset test content in here <strong>Bold and strong</strong> <table><tr><th>Header 1</th><th>Header 2</th></tr><tr><td>Content 1</td><td>Content 2</td></tr><tr><td>Content 1</td><td>Content 2</td></tr></table>',
             numberRange: [],
 
             selectedTime: [13, 22]

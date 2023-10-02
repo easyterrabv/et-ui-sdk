@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 import EtCheckbox from "../etForm/EtCheckbox.vue";
 import { OptionModel } from "../../models/Option";
 import { Debounce } from "../../helpers/debounce";
@@ -53,7 +53,7 @@ export default defineComponent({
             default: false
         },
         modelValue: {
-            type: [OptionModel, Array<OptionModel>],
+            type: Array as PropType<OptionModel | Array<OptionModel> | null>,
             required: false,
             default: null
         }
@@ -61,7 +61,7 @@ export default defineComponent({
     data() {
         return {
             internalSelected: null as OptionModel | OptionModel[] | null,
-            selectDebounce: new Debounce(this.select, 50)
+            selectDebounce: new Debounce(() => this.select(), 50)
         };
     },
     watch: {
@@ -81,7 +81,7 @@ export default defineComponent({
     computed: {
         filteredOptions() {
             const options = this.options || [];
-            const filteredOptions = [];
+            const filteredOptions: OptionModel[] = [];
 
             const fixedValue = needleFixer(this.filter);
 
@@ -118,13 +118,16 @@ export default defineComponent({
     },
     methods: {
         isSelected(option: OptionModel) {
-            if (!this.multiple) {
+            if (
+                !this.multiple &&
+                this.internalSelected instanceof OptionModel
+            ) {
                 return this.internalSelected?.guid === option.guid;
             }
 
             return (
                 (this.internalSelected || []).findIndex(
-                    (opt) => opt.guid === option.guid
+                    (opt: OptionModel) => opt.guid === option.guid
                 ) > -1
             );
         },
@@ -158,16 +161,21 @@ export default defineComponent({
                 return;
             }
 
+            if (this.multiple && !this.internalSelected) {
+                this.internalSelected = [];
+            }
+
             const isAlreadySelected =
-                this.internalSelected.findIndex(
-                    (opt) => opt.guid === option.guid
+                this.internalSelected?.findIndex(
+                    (opt: OptionModel) => opt.guid === option.guid
                 ) > -1;
+
             if (isAlreadySelected) {
-                this.internalSelected = this.internalSelected.filter(
-                    (opt) => opt.guid !== option.guid
+                this.internalSelected = this.internalSelected?.filter(
+                    (opt: OptionModel) => opt.guid !== option.guid
                 );
             } else {
-                this.internalSelected.push(option);
+                this.internalSelected?.push(option);
             }
 
             this.$emit("optionToggled", option);
@@ -175,7 +183,10 @@ export default defineComponent({
         deSelectOption(option: OptionModel) {
             this.fixInterSelectedIntegrity();
 
-            if (!this.multiple) {
+            if (
+                !this.multiple &&
+                this.internalSelected instanceof OptionModel
+            ) {
                 if (this.internalSelected.guid === option.guid) {
                     this.internalSelected = null;
                 }
@@ -188,7 +199,7 @@ export default defineComponent({
             }
 
             const isSelected =
-                this.internalSelected.findIndex(
+                this.internalSelected?.findIndex(
                     (opt) => opt.guid === option.guid
                 ) > -1;
 

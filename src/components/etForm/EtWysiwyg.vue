@@ -127,7 +127,9 @@
                             :size="UI_SIZING.S"
                             @click="toggleAnchorPopover"
                             :type="
-                                editor.isActive('link') ? 'primary' : 'default'
+                                editor.isActive('link')
+                                    ? UI_TYPES.PRIMARY
+                                    : UI_TYPES.DEFAULT
                             "
                             :disabled="hasDisabledInput"
                         >
@@ -199,8 +201,8 @@
                     :size="UI_SIZING.S"
                     :type="
                         editor.isActive('heading', { level: heading })
-                            ? 'primary'
-                            : 'default'
+                            ? UI_TYPES.PRIMARY
+                            : UI_TYPES.DEFAULT
                     "
                     :disabled="hasDisabledInput"
                     @click="
@@ -211,10 +213,27 @@
                 </EtButton>
             </EtButtonGroup>
 
+            <EtButtonGroup>
+                <EtButton
+                    :size="UI_SIZING.S"
+                    :type="UI_TYPES.DEFAULT"
+                    :disabled="hasDisabledInput"
+                    @click="
+                        runEditorMethod('insertTable', {
+                            rows: 2,
+                            cols: 2,
+                            withHeaderRow: true
+                        })
+                    "
+                >
+                    <EtIconTable title="Insert Table" />
+                </EtButton>
+            </EtButtonGroup>
+
             <EtButtonGroup class="ml-auto">
                 <EtButton
                     :size="UI_SIZING.S"
-                    type="default"
+                    :type="UI_TYPES.DEFAULT"
                     @click="toggleEditMode"
                 >
                     <EtIconCode
@@ -274,6 +293,7 @@ import EtIconLink from "../etIcon/EtIconLink.vue";
 import EtIconTrash from "../etIcon/EtIconTrash.vue";
 import EtIconCode from "../etIcon/EtIconCode.vue";
 import EtIconFont from "../etIcon/EtIconFont.vue";
+import EtIconTable from "../etIcon/EtIconTable.vue";
 import EtPopover from "../EtPopover.vue";
 import EtBox from "../EtBox.vue";
 import EtInputGroup from "./EtInputGroup.vue";
@@ -350,16 +370,17 @@ export default defineComponent({
         EtIconLink,
         EtIconTrash,
         EtIconCode,
-        EtIconFont
+        EtIconFont,
+        EtIconTable
     },
     data() {
         return {
             EDIT_MODES,
-            editor: null as Editor,
-            innerData: this.modelValue as string | number | null,
+            editor: null as Editor | null,
+            innerData: this.modelValue as string | number | undefined,
 
             urlHref: null,
-            urlTarget: null as OptionModel | null,
+            urlTarget: undefined as OptionModel | undefined,
             urlTargetOptions: [
                 new OptionModel({ label: "Empty", value: "" }),
                 new OptionModel({ label: "Blank", value: "_blank" }),
@@ -391,16 +412,22 @@ export default defineComponent({
         innerData: {
             immediate: true,
             handler(value) {
-                this.$emit("update:modelValue", this.innerData);
-                if (this.editMode === EDIT_MODES.CODE) {
-                    this.editor.commands.setContent(this.innerData, false);
+                this.$emit("update:modelValue", value);
+                if (this.editMode === EDIT_MODES.CODE && this.editor) {
+                    this.editor.commands.setContent(
+                        value ? String(value) : "",
+                        false
+                    );
                 }
             }
         },
         modelValue() {
-            if (this.innerData !== this.modelValue) {
+            if (this.innerData !== this.modelValue && this.editor) {
                 this.innerData = this.modelValue;
-                this.editor.commands.setContent(this.innerData, false);
+                this.editor.commands.setContent(
+                    this.innerData ? String(this.innerData) : "",
+                    false
+                );
             }
         },
         disabled: "setEditable",
@@ -415,7 +442,8 @@ export default defineComponent({
                 this.editMode = EDIT_MODES.WYSIWYG;
             }
         },
-        runEditorMethod(method, ...args) {
+        runEditorMethod(method: string, ...args: unknown[]) {
+            // @ts-ignore
             this.editor
                 ?.chain()
                 .focus()
@@ -440,7 +468,7 @@ export default defineComponent({
             await this.commonBlur();
         },
         async onSelectBlur() {
-            this.$refs.urlHrefInput.focus();
+            (this.$refs?.urlHrefInput as any)?.focus?.();
         },
         async commonBlur() {
             await wait(150);
@@ -449,7 +477,7 @@ export default defineComponent({
             }
         },
         async toggleAnchorPopover() {
-            if (!this.urlHref) {
+            if (!this.urlHref && this.editor) {
                 this.urlHref = this.editor.getAttributes("link").href;
                 const target = this.editor.getAttributes("link").target;
                 this.urlTarget = this.urlTargetOptions.find(
@@ -463,37 +491,38 @@ export default defineComponent({
                 );
             }
 
-            this.$refs.anchorPopover.togglePopover();
+            await (this.$refs.anchorPopover as any)?.togglePopover();
             await wait(50);
-            this.$refs.urlHrefInput.focus();
+            (this.$refs.urlHrefInput as any).focus();
         },
         cancelLink() {
             this.urlHref = null;
-            this.urlTarget = null;
-            this.$refs.anchorPopover.hide();
+            this.urlTarget = undefined;
+            (this.$refs.anchorPopover as any)?.hide();
         },
         addLink() {
-            let chain = this.editor.chain().focus().extendMarkRange("link");
+            let chain = this.editor?.chain().focus().extendMarkRange("link");
 
-            if (!this.urlHref) {
+            if (!this.urlHref && chain) {
                 chain = chain.unsetLink();
-            } else {
+            } else if (chain) {
                 chain = chain.setLink({
-                    href: this.urlHref,
+                    href: this.urlHref ?? "",
                     target: this.urlTarget?.value
                 });
             }
 
-            chain.run();
+            chain?.run();
             this.cancelLink();
         },
         setEditable() {
-            this.editor.setEditable(!this.hasDisabledInput);
+            this.editor?.setEditable(!this.hasDisabledInput);
         }
     },
     mounted() {
+        // @ts-ignore
         this.editor = new Editor({
-            content: this.innerData,
+            content: this.innerData ? String(this.innerData) : "",
             editable: !this.hasDisabledInput,
             editorProps: {
                 attributes: {
@@ -522,7 +551,7 @@ export default defineComponent({
                 Heading
             ],
             onUpdate: () => {
-                this.innerData = this.editor.getHTML();
+                this.innerData = this.editor?.getHTML();
             }
         });
     },

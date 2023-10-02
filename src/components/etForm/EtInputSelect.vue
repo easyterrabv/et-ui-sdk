@@ -88,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 
 import EtPopover from "../EtPopover.vue";
 import EtInput from "./EtInput.vue";
@@ -110,7 +110,7 @@ export default defineComponent({
             required: true
         },
         modelValue: {
-            type: [OptionModel, Array<OptionModel>],
+            type: Array as PropType<OptionModel | Array<OptionModel> | null>,
             required: false,
             default: null
         },
@@ -135,7 +135,8 @@ export default defineComponent({
             internalOptionValue: undefined as
                 | OptionModel
                 | OptionModel[]
-                | undefined,
+                | undefined
+                | null,
 
             hasInputFocus: false as Boolean,
             justToggledOption: false,
@@ -180,12 +181,13 @@ export default defineComponent({
                 Array.isArray(this.modelValue)
                     ? this.modelValue
                     : [this.modelValue]
-            ).filter((opt: OptionModel) => !!opt);
+            ).filter((opt) => !!opt);
+
             const currentInnerModel = (
                 Array.isArray(this.internalOptionValue)
                     ? this.internalOptionValue
                     : [this.internalOptionValue]
-            ).filter((opt: OptionModel) => !!opt);
+            ).filter((opt) => !!opt);
 
             return (
                 currentModel.length !== currentInnerModel.length ||
@@ -247,7 +249,7 @@ export default defineComponent({
         focus: () => true,
         blur: () => true,
         "update:modelValue": (
-            data: OptionModel | OptionModel[] | undefined
+            data: OptionModel | OptionModel[] | undefined | null
         ): boolean => true
     }
 });
