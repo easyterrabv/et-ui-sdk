@@ -226,7 +226,101 @@
                         })
                     "
                 >
-                    <EtIconTable title="Insert Table" />
+                    <EtLayer title="Add Table">
+                        <EtIconTable
+                            transform="shrink-2"
+                            class="text-default-light"
+                        />
+                        <EtIconCirclePlus
+                            transform="right-6 down-6 shrink-3"
+                            :class="{ 'text-success-dark': !hasDisabledInput }"
+                        />
+                    </EtLayer>
+                </EtButton>
+                <EtButton
+                    :size="UI_SIZING.S"
+                    :type="UI_TYPES.DEFAULT"
+                    :disabled="hasDisabledInput"
+                    @click="runEditorMethod('deleteTable')"
+                >
+                    <EtLayer title="Remove Table">
+                        <EtIconTable
+                            transform="shrink-2"
+                            class="text-default-light"
+                        />
+                        <EtIconCircleMinus
+                            transform="right-6 down-6 shrink-3"
+                            :class="{ 'text-danger-dark': !hasDisabledInput }"
+                        />
+                    </EtLayer>
+                </EtButton>
+                <EtButton
+                    :size="UI_SIZING.S"
+                    :type="UI_TYPES.DEFAULT"
+                    :disabled="hasDisabledInput"
+                    @click="runEditorMethod('addColumnAfter')"
+                >
+                    <EtLayer title="Add column">
+                        <EtIconTableColumns
+                            transform="shrink-2"
+                            class="text-default-light"
+                        />
+                        <EtIconCirclePlus
+                            transform="right-6 down-6 shrink-3"
+                            :class="{ 'text-success-dark': !hasDisabledInput }"
+                        />
+                    </EtLayer>
+                </EtButton>
+                <EtButton
+                    :size="UI_SIZING.S"
+                    :type="UI_TYPES.DEFAULT"
+                    :disabled="hasDisabledInput"
+                    @click="runEditorMethod('deleteColumn')"
+                >
+                    <EtLayer title="Remove column">
+                        <EtIconTableColumns
+                            transform="shrink-2"
+                            class="text-default-light"
+                        />
+                        <EtIconCircleMinus
+                            transform="right-6 down-6 shrink-3"
+                            :class="{ 'text-danger-dark': !hasDisabledInput }"
+                        />
+                    </EtLayer>
+                </EtButton>
+                <EtButton
+                    :size="UI_SIZING.S"
+                    :type="UI_TYPES.DEFAULT"
+                    :disabled="hasDisabledInput"
+                    @click="runEditorMethod('addRowAfter')"
+                >
+                    <EtLayer title="Add row">
+                        <EtIconTableCells
+                            transform="shrink-2"
+                            class="text-default-light"
+                        />
+                        <EtIconCirclePlus
+                            transform="right-6 down-6 shrink-3"
+                            :class="{ 'text-success-dark': !hasDisabledInput }"
+                        />
+                    </EtLayer>
+                </EtButton>
+                <EtButton
+                    :size="UI_SIZING.S"
+                    :type="UI_TYPES.DEFAULT"
+                    :disabled="hasDisabledInput"
+                    @click="runEditorMethod('deleteRow')"
+                >
+                    <EtLayer title="Remove row">
+                        <EtIconTableCells
+                            transform="shrink-2"
+                            class="text-default-light"
+                        />
+                        <EtIconCircleMinus
+                            transform="right-6 down-6 shrink-3"
+                            :class="{ 'text-danger-dark': !hasDisabledInput }"
+                        />
+                    </EtLayer>
                 </EtButton>
             </EtButtonGroup>
 
@@ -279,6 +373,7 @@ import EtButton from "../etButton/EtButton.vue";
 import EtButtonDanger from "../etButton/EtButtonDanger.vue";
 import EtButtonDefault from "../etButton/EtButtonDefault.vue";
 import EtButtonSuccess from "../etButton/EtButtonSuccess.vue";
+import EtLayer from "../etIcon/EtLayer.vue";
 import EtIconBold from "../etIcon/EtIconBold.vue";
 import EtIconItalic from "../etIcon/EtIconItalic.vue";
 import EtIconUnderline from "../etIcon/EtIconUnderline.vue";
@@ -293,6 +388,8 @@ import EtIconTrash from "../etIcon/EtIconTrash.vue";
 import EtIconCode from "../etIcon/EtIconCode.vue";
 import EtIconFont from "../etIcon/EtIconFont.vue";
 import EtIconTable from "../etIcon/EtIconTable.vue";
+import EtIconTableColumns from "../etIcon/EtIconTableColumns.vue";
+import EtIconTableCells from "../etIcon/EtIconTableCells.vue";
 import EtPopover from "../EtPopover.vue";
 import EtBox from "../EtBox.vue";
 import EtInputGroup from "./EtInputGroup.vue";
@@ -305,6 +402,8 @@ import { wait } from "../../helpers/async";
 import { generateId } from "../../helpers/random";
 import EtTextarea from "./EtTextarea.vue";
 import { AllowStyleExtension } from "../../helpers/tiptap/AllowStyleExtension";
+import EtIconCirclePlus from "../etIcon/EtIconCirclePlus.vue";
+import EtIconCircleMinus from "../etIcon/EtIconCircleMinus.vue";
 
 export const EDIT_MODES = {
     WYSIWYG: "WYSIWYG",
@@ -358,6 +457,8 @@ export default defineComponent({
         EtButtonDefault,
         EtButtonSuccess,
 
+        EtLayer,
+
         EtIconBold,
         EtIconItalic,
         EtIconUnderline,
@@ -371,7 +472,11 @@ export default defineComponent({
         EtIconTrash,
         EtIconCode,
         EtIconFont,
-        EtIconTable
+        EtIconTable,
+        EtIconTableColumns,
+        EtIconTableCells,
+        EtIconCirclePlus,
+        EtIconCircleMinus
     },
     data() {
         return {
