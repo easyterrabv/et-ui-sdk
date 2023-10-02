@@ -274,7 +274,6 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { Link } from "@tiptap/extension-link";
-import { Heading } from "@tiptap/extension-heading";
 import EtButtonGroup from "../etButton/EtButtonGroup.vue";
 import EtButton from "../etButton/EtButton.vue";
 import EtButtonDanger from "../etButton/EtButtonDanger.vue";
@@ -305,6 +304,7 @@ import { OptionModel } from "../../models/Option";
 import { wait } from "../../helpers/async";
 import { generateId } from "../../helpers/random";
 import EtTextarea from "./EtTextarea.vue";
+import { AllowStyleExtension } from "../../helpers/tiptap/AllowStyleExtension";
 
 export const EDIT_MODES = {
     WYSIWYG: "WYSIWYG",
@@ -526,7 +526,16 @@ export default defineComponent({
             editable: !this.hasDisabledInput,
             editorProps: {
                 attributes: {
-                    class: "prose prose-sm !max-w-full min-h-[300px] rounded-b-md border-0 p-2 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+                    class: [
+                        // <th>
+                        "[&_th]:border-[1px] [&_th]:px-1 [&_th]:py-0 [&_th]:bg-default-extra-light",
+
+                        // <td>
+                        "[&_td]:border-[1px] [&_td]:p-1 [&_td]:py-0",
+
+                        // other
+                        "prose prose-sm !max-w-full min-h-[300px] rounded-b-md border-0 p-2 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+                    ].join(" ")
                 }
             },
             extensions: [
@@ -548,7 +557,7 @@ export default defineComponent({
                     types: ["paragraph"],
                     alignments: ["left", "center", "right"]
                 }),
-                Heading
+                AllowStyleExtension
             ],
             onUpdate: () => {
                 this.innerData = this.editor?.getHTML();
