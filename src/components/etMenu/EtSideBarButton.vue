@@ -17,7 +17,7 @@
                 'w-full': !isCollapsed
             }"
             :active="isActive"
-            :disabled="disabled"
+            :disabled="internalDisabled"
             :readonly="readonly"
             v-bind="{ ...$attrs }"
         >
@@ -68,9 +68,17 @@ export default defineComponent({
             UI_SIZING
         };
     },
+    computed: {
+        internalDisabled() {
+            if (typeof this.disabled === "boolean") {
+                return this.disabled;
+            }
+            return this.disabled?.();
+        }
+    },
     methods: {
         onClick(event: Event) {
-            if (this.disabled || this.readonly) {
+            if (this.internalDisabled || this.readonly) {
                 event.preventDefault();
                 return;
             }
