@@ -124,7 +124,9 @@ export default defineComponent({
 
             return usedColors;
         },
-        sizeClasses: (vm): string => vm.sizeMapping[vm.size],
+        sizeClasses() {
+            return this.sizeMapping[this.size];
+        },
         internalDisabled() {
             if (typeof this.disabled === "boolean") {
                 return this.disabled;

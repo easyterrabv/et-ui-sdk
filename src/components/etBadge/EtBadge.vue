@@ -47,8 +47,12 @@ export default defineComponent({
         };
     },
     computed: {
-        colorClasses: (vm) => vm.colorMapping[vm.type],
-        sizeClasses: (vm) => vm.sizeMapping[vm.size]
+        colorClasses() {
+            return this.colorMapping[this.type];
+        },
+        sizeClasses() {
+            return this.sizeMapping[this.size];
+        }
     }
 });
 </script>

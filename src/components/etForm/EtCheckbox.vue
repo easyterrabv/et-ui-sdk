@@ -85,8 +85,8 @@ export default defineComponent({
             immediate: true,
             handler() {
                 this.$nextTick(() => {
-                    this.$refs.checkbox.indeterminate =
-                        this.internalIndeterminate;
+                    const checkboxRef = this.$refs.checkbox as any;
+                    checkboxRef.indeterminate = this.internalIndeterminate;
                 });
                 this.$emit("update:indeterminate", this.internalIndeterminate);
             }
@@ -102,8 +102,8 @@ export default defineComponent({
         }
     },
     emits: {
-        "update:checked": () => true,
-        "update:indeterminate": () => true
+        "update:checked": (value: boolean) => true,
+        "update:indeterminate": (value: boolean) => true
     }
 });
 </script>

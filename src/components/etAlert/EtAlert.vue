@@ -36,7 +36,9 @@ export default defineComponent({
         };
     },
     computed: {
-        colorClasses: (vm) => vm.colorMapping[vm.type]
+        colorClasses() {
+            return this.colorMapping[this.type];
+        }
     }
 });
 </script>

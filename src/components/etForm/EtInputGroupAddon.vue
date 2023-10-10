@@ -30,7 +30,9 @@ export default defineComponent({
         };
     },
     computed: {
-        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
+        sizeClasses(): string {
+            return this.sizeMapping[this.size];
+        }
     }
 });
 </script>
