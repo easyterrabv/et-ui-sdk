@@ -1,10 +1,10 @@
-export enum UI_SIZING {
+export const enum UI_SIZING {
     XS = "xs",
     S = "s",
     M = "m",
     L = "l"
 }
-export enum UI_TYPES {
+export const enum UI_TYPES {
     DEFAULT = "default",
     PRIMARY = "primary",
     SUCCESS = "success",

@@ -128,7 +128,7 @@ import {
 
 const now = new Date();
 
-export enum VIEW_MODES {
+export const enum VIEW_MODES {
     DECADE,
     YEAR,
     MONTH
