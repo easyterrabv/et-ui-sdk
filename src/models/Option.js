@@ -1,7 +1,7 @@
 import { EtModel } from "./Model";
 import { needleFixer } from "../helpers/misc";
 import { reactive } from "vue";
-import { UI_TYPES } from "../enums";
+import { UI_TYPES } from "../helpers/enums";
 let OPTION_COUNT = 0;
 export class OptionModel extends EtModel {
     constructor(option) {
