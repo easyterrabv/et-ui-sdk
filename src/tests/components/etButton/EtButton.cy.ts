@@ -1,5 +1,5 @@
 import EtButton from "src/components/etButton/EtButton.vue";
-import { UI_SIZING, UI_TYPES } from "src/enums.ts";
+import { UI_SIZING, UI_TYPES } from "src/helpers/enums.ts";
 import { mount } from "cypress/vue";
 
 describe(`<EtButton />`, () => {
