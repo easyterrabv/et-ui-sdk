@@ -453,7 +453,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {UI_SIZING, UI_TYPES} from "../../src/enums";
+import {UI_SIZING, UI_TYPES} from "../../src/helpers/enums";
 
 import EtDrawer from "src/layouts/Drawer.vue";
 import EtContent from "src/layouts/Content.vue";

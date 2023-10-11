@@ -11,7 +11,7 @@
 <script lang="ts">
 import EtButton, { sharedButtonProps } from "./EtButton.vue";
 import { defineComponent } from "vue";
-import { UI_TYPES } from "../../enums";
+import { UI_TYPES } from "../../helpers/enums";
 
 export default defineComponent({
     computed: {

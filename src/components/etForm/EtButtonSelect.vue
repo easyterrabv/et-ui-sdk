@@ -26,7 +26,7 @@ import { commonInputProps } from "./EtInput.vue";
 
 import EtButtonGroup from "../etButton/EtButtonGroup.vue";
 import EtButton from "../etButton/EtButton.vue";
-import { UI_TYPES } from "../../enums";
+import { UI_TYPES } from "../../helpers/enums";
 
 export default defineComponent({
     components: {

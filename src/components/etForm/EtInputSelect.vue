@@ -101,7 +101,7 @@ import { wait } from "../../helpers/async";
 import { OptionModel } from "../../models/Option";
 
 import { commonInputProps } from "./EtInput.vue";
-import { UI_SIZING } from "../../enums";
+import { UI_SIZING } from "../../helpers/enums";
 
 export default defineComponent({
     props: {

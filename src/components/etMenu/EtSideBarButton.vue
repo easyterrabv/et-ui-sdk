@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
-import { UI_TYPES, UI_SIZING } from "../../enums";
+import { UI_TYPES, UI_SIZING } from "../../helpers/enums";
 import EtButton from "../etButton/EtButton.vue";
 
 export default defineComponent({

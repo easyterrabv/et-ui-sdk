@@ -67,7 +67,6 @@
     "src/models/**/*",
     "src/interfaces/**/*",
     "src/dist.css",
-    "src/enums.ts",
     "tailwind.config.js"
   ]
 }

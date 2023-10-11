@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
-import { UI_SIZING, UI_TYPES } from "../../enums";
+import { UI_SIZING, UI_TYPES } from "../../helpers/enums";
 import { Debounce } from "../../helpers/debounce";
 
 interface iButtonColoring {

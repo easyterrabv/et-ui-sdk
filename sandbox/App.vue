@@ -165,7 +165,7 @@ import EtIconTag from "src/components/etIcon/EtIconTag.vue";
 import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
 import EtIconTurnRight from "src/components/etIcon/EtIconTurnRight.vue";
 
-import {UI_SIZING, UI_TYPES} from "../src/enums";
+import {UI_SIZING, UI_TYPES} from "../src/helpers/enums";
 
 export default defineComponent({
     computed: {

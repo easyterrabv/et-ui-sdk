@@ -11,7 +11,7 @@
 <script lang="ts">
 import EtAlert from "./EtAlert.vue";
 import { defineComponent } from "vue";
-import { UI_TYPES } from "../../enums";
+import { UI_TYPES } from "../../helpers/enums";
 
 export default defineComponent({
     computed: {

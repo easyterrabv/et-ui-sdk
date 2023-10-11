@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
-import { UI_SIZING } from "../../enums";
+import { UI_SIZING } from "../../helpers/enums";
 
 export default defineComponent({
     props: {

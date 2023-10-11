@@ -183,7 +183,7 @@ import type {
     sortDirections
 } from "../../interfaces/table";
 import { EtModel } from "../../models/Model";
-import { UI_SIZING } from "../../enums";
+import { UI_SIZING } from "../../helpers/enums";
 
 export default defineComponent({
     components: {

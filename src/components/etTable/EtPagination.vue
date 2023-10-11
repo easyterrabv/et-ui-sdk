@@ -48,7 +48,7 @@ import EtButton from "../etButton/EtButton.vue";
 
 import EtIconChevronLeft from "../etIcon/EtIconChevronLeft.vue";
 import EtIconChevronRight from "../etIcon/EtIconChevronRight.vue";
-import { UI_TYPES } from "../../enums";
+import { UI_TYPES } from "../../helpers/enums";
 
 export default {
     components: {

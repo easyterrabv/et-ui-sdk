@@ -416,7 +416,7 @@ import EtInputGroup from "./EtInputGroup.vue";
 import EtInputGroupAddon from "./EtInputGroupAddon.vue";
 import EtInput from "./EtInput.vue";
 import EtInputSelect from "./EtInputSelect.vue";
-import { UI_SIZING, UI_TYPES } from "../../enums";
+import { UI_SIZING, UI_TYPES } from "../../helpers/enums";
 import { OptionModel } from "../../models/Option";
 import { wait } from "../../helpers/async";
 import { generateId } from "../../helpers/random";

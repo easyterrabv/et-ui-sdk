@@ -99,7 +99,7 @@ import { dateToYMD, parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
 import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
-import { UI_SIZING } from "../../enums";
+import { UI_SIZING } from "../../helpers/enums";
 import { OptionModel } from "../../models/Option";
 
 export default defineComponent({

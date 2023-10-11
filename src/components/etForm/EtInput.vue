@@ -89,7 +89,7 @@ import { defineComponent, type PropType } from "vue";
 import { generateId } from "../../helpers/random";
 
 import EtIconTimes from "../etIcon/EtIconTimes.vue";
-import { UI_SIZING } from "../../enums";
+import { UI_SIZING } from "../../helpers/enums";
 
 export const commonInputProps = {
     name: {

@@ -105,7 +105,7 @@ import EtButtonDefault from "../../etButton/EtButtonDefault.vue";
 import EtBox from "../../EtBox.vue";
 import EtPopover from "../../EtPopover.vue";
 
-import { UI_SIZING } from "../../../enums";
+import { UI_SIZING } from "../../../helpers/enums";
 import { wait } from "../../../helpers/async";
 import { Debounce } from "../../../helpers/debounce";
 
