@@ -2,7 +2,7 @@
     <EtIcon icon="table" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTable } from "@fortawesome/free-solid-svg-icons";
 library.add(faTable);

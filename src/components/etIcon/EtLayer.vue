@@ -8,10 +8,6 @@
     </font-awesome-layers>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { FontAwesomeLayers } from "@fortawesome/vue-fontawesome";
-import { defineComponent } from "vue";
-export default defineComponent({
-    components: { FontAwesomeLayers }
-});
 </script>

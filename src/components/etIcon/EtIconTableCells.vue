@@ -2,7 +2,7 @@
     <EtIcon icon="table-cells-large" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTableCellsLarge } from "@fortawesome/free-solid-svg-icons";
 library.add(faTableCellsLarge);

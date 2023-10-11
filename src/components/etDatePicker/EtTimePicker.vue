@@ -64,7 +64,7 @@ export default defineComponent({
     },
     props: {
         modelValue: {
-            type: Array<Number>,
+            type: Array<number>,
             required: false,
             default: ""
         }
@@ -74,7 +74,7 @@ export default defineComponent({
             hour: null as number | null,
             minute: null as number | null,
 
-            innerValue: Array<Number>(2),
+            innerValue: Array<number | null>(2),
             dragging: false
         };
     },
@@ -135,8 +135,12 @@ export default defineComponent({
     mounted() {
         // Magic number. Should be dynamic in the future.
         const optionHeight = 24;
-        this.$refs.hourOptions.scrollTo(this.hour * optionHeight);
-        this.$refs.minuteOptions.scrollTo(this.minute * optionHeight);
+        (this.$refs.hourOptions as any).scrollTo(
+            (this.hour || 0) * optionHeight
+        );
+        (this.$refs.minuteOptions as any).scrollTo(
+            (this.minute || 0) * optionHeight
+        );
     },
     emits: ["update:modelValue", "interaction", "escape", "focus", "blur"]
 });

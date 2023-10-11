@@ -9,15 +9,7 @@
     </EtBox>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import EtBox from "./EtBox.vue";
 import EtSection from "./EtSection.vue";
-import { defineComponent } from "vue";
-
-export default defineComponent({
-    components: {
-        EtBox,
-        EtSection
-    }
-});
 </script>

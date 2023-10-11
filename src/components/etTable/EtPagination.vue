@@ -42,7 +42,7 @@
     </EtButtonGroup>
 </template>
 
-<script>
+<script lang="ts">
 import EtButtonGroup from "../etButton/EtButtonGroup.vue";
 import EtButton from "../etButton/EtButton.vue";
 

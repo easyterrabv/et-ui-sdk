@@ -8,7 +8,7 @@
     </form>
 </template>
 
-<script>
+<script lang="ts">
 import { Debounce } from "../../helpers/debounce";
 
 export default {

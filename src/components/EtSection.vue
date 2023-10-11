@@ -13,13 +13,6 @@
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import EtHeaderBlock from "./EtHeaderBlock.vue";
-import { defineComponent } from "vue";
-
-export default defineComponent({
-    components: {
-        EtHeaderBlock
-    }
-});
 </script>

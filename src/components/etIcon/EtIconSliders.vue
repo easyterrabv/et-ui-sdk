@@ -2,7 +2,7 @@
     <EtIcon icon="sliders" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSliders } from "@fortawesome/free-solid-svg-icons";
 library.add(faSliders);

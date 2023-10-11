@@ -2,7 +2,7 @@
     <EtIcon icon="tablet-button" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTabletButton } from "@fortawesome/free-solid-svg-icons";
 library.add(faTabletButton);
