@@ -18,7 +18,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import EtSideBar from "../components/etMenu/EtSideBar.vue";
 export default {
     components: { EtSideBar },
