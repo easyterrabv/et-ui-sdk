@@ -27,7 +27,7 @@ import EtIconAnglesLeft from "../etIcon/EtIconAnglesLeft.vue";
 import EtIconAnglesRight from "../etIcon/EtIconAnglesRight.vue";
 
 const localStorageCollapsedKey: string = "etSideBarIsCollapsed";
-function getIsCollapsed(key): boolean {
+function getIsCollapsed(key: string): boolean {
     let isCollapsed: boolean = false;
     if (localStorage) {
         const isCollapsedInter = localStorage.getItem(key);
@@ -66,12 +66,16 @@ export default defineComponent({
         }
     },
     computed: {
-        widthClass: (ctx): string =>
-            ctx.isCollapsed
+        widthClass(): string {
+            return this.isCollapsed
                 ? "min-w-14 w-14 max-w-14"
-                : "min-w-56 w-56 max-w-56",
-        storageKey: (ctx): string =>
-            [localStorageCollapsedKey, ctx.name].filter((n) => !!n).join("-")
+                : "min-w-56 w-56 max-w-56";
+        },
+        storageKey(): string {
+            return [localStorageCollapsedKey, this.name]
+                .filter((n) => !!n)
+                .join("-");
+        }
     },
     methods: {
         toggleCollapse(): void {

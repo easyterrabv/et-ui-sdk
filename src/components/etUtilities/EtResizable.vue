@@ -70,7 +70,10 @@ export default {
         }
     },
     methods: {
-        startResize(event, direction) {
+        startResize(
+            event: MouseEvent,
+            direction: "top-left" | "top-right" | "bottom-right" | "bottom-left"
+        ) {
             this.isResizing = true;
             this.startX = event.clientX;
             this.startY = event.clientY;
@@ -80,7 +83,7 @@ export default {
             document.addEventListener("mouseup", this.stopResize);
             this.$emit("resizestart");
         },
-        resize(event) {
+        resize(event: MouseEvent) {
             if (!this.isResizing) {
                 return;
             }

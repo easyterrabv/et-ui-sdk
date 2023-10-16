@@ -30,7 +30,10 @@
                     {{ viewingYear }}
                 </span>
                 <span v-else-if="viewMode === VIEW_MODES.MONTH">
-                    {{ viewingYear }} - {{ monthToNameFull(viewingMonth) }}
+                    {{ viewingYear }} -
+                    <span v-if="viewingMonth">{{
+                        monthToNameFull(viewingMonth)
+                    }}</span>
                 </span>
             </div>
             <div
@@ -128,7 +131,7 @@ import {
 
 const now = new Date();
 
-export const enum VIEW_MODES {
+export enum VIEW_MODES {
     DECADE,
     YEAR,
     MONTH
@@ -142,7 +145,7 @@ export default defineComponent({
     },
     props: {
         modelValue: {
-            type: [Date, Array<Date>],
+            type: [Date, Array<Date | null>],
             required: false,
             default: null
         },
@@ -161,25 +164,34 @@ export default defineComponent({
             today: now,
             setting: "first" as "first" | "second",
 
-            prevPageDebounce: new Debounce(this.prevPage, 50),
-            nextPageDebounce: new Debounce(this.nextPage, 50),
-            modeUpDebounce: new Debounce(this.modeUp, 50),
-            pickOptionDebounce: new Debounce(this.pickOption, 50),
+            prevPageDebounce: new Debounce(() => this.prevPage(), 50),
+            nextPageDebounce: new Debounce(() => this.nextPage(), 50),
+            modeUpDebounce: new Debounce(() => this.modeUp(), 50),
+            pickOptionDebounce: new Debounce(
+                (...args) => this.pickOption(...args),
+                50
+            ),
 
-            selectedDates: null as [Date] | [Date | null, Date | null] | null,
+            selectedDates: undefined as Array<Date | undefined> | undefined,
 
-            viewingDate: now as Date | null,
+            viewingDate: now as Date | undefined,
             viewMode: VIEW_MODES.MONTH as VIEW_MODES,
             VIEW_MODES
         };
     },
     computed: {
-        viewingYear: (vm) => vm.viewingDate?.getFullYear(),
-        viewingMonth: (vm) => vm.viewingDate?.getMonth(),
-        viewingDayOfMonth: (vm) => vm.viewingDate?.getDate(),
-        viewingPeriod(): [Date, Date] {
-            const currentYear = this.viewingYear;
-            const currentMonth = this.viewingMonth;
+        viewingYear() {
+            return this.viewingDate?.getFullYear();
+        },
+        viewingMonth() {
+            return this.viewingDate?.getMonth();
+        },
+        viewingDayOfMonth() {
+            return this.viewingDate?.getDate();
+        },
+        viewingPeriod(): Date[] {
+            const currentYear = this.viewingYear || new Date().getFullYear();
+            const currentMonth = this.viewingMonth || new Date().getMonth();
 
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
@@ -273,7 +285,7 @@ export default defineComponent({
 
             return options;
         },
-        emittingData() {
+        emittingData(): Array<Date | undefined> | Date | undefined {
             if (this.multiple) {
                 return this.selectedDates;
             }
@@ -282,17 +294,17 @@ export default defineComponent({
                 return this.selectedDates[0];
             }
 
-            return null;
+            return undefined;
         },
-        firstDate(): Date | null {
+        firstDate(): Date | undefined {
             return this.selectedDates && this.selectedDates.length > 0
                 ? this.selectedDates[0]
-                : null;
+                : undefined;
         },
-        secondDate(): Date | null {
+        secondDate(): Date | undefined {
             return this.selectedDates && this.selectedDates.length > 1
                 ? this.selectedDates[1]
-                : null;
+                : undefined;
         }
     },
     watch: {
@@ -327,7 +339,7 @@ export default defineComponent({
                 (this.secondDate && isSameDates(date, this.secondDate))
             );
         },
-        pickOption(e, option) {
+        pickOption(e: Event, option: Date) {
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
                 case VIEW_MODES.YEAR:
@@ -342,7 +354,7 @@ export default defineComponent({
                             this.$emit("onFirstChange", date);
                             this.setting = "second";
                         } else {
-                            if (date < this.firstDate) {
+                            if (this.firstDate && date < this.firstDate) {
                                 this.selectedDates = [date, this.firstDate];
                             } else {
                                 this.selectedDates = [this.firstDate, date];
@@ -399,27 +411,30 @@ export default defineComponent({
             this.switchPage(true);
         },
         switchPage(up = false) {
+            const viewingYear = this.viewingYear || new Date().getFullYear();
+            const viewingMonth = this.viewingMonth || new Date().getMonth();
+
             const value = up ? 1 : -1;
 
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
                     this.viewingDate = new Date(
-                        this.viewingYear + value * 10,
-                        this.viewingMonth,
+                        viewingYear + value * 10,
+                        viewingMonth,
                         this.viewingDayOfMonth
                     );
                     break;
                 case VIEW_MODES.YEAR:
                     this.viewingDate = new Date(
-                        this.viewingYear + value,
-                        this.viewingMonth,
+                        viewingYear + value,
+                        viewingMonth,
                         this.viewingDayOfMonth
                     );
                     break;
                 case VIEW_MODES.MONTH:
                     this.viewingDate = new Date(
-                        this.viewingYear,
-                        this.viewingMonth + value,
+                        viewingYear,
+                        viewingMonth + value,
                         this.viewingDayOfMonth
                     );
                     break;
@@ -439,15 +454,17 @@ export default defineComponent({
     },
     emits: {
         // will trigger and usually only update the v-model value
-        "update:modelValue": (modelValue: Date): boolean =>
+        "update:modelValue": (
+            modelValue: Array<Date | undefined> | Date | undefined
+        ): boolean =>
             typeof modelValue === typeof Date || Array.isArray(modelValue),
         interaction: (): boolean => true,
-        dateSelect: (value): boolean => true,
+        dateSelect: (): boolean => true,
         escape: (): boolean => true,
         focus: (): boolean => true,
         blur: (): boolean => true,
-        onFirstChange: (): boolean => true,
-        onSecondChange: (): boolean => true
+        onFirstChange: (value: Date | null): boolean => true,
+        onSecondChange: (value: Date | null): boolean => true
     }
 });
 </script>

@@ -33,12 +33,12 @@ export default defineComponent({
         }
     },
     methods: {
-        startDrag(event) {
+        startDrag(event: MouseEvent) {
             this.isMouseDown = true;
             this.startY = event.clientY;
-            this.scrollTop = this.$refs.scrollContainer.scrollTop;
+            this.scrollTop = (this.$refs.scrollContainer as any).scrollTop;
         },
-        drag(event) {
+        drag(event: MouseEvent) {
             if (!this.isMouseDown) return;
             this.isDragging = true;
             const deltaY = event.clientY - this.startY;
@@ -49,8 +49,8 @@ export default defineComponent({
             this.isDragging = false;
             this.$emit("dragStop");
         },
-        scrollTo(pos) {
-            this.$refs.scrollContainer.scrollTop = pos;
+        scrollTo(pos: number) {
+            (this.$refs.scrollContainer as any).scrollTop = pos;
         }
     },
     emits: ["dragStart", "dragStop"]

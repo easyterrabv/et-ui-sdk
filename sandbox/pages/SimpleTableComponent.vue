@@ -20,7 +20,7 @@
             <template #filters="{filter, filters}">
                 <td></td>
                 <td>
-                    <EtInput size="s" :modelValue="filters['name']" @change="(val) => filter('name', val)"></EtInput>
+                    <EtInput size="s" :modelValue="filters['name']" @change="(val: string | number | null) => filter('name', val)"></EtInput>
                 </td>
                 <td></td>
             </template>
@@ -39,12 +39,13 @@
     </EtContent>
 </template>
 
-<script>
+<script lang="ts">
 import {defineComponent} from "vue";
 import EtContent from "src/layouts/Content.vue";
 import EtTable from "src/components/etTable/EtTable.vue";
 import EtInput from "src/components/etForm/EtInput.vue";
-import {wait} from "src/helpers/async";
+import type {ICriteria} from "../../src/interfaces/table";
+import {wait} from "../../src/helpers/async";
 
 export default defineComponent({
     components: {
@@ -129,8 +130,10 @@ export default defineComponent({
         }
     },
     methods: {
-        async dataGetter({filters, sorting, page, perPage, offset}){
+        async dataGetter(criteria: ICriteria){
             await wait(1500);
+
+            console.log(criteria);
 
             return [
                 this.staticData,

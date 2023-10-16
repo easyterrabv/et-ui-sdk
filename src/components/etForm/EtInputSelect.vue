@@ -177,31 +177,48 @@ export default defineComponent({
     },
     methods: {
         isDifferent(): boolean {
-            const currentModel = (
-                Array.isArray(this.modelValue)
-                    ? this.modelValue
-                    : [this.modelValue]
-            ).filter((opt) => !!opt);
-
-            const currentInnerModel = (
-                Array.isArray(this.internalOptionValue)
-                    ? this.internalOptionValue
-                    : [this.internalOptionValue]
-            ).filter((opt) => !!opt);
-
-            return (
-                currentModel.length !== currentInnerModel.length ||
-                !currentModel.every((opt: OptionModel) =>
-                    currentInnerModel.find(
-                        (opt2: OptionModel) => opt.guid === opt2.guid
-                    )
-                ) ||
-                !currentInnerModel.every((opt: OptionModel) =>
-                    currentModel.find(
-                        (opt2: OptionModel) => opt.guid === opt2.guid
-                    )
-                )
+            const currentModel: OptionModel[] = Array.isArray(this.modelValue)
+                ? this.modelValue
+                : this.modelValue
+                ? [this.modelValue]
+                : [];
+            const currentModelFiltered: OptionModel[] = currentModel.filter(
+                (opt) => !!opt
             );
+
+            const currentInnerModel: OptionModel[] = Array.isArray(
+                this.internalOptionValue
+            )
+                ? this.internalOptionValue
+                : this.internalOptionValue
+                ? [this.internalOptionValue]
+                : [];
+            const currentInnerModelFiltered = currentInnerModel.filter(
+                (opt) => !!opt
+            );
+
+            const sameLength =
+                currentModelFiltered.length ===
+                currentInnerModelFiltered.length;
+
+            const everyModelInInner = currentModelFiltered.every(
+                (opt: OptionModel) => {
+                    return !!currentInnerModelFiltered.find(
+                        (opt2: OptionModel) => {
+                            return opt.guid === opt2.guid;
+                        }
+                    );
+                }
+            );
+
+            const everyInnerInModel = currentInnerModelFiltered.every(
+                (opt: OptionModel) =>
+                    currentModelFiltered.find(
+                        (opt2: OptionModel) => opt.guid === opt2.guid
+                    )
+            );
+
+            return !sameLength || !everyModelInInner || !everyInnerInModel;
         },
         async onInputClick() {
             const popover = this.$refs.popover as typeof EtPopover;

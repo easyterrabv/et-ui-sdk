@@ -70,7 +70,9 @@ export default defineComponent({
     data() {
         return {
             internalChecked: false,
-            clickDebounce: new Debounce(this.onClick, 100),
+            clickDebounce: new Debounce((...args) => {
+                this.onClick(...args);
+            }, 100),
 
             sizeMapping: {
                 [UI_SIZING.XS]: {
@@ -103,7 +105,9 @@ export default defineComponent({
         };
     },
     computed: {
-        sizeClasses: (vm): string => vm.sizeMapping[vm.size]
+        sizeClasses(): { button: string; handle: string; text: string } {
+            return this.sizeMapping[this.size];
+        }
     },
     methods: {
         onClick(event: Event) {

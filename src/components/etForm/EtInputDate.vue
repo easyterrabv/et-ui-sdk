@@ -21,7 +21,12 @@
                         :size="size"
                         class="pl-10 w-full"
                         :modelValue="internalInputValue"
-                        @change="(value) => (internalInputValue = value)"
+                        @change="
+                            (value) =>
+                                (internalInputValue = value
+                                    ? `${value}`
+                                    : undefined)
+                        "
                         @enter="onInputEnter"
                         @clear="onInputClear"
                         @blur="onInputBlur"
@@ -46,7 +51,7 @@
                 @escape="(e) => onEscape()"
                 @interaction="onInteraction"
                 @blur="(e) => onInputBlur()"
-                @dateSelect="(value) => onDateSelect(value)"
+                @dateSelect="() => onDateSelect()"
                 v-model="internalDateValue"
             ></EtDatePicker>
         </EtPopover>
@@ -88,10 +93,10 @@ export default defineComponent({
     data() {
         return {
             UI_SIZING,
-            internalInputValue: null as String | null,
-            internalDateValue: null as Date | null,
+            internalInputValue: undefined as string | undefined,
+            internalDateValue: undefined as Date | undefined,
 
-            hasInteraction: false as Boolean
+            hasInteraction: false as boolean
         };
     },
     watch: {
@@ -104,22 +109,25 @@ export default defineComponent({
                 const date = this.internalDateValue?.getDate();
                 this.internalInputValue = `${year}-${month + 1}-${date}`;
             } else {
-                this.internalInputValue = null;
+                this.internalInputValue = undefined;
             }
         },
         internalInputValue() {
-            this.internalDateValue = this.internalInputValue
+            const newValue = this.internalInputValue
                 ? parseDate(this.internalInputValue)
-                : null;
+                : undefined;
+
+            this.internalDateValue = newValue || undefined;
         }
     },
     methods: {
         async onInputClick() {
-            if (this.$refs.popover.isOpen()) {
-                this.$refs.popover.hide();
+            const popoverElement = this.$refs.popover as any;
+            if (popoverElement.isOpen()) {
+                popoverElement.hide();
                 return;
             }
-            this.$refs.popover.open();
+            popoverElement.open();
         },
         onEscape() {
             this.hasInteraction = false;
@@ -135,13 +143,14 @@ export default defineComponent({
                 return;
             }
 
-            if (this.$refs.popover.isOpen()) {
-                this.$refs.popover.hide();
+            const popoverElement = this.$refs.popover as any;
+            if (popoverElement.isOpen()) {
+                popoverElement.hide();
                 return;
             }
         },
 
-        onDateSelect(value) {
+        onDateSelect() {
             if (this.closeOnSelect) {
                 this.hasInteraction = false;
                 this.onInputBlur();
@@ -152,11 +161,14 @@ export default defineComponent({
             this.hasInteraction = true;
         },
         onInputClear() {
-            this.internalInputValue = null;
-            this.internalDateValue = null;
+            this.internalInputValue = undefined;
+            this.internalDateValue = undefined;
         },
-        async onInputEnter(value, e) {
-            this.internalInputValue = value;
+        async onInputEnter(
+            value: string | number | undefined | null,
+            e: Event
+        ) {
+            this.internalInputValue = value ? `${value}` : undefined;
         }
     }
 });

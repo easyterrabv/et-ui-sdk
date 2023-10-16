@@ -1,41 +1,41 @@
 <template>
     <EtButtonGroup class="et-pagination">
         <EtButton
-            size="xs"
+            :size="UI_SIZING.XS"
             :disabled="innerValue === 1"
-            @click="innerValue = innerValue - 1"
+            @click="setInnerValue(innerValue - 1)"
         >
             <EtIconChevronLeft title="Previous page" />
         </EtButton>
         <EtButton
-            size="xs"
+            :size="UI_SIZING.XS"
             :type="1 === innerValue ? UI_TYPES.PRIMARY : UI_TYPES.DEFAULT"
-            @click="innerValue = 1"
+            @click="setInnerValue(1)"
         >
             1
         </EtButton>
         <EtButton
             v-for="(v, index) in betweenButtons"
             :key="index"
-            size="xs"
+            :size="UI_SIZING.XS"
             :type="v === innerValue ? UI_TYPES.PRIMARY : UI_TYPES.DEFAULT"
             :readonly="v === '...'"
-            @click="innerValue = v"
+            @click="setInnerValue(v)"
         >
             {{ v }}
         </EtButton>
         <EtButton
-            size="xs"
+            :size="UI_SIZING.XS"
             v-if="perPage !== totalRows"
             :type="pages === innerValue ? UI_TYPES.PRIMARY : UI_TYPES.DEFAULT"
-            @click="innerValue = pages"
+            @click="setInnerValue(pages)"
         >
             {{ pages }}
         </EtButton>
         <EtButton
-            size="xs"
+            ::size="UI_SIZING.XS"
             :disabled="innerValue === pages"
-            @click="innerValue = innerValue + 1"
+            @click="setInnerValue(innerValue + 1)"
         >
             <EtIconChevronRight title="Next page" />
         </EtButton>
@@ -48,7 +48,7 @@ import EtButton from "../etButton/EtButton.vue";
 
 import EtIconChevronLeft from "../etIcon/EtIconChevronLeft.vue";
 import EtIconChevronRight from "../etIcon/EtIconChevronRight.vue";
-import { UI_TYPES } from "../../helpers/enums";
+import { UI_TYPES, UI_SIZING } from "../../helpers/enums";
 
 export default {
     components: {
@@ -74,12 +74,15 @@ export default {
     data() {
         return {
             UI_TYPES,
+            UI_SIZING,
             innerValue: this.modelValue
         };
     },
     computed: {
         innerTotalRows() {
-            return parseInt(this.totalRows);
+            return typeof this.totalRows === "string"
+                ? parseInt(this.totalRows)
+                : this.totalRows;
         },
         pages() {
             return Math.ceil(this.innerTotalRows / this.perPage);
@@ -146,6 +149,19 @@ export default {
             }
 
             this.$emit("update:modelValue", this.innerValue);
+        }
+    },
+    methods: {
+        setInnerValue(value: number | string) {
+            let newValue = value;
+            if (typeof newValue === "string") {
+                newValue = parseInt(newValue);
+                if (isNaN(newValue)) {
+                    newValue = 1;
+                }
+            }
+
+            this.innerValue = newValue;
         }
     },
     emits: ["update:modelValue"]

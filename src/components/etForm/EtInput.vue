@@ -191,7 +191,7 @@ export default defineComponent({
             default: null
         },
         modelValue: {
-            type: String as PropType<string | number | null>,
+            type: [String, Number],
             required: false,
             default: null
         },

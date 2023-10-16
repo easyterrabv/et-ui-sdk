@@ -61,23 +61,23 @@ export default defineComponent({
             if (this.isProcessing || this.isDragging) {
                 return;
             }
-            this.$refs.fileInput.click();
+            (this.$refs.fileInput as any).click();
         },
-        handleDragOver(event) {
+        handleDragOver(event: MouseEvent) {
             if (this.isProcessing) {
                 return;
             }
             event.preventDefault();
             this.isDragging = true;
         },
-        handleDragLeave(event) {
+        handleDragLeave(event: MouseEvent) {
             if (this.isProcessing) {
                 return;
             }
             event.preventDefault();
             this.isDragging = false;
         },
-        handleDrop(event) {
+        handleDrop(event: DragEvent) {
             if (this.isProcessing) {
                 return;
             }
@@ -85,11 +85,12 @@ export default defineComponent({
             this.isDragging = false;
 
             // Handle file upload logic here
-            const files = event.dataTransfer.files as FileList;
-            this.handleFiles(files);
+            const files = event.dataTransfer?.files as FileList;
+            this.handleFiles(files || []);
         },
-        handleFileInputChange(event) {
-            const files = event.target.files;
+        handleFileInputChange(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const files = target.files as FileList;
             this.handleFiles(files);
         },
         handleFiles(files: FileList) {
@@ -104,7 +105,7 @@ export default defineComponent({
         }
     },
     emits: {
-        files: (files) => files instanceof FileList || null
+        files: (files: FileList) => files instanceof FileList || null
     }
 });
 </script>

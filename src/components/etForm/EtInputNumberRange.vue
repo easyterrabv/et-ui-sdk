@@ -47,38 +47,40 @@ export default defineComponent({
     },
     data() {
         return {
-            firstNumber: null as Number | null,
-            secondNumber: null as Number | null
+            firstNumber: undefined as number | undefined,
+            secondNumber: undefined as number | undefined
         };
     },
     watch: {
         firstNumber(value) {
-            if (this.secondNumber !== null && value > this.secondNumber) {
+            if (this.secondNumber !== undefined && value > this.secondNumber) {
                 this.secondNumber = value;
             }
         },
         secondNumber(value) {
-            if (this.firstNumber !== null && value < this.firstNumber) {
+            if (this.firstNumber !== undefined && value < this.firstNumber) {
                 this.firstNumber = value;
             }
         }
     },
     methods: {
-        fixValue(value: string | number | null): number | null {
+        fixValue(
+            value: string | number | null | undefined
+        ): number | undefined {
             if (typeof value === "string") {
                 return parseInt(value);
             }
 
-            if (value && isNaN(value)) {
-                return null;
+            if ((value && isNaN(value)) || value === null) {
+                return undefined;
             }
 
             return value;
         },
-        onFirstChange(value: string | number | null) {
+        onFirstChange(value: string | number | null | undefined) {
             this.firstNumber = this.fixValue(value);
         },
-        onSecondChange(value: string | number | null) {
+        onSecondChange(value: string | number | null | undefined) {
             this.secondNumber = this.fixValue(value);
         }
     }

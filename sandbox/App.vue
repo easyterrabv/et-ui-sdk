@@ -111,14 +111,14 @@
                             Buttons
                         </template>
 
-                        <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="(e) => console.log('Aii, I am disabled, you should not see this')">
+                        <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('Aii, I am disabled, you should not see this')">
                             <template #icon>
                                 <EtIconTag class="!text-text" />
                             </template>
                             Disabled
                         </EtSideBarButton>
 
-                        <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="(e) => console.log('test')">
+                        <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('test')">
                             <template #icon>
                                 <EtIconTag class="!text-text" />
                             </template>
@@ -128,15 +128,7 @@
                 </template>
 
                 <router-view v-slot="{ Component }">
-                    <transition
-                        class="transition ease-out duration-75"
-                        enter-from-class="opacity-0"
-                        enter-to-class="delay-75 opacity-100"
-                        leave-from-class="opacity-100"
-                        leave-to-class="opacity-0"
-                    >
-                        <component :is="Component" />
-                    </transition>
+                    <component v-if="Component" :is="Component" />
                 </router-view>
             </EtMenuLeft>
         </EtMenuTop>

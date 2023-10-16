@@ -22,7 +22,12 @@
                         :required="required"
                         :placeholder="placeholder"
                         :size="size"
-                        @change="(value) => (internalInputValue = value)"
+                        @change="
+                            (value) =>
+                                (internalInputValue = value
+                                    ? `${value}`
+                                    : undefined)
+                        "
                         @enter="onInputEnter"
                         @clear="onInputClear"
                         @blur="onInputBlur"
@@ -65,8 +70,8 @@ export default defineComponent({
     },
     data() {
         return {
-            internalInputValue: "" as String,
-            internalTimeValue: null as Array<Number> | null,
+            internalInputValue: "" as string | undefined,
+            internalTimeValue: undefined as Array<number> | undefined,
 
             hasInteraction: false as Boolean
         };
@@ -93,7 +98,7 @@ export default defineComponent({
             immediate: true,
             deep: true,
             handler() {
-                this.internalTimeValue = this.modelValue;
+                this.internalTimeValue = this.modelValue as number[];
             }
         }
     },
@@ -103,18 +108,21 @@ export default defineComponent({
                 return;
             }
 
-            if (this.$refs.popover.isOpen()) {
-                this.$refs.popover.hide();
+            const popoverElement = this.$refs.popover as any;
+
+            if (popoverElement.isOpen()) {
+                popoverElement.hide();
                 return;
             }
-            this.$refs.popover.open();
+
+            popoverElement.open();
         },
-        async onInputEnter(value, e) {
-            this.internalInputValue = value;
+        async onInputEnter(value: string | number | null, e: Event) {
+            this.internalInputValue = String(value);
         },
         onInputClear() {
-            this.internalInputValue = null;
-            this.internalTimeValue = null;
+            this.internalInputValue = undefined;
+            this.internalTimeValue = undefined;
         },
         async onInputBlur() {
             // Important. Otherwise, this method will trigger before justToggleOption has a chance to be set.
@@ -126,8 +134,9 @@ export default defineComponent({
                 return;
             }
 
-            if (this.$refs.popover.isOpen()) {
-                this.$refs.popover.hide();
+            const popoverElement = this.$refs.popover as any;
+            if (popoverElement.isOpen()) {
+                popoverElement.hide();
                 return;
             }
         },

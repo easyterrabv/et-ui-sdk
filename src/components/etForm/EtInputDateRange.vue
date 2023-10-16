@@ -106,7 +106,7 @@ export default defineComponent({
     props: {
         ...commonInputProps,
         modelValue: {
-            type: Array as () => [Date | null, Date | null] | null,
+            type: Array,
             required: false,
             default: null
         },
@@ -130,7 +130,7 @@ export default defineComponent({
             firstDateInput: null as String | null,
             secondDateInput: null as String | null,
 
-            internalDateValue: null as [Date | null, Date | null] | null,
+            internalDateValue: [null, null] as Array<Date | null>,
 
             isOpen: false,
             currentFocus: null as "inputOne" | "inputTwo" | "datePicker" | null
@@ -143,7 +143,20 @@ export default defineComponent({
         modelValue: {
             immediate: true,
             handler() {
-                this.internalDateValue = this.modelValue;
+                const newInternalValues: Array<Date | null> = [];
+                if (this.modelValue?.length > 0) {
+                    newInternalValues[0] = this.modelValue[0] as Date | null;
+                } else {
+                    newInternalValues[0] = null;
+                }
+
+                if (this.modelValue?.length > 1) {
+                    newInternalValues[1] = this.modelValue[1] as Date | null;
+                } else {
+                    newInternalValues[1] = null;
+                }
+
+                this.internalDateValue = newInternalValues;
             }
         }
     },
@@ -158,10 +171,12 @@ export default defineComponent({
                 ? this.internalDateValue[1]
                 : null;
         },
-        firstDateDisplayFormat: (vm): string =>
-            vm.firstDate ? dateToYMD(vm.firstDate) : "",
-        secondDateDisplayFormat: (vm): string =>
-            vm.secondDate ? dateToYMD(vm.secondDate) : ""
+        firstDateDisplayFormat(): string {
+            return this.firstDate ? dateToYMD(this.firstDate) : "";
+        },
+        secondDateDisplayFormat(): string {
+            return this.secondDate ? dateToYMD(this.secondDate) : "";
+        }
     },
     methods: {
         open() {
@@ -170,7 +185,7 @@ export default defineComponent({
             }
 
             this.isOpen = true;
-            this.$refs.popover.open();
+            (this.$refs.popover as any).open();
         },
         onFirstInputFocus() {
             this.currentFocus = "inputOne";
@@ -209,11 +224,14 @@ export default defineComponent({
             await wait(150);
             if (!this.currentFocus) {
                 this.isOpen = false;
-                this.$refs.popover.hide();
+                (this.$refs.popover as any).hide();
             }
         },
-        onInputChange(input: string, whatInput: "first" | "second") {
-            const parsedDate = parseDate(input);
+        onInputChange(
+            input: string | number | null,
+            whatInput: "first" | "second"
+        ) {
+            const parsedDate = input ? parseDate(input) : null;
 
             if (whatInput === "first") {
                 const currentSecond =
@@ -235,9 +253,7 @@ export default defineComponent({
         }
     },
     emits: {
-        "update:modelValue": (
-            dates: [Date | null, Date | null] | null
-        ): boolean => true
+        "update:modelValue": (dates: Array<Date | null> | null): boolean => true
     }
 });
 </script>

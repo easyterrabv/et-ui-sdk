@@ -1,7 +1,7 @@
 <template>
     <textarea
         :name="name"
-        :autocomplete="autocomplete"
+        :autocomplete="autocomplete ? 'off' : 'on'"
         :disabled="disabled"
         :readonly="readonly"
         :required="required"
@@ -35,7 +35,7 @@ export default defineComponent({
     },
     data() {
         return {
-            internalData: this.modelValue || (null as null | string)
+            internalData: this.modelValue as string | undefined
         };
     },
     watch: {

@@ -37,7 +37,7 @@
 
                     <template #actions>
                         <EtButtonPrimary
-                            @click="e => drawerOpen = !drawerOpen">
+                            @click="() => drawerOpen = !drawerOpen">
                             Toggle Drawer!
                         </EtButtonPrimary>
                     </template>
@@ -47,31 +47,31 @@
             <div>
                 <EtButtonDefault
                     disabled
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Hello Disabled!
                 </EtButtonDefault>
 
                 <EtButtonPrimary
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Primary!
                 </EtButtonPrimary>
 
                 <EtButtonSuccess
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Success!
                 </EtButtonSuccess>
 
                 <EtButtonDanger
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Danger!
                 </EtButtonDanger>
 
                 <EtButtonWarning
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Warning!
                 </EtButtonWarning>
             </div>
@@ -79,35 +79,35 @@
             <div class="mt-4">
                 <EtButtonDefault
                     :size="UI_SIZING.S"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Hello!
                 </EtButtonDefault>
 
                 <EtButtonPrimary
                     :size="UI_SIZING.S"
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Primary!
                 </EtButtonPrimary>
 
                 <EtButtonSuccess
                     :size="UI_SIZING.S"
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Success!
                 </EtButtonSuccess>
 
                 <EtButtonDanger
                     :size="UI_SIZING.S"
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Danger!
                 </EtButtonDanger>
 
                 <EtButtonWarning
                     :size="UI_SIZING.S"
                     class="ml-4"
-                    @click="e => console.log('test', e)">
+                    @click="(e: Event) => console.log('test', e)">
                     Warning!
                 </EtButtonWarning>
             </div>
@@ -116,17 +116,17 @@
                 <EtButtonGroup>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Hello! 1
                     </EtButtonDefault>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Hello! 2
                     </EtButtonDefault>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Hello! 3
                     </EtButtonDefault>
                 </EtButtonGroup>
@@ -136,28 +136,28 @@
                 <EtButtonGroup isVertical>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Hello! 1
                     </EtButtonDefault>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Hello! 2
                     </EtButtonDefault>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Hello! 3
                     </EtButtonDefault>
                     <EtButtonGroup>
                         <EtButtonDanger
                             :size="UI_SIZING.S"
-                            @click="e => console.log('test', e)">
+                            @click="(e: Event) => console.log('test', e)">
                             Danger!
                         </EtButtonDanger>
                         <EtButtonSuccess
                             :size="UI_SIZING.S"
-                            @click="e => console.log('test', e)">
+                            @click="(e: Event) => console.log('test', e)">
                             Success!
                         </EtButtonSuccess>
                     </EtButtonGroup>
@@ -186,7 +186,7 @@
                         clear-button
                     ></EtInput>
                     <EtButtonPrimary
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Submit
                     </EtButtonPrimary>
                 </EtFormGroup>
@@ -211,7 +211,7 @@
                         clear-button
                     ></EtInput>
                     <EtButtonPrimary
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Submit
                     </EtButtonPrimary>
                 </EtFormGroup>
@@ -240,17 +240,17 @@
                     <EtButtonGroup isVertical>
                         <EtButtonDefault
                             :size="UI_SIZING.S"
-                            @click="e => console.log('test', e)">
+                            @click="(e: Event) => console.log('test', e)">
                             Button One
                         </EtButtonDefault>
                         <EtButtonDefault
                             :size="UI_SIZING.S"
-                            @click="e => console.log('test', e)">
+                            @click="(e: Event) => console.log('test', e)">
                             Button Two
                         </EtButtonDefault>
                         <EtButtonDefault
                             :size="UI_SIZING.S"
-                            @click="e => console.log('test', e)">
+                            @click="(e: Event) => console.log('test', e)">
                             Button Three
                         </EtButtonDefault>
                     </EtButtonGroup>
@@ -385,7 +385,7 @@
                     ></EtInput>
                     <EtButtonSuccess
                         :size="UI_SIZING.S"
-                        @click="e => console.log('test', e)">
+                        @click="(e: Event) => console.log('test', e)">
                         Submit
                     </EtButtonSuccess>
                 </EtFormGroup>

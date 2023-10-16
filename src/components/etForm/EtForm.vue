@@ -21,11 +21,14 @@ export default {
     },
     data() {
         return {
-            handleSubmitDebounce: new Debounce(this.handleSubmit, 50)
+            handleSubmitDebounce: new Debounce(
+                (...args) => this.handleSubmit(...args),
+                50
+            )
         };
     },
     methods: {
-        debounceSubmit(e) {
+        debounceSubmit(e: Event) {
             e.preventDefault();
             this.handleSubmitDebounce.debounce();
         },

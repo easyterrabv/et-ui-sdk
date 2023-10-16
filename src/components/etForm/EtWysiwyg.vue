@@ -169,7 +169,7 @@
                                         :size="UI_SIZING.S"
                                         @click="
                                             () => {
-                                                urlHref = null;
+                                                urlHref = undefined;
                                                 addLink();
                                             }
                                         "
@@ -501,10 +501,11 @@ export default defineComponent({
     data() {
         return {
             EDIT_MODES,
-            editor: null as Editor | null,
+            // Impossible to set proper type to editor
+            editor: null as any,
             innerData: this.modelValue as string | number | undefined,
 
-            urlHref: null,
+            urlHref: undefined,
             urlTarget: undefined as OptionModel | undefined,
             urlTargetOptions: [
                 new OptionModel({ label: "Empty", value: "" }),
@@ -621,7 +622,7 @@ export default defineComponent({
             (this.$refs.urlHrefInput as any).focus();
         },
         cancelLink() {
-            this.urlHref = null;
+            this.urlHref = undefined;
             this.urlTarget = undefined;
             (this.$refs.anchorPopover as any)?.hide();
         },

@@ -130,7 +130,7 @@ export default defineComponent({
                 this.internalOptionValue = [];
             } else {
                 this.internalOptionValue = this.internalOptionValue.filter(
-                    (opt) => opt.guid !== option.guid
+                    (opt: OptionModel) => opt.guid !== option.guid
                 );
             }
         },
@@ -143,7 +143,9 @@ export default defineComponent({
                 this.internalOptionValue = [option];
             } else {
                 this.internalOptionValue = [
-                    ...this.internalOptionValue,
+                    ...(Array.isArray(this.internalOptionValue)
+                        ? this.internalOptionValue
+                        : [this.internalOptionValue]),
                     option
                 ].filter((opt: OptionModel) => !!opt);
             }

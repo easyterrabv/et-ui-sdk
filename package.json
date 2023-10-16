@@ -8,6 +8,7 @@
     "format": "prettier --write \"src/**/*.{ts,vue}\"",
     "formatHook": "prettier",
     "lint": "tslint -p tsconfig.json",
+    "type-check": "vue-tsc --skipLibCheck --noEmit -p tsconfig.json --composite false",
     "tailwind": "npx tailwindcss -i src/tailwind.css -o ./sandbox/style.css --watch",
     "tailwind:build": "npx tailwindcss -i src/tailwind.css -o ./src/dist.css --minify",
     "postinstall": "node -e \"try { require('child_process').execSync('./install-hooks.sh'); } catch (e) {}\""
