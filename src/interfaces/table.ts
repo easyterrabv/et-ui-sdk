@@ -4,7 +4,7 @@ type filterSingles = string | number | boolean;
 export type filter = filterSingles | filterSingles[] | IFiltering;
 export type sortDirections = "ASC" | "DESC" | null;
 
-export type DataGettingReturnType = [EtModel[], number];
+export type DataGettingReturnType = [EtModel[] | object[], number];
 export type DataGetterCallback = (
     criteria: ICriteria
 ) => Promise<DataGettingReturnType>;
