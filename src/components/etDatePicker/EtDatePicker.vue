@@ -457,7 +457,9 @@ export default defineComponent({
         "update:modelValue": (
             modelValue: Array<Date | undefined> | Date | undefined
         ): boolean =>
-            typeof modelValue === typeof Date || Array.isArray(modelValue),
+            typeof modelValue === typeof Date ||
+            Array.isArray(modelValue) ||
+            typeof modelValue === "undefined",
         interaction: (): boolean => true,
         dateSelect: (): boolean => true,
         escape: (): boolean => true,
