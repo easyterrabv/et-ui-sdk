@@ -95,7 +95,7 @@ import EtInput, { commonInputProps } from "./EtInput.vue";
 
 import EtPopover from "../EtPopover.vue";
 import EtDatePicker from "../etDatePicker/EtDatePicker.vue";
-import { dateToYMD, parseDate } from "../../helpers/date";
+import { dateToYMD, isSameDates, parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
 import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
@@ -156,7 +156,11 @@ export default defineComponent({
                     newInternalValues[1] = null;
                 }
 
-                this.internalDateValue = newInternalValues;
+                if (
+                    this.isDifferent(newInternalValues, this.internalDateValue)
+                ) {
+                    this.internalDateValue = newInternalValues;
+                }
             }
         }
     },
@@ -179,6 +183,30 @@ export default defineComponent({
         }
     },
     methods: {
+        isDifferent(rayOne: Array<Date | null>, rayTwo: Array<Date | null>) {
+            const rayOneValueOne = rayOne.length > 0 ? rayOne[0] : undefined;
+            const rayOneValueTwo = rayOne.length > 1 ? rayOne[1] : undefined;
+            const rayTwoValueOne = rayTwo.length > 0 ? rayTwo[0] : undefined;
+            const rayTwoValueTwo = rayTwo.length > 1 ? rayTwo[1] : undefined;
+
+            const valueOneBothDates =
+                rayOneValueOne instanceof Date &&
+                rayTwoValueOne instanceof Date;
+
+            const valueTwoBothDates =
+                rayOneValueTwo instanceof Date &&
+                rayTwoValueTwo instanceof Date;
+
+            return (
+                rayOne.length !== rayTwo.length ||
+                (valueOneBothDates
+                    ? !isSameDates(rayOneValueOne, rayTwoValueOne)
+                    : rayOneValueOne !== rayTwoValueOne) ||
+                (valueTwoBothDates
+                    ? !isSameDates(rayOneValueTwo, rayTwoValueTwo)
+                    : rayOneValueTwo !== rayTwoValueTwo)
+            );
+        },
         open() {
             if (this.isOpen) {
                 return;
