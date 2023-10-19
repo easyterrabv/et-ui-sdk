@@ -10,9 +10,9 @@
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { defineComponent } from "vue";
-import EtAlert from "../etAlert/EtAlert.vue";
+
 export default defineComponent({
-    components: { EtAlert, FontAwesomeIcon },
+    components: { FontAwesomeIcon },
     props: {
         icon: {
             required: true,
