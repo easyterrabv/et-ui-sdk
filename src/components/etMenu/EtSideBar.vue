@@ -68,8 +68,8 @@ export default defineComponent({
     computed: {
         widthClass(): string {
             return this.isCollapsed
-                ? "min-w-14 w-14 max-w-14"
-                : "min-w-56 w-56 max-w-56";
+                ? "min-w-[50px] w-[50px] max-w-[50px]"
+                : "min-w-[290px] w-[290px] max-w-[290px]";
         },
         storageKey(): string {
             return [localStorageCollapsedKey, this.name]

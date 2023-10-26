@@ -1,16 +1,18 @@
 <template>
-    <div class="flex flex-row h-full max-h-full">
+    <div class="et-sdk-layout-menu-left">
         <EtSideBar @isCollapsed="(v) => (isCollapsed = v)" v-if="$slots.menu">
             <template #default="scope">
                 <slot name="menu" v-bind="scope"></slot>
             </template>
         </EtSideBar>
         <div
-            class="grow"
+            class="et-sdk-layout-menu-left--content"
             :class="{
-                'max-w-[calc(100%-14rem)]': !isCollapsed && $slots.menu,
-                'max-w-[calc(100%-3.5rem)]': isCollapsed && $slots.menu,
-                'max-w-full': !$slots.menu
+                'et-sdk-layout-menu-left--content__open':
+                    !isCollapsed && $slots.menu,
+                'et-sdk-layout-menu-left--content__closed':
+                    isCollapsed && $slots.menu,
+                'et-sdk-layout-menu-left--content__no_menu': !$slots.menu
             }"
         >
             <slot></slot>
@@ -29,3 +31,28 @@ export default {
     }
 };
 </script>
+
+<style>
+.et-sdk-layout-menu-left {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    max-height: 100%;
+}
+
+.et-sdk-layout-menu-left--content {
+    flex-grow: 1;
+}
+
+.et-sdk-layout-menu-left--content__open {
+    max-width: calc(100% - 290px);
+}
+
+.et-sdk-layout-menu-left--content__closed {
+    max-width: calc(100% - 50px);
+}
+
+.et-sdk-layout-menu-left--content__no_menu {
+    max-width: 100%;
+}
+</style>

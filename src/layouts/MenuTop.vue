@@ -1,12 +1,12 @@
 <template>
-    <div class="w-full h-full flex flex-col max-h-full max-w-full">
+    <div class="et-sdk-layout-menu-top">
         <EtTopBar>
             <slot name="top"></slot>
             <template #end>
                 <slot name="topEnd"></slot>
             </template>
         </EtTopBar>
-        <div class="grow h-full max-h-full overflow-auto">
+        <div class="et-sdk-layout-menu-top--content">
             <slot></slot>
         </div>
     </div>
@@ -15,3 +15,22 @@
 <script setup lang="ts">
 import EtTopBar from "../components/etMenu/EtTopBar.vue";
 </script>
+
+<style>
+.et-sdk-layout-menu-top {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.et-sdk-layout-menu-top--content {
+    flex-grow: 1;
+    height: 100%;
+    max-height: 100%;
+    overflow: auto;
+}
+</style>
