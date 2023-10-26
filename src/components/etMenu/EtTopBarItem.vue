@@ -1,8 +1,8 @@
 <template>
     <div
-        class="text-text-light hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
+        class="et-sdk-top-bar-item"
         :class="{
-            'bg-slate-900 !text-white': active
+            'et-sdk-top-bar-item__active': active
         }"
     >
         <slot></slot>
@@ -22,3 +22,24 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-top-bar-item {
+    color: #f3f4f6;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.et-sdk-top-bar-item:hover {
+    background-color: #334155;
+    color: white;
+}
+
+.et-sdk-top-bar-item__active {
+    background-color: #0f172a;
+    color: white;
+}
+</style>
