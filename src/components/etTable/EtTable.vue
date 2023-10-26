@@ -8,8 +8,11 @@
                 <tr
                     v-if="$slots.header"
                     :class="[
-                        '[&_th:not(.filler)]:px-1 text-left', // this styles the <th> elements
+                        '[&_th:not(.filler)]:px-1 text-left [&_th:not(.filler)]:text-[#9CA3AF] [&_th:not(.filler)]:font-normal', // this styles the <th> elements
                         {
+                            'border-b-2 border-default-extra-light': !(
+                                $slots.filters && !isStatic
+                            ),
                             '[&_th:not(.filler)]:py-1': !(
                                 $slots.filters && !isStatic
                             ),
@@ -40,7 +43,8 @@
                 <tr
                     v-if="$slots.filters && !isStatic"
                     :class="[
-                        '[&_td:not(.filler)]:px-2 [&_td:not(.filler)]:pb-1' // default <td> styling
+                        '[&_td:not(.filler)]:px-2 [&_td:not(.filler)]:pb-1', // default <td> styling
+                        'border-b-2 border-default-extra-light'
                     ]"
                 >
                     <th v-if="isSelectable"></th>
