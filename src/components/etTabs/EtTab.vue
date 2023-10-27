@@ -1,8 +1,8 @@
 <template>
     <div
-        class="mx-2 pb-1.5 cursor-pointer text-sm text-default first:ml-0 last:mr-0"
+        class="et-sdk-tab"
         :class="{
-            'border-b-2 border-b-primary': isActive
+            'et-sdk-tab__active': isActive
         }"
         @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
     >
@@ -37,3 +37,17 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-tab {
+    padding-bottom: 5px;
+
+    cursor: pointer;
+
+    font-size: var(--et-sdk-font-size-small);
+}
+
+.et-sdk-tab__active {
+    border-bottom: 1px solid var(--et-sdk-blue-600);
+}
+</style>
