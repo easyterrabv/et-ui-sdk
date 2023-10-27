@@ -1,9 +1,7 @@
 <template>
-    <div class="flex flex-row gap-1">
-        <div v-if="showDate">{{ formattedDate }}</div>
-        <div v-if="showTime">{{ formattedTime }}</div>
-        <div v-if="showAgo">({{ timeAgo }})</div>
-    </div>
+    <span class="et-sdk-date">
+        {{ formatted }}
+    </span>
 </template>
 
 <script lang="ts">
@@ -38,6 +36,23 @@ export default defineComponent({
         }
     },
     computed: {
+        formatted() {
+            const list = [];
+
+            if (this.showDate) {
+                list.push(this.formattedDate);
+            }
+
+            if (this.showTime) {
+                list.push(this.formattedTime);
+            }
+
+            if (this.showAgo) {
+                list.push(`(${this.timeAgo})`);
+            }
+
+            return list.join(" ");
+        },
         innerDate() {
             if (typeof this.date === "string") {
                 return new Date(this.date);
