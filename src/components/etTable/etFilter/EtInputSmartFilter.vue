@@ -1,5 +1,5 @@
 <template>
-    <div class="w-3/5">
+    <div class="et-sdk-input-smart-filter">
         <EtPopover ref="popover" manual fitToggle>
             <template #toggle>
                 <EtInputGroup>
@@ -51,13 +51,13 @@
                 ></slot>
 
                 <EtButtonDefault
-                    class="fa-pull-left mt-4"
+                    class="et-sdk-input-smart-filter--filter-box--close"
                     @click="() => closeFilters()"
                 >
                     Close
                 </EtButtonDefault>
                 <EtButtonSuccess
-                    class="fa-pull-right mt-4 w-40"
+                    class="et-sdk-input-smart-filter--filter-box--search"
                     @click="() => onFilterSearchClick()"
                 >
                     Search
@@ -74,7 +74,7 @@
                 <small>Available Filters</small>
                 <ul>
                     <li
-                        class="hover:bg-default-extra-light px-2 my-0.5 rounded-full cursor-pointer"
+                        class="et-sdk-input-smart-filter--available-filters--item"
                         :class="{
                             'bg-default-extra-light':
                                 selectedFilterIndex === index
@@ -479,3 +479,36 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-smart-filter {
+    width: 60%;
+}
+
+.et-sdk-input-smart-filter--filter-box--close {
+    float: left;
+    margin-top: 4px;
+}
+
+.et-sdk-input-smart-filter--filter-box--search {
+    float: right;
+    margin-top: 4px;
+    width: 60px;
+}
+
+.et-sdk-input-smart-filter--available-filters--item {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    margin-top: 2px;
+    margin-bottom: 2px;
+
+    border-radius: 99999px;
+
+    cursor: pointer;
+}
+
+.et-sdk-input-smart-filter--available-filters--item:hover {
+    background-color: var(--et-sdk-light-200);
+}
+</style>

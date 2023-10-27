@@ -9,3 +9,11 @@ html {
     font-size: var(--et-sdk-font-size-normal);
     font-weight: var(--et-sdk-font-weight-normal);
 }
+
+.clear-both {
+    clear: both;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
