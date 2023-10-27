@@ -1,14 +1,12 @@
 <template>
-    <div
-        class="et-drawer-layout w-full max-w-full h-full max-h-full flex flex-row"
-    >
-        <div class="grow max-h-full overflow-auto flex flex-col">
+    <div class="et-sdk-layout-drawer">
+        <div class="et-sdk-layout-drawer--main">
             <slot></slot>
         </div>
         <div
-            class="et-drawer w-96 transition-all drop-shadow bg-white ease-in-out duration-150"
+            class="et-sdk-layout-drawer--drawer"
             :class="{
-                '!w-0': !drawerOpen
+                'et-sdk-layout-drawer--drawer-open': !drawerOpen
             }"
             v-if="$slots.drawer"
         >
@@ -30,3 +28,36 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-layout-drawer {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.et-sdk-layout-drawer--main {
+    max-height: 100%;
+
+    flex-grow: 1;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.et-sdk-layout-drawer--drawer {
+    width: var(--et-sdk-drawer-width);
+    transition: width 150ms ease-in-out;
+    background-color: var(--et-sdk-light-0);
+    box-shadow: var(--et-sdk-shadow-normal);
+}
+
+.et-sdk-layout-drawer--drawer-open {
+    width: 0px;
+}
+</style>
