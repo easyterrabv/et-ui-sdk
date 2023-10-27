@@ -1,26 +1,26 @@
 <template>
     <div
-        class="border border-default-light border-dashed overflow-hidden relative"
+        class="et-sdk-resizable"
         :style="{ width: innerWidth + 'px', height: innerHeight + 'px' }"
     >
         <slot></slot>
         <div
-            class="absolute bg-default-extra-light w-2 h-2 top-0 left-0 cursor-nwse-resize"
+            class="et-sdk-resizable--handle et-sdk-resizable--handle-top-left"
             v-if="resizeDirections.includes('top-left')"
             @mousedown="(event) => startResize(event, 'top-left')"
         ></div>
         <div
-            class="absolute bg-default-extra-light w-2 h-2 top-0 right-0 cursor-nesw-resize"
+            class="et-sdk-resizable--handle et-sdk-resizable--handle-top-right"
             v-if="resizeDirections.includes('top-right')"
             @mousedown="(event) => startResize(event, 'top-right')"
         ></div>
         <div
-            class="absolute bg-default-extra-light w-2 h-2 bottom-0 right-0 cursor-nwse-resize"
+            class="et-sdk-resizable--handle et-sdk-resizable--handle-bottom-right"
             v-if="resizeDirections.includes('bottom-right')"
             @mousedown="(event) => startResize(event, 'bottom-right')"
         ></div>
         <div
-            class="absolute bg-default-extra-light w-2 h-2 bottom-0 left-0 cursor-nesw-resize"
+            class="et-sdk-resizable--handle et-sdk-resizable--handle-bottom-left"
             v-if="resizeDirections.includes('bottom-left')"
             @mousedown="(event) => startResize(event, 'bottom-left')"
         ></div>
@@ -130,3 +130,42 @@ export default {
     emits: ["resizestop", "resizestart"]
 };
 </script>
+
+<style>
+.et-sdk-resizable {
+    border: 1px dashed var(--et-sdk-dark-200);
+    overflow: hidden;
+    position: relative;
+}
+
+.et-sdk-resizable--handle {
+    position: absolute;
+    background-color: var(--et-sdk-dark-200);
+    width: 10px;
+    height: 10px;
+}
+
+.et-sdk-resizable--handle-top-left {
+    top: 0;
+    left: 0;
+    cursor: nwse-resize;
+}
+
+.et-sdk-resizable--handle-top-right {
+    top: 0;
+    right: 0;
+    cursor: nesw-resize;
+}
+
+.et-sdk-resizable--handle-bottom-right {
+    bottom: 0;
+    right: 0;
+    cursor: nwse-resize;
+}
+
+.et-sdk-resizable--handle-bottom-left {
+    bottom: 0;
+    left: 0;
+    cursor: nesw-resize;
+}
+</style>

@@ -1,12 +1,12 @@
 <template>
     <div
-        class="et-drag-scroll-box"
+        class="et-sdk-drag-scroll-box"
         ref="scrollContainer"
         @mousedown="startDrag"
         @mousemove="drag"
         @mouseup="stopDrag"
     >
-        <div class="et-drag-scroll-box-content" ref="content">
+        <div class="et-sdk-drag-scroll-box--content" ref="content">
             <slot></slot>
         </div>
     </div>
