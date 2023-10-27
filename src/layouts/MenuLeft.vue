@@ -45,11 +45,11 @@ export default {
 }
 
 .et-sdk-layout-menu-left--content__open {
-    max-width: calc(100% - 290px);
+    max-width: calc(100% - var(--et-sdk-left-menu-width-open));
 }
 
 .et-sdk-layout-menu-left--content__closed {
-    max-width: calc(100% - 50px);
+    max-width: calc(100% - var(--et-sdk-left-menu-width-closed));
 }
 
 .et-sdk-layout-menu-left--content__no_menu {

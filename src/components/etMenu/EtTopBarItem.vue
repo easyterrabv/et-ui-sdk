@@ -25,21 +25,21 @@ export default defineComponent({
 
 <style>
 .et-sdk-top-bar-item {
-    color: #f3f4f6;
+    color: var(--et-sdk-light-100);
     border-radius: 5px;
     padding: 10px 15px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: var(--et-sdk-font-size-normal);
     cursor: pointer;
 }
 
 .et-sdk-top-bar-item:hover {
-    background-color: #334155;
+    background-color: var(--et-sdk-dark-600);
     color: white;
 }
 
 .et-sdk-top-bar-item__active {
-    background-color: #0f172a;
+    background-color: var(--et-sdk-dark-900);
     color: white;
 }
 </style>

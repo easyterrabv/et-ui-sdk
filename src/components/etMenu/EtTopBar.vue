@@ -17,11 +17,11 @@
     flex-direction: row;
 
     width: 100%;
-    height: 66px;
+    height: var(--et-sdk-top-bar-height);
 
     padding: 15px 30px;
 
-    background-color: #1e293b;
+    background-color: var(--et-sdk-dark-800);
 }
 
 .et-sdk-top-bar-nav--main {
