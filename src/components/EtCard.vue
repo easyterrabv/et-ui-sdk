@@ -1,5 +1,5 @@
 <template>
-    <EtBox class="et-card !p-0">
+    <EtBox class="et-sdk-card">
         <EtSection>
             <template #header>
                 <slot name="header"></slot>
@@ -13,3 +13,9 @@
 import EtBox from "./EtBox.vue";
 import EtSection from "./EtSection.vue";
 </script>
+
+<style>
+.et-sdk-card {
+    padding: 0 !important;
+}
+</style>

@@ -1,8 +1,8 @@
 <template>
-    <div class="et-popover-wrapper">
+    <div class="et-sdk-popover">
         <div
             :tabindex="-1"
-            class="et-popover-toggle w-full"
+            class="et-sdk-popover--toggle"
             ref="toggle"
             @mouseup.left.stop="(e) => !manual && setPopoverFocus(true)"
             @blur="(e) => !manual && setPopoverFocus(false)"
@@ -12,9 +12,9 @@
         <Teleport to="body">
             <div
                 ref="content"
-                class="et-popover-content z-[20000]"
+                class="et-sdk-popover--content"
                 :class="{
-                    'w-fit': !fitToggle
+                    'et-sdk-popover--content__fit_toggle': !fitToggle
                 }"
                 :style="styles"
                 v-show="hasFocus"
@@ -119,3 +119,18 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-popover--toggle {
+    width: 100%;
+}
+
+.et-sdk-popover--content {
+    z-index: 20000;
+}
+
+.et-sdk-popover--content__fit_toggle {
+    width: fit-content;
+    block-size: fit-content;
+}
+</style>
