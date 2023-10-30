@@ -1,5 +1,5 @@
 <template>
-    <EtButtonGroup class="et-pagination">
+    <EtButtonGroup class="et-sdk-pagination">
         <EtButton
             :size="UI_SIZING.XS"
             :disabled="innerValue === 1"
