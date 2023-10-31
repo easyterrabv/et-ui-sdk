@@ -1,7 +1,11 @@
 <template>
     <div
         ref="checkbox"
-        class="et-checkbox appearance-none align-middle outline-none cursor-pointer bg-white rounded-sm ring-1 relative text-primary fill-primary text-center checked:after:content-['\2713'] indeterminate:after:content-['\2014'] w-3 h-3 text-base leading-3 font-extrabold after:absolute after:-left-[1px] after:-top-[1px]"
+        class="et-sdk-checkbox"
+        :class="{
+            'et-sdk-checkbox__checked': checked,
+            'et-sdk-checkbox__indeterminate': indeterminate
+        }"
         type="checkbox"
         :tabindex="tabindex"
         :name="name"
@@ -10,8 +14,8 @@
         :indeterminate="internalIndeterminate"
         @keyup.enter="internalChecked = !internalChecked"
     >
-        <div v-if="checked">&check;</div>
-        <div v-else-if="indeterminate">&minus;</div>
+        <!--        <div v-if="checked">&check;</div>-->
+        <!--        <div v-else-if="indeterminate">&minus;</div>-->
     </div>
 </template>
 
@@ -107,3 +111,39 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-checkbox {
+    appearance: none;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 4px;
+    border: 1.5px solid var(--et-sdk-dark-400);
+    position: relative;
+    color: var(--et-sdk-blue-600);
+    fill: var(--et-sdk-blue-600);
+    text-align: center;
+    line-height: 12px;
+    font-size: var(--et-sdk-font-size-large);
+    font-weight: var(--et-sdk-font-weight-bold);
+
+    width: 15px;
+    height: 15px;
+}
+
+.et-sdk-checkbox:before {
+    position: absolute;
+    left: -2px;
+    top: -1px;
+}
+
+.et-sdk-checkbox__checked:before {
+    content: "\2713";
+}
+
+.et-sdk-checkbox__indeterminate:before {
+    content: "\2013";
+    left: 1px;
+}
+</style>
