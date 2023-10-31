@@ -1,21 +1,17 @@
 <template>
     <div
-        class="et-sidebar-button max-w-full w-full py-1"
-        :class="[
-            {
-                'px-4': !isCollapsed,
-                'px-2 text-center': isCollapsed
-            }
-        ]"
+        class="et-sdk-sidebar-button-wrapper"
+        :class="{
+            'et-sdk-sidebar-button-wrapper__menu-open': !isCollapsed,
+            'et-sdk-sidebar-button-wrapper__menu-collapsed': isCollapsed
+        }"
     >
         <EtButton
             ref="etButton"
             :type="type"
             @click="onClick"
             :size="UI_SIZING.S"
-            :class="{
-                'w-full': !isCollapsed
-            }"
+            class="et-sdk-sidebar-button__menu-open"
             :active="isActive"
             :disabled="internalDisabled"
             :readonly="readonly"
@@ -100,3 +96,27 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-sidebar-button-wrapper {
+    max-width: 100%;
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.et-sdk-sidebar-button-wrapper__menu-open {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.et-sdk-sidebar-button-wrapper__menu-collapsed {
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+}
+
+.et-sdk-sidebar-button__menu-open {
+    width: 100%;
+}
+</style>
