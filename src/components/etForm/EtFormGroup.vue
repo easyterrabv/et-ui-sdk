@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="et-sdk-form-group">
         <EtLabel>
             <slot name="label"></slot>
         </EtLabel>
-        <EtInputGroup class="!w-full">
+        <EtInputGroup class="et-sdk-form-group--input-group">
             <slot></slot>
         </EtInputGroup>
         <div v-if="$slots.after" class="mt-2">
@@ -25,3 +25,9 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-form-group--input-group {
+    width: 100%;
+}
+</style>

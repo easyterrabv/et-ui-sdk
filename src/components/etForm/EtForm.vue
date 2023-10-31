@@ -2,7 +2,7 @@
     <form
         :method="method"
         @submit.prevent="(e) => debounceSubmit(e)"
-        class="flex flex-col gap-4"
+        class="et-sdk-form"
     >
         <slot />
     </form>
@@ -41,3 +41,11 @@ export default {
     }
 };
 </script>
+
+<style>
+.et-sdk-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+</style>
