@@ -106,8 +106,8 @@ export default defineComponent({
 }
 
 .et-sdk-sidebar-button-wrapper__menu-open {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
 .et-sdk-sidebar-button-wrapper__menu-collapsed {

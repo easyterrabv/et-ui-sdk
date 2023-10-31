@@ -56,19 +56,19 @@ export default defineComponent({
     background-color: var(--et-sdk-blue-600);
 }
 
-.et-sdk-sidebar-item__active:hover {
-    background-color: var(--et-sdk-blue-700);
-}
-
 .et-sdk-sidebar-item:hover {
     background-color: white;
+}
+
+.et-sdk-sidebar-item__active:hover {
+    background-color: var(--et-sdk-blue-700);
 }
 
 .et-sdk-sidebar-item__sidebar-open {
     margin-right: 24px;
     border-top-right-radius: 17px;
     border-bottom-right-radius: 17px;
-    padding-left: 8px;
+    padding-left: 24px;
 }
 
 .et-sdk-sidebar-item__sidebar-closed {

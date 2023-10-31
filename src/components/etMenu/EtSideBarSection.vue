@@ -1,24 +1,23 @@
 <template>
-    <section class="group/section et-sidebar-section">
-        <EtLabel class="pb-1 flex flex-row">
-            <span class="grow px-4" v-if="!isCollapsed"
+    <section class="et-sdk-side-bar-section group/section">
+        <EtLabel class="et-sdk-side-bar-section--label-wrapper">
+            <span
+                class="et-sdk-side-bar-section--label-wrapper--label"
+                v-if="!isCollapsed"
                 ><slot name="label"></slot
             ></span>
             <span
-                class="cursor-pointer mx-2 px-2 rounded-full text-center hover:bg-white hover:text-primary"
-                :class="[
-                    {
-                        grow: isCollapsed
-                    }
-                ]"
+                class="et-sdk-side-bar-section--label-wrapper--action"
+                :class="{
+                    'et-sdk-side-bar-section--label-wrapper--action__side-bar-collapsed':
+                        isCollapsed
+                }"
             >
                 <slot name="action"></slot>
             </span>
         </EtLabel>
         <slot></slot>
-        <div
-            class="group-[:last-child]/section:border-0 et-sidebar-section-border-bottom border-b-[1px] border-b-slate-200 m-6"
-        ></div>
+        <div class="et-sdk-side-bar-section-bottom-line"></div>
     </section>
 </template>
 
@@ -39,3 +38,53 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-side-bar-section--label-wrapper {
+    padding-bottom: 4px;
+    display: flex;
+    flex-direction: row;
+}
+
+.et-sdk-side-bar-section--label-wrapper--label {
+    flex-grow: 1;
+    padding-left: 32px;
+    padding-right: 32px;
+    font-size: var(--et-sdk-font-size-normal);
+    font-weight: var(--et-sdk-font-weight-semibold);
+}
+
+.et-sdk-side-bar-section--label-wrapper--action {
+    cursor: pointer;
+    margin-left: 8px;
+    margin-right: 24px;
+
+    padding-left: 4px;
+    padding-right: 4px;
+
+    border-radius: 999999px;
+
+    text-align: center;
+
+    background-color: var(--et-sdk-dark-100);
+}
+
+.et-sdk-side-bar-section--label-wrapper--action:hover {
+    background-color: white;
+    color: var(--et-sdk-blue-600);
+}
+
+.et-sdk-side-bar-section--label-wrapper--action__side-bar-collapsed {
+    margin-right: 8px;
+    flex-grow: 1;
+}
+
+.et-sdk-side-bar-section-bottom-line {
+    border-bottom: 1px solid var(--et-sdk-dark-200);
+    margin: 24px;
+}
+
+.et-sdk-side-bar-section:last-child .et-sdk-side-bar-section-bottom-line {
+    display: none;
+}
+</style>
