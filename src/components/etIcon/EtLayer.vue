@@ -1,6 +1,6 @@
 <template>
     <font-awesome-layers
-        class="et-icon-layers"
+        class="et-sdk-icon-layers"
         fixed-width
         v-bind="{ ...$props, ...$attrs }"
     >

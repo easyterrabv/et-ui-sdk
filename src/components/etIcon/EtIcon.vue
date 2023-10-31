@@ -1,6 +1,6 @@
 <template>
     <FontAwesomeIcon
-        class="et-icon"
+        class="et-sdk-icon"
         fixed-width
         v-bind="{ ...$props, ...$attrs }"
         :icon="['fas', icon]"

@@ -33,7 +33,7 @@ describe(`<EtIcon />`, () => {
             });
 
             cy.get("svg")
-                .should("have.class", "et-icon")
+                .should("have.class", "et-sdk-icon")
                 .should("have.class", `fa-${iconName}`);
         });
     });
