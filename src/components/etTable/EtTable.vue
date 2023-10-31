@@ -1,29 +1,24 @@
 <template>
-    <div class="overflow-y-auto h-full scrollbar-none">
-        <table class="w-full">
+    <div class="et-sdk-table-wrapper">
+        <table class="et-sdk-table">
             <thead
                 v-if="$slots.header || ($slots.filters && !isStatic)"
-                :class="['sticky top-0 z-10 bg-white']"
+                class="et-sdk-table--head"
             >
                 <tr
                     v-if="$slots.header"
-                    :class="[
-                        '[&_th:not(.filler)]:px-1 text-left [&_th:not(.filler)]:text-[#9CA3AF] [&_th:not(.filler)]:font-normal', // this styles the <th> elements
-                        {
-                            'border-b-2 border-default-extra-light': !(
-                                $slots.filters && !isStatic
-                            ),
-                            '[&_th:not(.filler)]:py-1': !(
-                                $slots.filters && !isStatic
-                            ),
-                            '[&_th:not(.filler)]:pt-1':
-                                $slots.filters && !isStatic
-                        }
-                    ]"
+                    class="et-sdk-table--head-row"
+                    :class="{
+                        'et-sdk-table--head-row__no-filters': !(
+                            $slots.filters && !isStatic
+                        ),
+                        'et-sdk-table--head-row__filters':
+                            $slots.filters && !isStatic
+                    }"
                 >
                     <th
                         v-if="isSelectable"
-                        class="w-2"
+                        class="et-sdk-table--head-cell--selectable"
                         @click="toggleSelectAll"
                     >
                         <EtCheckbox
@@ -38,14 +33,11 @@
                         :toggleSorting="toggleSorting"
                         :sort="sort"
                     ></slot>
-                    <th class="filler max-w-full"></th>
+                    <th class="filler"></th>
                 </tr>
                 <tr
                     v-if="$slots.filters && !isStatic"
-                    :class="[
-                        '[&_td:not(.filler)]:px-2 [&_td:not(.filler)]:pb-1', // default <td> styling
-                        'border-b-2 border-default-extra-light'
-                    ]"
+                    class="et-sdk-table--filters-row"
                 >
                     <th v-if="isSelectable"></th>
                     <slot
@@ -53,15 +45,13 @@
                         :filters="filters"
                         :filter="filter"
                     ></slot>
-                    <th class="filler max-w-full"></th>
+                    <th class="filler"></th>
                 </tr>
             </thead>
             <tbody v-if="loading || !ready">
                 <tr>
                     <td colspan="10000">
-                        <div
-                            class="w-full max-w-screen text-center text-2xl p-4"
-                        >
+                        <div class="et-sdk-table--loading-row">
                             <EtIconSpinner pulse></EtIconSpinner>
                             <span v-if="!ready"> Preparing Table </span>
                             <span v-else> Loading </span>
@@ -73,29 +63,15 @@
                 <tr
                     v-for="row in sortedRows"
                     :key="row.key"
-                    :class="[
-                        'border-b-2 border-default-extra-light', // default styling
-                        '[&_td:not(.filler)]:p-1', // default <td> styling
-                        'transition-all ease-in-out duration-150', // animations
-                        {
-                            // Hover is row is clickable
-                            'hover:bg-default-extra-light cursor-pointer':
-                                isClickable,
-                            // Darker hover is row is clickable & striped rows is used
-                            'hover:bg-default-medium-light':
-                                isClickable && isStriped,
-                            // Row color when row is selected
-                            '!bg-primary-extra-light': selectedRows.includes(
-                                row[rowKey]
-                            ),
-                            // Darker row color if row is clickable & selected
-                            'hover:!bg-primary-light':
-                                isClickable &&
-                                selectedRows.includes(row[rowKey]),
-                            // darker row color for odd rows when table is striped.
-                            'odd:bg-default-extra-light': isStriped
-                        }
-                    ]"
+                    class="et-sdk-table--body-row"
+                    :class="{
+                        'et-sdk-table--body-row__clickable': isClickable,
+                        'et-sdk-table--body-row__selected':
+                            selectedRows.includes(row[rowKey]),
+                        // Darker row color if row is clickable & selected
+                        'et-sdk-table--body-row__selected__clickable':
+                            isClickable && selectedRows.includes(row[rowKey])
+                    }"
                     @click="() => handleRowClick(row)"
                 >
                     <td v-if="isSelectable" @click.stop="toggleRowSelect(row)">
@@ -105,27 +81,24 @@
                         ></EtCheckbox>
                     </td>
                     <slot :row="row"></slot>
-                    <td class="filler max-w-full"></td>
+                    <td class="filler"></td>
                 </tr>
             </tbody>
             <tfoot
                 v-if="!isStatic && ready && !loading"
-                :class="[
-                    'border-t-2 border-default-light',
-                    'sticky bottom-0 z-10 bg-white'
-                ]"
+                class="et-sdk-table--footer-row"
             >
                 <tr>
                     <td colspan="10000">
-                        <div class="flex flex-row">
-                            <div class="p-1 w-60 text-default-light">
+                        <div class="et-sdk-table--footer-content">
+                            <div class="text-default-light">
                                 <small v-if="totalRows"
                                     >Total: {{ totalRows }}</small
                                 >
                             </div>
-                            <div class="flex-grow p-1">
+                            <div>
                                 <div
-                                    class="flex justify-center"
+                                    class="et-sdk-table--footer-content--pagination"
                                     v-if="totalRows > internalPerPage"
                                 >
                                     <EtPagination
@@ -135,13 +108,12 @@
                                     ></EtPagination>
                                 </div>
                             </div>
-                            <div class="p-1 w-60">
+                            <div>
                                 <EtInputGroup>
                                     <EtInput
                                         ref="perPageInput"
                                         :modelValue="internalPerPage"
                                         :size="UI_SIZING.XS"
-                                        wrapperClasses="!w-24"
                                         @enter="setPerPage"
                                     />
                                     <EtInputGroupAddon :size="UI_SIZING.XS">
@@ -220,11 +192,6 @@ export default defineComponent({
             required: false,
             default: false
         },
-        isStriped: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
         staticData: {
             type: Array as PropType<EtModel[]>,
             required: false,
@@ -261,7 +228,7 @@ export default defineComponent({
             data: [] as EtModel[],
             selectedRows: [] as string[], // keys/guids
             totalRows: 0,
-            debouncerFetchData: new Debounce(self.fetchData, 200)
+            fetchDataDebounce: new Debounce(self.fetchData, 200)
         };
     },
     computed: {
@@ -321,7 +288,7 @@ export default defineComponent({
             this.debounceFetchData();
         },
         debounceFetchData() {
-            this.debouncerFetchData.debounce();
+            this.fetchDataDebounce.debounce();
         },
         toggleSorting(field: string) {
             const currentDirection = (this.sorting[field] || "").toUpperCase();
@@ -455,3 +422,113 @@ export default defineComponent({
     emits: ["onRowSelect", "onRowClick"]
 });
 </script>
+
+<style>
+.et-sdk-table-wrapper .filler {
+    max-width: 100%;
+}
+
+.et-sdk-table-wrapper {
+    overflow-y: auto;
+    height: 100%;
+    scrollbar-width: none;
+}
+
+.et-sdk-table-wrapper::webkit-scrollbar {
+    display: none;
+}
+
+.et-sdk-table {
+    width: 100%;
+}
+
+.et-sdk-table--head {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+}
+
+.et-sdk-table--head-row {
+    text-align: left;
+}
+
+.et-sdk-table--head-row th:not(.filler) {
+    padding: 2px;
+    color: var(--et-sdk-dark-400);
+
+    font-size: var(--et-sdk-font-size-small);
+    font-weight: var(--et-sdk-font-weight-semibold);
+}
+
+.et-sdk-table--head-row__no-filters {
+    border-bottom: 1px solid var(--et-sdk-dark-200);
+}
+
+.et-sdk-table--head-cell--selectable {
+    width: 5px;
+}
+
+.et-sdk-table--filters-row {
+    border-bottom: 1px solid var(--et-sdk-dark-200);
+}
+
+.et-sdk-table--filters-row td:not(.filler) {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 4px;
+}
+
+.et-sdk-table--loading-row {
+    width: 100%;
+    max-width: 100vw;
+    text-align: center;
+    font-size: var(--et-sdk-font-size-large);
+    padding: 16px;
+}
+
+.et-sdk-table--body-row {
+    border-bottom: 1px solid var(--et-sdk-dark-200);
+    transition: all 150ms ease-in-out;
+}
+
+.et-sdk-table--body-row td:not(.filler) {
+    padding: 2px;
+}
+
+.et-sdk-table--body-row__clickable:hover {
+    cursor: pointer;
+    background-color: var(--et-sdk-dark-100);
+}
+
+.et-sdk-table--body-row__selected {
+    background-color: var(--et-sdk-blue-300);
+}
+
+.et-sdk-table--body-row__selected__clickable:hover {
+    background-color: var(--et-sdk-blue-400);
+}
+
+.et-sdk-table--footer-row {
+    border-top: 1px solid var(--et-sdk-dark-200);
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background-color: white;
+}
+
+.et-sdk-table--footer-content {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 240px auto 240px;
+}
+
+.et-sdk-table--footer-content > div {
+    padding: 4px;
+}
+
+.et-sdk-table--footer-content--pagination {
+    margin: 0 auto;
+    width: 200px;
+}
+</style>
