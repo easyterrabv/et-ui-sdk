@@ -1,20 +1,19 @@
 <template>
     <div class="et-sdk-select">
         <div
-            class="cursor-pointer py-1 px-3 text-text flex flex-row"
+            class="et-sdk-select--option"
             :class="{
-                'bg-primary-extra-light': isSelected(option) && !multiple,
-                'hover:bg-default-extra-light': !multiple,
-                'hover:bg-primary-extra-light': multiple
+                'et-sdk-select--option__selected':
+                    !multiple && isSelected(option)
             }"
             v-for="option in sortedOptions"
             @mouseup.left.stop="(e) => selectDebounce.debounce(option)"
             :key="option.guid"
         >
-            <div v-if="multiple" class="pr-2 pt-1">
+            <div v-if="multiple" class="et-sdk-select--option--checkbox">
                 <EtCheckbox :checked="isSelected(option)" readonly></EtCheckbox>
             </div>
-            <div class="flex-grow">
+            <div class="et-sdk-select--option--content">
                 {{ option.label }}
             </div>
         </div>
@@ -71,7 +70,6 @@ export default defineComponent({
         internalSelected: {
             immediate: true,
             handler(value) {
-                console.log(this.internalSelected);
                 this.$emit("update:modelValue", this.internalSelected);
             }
         },
@@ -179,8 +177,6 @@ export default defineComponent({
                     (opt: OptionModel) => opt.guid !== option.guid
                 );
             } else {
-                console.log(this.internalSelected);
-                console.log(option);
                 this.internalSelected?.push(option);
             }
 
@@ -241,5 +237,31 @@ export default defineComponent({
     padding-bottom: 8px;
     border-radius: 4px;
     width: 100%;
+}
+
+.et-sdk-select--option {
+    cursor: pointer;
+    padding: 4px 12px;
+    display: flex;
+    flex-direction: row;
+    font-weight: var(--et-sdk-font-weight-normal);
+}
+
+.et-sdk-select--option:hover {
+    background-color: var(--et-sdk-blue-300);
+}
+
+.et-sdk-select--option__selected {
+    background-color: var(--et-sdk-blue-300);
+}
+
+.et-sdk-select--option--checkbox {
+    padding-right: 4px;
+    padding-top: 1px;
+    margin-top: 4px;
+}
+
+.et-sdk-select--option--content {
+    flex-grow: 1;
 }
 </style>
