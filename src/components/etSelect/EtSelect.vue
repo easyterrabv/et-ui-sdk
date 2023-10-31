@@ -1,5 +1,5 @@
 <template>
-    <div class="et-select inline-block shadow bg-white py-2 rounded w-full">
+    <div class="et-sdk-select">
         <div
             class="cursor-pointer py-1 px-3 text-text flex flex-row"
             :class="{
@@ -7,8 +7,8 @@
                 'hover:bg-default-extra-light': !multiple,
                 'hover:bg-primary-extra-light': multiple
             }"
-            @mouseup.left.stop="(e) => selectDebounce.debounce(option)"
             v-for="option in sortedOptions"
+            @mouseup.left.stop="(e) => selectDebounce.debounce(option)"
             :key="option.guid"
         >
             <div v-if="multiple" class="pr-2 pt-1">
@@ -61,13 +61,17 @@ export default defineComponent({
     data() {
         return {
             internalSelected: null as OptionModel | OptionModel[] | null,
-            selectDebounce: new Debounce(() => this.select(), 50)
+            selectDebounce: new Debounce(
+                (option: OptionModel) => this.select(option),
+                50
+            )
         };
     },
     watch: {
         internalSelected: {
             immediate: true,
             handler(value) {
+                console.log(this.internalSelected);
                 this.$emit("update:modelValue", this.internalSelected);
             }
         },
@@ -175,6 +179,8 @@ export default defineComponent({
                     (opt: OptionModel) => opt.guid !== option.guid
                 );
             } else {
+                console.log(this.internalSelected);
+                console.log(option);
                 this.internalSelected?.push(option);
             }
 
@@ -225,3 +231,15 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-select {
+    display: inline-block;
+    box-shadow: var(--et-sdk-shadow-normal);
+    background-color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 4px;
+    width: 100%;
+}
+</style>
