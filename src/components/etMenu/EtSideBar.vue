@@ -1,8 +1,11 @@
 <template>
     <aside
         v-if="$slots.default"
-        :class="[widthClass]"
-        class="et-side-bar pt-6 z-10 h-full max-h-full bg-slate-50 shadow-inner relative transition-[width] ease-in-out duration-150"
+        :class="{
+            'et-sdk-side-bar__closed': isCollapsed,
+            'et-sdk-side-bar__open': !isCollapsed
+        }"
+        class="et-sdk-side-bar"
     >
         <div>
             <slot :isCollapsed="isCollapsed"></slot>
@@ -10,7 +13,7 @@
 
         <div
             @mousedown.left.stop="toggleCollapse"
-            class="absolute bottom-0 right-0 p-4 text-text-light hover:text-primary hover:cursor-pointer"
+            class="et-sdk-side-bar--toggle"
         >
             <EtIconAnglesLeft
                 title="Hide Menu"
@@ -66,11 +69,6 @@ export default defineComponent({
         }
     },
     computed: {
-        widthClass(): string {
-            return this.isCollapsed
-                ? "min-w-[50px] w-[50px] max-w-[50px]"
-                : "min-w-[290px] w-[290px] max-w-[290px]";
-        },
         storageKey(): string {
             return [localStorageCollapsedKey, this.name]
                 .filter((n) => !!n)
@@ -104,3 +102,38 @@ export default defineComponent({
     emits: ["isCollapsed"]
 });
 </script>
+
+<style>
+.et-sdk-side-bar {
+    padding-top: 24px;
+    z-index: 10;
+    height: 100%;
+    max-height: 100%;
+    background-color: var(--et-sdk-dark-50);
+    box-shadow: var(--et-sdk-shadow-normal-inset);
+    position: relative;
+    transition: width 150ms ease-in-out;
+    width: var(--et-sdk-left-menu-width-closed);
+}
+
+.et-sdk-side-bar__closed {
+    width: var(--et-sdk-left-menu-width-closed);
+}
+
+.et-sdk-side-bar__open {
+    width: var(--et-sdk-left-menu-width-open);
+}
+
+.et-sdk-side-bar--toggle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 16px;
+    color: var(--et-sdk-dark-400);
+    cursor: pointer;
+}
+
+.et-sdk-side-bar--toggle:hover {
+    color: var(--et-sdk-dark-800);
+}
+</style>

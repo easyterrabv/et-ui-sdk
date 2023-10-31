@@ -3,6 +3,7 @@
     --et-sdk-light-100: #f3f4f6;
     --et-sdk-light-200: #f8fafc;
 
+    --et-sdk-dark-50: #F3F4F6;
     --et-sdk-dark-100: #f1f5f9;
     --et-sdk-dark-200: #e2e8f0;
     --et-sdk-dark-400: #94a3b8;
@@ -16,6 +17,7 @@
     --et-sdk-blue-700: #1d4ed8;
 
     --et-sdk-shadow-normal: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+    --et-sdk-shadow-normal-inset: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
     --et-sdk-font-size-small: 12px;
     --et-sdk-font-size-normal: 14px;
