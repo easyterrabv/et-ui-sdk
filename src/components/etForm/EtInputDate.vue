@@ -1,14 +1,19 @@
 <template>
     <div
-        class="et-input-date inline-block w-full"
+        class="et-sdk-input-date"
         ref="wrapper"
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
     >
-        <EtPopover ref="popover" manual fitToggle class="w-full">
+        <EtPopover
+            ref="popover"
+            manual
+            fitToggle
+            class="et-sdk-input-date--popover"
+        >
             <template #toggle>
                 <div
-                    class="relative"
+                    class="et-sdk-input-date--input-toggle-wrapper"
                     @mouseup.left.stop="(e) => onInputClick()"
                 >
                     <EtInput
@@ -19,7 +24,6 @@
                         :placeholder="placeholder"
                         :autocomplete="autocomplete"
                         :size="size"
-                        class="pl-10 w-full"
                         :modelValue="internalInputValue"
                         @change="
                             (value) =>
@@ -31,20 +35,11 @@
                         @clear="onInputClear"
                         @blur="onInputBlur"
                         clearButton
-                    ></EtInput>
-
-                    <span
-                        class="absolute left-0 top-0 w-max h-max text-text-light"
-                        :class="[
-                            {
-                                'p-3': size === UI_SIZING.L,
-                                'p-2': size === UI_SIZING.M,
-                                'p-1': size === UI_SIZING.S
-                            }
-                        ]"
                     >
-                        <EtIconCalendar />
-                    </span>
+                        <template #preIcon>
+                            <EtIconCalendar />
+                        </template>
+                    </EtInput>
                 </div>
             </template>
             <EtDatePicker
@@ -173,3 +168,18 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-date {
+    display: inline-block;
+    width: 100%;
+}
+
+.et-sdk-input-date--popover {
+    width: 100%;
+}
+
+.et-sdk-input-date--input-toggle-wrapper {
+    position: relative;
+}
+</style>

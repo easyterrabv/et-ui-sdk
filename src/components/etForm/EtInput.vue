@@ -445,15 +445,15 @@ export default defineComponent({
 }
 
 .et-sdk-input__with-pre-icon {
-    padding-left: 40px;
+    padding-left: 30px !important;
 }
 
 .et-sdk-input__with-post-icon {
-    padding-right: 40px;
+    padding-right: 30px !important;
 }
 
 .et-sdk-input__with-post-icon-and_clear {
-    padding-right: 80px;
+    padding-right: 60px !important;
 }
 
 .et-sdk-input__success {
