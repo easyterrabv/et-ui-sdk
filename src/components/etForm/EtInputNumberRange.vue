@@ -1,11 +1,11 @@
 <template>
-    <EtInputGroup class="mt-4 et-input-number-range" :name="name">
+    <EtInputGroup class="et-sdk-input-number-range-wrapper" :name="name">
         <EtInput
             :modelValue="firstNumber"
             @change="onFirstChange"
             type="number"
             :autocomplete="autocomplete"
-            wrapperClasses="!w-32"
+            wrapperClasses="et-sdk-input-number-range--input"
             :name="name + '_1'"
             :disable="disabled"
             :readonly="readonly"
@@ -19,7 +19,7 @@
             @change="onSecondChange"
             type="number"
             :autocomplete="autocomplete"
-            wrapperClasses="!w-32"
+            wrapperClasses="et-sdk-input-number-range--input"
             :name="name + '_2'"
             :disable="disabled"
             :readonly="readonly"
@@ -86,3 +86,9 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-number-range--input {
+    width: 128px;
+}
+</style>
