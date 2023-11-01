@@ -4,10 +4,9 @@
         @dragleave="handleDragLeave"
         @drop="handleDrop"
         @mouseup.left="handleClick"
-        class="group et-input-file-drop flex flex-col w-full items-center justify-center h-40 border-2 border-dashed border-default-light rounded-md p-4"
+        class="et-sdk-input-file-drop group"
         :class="{
-            'hover:border-default cursor-pointer': !isProcessing,
-            'cursor-wait': isProcessing
+            'et-sdk-input-file-drop__processing': isProcessing
         }"
     >
         <input
@@ -17,11 +16,11 @@
             @change="handleFileInputChange"
         />
         <template v-if="!isProcessing">
-            <div class="text-text-light w-6 h-6 mb-2 group-hover:text-text">
+            <div class="et-sdk-input-file-drop--icon">
                 <EtIconPlus v-if="!isDragging"></EtIconPlus>
                 <EtIconArrowDown v-if="isDragging"></EtIconArrowDown>
             </div>
-            <p class="text-sm text-text">
+            <p class="et-sdk-input-file-drop--text">
                 <span v-if="!isDragging"
                     >Drag and drop files here or click to upload</span
                 >
@@ -31,9 +30,9 @@
         <template v-else>
             <EtIconSpinner
                 pulse
-                class="text-text-light w-6 h-6 mb-2"
+                class="et-sdk-input-file-drop--icon"
             ></EtIconSpinner>
-            <p class="text-sm text-text">Processing Upload</p>
+            <p class="et-sdk-input-file-drop--text">Processing Upload</p>
         </template>
     </div>
 </template>
@@ -109,3 +108,42 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-file-drop {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    border: 2px dashed var(--et-sdk-dark-200);
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.et-sdk-input-file-drop:not(.et-sdk-input-file-drop__processing):hover {
+    border-color: var(--et-sdk-dark-300);
+}
+
+.et-sdk-input-file-drop:not(.et-sdk-input-file-drop__processing):hover
+    .et-sdk-input-file-drop--icon {
+    color: var(--et-sdk-dark-600);
+}
+
+.et-sdk-input-file-drop__processing {
+    cursor: wait;
+}
+
+.et-sdk-input-file-drop--icon {
+    color: var(--et-sdk-dark-200);
+    width: 24px;
+    height: 24px;
+    margin-bottom: 8px;
+}
+
+.et-sdk-input-file-drop--text {
+    font-size: var(--et-sdk-font-size-small);
+}
+</style>
