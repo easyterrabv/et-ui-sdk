@@ -1,19 +1,23 @@
 <template>
     <div
-        class="et-input-date inline-block w-full"
+        class="et-sdk-input-time"
         ref="wrapper"
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
     >
-        <EtPopover ref="popover" manual fitToggle class="w-full">
+        <EtPopover
+            ref="popover"
+            manual
+            fitToggle
+            class="et-sdk-input-time--popover"
+        >
             <template #toggle>
                 <div
-                    class="relative"
+                    class="et-sdk-input-time--input-wrapper"
                     @mouseup.left.stop="(e) => onInputClick()"
                 >
                     <EtInput
                         ref="input"
-                        class="w-full"
                         :modelValue="internalInputValue"
                         :name="name"
                         :autocomplete="autocomplete"
@@ -150,3 +154,18 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-time {
+    display: inline-block;
+    width: 100%;
+}
+
+.et-sdk-input-time--popover {
+    width: 100%;
+}
+
+.et-sdk-input-time--input-wrapper {
+    position: relative;
+}
+</style>
