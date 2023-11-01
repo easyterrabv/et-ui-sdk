@@ -4,7 +4,10 @@ import { mount } from "cypress/vue";
 describe(`<EtInput />`, () => {
     it("renders a basic input", () => {
         mount(EtInput);
-        cy.get(".et-input-wrapper > input").should("have.class", "et-input");
+        cy.get(".et-sdk-input-wrapper > input").should(
+            "have.class",
+            "et-sdk-input"
+        );
     });
 
     it("emits on input", () => {

@@ -1,25 +1,23 @@
 <template>
     <div
-        class="relative et-input-wrapper w-80 max-w-full"
-        :class="[wrapperClasses]"
+        class="et-sdk-input-wrapper"
+        :class="[
+            wrapperClasses,
+            {
+                'et-sdk-input-wrapper__l': size === UI_SIZING.L,
+                'et-sdk-input-wrapper__m': size === UI_SIZING.M,
+                'et-sdk-input-wrapper__s': size === UI_SIZING.S,
+                'et-sdk-input-wrapper__xs': size === UI_SIZING.XS
+            }
+        ]"
     >
-        <span
-            v-if="$slots.preIcon"
-            class="absolute left-0 top-0 w-max h-max text-text-light"
-            :class="[
-                {
-                    'p-3': size === UI_SIZING.L,
-                    'p-2': size === UI_SIZING.M,
-                    'p-1': size === UI_SIZING.S
-                }
-            ]"
-        >
+        <span v-if="$slots.preIcon" class="et-sdk-input-pre">
             <slot name="preIcon"></slot>
         </span>
         <input
             v-bind="$attrs"
             v-model="internalData"
-            ref="et-input"
+            ref="et-sdk-input"
             :type="type"
             :name="name"
             :autocomplete="autocomplete ? 'off' : 'on'"
@@ -36,49 +34,31 @@
             @keyup.enter="enterEmit"
             @focus="handleFocusEmit"
             @blur="handleBlurEmit"
-            :class="[
-                {
-                    '!pl-10': $slots.preIcon,
-                    '!pr-10':
-                        (clearButton && !$slots.postIcon) ||
-                        (!clearButton && $slots.postIcon),
-                    '!pr-20': clearButton && $slots.postIcon,
-                    'bg-default-extra-light cursor-not-allowed': disabled,
-                    '!ring-success-light': success,
-                    '!ring-warning-light': warning,
-                    '!ring-danger-light': error
-                },
-                sizeClasses
-            ]"
-            class="et-input block w-full rounded-md border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+            :class="{
+                'et-sdk-input__with-pre-icon': $slots.preIcon,
+                'et-sdk-input__with-post-icon':
+                    (clearButton && !$slots.postIcon) ||
+                    (!clearButton && $slots.postIcon),
+                'et-sdk-input__with-post-icon-and_clear':
+                    clearButton && $slots.postIcon,
+                'et-sdk-input__disabled': disabled,
+                'et-sdk-input__success': success,
+                'et-sdk-input__warning': warning,
+                'et-sdk-input__error': error
+            }"
+            class="et-sdk-input"
         />
         <span
-            class="absolute right-0 top-0 w-max h-max cursor-pointer text-text-light"
-            :class="[
-                {
-                    'right-0': !$slots.postIcon,
-                    'right-8': $slots.postIcon,
-                    'p-3': size === UI_SIZING.L,
-                    'p-2': size === UI_SIZING.M,
-                    'p-1': size === UI_SIZING.S
-                }
-            ]"
+            class="et-sdk-input-clear"
+            :class="{
+                'et-sdk-input-clear__with-post-icon': $slots.postIcon
+            }"
             v-if="clearButton && !disabled && !readonly && internalData"
             @mouseup.left.stop="clear"
         >
             <EtIconTimes />
         </span>
-        <span
-            v-if="$slots.postIcon"
-            class="absolute right-0 top-0 w-max h-max text-text-light"
-            :class="[
-                {
-                    'p-3': size === UI_SIZING.L,
-                    'p-2': size === UI_SIZING.M,
-                    'p-1': size === UI_SIZING.S
-                }
-            ]"
-        >
+        <span v-if="$slots.postIcon" class="et-sdk-input-post">
             <slot name="postIcon"></slot>
         </span>
     </div>
@@ -216,14 +196,7 @@ export default defineComponent({
         return {
             UI_SIZING,
             internalData: null as null | string | number,
-            internalDataBefore: null as null | string | number,
-
-            sizeMapping: {
-                [UI_SIZING.XS]: "px-1.5 py-0.5",
-                [UI_SIZING.S]: "px-2.5 py-1",
-                [UI_SIZING.M]: "px-3.5 py-2",
-                [UI_SIZING.L]: "px-4 py-3"
-            } as { [key in UI_SIZING]: string }
+            internalDataBefore: null as null | string | number
         };
     },
     computed: {
@@ -238,9 +211,6 @@ export default defineComponent({
         },
         maxAttr(): string {
             return this.typeIsNumber ? "max" : "maxlength";
-        },
-        sizeClasses(): string {
-            return this.sizeMapping[this.size];
         }
     },
     watch: {
@@ -342,10 +312,10 @@ export default defineComponent({
             }
         },
         focus() {
-            (this.$refs["et-input"] as any).focus();
+            (this.$refs["et-sdk-input"] as any).focus();
         },
         blur() {
-            (this.$refs["et-input"] as any).blur();
+            (this.$refs["et-sdk-input"] as any).blur();
         },
         getValue(): string | number | null {
             return this.internalData;
@@ -362,7 +332,7 @@ export default defineComponent({
             });
         },
         setSelectionRange(start: number, end: number) {
-            (this.$refs["et-input"] as any).setSelectionRange(start, end);
+            (this.$refs["et-sdk-input"] as any).setSelectionRange(start, end);
         }
     },
     emits: {
@@ -388,7 +358,7 @@ export default defineComponent({
                 (value === null && !!event)
             );
         },
-        // Will trigger on input focusß
+        // Will trigger on input focus
         focus: () => true,
         // Will trigger on input blur
         blur: () => true,
@@ -397,3 +367,127 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-wrapper {
+    position: relative;
+    width: 320px;
+    max-width: 100%;
+}
+
+.et-sdk-input-pre {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: max-content;
+    width: max-content;
+    color: var(--et-sdk-dark-300);
+}
+
+.et-sdk-input-wrapper__l .et-sdk-input-pre,
+.et-sdk-input-wrapper__l .et-sdk-input-clear,
+.et-sdk-input-wrapper__l .et-sdk-input-post {
+    padding: 12px;
+}
+
+.et-sdk-input-wrapper__m .et-sdk-input-pre,
+.et-sdk-input-wrapper__m .et-sdk-input-clear,
+.et-sdk-input-wrapper__m .et-sdk-input-post {
+    padding: 8px;
+}
+
+.et-sdk-input-wrapper__s .et-sdk-input-pre,
+.et-sdk-input-wrapper__s .et-sdk-input-clear,
+.et-sdk-input-wrapper__s .et-sdk-input-post {
+    padding: 4px;
+}
+
+.et-sdk-input-wrapper__xs .et-sdk-input-pre,
+.et-sdk-input-wrapper__xs .et-sdk-input-clear,
+.et-sdk-input-wrapper__xs .et-sdk-input-post {
+    padding: 2px;
+}
+
+.et-sdk-input {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--et-sdk-dark-200);
+    box-shadow: var(--et-sdk-shadow-normal);
+    font-weight: var(--et-sdk-font-weight-normal);
+    font-size: var(--et-sdk-font-size-normal);
+    color: var(--et-sdk-dark-800);
+}
+
+.et-sdk-input::placeholder {
+    color: var(--et-sdk-dark-300);
+}
+
+.et-sdk-input-wrapper__xs .et-sdk-input {
+    padding: 2px 6px;
+}
+
+.et-sdk-input-wrapper__s .et-sdk-input {
+    padding: 4px 10px;
+}
+
+.et-sdk-input-wrapper__m .et-sdk-input {
+    padding: 8px 14px;
+}
+
+.et-sdk-input-wrapper__l .et-sdk-input {
+    padding: 12px 18px;
+}
+
+.et-sdk-input__disabled {
+    background-color: var(--et-sdk-dark-100);
+    cursor: not-allowed;
+}
+
+.et-sdk-input__with-pre-icon {
+    padding-left: 40px;
+}
+
+.et-sdk-input__with-post-icon {
+    padding-right: 40px;
+}
+
+.et-sdk-input__with-post-icon-and_clear {
+    padding-right: 80px;
+}
+
+.et-sdk-input__success {
+    border-color: var(--et-sdk-success-300);
+}
+
+.et-sdk-input__warning {
+    border-color: var(--et-sdk-warning-300);
+}
+
+.et-sdk-input__error {
+    border-color: var(--et-sdk-danger-300);
+}
+
+.et-sdk-input-clear {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: max-content;
+    height: max-content;
+    cursor: pointer;
+    color: var(--et-sdk-dark-300);
+}
+
+.et-sdk-input-clear__with-post-icon {
+    right: 24px;
+}
+
+.et-sdk-input-post {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: max-content;
+    width: max-content;
+    color: var(--et-sdk-dark-300);
+}
+</style>

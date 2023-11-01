@@ -6,6 +6,7 @@
     --et-sdk-dark-50: #F3F4F6;
     --et-sdk-dark-100: #f1f5f9;
     --et-sdk-dark-200: #e2e8f0;
+    --et-sdk-dark-300: #cbd5e1;
     --et-sdk-dark-400: #94a3b8;
     --et-sdk-dark-600: #334155;
     --et-sdk-dark-800: #1e293b;
@@ -15,6 +16,21 @@
     --et-sdk-blue-400: #60a5fa;
     --et-sdk-blue-600: #2563eb;
     --et-sdk-blue-700: #1d4ed8;
+
+    --et-sdk-success-100: #d1fae5;
+    --et-sdk-success-300: #6ee7b7;
+    --et-sdk-success-500: #10b981;
+    --et-sdk-success-700: #047857;
+
+    --et-sdk-danger-100: #ffe4e6;
+    --et-sdk-danger-300: #fda4af;
+    --et-sdk-danger-500: #f43f5e;
+    --et-sdk-danger-700: #be123c;
+
+    --et-sdk-warning-100: #fef3c7;
+    --et-sdk-warning-300: #fcd34d;
+    --et-sdk-warning-500: #f59e0b;
+    --et-sdk-warning-700: #b45309;
 
     --et-sdk-shadow-normal: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
     --et-sdk-shadow-normal-inset: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
