@@ -21,3 +21,47 @@ html {
 .hidden {
     display: none;
 }
+
+.et-sdk-input-like {
+    padding-right: 40px;
+    position: relative;
+    display: block;
+    cursor: text;
+    border-radius: 8px;
+    border: 1px solid var(--et-sdk-dark-200);
+    box-shadow: var(--et-sdk-shadow-normal);
+    font-weight: var(--et-sdk-font-weight-normal);
+    font-size: var(--et-sdk-font-size-normal);
+    color: var(--et-sdk-dark-800);
+}
+
+.et-sdk-input-like__xs{
+    height: 24px;
+    padding: 2px 6px;
+}
+
+.et-sdk-input-like__s{
+    height: 24px;
+    padding: 4px 10px;
+}
+
+.et-sdk-input-like__m{
+    height: 40px;
+    padding: 8px 14px;
+}
+
+.et-sdk-input-like__l{
+    height: 40px;
+    padding: 12px 18px;
+}
+
+.et-sdk-input-like--content {
+    width: 100%;
+    scrollbar-width: none;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.et-sdk-input-like--content::-webkit-scrollbar {
+    display: none;
+}

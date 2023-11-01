@@ -1,6 +1,6 @@
 <template>
     <div
-        class="et-input-date inline-block w-80"
+        class="et-sdk-input-select"
         ref="wrapper"
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
@@ -20,11 +20,16 @@
                     <div
                         v-show="!hasInputFocus"
                         :tabindex="0"
-                        :class="[sizeClasses]"
-                        class="et-sdk-input-like pr-10 relative block cursor-text rounded-md border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+                        :class="{
+                            'et-sdk-input-like__xs': size === UI_SIZING.XS,
+                            'et-sdk-input-like__s': size === UI_SIZING.S,
+                            'et-sdk-input-like__m': size === UI_SIZING.M,
+                            'et-sdk-input-like__l': size === UI_SIZING.L
+                        }"
+                        class="et-sdk-input-like"
                     >
                         <div
-                            class="w-full scrollbar-none whitespace-nowrap overflow-x-auto"
+                            class="et-sdk-input-like--content"
                             v-if="
                                 internalOptionValue &&
                                 ((multiple &&
@@ -50,7 +55,7 @@
                                 "
                             >
                                 <EtBadgeDefault
-                                    class="mr-2"
+                                    class="et-sdk-input-select--option-badge"
                                     v-for="option in internalOptionValue"
                                     :key="option.guid"
                                 >
@@ -67,8 +72,17 @@
                             </span>
                         </div>
                         <span
-                            :class="[chevronSizeClasses]"
-                            class="absolute right-0 top-0 w-max h-max cursor-pointer hover:bg-default-extra-light text-text-light ring-default-light ring-1 bg-white rounded-md"
+                            :class="{
+                                'et-sdk-input-like--toggle__xs':
+                                    size === UI_SIZING.XS,
+                                'et-sdk-input-like--toggle__s':
+                                    size === UI_SIZING.S,
+                                'et-sdk-input-like--toggle__m':
+                                    size === UI_SIZING.M,
+                                'et-sdk-input-like--toggle__l':
+                                    size === UI_SIZING.L
+                            }"
+                            class="et-sdk-input-like--toggle"
                         >
                             <EtIconChevronDown />
                         </span>
@@ -131,6 +145,7 @@ export default defineComponent({
     },
     data() {
         return {
+            UI_SIZING,
             internalFilterValue: "",
             internalOptionValue: undefined as
                 | OptionModel
@@ -139,28 +154,8 @@ export default defineComponent({
                 | null,
 
             hasInputFocus: false as Boolean,
-            justToggledOption: false,
-
-            sizeMapping: {
-                [UI_SIZING.S]: "h-8 px-2.5 py-1",
-                [UI_SIZING.M]: "h-10 px-3.5 py-2",
-                [UI_SIZING.L]: "h-10 px-4 py-3"
-            } as { [key in UI_SIZING]: string },
-
-            sizeMappingChevron: {
-                [UI_SIZING.S]: "p-1",
-                [UI_SIZING.M]: "p-2",
-                [UI_SIZING.L]: "p-3"
-            } as { [key in UI_SIZING]: string }
+            justToggledOption: false
         };
-    },
-    computed: {
-        sizeClasses(): string {
-            return this.sizeMapping[this.size];
-        },
-        chevronSizeClasses(): string {
-            return this.sizeMappingChevron[this.size];
-        }
     },
     watch: {
         modelValue: {
@@ -271,3 +266,46 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-select {
+    display: inline-block;
+    width: 320px;
+}
+
+.et-sdk-input-select--option-badge {
+    margin-right: 8px;
+}
+
+.et-sdk-input-like--toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    cursor: pointer;
+    color: var(--et-sdk-dark-300);
+    background-color: var(--et-sdk-light-0);
+    border-radius: 8px;
+    box-shadow: var(--et-sdk-shadow-normal);
+}
+
+.et-sdk-input-like--toggle:hover {
+    background-color: var(--et-sdk-dark-50);
+}
+
+.et-sdk-input-like--toggle__xs {
+    padding: 2px;
+}
+
+.et-sdk-input-like--toggle__s {
+    padding: 4px;
+}
+
+.et-sdk-input-like--toggle__m {
+    padding: 8px;
+}
+
+.et-sdk-input-like--toggle__l {
+    padding: 12px;
+}
+</style>
