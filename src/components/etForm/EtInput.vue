@@ -440,7 +440,7 @@ export default defineComponent({
 }
 
 .et-sdk-input__disabled {
-    background-color: var(--et-sdk-dark-100);
+    background-color: var(--et-sdk-dark-50);
     cursor: not-allowed;
 }
 
