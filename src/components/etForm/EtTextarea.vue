@@ -7,9 +7,9 @@
         :required="required"
         :placeholder="placeholder"
         v-model="internalData"
-        class="et-textarea block w-full rounded-md border-0 p-2 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
+        class="et-sdk-textarea"
         :class="{
-            'bg-default-extra-light cursor-not-allowed': disabled
+            'et-sdk-textarea__disabled': disabled
         }"
     />
 </template>
@@ -48,3 +48,22 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-textarea {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    padding: 8px;
+    border: 1px solid var(--et-sdk-dark-200);
+    box-shadow: var(--et-sdk-shadow-normal);
+    font-weight: var(--et-sdk-font-weight-normal);
+    font-size: var(--et-sdk-font-size-normal);
+    color: var(--et-sdk-dark-800);
+}
+
+.et-sdk-textarea__disabled {
+    background-color: var(--et-sdk-dark-50);
+    cursor: not-allowed;
+}
+</style>
