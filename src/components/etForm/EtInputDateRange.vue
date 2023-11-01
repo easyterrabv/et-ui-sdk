@@ -1,9 +1,14 @@
 <template>
-    <div class="et-input-date inline-block w-full" ref="wrapper" :tabindex="-1">
-        <EtPopover ref="popover" manual fitToggle class="w-full">
+    <div class="et-sdk-input-date-range" ref="wrapper" :tabindex="-1">
+        <EtPopover
+            ref="popover"
+            manual
+            fitToggle
+            class="et-sdk-input-date-range--popover"
+        >
             <template #toggle>
                 <EtInputGroup>
-                    <div class="w-40 relative">
+                    <div class="et-sdk-input-date-range--input-wrapper">
                         <EtInput
                             :name="name + '_first'"
                             ref="input"
@@ -12,34 +17,19 @@
                             :required="required"
                             :placeholder="placeholder"
                             :size="size"
-                            :class="[
-                                {
-                                    'pl-12': size === UI_SIZING.L,
-                                    'pl-10': size === UI_SIZING.M,
-                                    'pl-7': size === UI_SIZING.S
-                                }
-                            ]"
                             :modelValue="firstDateDisplayFormat"
                             @focus="onFirstInputFocus"
                             @blur="onFirstInputBlur"
                             @enter="(value) => onInputChange(value, 'first')"
                             @change="(value) => onInputChange(value, 'first')"
-                        ></EtInput>
-                        <span
-                            class="absolute left-0 top-0 w-max h-max text-text-light"
-                            :class="[
-                                {
-                                    'p-3': size === UI_SIZING.L,
-                                    'p-2': size === UI_SIZING.M,
-                                    'p-1': size === UI_SIZING.S
-                                }
-                            ]"
                         >
-                            <EtIconCalendar />
-                        </span>
+                            <template #preIcon>
+                                <EtIconCalendar />
+                            </template>
+                        </EtInput>
                     </div>
                     <EtInputGroupAddon :size="size"> Until </EtInputGroupAddon>
-                    <div class="w-40 relative">
+                    <div class="et-sdk-input-date-range--input-wrapper">
                         <EtInput
                             :name="name + '_second'"
                             ref="input"
@@ -47,31 +37,16 @@
                             :readonly="readonly"
                             :required="required"
                             :size="size"
-                            :class="[
-                                {
-                                    'pl-12': size === UI_SIZING.L,
-                                    'pl-10': size === UI_SIZING.M,
-                                    'pl-7': size === UI_SIZING.S
-                                }
-                            ]"
                             @focus="onSecondInputFocus"
                             @blur="onSecondInputBlur"
                             :modelValue="secondDateDisplayFormat"
                             @enter="(value) => onInputChange(value, 'second')"
                             @change="(value) => onInputChange(value, 'second')"
-                        ></EtInput>
-                        <span
-                            class="absolute left-0 top-0 w-max h-max text-text-light"
-                            :class="[
-                                {
-                                    'p-3': size === UI_SIZING.L,
-                                    'p-2': size === UI_SIZING.M,
-                                    'p-1': size === UI_SIZING.S
-                                }
-                            ]"
                         >
-                            <EtIconCalendar />
-                        </span>
+                            <template #preIcon>
+                                <EtIconCalendar />
+                            </template>
+                        </EtInput>
                     </div>
                 </EtInputGroup>
             </template>
@@ -285,3 +260,19 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-input-date-range {
+    display: inline-block;
+    width: 100%;
+}
+
+.et-sdk-input-date-range--popover {
+    width: 100%;
+}
+
+.et-sdk-input-date-range--input-wrapper {
+    width: 160px;
+    position: relative;
+}
+</style>
