@@ -1,11 +1,9 @@
 <template>
     <div
-        class="et-sdk-button-group content-stretch flex [&>*]:!rounded-none [&>.et-sdk-button-default:hover]:z-10 [&>*:focus]:z-10 [&>.et-sdk-popover_.et-sdk-button]:!rounded-none"
+        class="et-sdk-button-group"
         :class="{
-            'flex-col [&>*:first-child]:!rounded-t-md [&>*:last-child]:!rounded-b-md [&>.et-sdk-button-group>*]:!rounded-none [&>.et-sdk-button-group:last-child>*:first-child]:!rounded-bl-md [&>.et-sdk-button-group:last-child>*:last-child]:!rounded-br-md [&>.et-sdk-button-group:first-child>*:first-child]:!rounded-tl-md [&>.et-sdk-button-group:first-child>*:last-child]:!rounded-tr-md':
-                isVertical,
-            'flex-row [&>*]:flex-grow [&>*:first-child]:!rounded-l-md [&>*:last-child]:!rounded-r-md [&>.et-sdk-popover:first-child_.et-sdk-button]:!rounded-l-md [&>.et-sdk-popover:last-child_.et-sdk-button]:!rounded-r-md':
-                !isVertical
+            'et-sdk-button-group__vertical': isVertical,
+            'et-sdk-button-group__horizontal': !isVertical
         }"
     >
         <slot></slot>
@@ -25,3 +23,77 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-button-group {
+    display: flex;
+    align-content: stretch;
+}
+
+.et-sdk-button-group > *,
+.et-sdk-button-group > .et-sdk-popover .et-sdk-button /* see WYSIWYG link builder for use case */ {
+    border-radius: 0 !important;
+}
+
+.et-sdk-button-group__vertical {
+    flex-direction: column;
+}
+
+.et-sdk-button-group__horizontal > *:first-child {
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+}
+
+.et-sdk-button-group__vertical > *:first-child,
+.et-sdk-button-group__vertical > .et-sdk-popover:first-child .et-sdk-button {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+
+.et-sdk-button-group__horizontal > *:last-child {
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+
+.et-sdk-button-group__vertical > *:last-child,
+.et-sdk-button-group__vertical > .et-sdk-popover:last-child .et-sdk-button {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+
+.et-sdk-button-group__vertical > .et-sdk-button-group > * /* In case of nested button groups */ {
+    border-radius: 0 !important;
+}
+
+.et-sdk-button-group__vertical
+    > .et-sdk-button-group:first-child
+    > *:first-child {
+    border-top-left-radius: 8px !important;
+}
+
+.et-sdk-button-group__vertical
+    > .et-sdk-button-group:first-child
+    > *:last-child {
+    border-top-right-radius: 8px !important;
+}
+
+.et-sdk-button-group__vertical
+    > .et-sdk-button-group:last-child
+    > *:first-child {
+    border-bottom-left-radius: 8px !important;
+}
+
+.et-sdk-button-group__vertical
+    > .et-sdk-button-group:last-child
+    > *:last-child {
+    border-bottom-right-radius: 8px !important;
+}
+
+.et-sdk-button-group__horizontal {
+    flex-direction: row;
+}
+
+.et-sdk-button-group__horizontal > * {
+    flex-grow: 1;
+}
+</style>
