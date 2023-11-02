@@ -1,39 +1,37 @@
 <template>
-    <div class="flex items-center">
+    <div
+        class="et-sdk-toggle"
+        :class="{
+            'et-sdk-toggle__xs': size === UI_SIZING.XS,
+            'et-sdk-toggle__s': size === UI_SIZING.S,
+            'et-sdk-toggle__m': size === UI_SIZING.M,
+            'et-sdk-toggle__l': size === UI_SIZING.L
+        }"
+    >
         <button
             type="button"
             @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
             @keyup.enter="(e) => clickDebounce.debounce(e)"
-            class="flex flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            :class="[
-                {
-                    'bg-default-extra-light': !internalChecked,
-                    'bg-primary': internalChecked,
-                    '!cursor-not-allowed': disabled,
-                    'bg-primary-light': disabled && internalChecked
-                },
-                sizeClasses.button
-            ]"
+            class="et-sdk-toggle--button"
+            :class="{
+                'et-sdk-toggle--button__not-checked': !internalChecked,
+                'et-sdk-toggle--button__checked': internalChecked,
+                'et-sdk-toggle--button__disabled': disabled,
+                'et-sdk-toggle--button__disabled__checked':
+                    disabled && internalChecked
+            }"
             role="switch"
         >
             <span
-                class="transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out"
-                :class="[
-                    {
-                        'translate-x-0': !internalChecked,
-                        'translate-x-[calc(100%-0.125rem)]': internalChecked,
-                        '!bg-default-light': disabled && !internalChecked,
-                        '!bg-default-extra-light': disabled && internalChecked
-                    },
-                    sizeClasses.handle
-                ]"
+                class="et-sdk-toggle--handle"
+                :class="{
+                    'et-sdk-toggle--handle__not-checked': !internalChecked,
+                    'et-sdk-toggle--handle__checked': internalChecked,
+                    'et-sdk-toggle--handle__disabled': disabled
+                }"
             ></span>
         </button>
-        <label
-            class="text-text pl-2"
-            v-if="$slots.default"
-            :class="[sizeClasses.text]"
-        >
+        <label class="et-sdk-toggle--text" v-if="$slots.default">
             <slot></slot>
         </label>
     </div>
@@ -69,45 +67,12 @@ export default defineComponent({
     },
     data() {
         return {
+            UI_SIZING,
             internalChecked: false,
             clickDebounce: new Debounce((...args) => {
                 this.onClick(...args);
-            }, 100),
-
-            sizeMapping: {
-                [UI_SIZING.XS]: {
-                    button: "w-4",
-                    handle: "h-2 w-2",
-                    text: "text-xs"
-                },
-                [UI_SIZING.S]: {
-                    button: "w-8",
-                    handle: "h-4 w-4",
-                    text: "text-sm"
-                },
-                [UI_SIZING.M]: {
-                    button: "w-12",
-                    handle: "h-6 w-6",
-                    text: "text-base"
-                },
-                [UI_SIZING.L]: {
-                    button: "w-16",
-                    handle: "h-8 w-8",
-                    text: "text-lg"
-                }
-            } as {
-                [key in UI_SIZING]: {
-                    button: string;
-                    handle: string;
-                    text: string;
-                };
-            }
+            }, 100)
         };
-    },
-    computed: {
-        sizeClasses(): { button: string; handle: string; text: string } {
-            return this.sizeMapping[this.size];
-        }
     },
     methods: {
         onClick(event: Event) {
@@ -148,3 +113,112 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.et-sdk-toggle--button {
+    display: flex;
+    flex: none;
+    cursor: pointer;
+    border-radius: 9999px;
+    padding: 1px;
+    box-shadow: var(--et-sdk-shadow-normal);
+
+    transition: background-color 200ms ease-in-out;
+}
+
+.et-sdk-toggle--button__not-checked {
+    background-color: var(--et-sdk-dark-50);
+}
+
+.et-sdk-toggle--button__checked {
+    background-color: var(--et-sdk-blue-600);
+}
+
+.et-sdk-toggle--button__disabled {
+    cursor: not-allowed;
+}
+
+.et-sdk-toggle--button__disabled__checked {
+    background-color: var(--et-sdk-blue-400);
+}
+
+.et-sdk-toggle__xs .et-sdk-toggle--button {
+    width: 16px;
+}
+
+.et-sdk-toggle__s .et-sdk-toggle--button {
+    width: 32px;
+}
+
+.et-sdk-toggle__m .et-sdk-toggle--button {
+    width: 44px;
+}
+
+.et-sdk-toggle__l .et-sdk-toggle--button {
+    width: 52px;
+}
+
+.et-sdk-toggle--handle {
+    border-radius: 9999px;
+    background-color: var(--et-sdk-light-0);
+    box-shadow: var(--et-sdk-shadow-normal);
+    transition: all 200ms ease-in-out;
+}
+
+.et-sdk-toggle--handle__not-checked {
+    transform: translateX(0px);
+}
+
+.et-sdk-toggle--handle__checked {
+    transform: translateX(calc(100% - 0.125rem));
+}
+
+.et-sdk-toggle--handle__disabled {
+    background-color: var(--et-sdk-dark-50);
+}
+
+.et-sdk-toggle__xs .et-sdk-toggle--handle {
+    width: 8px;
+    height: 8px;
+}
+
+.et-sdk-toggle__s .et-sdk-toggle--handle {
+    width: 16px;
+    height: 16px;
+}
+
+.et-sdk-toggle__m .et-sdk-toggle--handle {
+    width: 24px;
+    height: 24px;
+}
+
+.et-sdk-toggle__l .et-sdk-toggle--handle {
+    width: 32px;
+    height: 32px;
+}
+
+.et-sdk-toggle--text {
+    padding-left: 8px;
+}
+
+.et-sdk-toggle__xs .et-sdk-toggle--text {
+    font-size: var(--et-sdk-font-size-tiny);
+}
+
+.et-sdk-toggle__s .et-sdk-toggle--text {
+    font-size: var(--et-sdk-font-size-small);
+}
+
+.et-sdk-toggle__m .et-sdk-toggle--text {
+    font-size: var(--et-sdk-font-size-normal);
+}
+
+.et-sdk-toggle__l .et-sdk-toggle--text {
+    font-size: var(--et-sdk-font-size-large);
+}
+</style>

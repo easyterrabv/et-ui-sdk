@@ -17,7 +17,7 @@
     flex-direction: row;
 
     font-weight: var(--et-sdk-font-weight-semibold);
-    font-size: var(--et-sdk-font-size-large);
+    font-size: var(--et-sdk-font-size-extra-large);
 
     border-bottom: 1px solid var(--et-sdk-dark-100);
 

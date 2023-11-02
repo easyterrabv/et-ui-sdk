@@ -35,9 +35,11 @@
     --et-sdk-shadow-normal: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
     --et-sdk-shadow-normal-inset: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
+    --et-sdk-font-size-tiny: 10px;
     --et-sdk-font-size-small: 12px;
     --et-sdk-font-size-normal: 14px;
-    --et-sdk-font-size-large: 20px;
+    --et-sdk-font-size-large: 16px;
+    --et-sdk-font-size-extra-large: 20px;
 
     --et-sdk-font-weight-normal: 500;
     --et-sdk-font-weight-semibold: 600;

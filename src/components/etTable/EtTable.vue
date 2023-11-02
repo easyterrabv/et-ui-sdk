@@ -483,7 +483,7 @@ export default defineComponent({
     width: 100%;
     max-width: 100vw;
     text-align: center;
-    font-size: var(--et-sdk-font-size-large);
+    font-size: var(--et-sdk-font-size-extra-large);
     padding: 16px;
 }
 
