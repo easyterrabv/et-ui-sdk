@@ -137,8 +137,8 @@
                 Select
             </template>
 
-            <EtInputSelect v-model="multipleSelectedOptions" :options="options" multiple></EtInputSelect>
-            <EtButtonSelect v-model="multipleSelectedOptions" :options="options" multiple></EtButtonSelect>
+            <EtInputSelect v-model="multipleSelectedOptions" :options="options"></EtInputSelect>
+            <EtButtonSelect v-model="multipleSelectedOptions" :options="options"></EtButtonSelect>
         </EtCard>
 
         <EtCard class="mt-4" style="height: 800px;">

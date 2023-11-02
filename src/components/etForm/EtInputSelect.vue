@@ -41,7 +41,7 @@
                         >
                             <span
                                 v-if="
-                                    multiple &&
+                                    !multiple &&
                                     !Array.isArray(internalOptionValue)
                                 "
                             >
