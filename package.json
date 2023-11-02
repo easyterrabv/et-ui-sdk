@@ -60,6 +60,6 @@
     "src/layouts/**/*",
     "src/models/**/*",
     "src/interfaces/**/*",
-    "src/dist.css"
+    "src/*.css"
   ]
 }
