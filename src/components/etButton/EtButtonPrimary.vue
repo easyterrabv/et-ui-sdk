@@ -1,6 +1,6 @@
 <template>
     <EtButton
-        class="et-button-primary"
+        class="et-sdk-button-primary"
         v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.PRIMARY"
     >

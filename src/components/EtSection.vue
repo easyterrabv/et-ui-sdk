@@ -20,7 +20,7 @@ import EtHeaderBlock from "./EtHeaderBlock.vue";
 }
 
 .et-sdk-section--header {
-    background-color: var(--et-sdk-light-200);
+    background-color: var(--et-sdk-light-100);
     font-size: var(--et-sdk-font-size-extra-large);
     height: var(--et-sdk-section-header-height);
     border-bottom: 0;

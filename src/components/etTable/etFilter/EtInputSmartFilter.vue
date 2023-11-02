@@ -509,6 +509,6 @@ export default defineComponent({
 }
 
 .et-sdk-input-smart-filter--available-filters--item:hover {
-    background-color: var(--et-sdk-light-200);
+    background-color: var(--et-sdk-light-100);
 }
 </style>

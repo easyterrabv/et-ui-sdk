@@ -25,7 +25,7 @@ export default defineComponent({
 
 <style>
 .et-sdk-top-bar-item {
-    color: var(--et-sdk-light-100);
+    color: var(--et-sdk-dark-50);
     border-radius: 5px;
     padding: 10px 15px;
     font-weight: var(--et-sdk-font-weight-semibold);

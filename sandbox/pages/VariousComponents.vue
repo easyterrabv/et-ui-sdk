@@ -46,9 +46,8 @@
 
             <div>
                 <EtButtonDefault
-                    disabled
                     @click="(e: Event) => console.log('test', e)">
-                    Hello Disabled!
+                    Default!
                 </EtButtonDefault>
 
                 <EtButtonPrimary
@@ -73,6 +72,118 @@
                     class="ml-4"
                     @click="(e: Event) => console.log('test', e)">
                     Warning!
+                </EtButtonWarning>
+            </div>
+
+            <div class="mt-4">
+                <EtButtonDefault
+                    disabled
+                    @click="(e: Event) => console.log('test', e)">
+                    Default Disabled!
+                </EtButtonDefault>
+
+                <EtButtonPrimary
+                    disabled
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Primary Disabled!
+                </EtButtonPrimary>
+
+                <EtButtonSuccess
+                    disabled
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Success Disabled!
+                </EtButtonSuccess>
+
+                <EtButtonDanger
+                    disabled
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Danger Disabled!
+                </EtButtonDanger>
+
+                <EtButtonWarning
+                    disabled
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Warning Disabled!
+                </EtButtonWarning>
+            </div>
+
+            <div class="mt-4">
+                <EtButtonDefault
+                    active
+                    @click="(e: Event) => console.log('test', e)">
+                    Default active!
+                </EtButtonDefault>
+
+                <EtButtonPrimary
+                    active
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Primary active!
+                </EtButtonPrimary>
+
+                <EtButtonSuccess
+                    active
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Success active!
+                </EtButtonSuccess>
+
+                <EtButtonDanger
+                    active
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Danger active!
+                </EtButtonDanger>
+
+                <EtButtonWarning
+                    active
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Warning active!
+                </EtButtonWarning>
+            </div>
+
+            <div class="mt-4">
+                <EtButtonDefault
+                    readonly
+                    @click="(e: Event) => console.log('test', e)">
+                    Default readonly!
+                </EtButtonDefault>
+
+                <EtButtonPrimary
+                    readonly
+                    :size="UI_SIZING.XS"
+                    class="ml-4"
+                    @click="(e: Event) => console.log('test', e)">
+                    Primary readonly XS
+                </EtButtonPrimary>
+
+                <EtButtonSuccess
+                    readonly
+                    class="ml-4"
+                    :size="UI_SIZING.S"
+                    @click="(e: Event) => console.log('test', e)">
+                    Success readonly S
+                </EtButtonSuccess>
+
+                <EtButtonDanger
+                    readonly
+                    class="ml-4"
+                    :size="UI_SIZING.M"
+                    @click="(e: Event) => console.log('test', e)">
+                    Danger readonly M
+                </EtButtonDanger>
+
+                <EtButtonWarning
+                    readonly
+                    class="ml-4"
+                    :size="UI_SIZING.L"
+                    @click="(e: Event) => console.log('test', e)">
+                    Warning readonly L
                 </EtButtonWarning>
             </div>
 

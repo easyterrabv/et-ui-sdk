@@ -16,7 +16,7 @@ describe(`<EtButton />`, () => {
                     }
                 });
 
-                cy.get("button").should("have.class", "et-button");
+                cy.get("button").should("have.class", "et-sdk-button");
             });
         });
     });

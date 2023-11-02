@@ -2,14 +2,15 @@
     <button
         ref="etButton"
         type="button"
-        class="et-button ring-1 text-white rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:ease-in-out motion-safe:duration-150"
+        class="et-sdk-button"
         :class="[
             {
-                '!cursor-not-allowed': internalDisabled,
-                '!cursor-default': readonly
+                'et-sdk-button__disabled': internalDisabled,
+                'et-sdk-button__readonly': readonly,
+                'et-sdk-button__active': active
             },
-            ...colorClasses,
-            sizeClasses
+            'et-sdk-button__' + type,
+            'et-sdk-button__' + size
         ]"
         @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
         @keyup.enter="(e) => clickDebounce.debounce(e)"
@@ -54,79 +55,10 @@ export default defineComponent({
     },
     data() {
         return {
-            colorMapping: {
-                [UI_TYPES.DEFAULT]: {
-                    default:
-                        "ring-default-light bg-white !text-text active:ring-default hover:ring-default focus-visible:outline-default",
-                    disabled:
-                        "!bg-default-light !text-text hover:!ring-default-light active:!ring-default-light",
-                    readonly:
-                        "hover:!ring-default-light active:!ring-default-light",
-                    active: "!ring-default"
-                },
-                [UI_TYPES.PRIMARY]: {
-                    default:
-                        "ring-primary bg-primary active:bg-primary-dark hover:bg-primary-dark focus-visible:outline-primary",
-                    disabled:
-                        "!bg-primary-light !ring-primary-light hover:!ring-primary-light active:!ring-primary-light",
-                    readonly: "hover:!bg-primary active:!bg-primary",
-                    active: "!bg-primary-dark"
-                },
-                [UI_TYPES.SUCCESS]: {
-                    default:
-                        "ring-success bg-success active:bg-success-dark hover:bg-success-dark focus-visible:outline-success",
-                    disabled:
-                        "!bg-success-light !ring-success-light hover:!ring-success-light active:!ring-success-light",
-                    readonly: "hover:!bg-success active:!bg-success",
-                    active: "!bg-success-dark"
-                },
-                [UI_TYPES.DANGER]: {
-                    default:
-                        "ring-danger bg-danger active:bg-danger-dark hover:bg-danger-dark focus-visible:outline-danger",
-                    disabled:
-                        "!bg-danger-light !ring-danger-light hover:!ring-danger-light active:!ring-danger-light",
-                    readonly: "hover:!bg-danger active:!bg-danger",
-                    active: "!bg-danger-dark"
-                },
-                [UI_TYPES.WARNING]: {
-                    default:
-                        "ring-warning bg-warning active:bg-warning-dark hover:bg-warning-dark focus-visible:outline-warning",
-                    disabled:
-                        "!bg-warning-light !ring-warning-light hover:!ring-warning-light active:!ring-warning-light",
-                    readonly: "hover:!bg-warning active:!bg-warning",
-                    active: "!bg-warning-dark"
-                }
-            } as { [key in UI_TYPES]: iButtonColoring },
-
-            sizeMapping: {
-                [UI_SIZING.XS]: "px-1.5 py-0.5 text-sm",
-                [UI_SIZING.S]: "px-2.5 py-1.5 text-sm",
-                [UI_SIZING.M]: "px-3.5 py-2.5 text-sm",
-                [UI_SIZING.L]: "px-4 py-3.5 text-sm"
-            } as { [key in UI_SIZING]: string },
-
             clickDebounce: new Debounce(this.onClick, 100)
         };
     },
     computed: {
-        colorClasses() {
-            const availableColors: iButtonColoring =
-                this.colorMapping[this.type];
-            const usedColors = [availableColors.default];
-
-            if (this.internalDisabled) {
-                usedColors.push(availableColors.disabled);
-            } else if (this.readonly) {
-                usedColors.push(availableColors.readonly);
-            } else if (this.active) {
-                usedColors.push(availableColors.active);
-            }
-
-            return usedColors;
-        },
-        sizeClasses() {
-            return this.sizeMapping[this.size];
-        },
         internalDisabled() {
             if (typeof this.disabled === "boolean") {
                 return this.disabled;
@@ -158,3 +90,129 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-button {
+    box-shadow: var(--et-sdk-shadow-normal);
+    border-radius: 8px;
+    font-weight: var(--et-sdk-font-weight-semibold);
+
+    /*Default styling*/
+    background-color: var(--et-sdk-light-0);
+    color: initial;
+
+    /* size M styling */
+    padding: 10px 14px;
+    font-size: var(--et-sdk-font-size-small);
+}
+
+.et-sdk-button:hover:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ),
+.et-sdk-button__active:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ) {
+    background-color: var(--et-sdk-dark-200);
+}
+
+.et-sdk-button__disabled,
+.et-sdk-button__disabled:hover {
+    background-color: var(--et-sdk-dark-100);
+    cursor: not-allowed;
+}
+
+.et-sdk-button__primary {
+    background-color: var(--et-sdk-blue-600);
+    color: var(--et-sdk-light-0);
+}
+
+.et-sdk-button__primary:hover:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ),
+.et-sdk-button__active.et-sdk-button__primary:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ) {
+    background-color: var(--et-sdk-blue-700);
+}
+
+.et-sdk-button__disabled.et-sdk-button__primary,
+.et-sdk-button__disabled.et-sdk-button__primary:hover {
+    background-color: var(--et-sdk-blue-400);
+}
+
+.et-sdk-button__success {
+    background-color: var(--et-sdk-success-500);
+    color: var(--et-sdk-light-0);
+}
+
+.et-sdk-button__success:hover:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ),
+.et-sdk-button__active.et-sdk-button__success:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ) {
+    background-color: var(--et-sdk-success-700);
+}
+
+.et-sdk-button__disabled.et-sdk-button__success,
+.et-sdk-button__disabled.et-sdk-button__success:hover {
+    background-color: var(--et-sdk-success-300);
+}
+
+.et-sdk-button__danger {
+    background-color: var(--et-sdk-danger-500);
+    color: var(--et-sdk-light-0);
+}
+
+.et-sdk-button__danger:hover:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ),
+.et-sdk-button__active.et-sdk-button__danger:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ) {
+    background-color: var(--et-sdk-danger-700);
+}
+
+.et-sdk-button__disabled.et-sdk-button__danger,
+.et-sdk-button__disabled.et-sdk-button__danger:hover {
+    background-color: var(--et-sdk-danger-300);
+}
+
+.et-sdk-button__warning {
+    background-color: var(--et-sdk-warning-500);
+    color: var(--et-sdk-light-0);
+}
+
+.et-sdk-button__warning:hover:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ),
+.et-sdk-button__active.et-sdk-button__warning:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ) {
+    background-color: var(--et-sdk-warning-700);
+}
+
+.et-sdk-button__disabled.et-sdk-button__warning,
+.et-sdk-button__disabled.et-sdk-button__warning:hover {
+    background-color: var(--et-sdk-warning-300);
+}
+
+.et-sdk-button__readonly {
+    cursor: default;
+}
+
+.et-sdk-button__xs {
+    padding: 6px 10px;
+    font-size: var(--et-sdk-font-size-tiny);
+}
+
+.et-sdk-button__s {
+    padding: 8px 12px;
+    font-size: var(--et-sdk-font-size-tiny);
+}
+
+.et-sdk-button__l {
+    padding: 12px 16px;
+    font-size: var(--et-sdk-font-size-normal);
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
     <EtButton
-        class="et-button-warning"
+        class="et-sdk-button-warning"
         v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.WARNING"
     >

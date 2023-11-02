@@ -8,6 +8,7 @@ html {
     font-family: 'Inter', sans-serif;
     font-size: var(--et-sdk-font-size-normal);
     font-weight: var(--et-sdk-font-weight-normal);
+    color: var(--et-sdk-dark-800);
 }
 
 .clear-both {
