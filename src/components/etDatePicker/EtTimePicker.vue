@@ -1,20 +1,18 @@
 <template>
     <div
-        class="et-timepicker inline-block shadow bg-white p-4 rounded"
+        class="et-sdk-timepicker"
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
         @focus="(e) => onFocus()"
         @blur="(e) => onBlur()"
     >
-        <div class="flex flex-row gap-4">
-            <div class="et-timepicker-hour-list w-1/2 font-semibold">Hours</div>
-            <div class="et-timepicker-minute-list w-1/2 font-semibold">
-                Minutes
-            </div>
+        <div class="et-sdk-timepicker--header">
+            <div class="et-sdk-timepicker--header-head">Hours</div>
+            <div class="et-sdk-timepicker--header-head">Minutes</div>
         </div>
-        <div class="flex flex-row h-60">
+        <div class="et-sdk-timepicker--content">
             <EtDragScrollBox
-                class="et-timepicker-hour-list text-right w-1/2 overflow-auto scrollbar-none cursor-pointer"
+                class="et-sdk-timepicker--content-list et-sdk-timepicker--content-list__hour"
                 ref="hourOptions"
                 @dragStart="setDragging(true)"
                 @dragStop="setDragging(false)"
@@ -22,9 +20,9 @@
                 <div
                     v-for="hourOption in hourOptions"
                     @click="dragging ? '' : (hour = hourOption)"
-                    class="cursor-pointer hover:bg-default-extra-light rounded-md transition-all ease-in-out duration-150 px-2"
+                    class="et-sdk-timepicker--content-list--option"
                     :class="{
-                        'selected bg-primary-light !text-white hover:!bg-primary':
+                        'et-sdk-timepicker--content-list--option__selected':
                             hour === hourOption
                     }"
                 >
@@ -32,7 +30,7 @@
                 </div>
             </EtDragScrollBox>
             <EtDragScrollBox
-                class="et-timepicker-minute-list w-1/2 overflow-auto scrollbar-none"
+                class="et-sdk-timepicker--content-list"
                 ref="minuteOptions"
                 @dragStart="setDragging(true)"
                 @dragStop="setDragging(false)"
@@ -40,9 +38,9 @@
                 <div
                     v-for="minuteOption in minuteOptions"
                     @click="dragging ? '' : (minute = minuteOption)"
-                    class="cursor-pointer hover:bg-default-extra-light rounded-md transition-all ease-in-out duration-150 px-2"
+                    class="et-sdk-timepicker--content-list--option"
                     :class="{
-                        'selected bg-primary-light !text-white hover:!bg-primary':
+                        'et-sdk-timepicker--content-list--option__selected':
                             minute === minuteOption
                     }"
                 >
@@ -145,3 +143,68 @@ export default defineComponent({
     emits: ["update:modelValue", "interaction", "escape", "focus", "blur"]
 });
 </script>
+
+<style>
+.et-sdk-timepicker {
+    display: inline-block;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--et-sdk-dark-200);
+    box-shadow: var(--et-sdk-shadow-normal);
+    font-weight: var(--et-sdk-font-weight-normal);
+    font-size: var(--et-sdk-font-size-normal);
+    color: var(--et-sdk-dark-800);
+    background-color: var(--et-sdk-light-0);
+}
+
+.et-sdk-timepicker--header {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.et-sdk-timepicker--header-head {
+    width: 50%;
+    font-weight: var(--et-sdk-font-weight-semibold);
+}
+
+.et-sdk-timepicker--content {
+    display: flex;
+    flex-direction: row;
+    height: 240px;
+}
+
+.et-sdk-timepicker--content-list {
+    width: 50%;
+    overflow: auto;
+    scrollbar-width: none;
+    cursor: pointer;
+}
+
+.et-sdk-timepicker--content-list::-webkit-scrollbar {
+    display: none;
+}
+
+.et-sdk-timepicker--content-list__hour {
+    text-align: right;
+}
+
+.et-sdk-timepicker--content-list--option {
+    border-radius: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.et-sdk-timepicker--content-list--option:hover {
+    background-color: var(--et-sdk-dark-50);
+}
+
+.et-sdk-timepicker--content-list--option__selected {
+    background-color: var(--et-sdk-blue-400);
+    color: var(--et-sdk-light-0);
+}
+
+.et-sdk-timepicker--content-list--option__selected:hover {
+    background-color: var(--et-sdk-blue-600);
+}
+</style>
