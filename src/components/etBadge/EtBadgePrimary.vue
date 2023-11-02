@@ -1,6 +1,6 @@
 <template>
     <EtBadge
-        class="et-badge-primary"
+        class="et-sdk-badge-primary"
         v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.PRIMARY"
     >

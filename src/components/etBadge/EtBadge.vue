@@ -1,7 +1,7 @@
 <template>
     <div
-        class="et-badge rounded inline-block font-medium"
-        :class="[colorClasses, sizeClasses]"
+        class="et-sdk-badge"
+        :class="['et-sdk-badge__' + type, 'et-sdk-badge__' + size]"
     >
         <slot></slot>
     </div>
@@ -27,32 +27,57 @@ export default defineComponent({
             type: String as PropType<UI_TYPES>,
             default: UI_TYPES.DEFAULT
         }
-    },
-    data() {
-        return {
-            colorMapping: {
-                [UI_TYPES.DEFAULT]: "bg-default-extra-light text-default-dark",
-                [UI_TYPES.PRIMARY]: "bg-primary-extra-light text-primary-dark",
-                [UI_TYPES.SUCCESS]: "bg-success-extra-light text-success-dark",
-                [UI_TYPES.DANGER]: "bg-danger-extra-light text-danger-dark",
-                [UI_TYPES.WARNING]: "bg-warning-extra-light text-warning-dark"
-            } as { [key in UI_TYPES]: string },
-
-            sizeMapping: {
-                [UI_SIZING.XS]: "px-1 py-0.5 text-xs",
-                [UI_SIZING.S]: "px-2 py-0.5 text-xs",
-                [UI_SIZING.M]: "px-3 py-1 text-sm",
-                [UI_SIZING.L]: "px-4 py-1.5 text-sm"
-            } as { [key in UI_SIZING]: string }
-        };
-    },
-    computed: {
-        colorClasses() {
-            return this.colorMapping[this.type];
-        },
-        sizeClasses() {
-            return this.sizeMapping[this.size];
-        }
     }
 });
 </script>
+
+<style>
+.et-sdk-badge {
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: var(--et-sdk-font-weight-normal);
+
+    /* default */
+    background-color: var(--et-sdk-dark-50);
+    color: initial;
+
+    /* S size */
+    font-size: var(--et-sdk-font-size-tiny);
+    padding: 2px 8px;
+}
+
+.et-sdk-badge__primary {
+    background-color: var(--et-sdk-blue-300);
+    color: var(--et-sdk-blue-700);
+}
+
+.et-sdk-badge__success {
+    background-color: var(--et-sdk-success-300);
+    color: var(--et-sdk-success-700);
+}
+
+.et-sdk-badge__danger {
+    background-color: var(--et-sdk-danger-300);
+    color: var(--et-sdk-danger-700);
+}
+
+.et-sdk-badge__warning {
+    background-color: var(--et-sdk-warning-300);
+    color: var(--et-sdk-warning-700);
+}
+
+.et-sdk-badge__xs {
+    font-size: var(--et-sdk-font-size-tiny);
+    padding: 2px 4px;
+}
+
+.et-sdk-badge__m {
+    font-size: var(--et-sdk-font-size-small);
+    padding: 4px 12px;
+}
+
+.et-sdk-badge__l {
+    font-size: var(--et-sdk-font-size-small);
+    padding: 6px 16px;
+}
+</style>
