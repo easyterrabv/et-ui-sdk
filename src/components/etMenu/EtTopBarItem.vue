@@ -28,7 +28,7 @@ export default defineComponent({
     color: var(--et-sdk-light-100);
     border-radius: 5px;
     padding: 10px 15px;
-    font-weight: 600;
+    font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-normal);
     cursor: pointer;
 }
