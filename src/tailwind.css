@@ -22,6 +22,14 @@ html {
     display: none;
 }
 
+.grow {
+    flex-grow: 1;
+}
+
+.no-grow {
+    flex-grow: 0 !important;
+}
+
 .et-sdk-input-like {
     padding-right: 40px;
     position: relative;
@@ -41,7 +49,7 @@ html {
 }
 
 .et-sdk-input-like__s{
-    height: 24px;
+    height: 32px;
     padding: 4px 10px;
 }
 

@@ -1,10 +1,13 @@
 <template>
-    <div class="et-wysiwyg block w-full" v-if="editor" :name="name">
+    <div class="et-sdk-wysiwyg" v-if="editor" :name="name">
         <div
-            class="et-wysiwyg-toolbar flex flex-row gap-2 rounded-t-md p-2 text-text ring-1 ring-default-light"
+            class="et-sdk-wysiwyg--toolbar"
+            :class="{
+                'et-sdk-wysiwyg--toolbar__disabled': hasDisabledInput
+            }"
         >
             <div class="grow">
-                <div class="flex flex-row gap-2 flex-wrap">
+                <div class="et-sdk-wysiwyg--toolbar--tools">
                     <EtButtonGroup>
                         <EtButton
                             :size="UI_SIZING.S"
@@ -138,7 +141,7 @@
                                     <EtIconLink title="Make Link" />
                                 </EtButton>
                             </template>
-                            <EtBox ref="anchorPopoverContent" class="!p-2">
+                            <EtBox ref="anchorPopoverContent">
                                 <EtInputGroup>
                                     <EtInputGroupAddon>
                                         <EtIconLink title="Make Link" />
@@ -154,18 +157,18 @@
                                         placeholder="Url"
                                     />
                                     <EtInputSelect
+                                        class="et-sdk-wysiwyg--toolbar--tools--anchor-select"
                                         :options="urlTargetOptions"
                                         v-model="urlTarget"
                                         :size="UI_SIZING.S"
                                         :disabled="hasDisabledInput"
                                         @focus="() => onSelectFocus()"
                                         @blur="() => onSelectBlur()"
-                                        class="!w-24"
                                     ></EtInputSelect>
                                 </EtInputGroup>
-                                <EtButtonGroup class="mt-2">
+                                <EtButtonGroup>
                                     <EtButtonDanger
-                                        class="!grow-0"
+                                        class="no-grow"
                                         :size="UI_SIZING.S"
                                         @click="
                                             () => {
@@ -233,13 +236,11 @@
                             <EtLayer title="Add Table">
                                 <EtIconTable
                                     transform="shrink-2"
-                                    class="text-default-light"
+                                    class="et-sdk-table-icon-main"
                                 />
                                 <EtIconCirclePlus
                                     transform="right-6 down-6 shrink-3"
-                                    :class="{
-                                        'text-success-dark': !hasDisabledInput
-                                    }"
+                                    class="et-sdk-table-icon-secondary__success"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -252,13 +253,11 @@
                             <EtLayer title="Remove Table">
                                 <EtIconTable
                                     transform="shrink-2"
-                                    class="text-default-light"
+                                    class="et-sdk-table-icon-main"
                                 />
                                 <EtIconCircleMinus
                                     transform="right-6 down-6 shrink-3"
-                                    :class="{
-                                        'text-danger-dark': !hasDisabledInput
-                                    }"
+                                    class="et-sdk-table-icon-secondary__danger"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -271,13 +270,11 @@
                             <EtLayer title="Add column">
                                 <EtIconTableColumns
                                     transform="shrink-2"
-                                    class="text-default-light"
+                                    class="et-sdk-table-icon-main"
                                 />
                                 <EtIconCirclePlus
                                     transform="right-6 down-6 shrink-3"
-                                    :class="{
-                                        'text-success-dark': !hasDisabledInput
-                                    }"
+                                    class="et-sdk-table-icon-secondary__success"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -290,13 +287,11 @@
                             <EtLayer title="Remove column">
                                 <EtIconTableColumns
                                     transform="shrink-2"
-                                    class="text-default-light"
+                                    class="et-sdk-table-icon-main"
                                 />
                                 <EtIconCircleMinus
                                     transform="right-6 down-6 shrink-3"
-                                    :class="{
-                                        'text-danger-dark': !hasDisabledInput
-                                    }"
+                                    class="et-sdk-table-icon-secondary__danger"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -309,13 +304,11 @@
                             <EtLayer title="Add row">
                                 <EtIconTableCells
                                     transform="shrink-2"
-                                    class="text-default-light"
+                                    class="et-sdk-table-icon-main"
                                 />
                                 <EtIconCirclePlus
                                     transform="right-6 down-6 shrink-3"
-                                    :class="{
-                                        'text-success-dark': !hasDisabledInput
-                                    }"
+                                    class="et-sdk-table-icon-secondary__success"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -328,13 +321,11 @@
                             <EtLayer title="Remove row">
                                 <EtIconTableCells
                                     transform="shrink-2"
-                                    class="text-default-light"
+                                    class="et-sdk-table-icon-main"
                                 />
                                 <EtIconCircleMinus
                                     transform="right-6 down-6 shrink-3"
-                                    :class="{
-                                        'text-danger-dark': !hasDisabledInput
-                                    }"
+                                    class="et-sdk-table-icon-secondary__danger"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -361,9 +352,9 @@
                 </EtButtonGroup>
             </div>
         </div>
-        <div class="et-wysiwyg-content">
+        <div class="et-sdk-wysiwyg-content">
             <EditorContent
-                class="et-wysiwyg-editor"
+                class="et-sdk-wysiwyg-editor"
                 :editor="editor"
                 v-if="editMode === EDIT_MODES.WYSIWYG"
             />
@@ -696,3 +687,59 @@ export default defineComponent({
     emits: ["update:modelValue"]
 });
 </script>
+
+<style>
+.et-sdk-wysiwyg {
+    display: block;
+    width: 100%;
+}
+
+.et-sdk-wysiwyg--toolbar {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    padding: 8px;
+
+    border: 1px solid var(--et-sdk-dark-200);
+    box-shadow: var(--et-sdk-shadow-normal);
+    font-weight: var(--et-sdk-font-weight-normal);
+    font-size: var(--et-sdk-font-size-normal);
+    color: var(--et-sdk-dark-800);
+}
+
+.et-sdk-wysiwyg--toolbar--tools {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.et-sdk-wysiwyg--toolbar--tools--anchor-select {
+    width: 100px;
+}
+
+.et-sdk-table-icon-main {
+    color: var(--et-sdk-dark-300);
+}
+
+.et-sdk-table-icon-secondary__success {
+    color: var(--et-sdk-success-700);
+}
+
+.et-sdk-table-icon-secondary__danger {
+    color: var(--et-sdk-danger-700);
+}
+
+.et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-main {
+    color: var(--et-sdk-dark-400);
+}
+
+.et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-secondary__success,
+.et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-secondary__danger {
+    color: var(--et-sdk-dark-600);
+}
+</style>
