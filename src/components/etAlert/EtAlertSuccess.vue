@@ -1,6 +1,6 @@
 <template>
     <EtAlert
-        class="et-alert-success"
+        class="et-sdk-alert-success"
         v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.SUCCESS"
     >

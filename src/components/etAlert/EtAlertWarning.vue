@@ -1,6 +1,6 @@
 <template>
     <EtAlert
-        class="et-alert-warning"
+        class="et-sdk-alert-warning"
         v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.WARNING"
     >

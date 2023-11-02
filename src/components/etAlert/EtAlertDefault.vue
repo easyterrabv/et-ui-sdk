@@ -1,6 +1,6 @@
 <template>
     <EtAlert
-        class="et-alert-default"
+        class="et-sdk-alert-default"
         v-bind="{ ...$props, ...$attrs }"
         :type="UI_TYPES.DEFAULT"
     >

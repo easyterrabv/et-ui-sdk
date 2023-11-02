@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="et-alert rounded font-medium px-4 py-1.5 drop-shadow-sm ring-1"
-        :class="[colorClasses]"
-    >
+    <div class="et-sdk-alert" :class="['et-sdk-alert__' + type]">
         <slot></slot>
     </div>
 </template>
@@ -18,27 +15,43 @@ export default defineComponent({
             type: String as PropType<UI_TYPES>,
             default: UI_TYPES.DEFAULT
         }
-    },
-    data() {
-        return {
-            colorMapping: {
-                [UI_TYPES.DEFAULT]:
-                    "ring-default-light bg-default-extra-light text-default-dark",
-                [UI_TYPES.PRIMARY]:
-                    "ring-primary-light bg-primary-extra-light text-primary-dark",
-                [UI_TYPES.SUCCESS]:
-                    "ring-success-light bg-success-extra-light text-success-dark",
-                [UI_TYPES.DANGER]:
-                    "ring-danger-light bg-danger-extra-light text-danger-dark",
-                [UI_TYPES.WARNING]:
-                    "ring-warning-light bg-warning-extra-light text-warning-dark"
-            } as { [key in UI_TYPES]: string }
-        };
-    },
-    computed: {
-        colorClasses() {
-            return this.colorMapping[this.type];
-        }
     }
 });
 </script>
+
+<style>
+.et-sdk-alert {
+    border-radius: 4px;
+    font-weight: var(--et-sdk-font-weight-normal);
+    padding: 6px 16px;
+    box-shadow: var(--et-sdk-shadow-normal);
+
+    background-color: var(--et-sdk-dark-100);
+    border: 1px solid var(--et-sdk-dark-200);
+    color: initial;
+}
+
+.et-sdk-alert__primary {
+    background-color: var(--et-sdk-blue-300);
+    color: var(--et-sdk-blue-700);
+    border: 1px solid var(--et-sdk-blue-300);
+}
+
+.et-sdk-alert__success {
+    background-color: var(--et-sdk-success-300);
+    color: var(--et-sdk-success-700);
+    border: 1px solid var(--et-sdk-success-300);
+}
+
+.et-sdk-alert__danger {
+    background-color: var(--et-sdk-danger-300);
+    color: var(--et-sdk-danger-700);
+    border: 1px solid var(--et-sdk-danger-300);
+}
+
+.et-sdk-alert__warning {
+    background-color: var(--et-sdk-warning-300);
+    color: var(--et-sdk-warning-700);
+    border: 1px solid var(--et-sdk-warning-300);
+}
+</style>
