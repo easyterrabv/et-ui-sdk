@@ -1,20 +1,20 @@
 <template>
     <div
-        class="et-datepicker inline-block shadow bg-white p-4 rounded"
+        class="et-sdk-datepicker"
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
         @focus="(e) => onFocus()"
         @blur="(e) => onBlur()"
     >
-        <div class="flex flex-row">
+        <div class="et-sdk-datepicker--period">
             <div
-                class="p-2 hover:bg-default-extra-light rounded-md cursor-pointer"
+                class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
                 @mouseup.left.stop="(e) => prevPageDebounce.debounce(e)"
             >
                 <EtIconChevronLeft />
             </div>
             <div
-                class="grow text-center p-2 hover:bg-default-extra-light rounded-md cursor-pointer"
+                class="grow et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
                 @mouseup.left.stop="(e) => modeUpDebounce.debounce(e)"
             >
                 <span v-if="viewMode === VIEW_MODES.DECADE">
@@ -37,77 +37,74 @@
                 </span>
             </div>
             <div
-                class="p-2 hover:bg-default-extra-light rounded-md cursor-pointer"
+                class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
                 @mouseup.left.stop="(e) => nextPageDebounce.debounce(e)"
             >
                 <EtIconChevronRight />
             </div>
         </div>
         <div
+            class="et-sdk-datepicker--picker-grid"
             :class="{
-                'mt-4': viewMode !== VIEW_MODES.MONTH
+                'et-sdk-datepicker--picker-grid__decade':
+                    viewMode === VIEW_MODES.DECADE,
+                'et-sdk-datepicker--picker-grid__year':
+                    viewMode === VIEW_MODES.YEAR,
+                'et-sdk-datepicker--picker-grid__month':
+                    viewMode === VIEW_MODES.MONTH
             }"
         >
+            <template v-if="viewMode === VIEW_MODES.MONTH">
+                <div
+                    v-for="weekDay in ['M', 'T', 'W', 'T', 'F', 'S', 'S']"
+                    class="et-sdk-datepicker--section et-sdk-datepicker--section__grayed-out"
+                >
+                    {{ weekDay }}
+                </div>
+            </template>
             <div
-                class="grid"
+                v-for="option in viewingOptions"
+                @mouseup.left.stop="
+                    (e) => pickOptionDebounce.debounce(e, option)
+                "
+                class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
                 :class="{
-                    'grid-cols-5': viewMode === VIEW_MODES.DECADE,
-                    'grid-cols-6': viewMode === VIEW_MODES.YEAR,
-                    'grid-cols-7': viewMode === VIEW_MODES.MONTH
+                    'et-sdk-datepicker--section__active':
+                        viewMode === VIEW_MODES.MONTH &&
+                        isASelectedDate(option),
+                    'et-sdk-datepicker--section__range__first':
+                        viewMode === VIEW_MODES.MONTH &&
+                        multiple &&
+                        firstDate &&
+                        isSameDates(firstDate, option),
+                    'et-sdk-datepicker--section__range__last':
+                        viewMode === VIEW_MODES.MONTH &&
+                        multiple &&
+                        secondDate &&
+                        isSameDates(secondDate, option),
+                    'et-sdk-datepicker--section__range__in-range hover:!text-white hover:!bg-primary':
+                        viewMode === VIEW_MODES.MONTH &&
+                        multiple &&
+                        firstDate &&
+                        secondDate &&
+                        dateInBetweenDates(option, firstDate, secondDate),
+                    'et-sdk-datepicker--section__today':
+                        viewMode === VIEW_MODES.MONTH &&
+                        isSameDates(today, option),
+                    'et-sdk-datepicker--section__not-same-month':
+                        viewMode === VIEW_MODES.MONTH &&
+                        option.getMonth() !== viewingDate?.getMonth()
                 }"
             >
-                <template v-if="viewMode === VIEW_MODES.MONTH">
-                    <div
-                        v-for="weekDay in ['M', 'T', 'W', 'T', 'F', 'S', 'S']"
-                        class="p-2 text-center font-light text-text-light text-sm"
-                    >
-                        {{ weekDay }}
-                    </div>
-                </template>
-                <div
-                    v-for="option in viewingOptions"
-                    @mouseup.left.stop="
-                        (e) => pickOptionDebounce.debounce(e, option)
-                    "
-                    class="p-2 text-center cursor-pointer hover:bg-default-extra-light rounded-md transition-all ease-in-out duration-150"
-                    :class="{
-                        'bg-primary-light !text-white hover:!bg-primary':
-                            viewMode === VIEW_MODES.MONTH &&
-                            isASelectedDate(option),
-                        'rounded-l-md':
-                            viewMode === VIEW_MODES.MONTH &&
-                            multiple &&
-                            firstDate &&
-                            isSameDates(firstDate, option),
-                        'rounded-r-md':
-                            viewMode === VIEW_MODES.MONTH &&
-                            multiple &&
-                            secondDate &&
-                            isSameDates(secondDate, option),
-                        'bg-primary-extra-light rounded-none hover:!text-white hover:!bg-primary':
-                            viewMode === VIEW_MODES.MONTH &&
-                            multiple &&
-                            firstDate &&
-                            secondDate &&
-                            dateInBetweenDates(option, firstDate, secondDate),
-                        'ring-1 ring-danger-extra-light':
-                            viewMode === VIEW_MODES.MONTH &&
-                            isSameDates(today, option),
-                        'font-light text-text-light':
-                            viewMode === VIEW_MODES.MONTH &&
-                            option.getMonth() !== viewingDate?.getMonth()
-                    }"
-                >
-                    <span v-if="viewMode === VIEW_MODES.DECADE">
-                        {{ option.getFullYear() }}
-                    </span>
-                    <span v-else-if="viewMode === VIEW_MODES.YEAR">
-                        {{ monthToNameShort(option) }}
-                    </span>
-                    <span v-else-if="viewMode === VIEW_MODES.MONTH">
-                        {{ option.getDate() }}
-                    </span>
-                </div>
+                <span v-if="viewMode === VIEW_MODES.DECADE">
+                    {{ option.getFullYear() }}
+                </span>
+                <span v-else-if="viewMode === VIEW_MODES.YEAR">
+                    {{ monthToNameShort(option) }}
+                </span>
+                <span v-else-if="viewMode === VIEW_MODES.MONTH">
+                    {{ option.getDate() }}
+                </span>
             </div>
         </div>
     </div>
@@ -456,10 +453,7 @@ export default defineComponent({
         // will trigger and usually only update the v-model value
         "update:modelValue": (
             modelValue: Array<Date | undefined> | Date | undefined
-        ): boolean =>
-            typeof modelValue === typeof Date ||
-            Array.isArray(modelValue) ||
-            typeof modelValue === "undefined",
+        ): boolean => true,
         interaction: (): boolean => true,
         dateSelect: (): boolean => true,
         escape: (): boolean => true,
@@ -470,3 +464,92 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.et-sdk-datepicker {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--et-sdk-dark-200);
+    box-shadow: var(--et-sdk-shadow-normal);
+    font-weight: var(--et-sdk-font-weight-normal);
+    font-size: var(--et-sdk-font-size-normal);
+    color: var(--et-sdk-dark-800);
+    background-color: var(--et-sdk-light-0);
+}
+
+.et-sdk-datepicker--period {
+    display: flex;
+    flex-direction: row;
+}
+
+.et-sdk-datepicker--section {
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    background-color: var(--et-sdk-light-0);
+}
+
+.et-sdk-datepicker--section__clickable:hover {
+    background-color: var(--et-sdk-dark-100);
+}
+
+.et-sdk-datepicker--section__grayed-out,
+.et-sdk-datepicker--section__not-same-month {
+    color: var(--et-sdk-dark-300);
+}
+
+.et-sdk-datepicker--section__active {
+    background-color: var(--et-sdk-blue-400);
+    color: white;
+}
+
+.et-sdk-datepicker--section__active:hover {
+    background-color: var(--et-sdk-blue-700);
+}
+
+.et-sdk-datepicker--section__clickable {
+    cursor: pointer;
+}
+
+.et-sdk-datepicker--section__range__in-range {
+    border-radius: 0;
+    background-color: var(--et-sdk-blue-300);
+    color: var(--et-sdk-light-0);
+}
+
+.et-sdk-datepicker--section__range__first,
+.et-sdk-datepicker--section__range__last {
+    background-color: var(--et-sdk-blue-400);
+}
+
+.et-sdk-datepicker--section__range__first {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.et-sdk-datepicker--section__range__last {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.et-sdk-datepicker--section__today {
+    border: 1px solid var(--et-sdk-warning-300);
+}
+
+.et-sdk-datepicker--picker-grid {
+    display: grid;
+}
+
+.et-sdk-datepicker--picker-grid__decade {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.et-sdk-datepicker--picker-grid__year {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.et-sdk-datepicker--picker-grid__month {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+</style>
