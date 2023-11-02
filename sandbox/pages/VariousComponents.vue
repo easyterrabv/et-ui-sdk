@@ -29,7 +29,7 @@
                     Various Components
 
                     <EtBadge
-                        class="mx-4"
+                        style="margin-left: 16px; margin-right: 16px;"
                         :type="UI_TYPES.SUCCESS"
                     >
                         Random Badge
@@ -51,31 +51,31 @@
                 </EtButtonDefault>
 
                 <EtButtonPrimary
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Primary!
                 </EtButtonPrimary>
 
                 <EtButtonSuccess
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Success!
                 </EtButtonSuccess>
 
                 <EtButtonDanger
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Danger!
                 </EtButtonDanger>
 
                 <EtButtonWarning
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Warning!
                 </EtButtonWarning>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtButtonDefault
                     disabled
                     @click="(e: Event) => console.log('test', e)">
@@ -84,34 +84,34 @@
 
                 <EtButtonPrimary
                     disabled
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Primary Disabled!
                 </EtButtonPrimary>
 
                 <EtButtonSuccess
                     disabled
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Success Disabled!
                 </EtButtonSuccess>
 
                 <EtButtonDanger
                     disabled
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Danger Disabled!
                 </EtButtonDanger>
 
                 <EtButtonWarning
                     disabled
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Warning Disabled!
                 </EtButtonWarning>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtButtonDefault
                     active
                     @click="(e: Event) => console.log('test', e)">
@@ -120,34 +120,34 @@
 
                 <EtButtonPrimary
                     active
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Primary active!
                 </EtButtonPrimary>
 
                 <EtButtonSuccess
                     active
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Success active!
                 </EtButtonSuccess>
 
                 <EtButtonDanger
                     active
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Danger active!
                 </EtButtonDanger>
 
                 <EtButtonWarning
                     active
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Warning active!
                 </EtButtonWarning>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtButtonDefault
                     readonly
                     @click="(e: Event) => console.log('test', e)">
@@ -157,14 +157,14 @@
                 <EtButtonPrimary
                     readonly
                     :size="UI_SIZING.XS"
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Primary readonly XS
                 </EtButtonPrimary>
 
                 <EtButtonSuccess
                     readonly
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.S"
                     @click="(e: Event) => console.log('test', e)">
                     Success readonly S
@@ -172,7 +172,7 @@
 
                 <EtButtonDanger
                     readonly
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.M"
                     @click="(e: Event) => console.log('test', e)">
                     Danger readonly M
@@ -180,14 +180,14 @@
 
                 <EtButtonWarning
                     readonly
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.L"
                     @click="(e: Event) => console.log('test', e)">
                     Warning readonly L
                 </EtButtonWarning>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtButtonDefault
                     :size="UI_SIZING.S"
                     @click="(e: Event) => console.log('test', e)">
@@ -196,34 +196,34 @@
 
                 <EtButtonPrimary
                     :size="UI_SIZING.S"
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Primary!
                 </EtButtonPrimary>
 
                 <EtButtonSuccess
                     :size="UI_SIZING.S"
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Success!
                 </EtButtonSuccess>
 
                 <EtButtonDanger
                     :size="UI_SIZING.S"
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Danger!
                 </EtButtonDanger>
 
                 <EtButtonWarning
                     :size="UI_SIZING.S"
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     @click="(e: Event) => console.log('test', e)">
                     Warning!
                 </EtButtonWarning>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtButtonGroup>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
@@ -243,7 +243,7 @@
                 </EtButtonGroup>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtButtonGroup isVertical>
                     <EtButtonDefault
                         :size="UI_SIZING.S"
@@ -275,7 +275,7 @@
                 </EtButtonGroup>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtInput
                     v-model="inputTest"
                     placeholder="Test"
@@ -283,7 +283,7 @@
                 ></EtInput>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtFormGroup>
                     <template #label>
                         Hello
@@ -303,7 +303,7 @@
                 </EtFormGroup>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtFormGroup>
                     <template #label>
                         Hello Test
@@ -328,7 +328,7 @@
                 </EtFormGroup>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtToggle
                     v-model="toggleTest"
                     :size="UI_SIZING.S">
@@ -341,10 +341,10 @@
                 </EtToggle>
             </div>
 
-            <div class="mt-4">
-                <EtPopover class="w-40" fitToggle>
+            <div style="margin-top: 16px;">
+                <EtPopover style="width: 160px;" fitToggle>
                     <template #toggle="props">
-                        <EtButtonDefault class="w-40" :size="UI_SIZING.S" @click="props.togglePopover()">
+                        <EtButtonDefault style="width: 160px;" :size="UI_SIZING.S" @click="props.togglePopover()">
                             Toggle PopOver
                         </EtButtonDefault>
                     </template>
@@ -368,7 +368,7 @@
                 </EtPopover>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtFormGroup>
                     <template #label>
                         Toggle Test
@@ -387,7 +387,7 @@
                 </EtFormGroup>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtBadge
                     :size="UI_SIZING.M"
                     :type="UI_TYPES.DEFAULT"
@@ -396,7 +396,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.M"
                     :type="UI_TYPES.PRIMARY"
                 >
@@ -404,7 +404,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.M"
                     :type="UI_TYPES.SUCCESS"
                 >
@@ -412,7 +412,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.M"
                     :type="UI_TYPES.DANGER"
                 >
@@ -420,7 +420,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.M"
                     :type="UI_TYPES.WARNING"
                 >
@@ -428,7 +428,7 @@
                 </EtBadge>
             </div>
 
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtBadge
                     :size="UI_SIZING.S"
                     :type="UI_TYPES.DEFAULT"
@@ -437,7 +437,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.S"
                     :type="UI_TYPES.PRIMARY"
                 >
@@ -445,7 +445,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.S"
                     :type="UI_TYPES.SUCCESS"
                 >
@@ -453,7 +453,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.S"
                     :type="UI_TYPES.DANGER"
                 >
@@ -461,7 +461,7 @@
                 </EtBadge>
 
                 <EtBadge
-                    class="ml-4"
+                    style="margin-left: 16px;"
                     :size="UI_SIZING.S"
                     :type="UI_TYPES.WARNING"
                 >
@@ -469,7 +469,7 @@
                 </EtBadge>
             </div>
 
-            <EtCard class="mt-4">
+            <EtCard style="margin-top: 16px;">
                 <template #header>
                     Card header with small inputs
                 </template>
@@ -504,31 +504,31 @@
 
             <div>
                 <EtAlert
-                    class="mt-4"
+                    style="margin-top: 16px;"
                     :type="UI_TYPES.DEFAULT"
                 >
                     Hi! This is a default alert
                 </EtAlert>
                 <EtAlert
-                    class="mt-4"
+                    style="margin-top: 16px;"
                     :type="UI_TYPES.PRIMARY"
                 >
                     Hi! This is a primary alert
                 </EtAlert>
                 <EtAlert
-                    class="mt-4"
+                    style="margin-top: 16px;"
                     :type="UI_TYPES.SUCCESS"
                 >
                     Hi! This is a success alert
                 </EtAlert>
                 <EtAlert
-                    class="mt-4"
+                    style="margin-top: 16px;"
                     :type="UI_TYPES.DANGER"
                 >
                     Hi! This is a danger alert
                 </EtAlert>
                 <EtAlert
-                    class="mt-4"
+                    style="margin-top: 16px;"
                     :type="UI_TYPES.WARNING"
                 >
                     Hi! This is a warning alert

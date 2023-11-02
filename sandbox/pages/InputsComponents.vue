@@ -58,7 +58,7 @@
             </template>
         </EtInputSmartFilter>
 
-        <EtCard class="mt-4">
+        <EtCard style="margin-top: 16px;">
             <template #header>
                 Basic inputs
             </template>
@@ -69,18 +69,18 @@
                     <EtInput/>
                 </EtFormGroup>
 
-                <EtFormGroup class="mt-4">
+                <EtFormGroup style="margin-top: 16px;">
                     <template #label>Password Input</template>
                     <EtInput type="password"/>
                 </EtFormGroup>
             </EtForm>
 
-            <EtFormGroup class="mt-4">
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>Simple Input small size</template>
                 <EtInput :size="UI_SIZING.S"/>
             </EtFormGroup>
 
-            <EtFormGroup class="mt-4">
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>Simple Input size with alert</template>
                 <EtInput error />
                 <template #after>
@@ -88,28 +88,28 @@
                 </template>
             </EtFormGroup>
 
-            <EtFormGroup class="mt-4">
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>Simple textarea</template>
                 <EtTextarea v-model="textareaContent" placeholder="Type something" />
             </EtFormGroup>
 
-            <EtFormGroup class="mt-4">
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>WYSIWYG</template>
                 <EtWysiwyg v-model="wysiwygContent"></EtWysiwyg>
             </EtFormGroup>
 
-            <EtFormGroup class="mt-4">
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>Min Max</template>
                 <EtInputNumberRange v-model="numberRange"></EtInputNumberRange>
             </EtFormGroup>
 
-            <EtFormGroup class="mt-4">
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>File Drop Input</template>
                 <EtInputFileDrop />
             </EtFormGroup>
         </EtCard>
 
-        <EtCard class="mt-4">
+        <EtCard style="margin-top: 16px;">
             <template #header>
                 Grouped inputs
             </template>
@@ -122,7 +122,7 @@
                 <EtInput placeholder="Input"/>
             </EtFormGroup>
 
-            <EtFormGroup class="mt-4">
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>Simple Input</template>
                 <EtInput placeholder="First Input"/>
                 <EtInputGroupAddon>
@@ -132,7 +132,7 @@
             </EtFormGroup>
         </EtCard>
 
-        <EtCard class="mt-4">
+        <EtCard style="margin-top: 16px;">
             <template #header>
                 Select
             </template>
@@ -141,21 +141,21 @@
             <EtButtonSelect v-model="multipleSelectedOptions" :options="options"></EtButtonSelect>
         </EtCard>
 
-        <EtCard class="mt-4" style="height: 800px;">
+        <EtCard style="margin-top: 16px; height: 800px;">
             <template #header>
                 Date pickers
             </template>
             <EtInputDate v-model="selectedDate"></EtInputDate>
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtInputDateRange v-model="selectedDateRange"></EtInputDateRange>
             </div>
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtInputDateRange :size="UI_SIZING.S" v-model="selectedDateRange"></EtInputDateRange>
             </div>
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtInputTime v-model="selectedTime"></EtInputTime>
             </div>
-            <div class="mt-4">
+            <div style="margin-top: 16px;">
                 <EtInputTime :size="UI_SIZING.S" v-model="selectedTime"></EtInputTime>
             </div>
         </EtCard>

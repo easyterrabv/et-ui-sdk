@@ -7,13 +7,13 @@
             isSelectable
         >
             <template #header="{toggleSorting}">
-                <th class="w-12 cursor-pointer" @click="toggleSorting('key')">
+                <th style="width: 48px; cursor: pointer;" @click="toggleSorting('key')">
                     #
                 </th>
-                <th style="width: 250px;" class="cursor-pointer" @click="toggleSorting('name')">
+                <th style="width: 250px; cursor: pointer;" @click="toggleSorting('name')">
                     Name
                 </th>
-                <th style="width: 200px;" class="cursor-pointer" @click="toggleSorting('email')">
+                <th style="width: 200px; cursor: pointer;" @click="toggleSorting('email')">
                     Email
                 </th>
             </template>
@@ -28,7 +28,7 @@
                 <td>
                     {{row.key}}
                 </td>
-                <td class="font-extrabold">
+                <td>
                     {{row.name}}
                 </td>
                 <td>

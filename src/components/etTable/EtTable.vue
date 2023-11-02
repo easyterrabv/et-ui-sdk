@@ -91,7 +91,9 @@
                 <tr>
                     <td colspan="10000">
                         <div class="et-sdk-table--footer-content">
-                            <div class="text-default-light">
+                            <div
+                                class="et-sdk-table--footer-content--total-count"
+                            >
                                 <small v-if="totalRows"
                                     >Total: {{ totalRows }}</small
                                 >
@@ -530,5 +532,9 @@ export default defineComponent({
 .et-sdk-table--footer-content--pagination {
     margin: 0 auto;
     width: 200px;
+}
+
+.et-sdk-table--footer-content--total-count {
+    color: var(--et-sdk-dark-300);
 }
 </style>

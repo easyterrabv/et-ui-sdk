@@ -643,16 +643,7 @@ export default defineComponent({
             editable: !this.hasDisabledInput,
             editorProps: {
                 attributes: {
-                    class: [
-                        // <th>
-                        "[&_th]:border-[1px] [&_th]:px-1 [&_th]:py-0 [&_th]:bg-default-extra-light",
-
-                        // <td>
-                        "[&_td]:border-[1px] [&_td]:p-1 [&_td]:py-0",
-
-                        // other
-                        "prose prose-sm !max-w-full min-h-[300px] rounded-b-md border-0 p-2 focus-visible:ring-0 focus-visible:ring-offset-0 text-text shadow-sm ring-1 ring-default-light placeholder:text-text-light focus:ring-1 focus:ring-primary transition-colors duration-200 ease-in-out"
-                    ].join(" ")
+                    class: "et-sdk-wysiwyg--editor-textarea prose prose-sm"
                 }
             },
             extensions: [
@@ -741,5 +732,27 @@ export default defineComponent({
 .et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-secondary__success,
 .et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-secondary__danger {
     color: var(--et-sdk-dark-600);
+}
+
+.et-sdk-wysiwyg--editor-textarea {
+    max-width: 100%;
+    min-height: 300px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 8px;
+    border: 1px solid var(--et-sdk-dark-200);
+    box-shadow: var(--et-sdk-shadow-normal);
+    font-weight: var(--et-sdk-font-weight-normal);
+}
+
+.et-sdk-wysiwyg--editor-textarea th {
+    border: 1px solid var(--et-sdk-dark-200);
+    padding: 0 4px;
+    background-color: var(--et-sdk-dark-50);
+}
+
+.et-sdk-wysiwyg--editor-textarea td {
+    border: 1px solid var(--et-sdk-dark-200);
+    padding: 4px 4px 0;
 }
 </style>

@@ -5,7 +5,7 @@
                 <img
                     src="https://cdn.easyterra.com/images/themes/easyterra/logo.svg"
                     alt="EasyTerra"
-                    class="mr-4"
+                    style="margin-right: 16px;"
                     width="196"
                     height="40" />
 
@@ -70,37 +70,37 @@
                         </template>
                         <EtSideBarItem :isCollapsed="scope.isCollapsed">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Booking notifications
                         </EtSideBarItem>
                         <EtSideBarItem :isCollapsed="scope.isCollapsed">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Price Alerts
                         </EtSideBarItem>
                         <EtSideBarItem :isCollapsed="scope.isCollapsed">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Booking notifications
                         </EtSideBarItem>
                         <EtSideBarItem :isCollapsed="scope.isCollapsed">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Price Alerts
                         </EtSideBarItem>
                         <EtSideBarItem :isCollapsed="scope.isCollapsed">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Booking notifications
                         </EtSideBarItem>
                         <EtSideBarItem :isCollapsed="scope.isCollapsed">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Price Alerts
                         </EtSideBarItem>
@@ -113,14 +113,14 @@
 
                         <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('Aii, I am disabled, you should not see this')">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Disabled
                         </EtSideBarButton>
 
                         <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('test')">
                             <template #icon>
-                                <EtIconTag class="!text-text" />
+                                <EtIconTag style="color: initial;" />
                             </template>
                             Test
                         </EtSideBarButton>

@@ -18,8 +18,6 @@ fi
 
 BRANCH=$(git symbolic-ref --short HEAD)
 if [ "$BRANCH" = "master" ]; then
-  npm run tailwind:build
-
   VERSION=$(node -pe "require('./package.json').version")
   NEW_VERSION=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
   npm --no-git-tag-version version $NEW_VERSION

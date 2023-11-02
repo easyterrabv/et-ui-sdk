@@ -1,8 +1,6 @@
 @import 'variables.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'normalize.css';
+@import 'prose.css';
 
 html {
     font-family: 'Inter', sans-serif;

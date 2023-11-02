@@ -10,10 +10,9 @@ Standardized library of vue components and data model classes
 $ npm install  
 ```
 
-Run the following 2 commands separately
+Run the following command
 ```bash
-$ vite
-$ npm run tailwind
+$ npm run dev
 ```
 
 ### Releasing
