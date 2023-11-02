@@ -501,7 +501,7 @@ export default defineComponent({
 
 .et-sdk-datepicker--section__active {
     background-color: var(--et-sdk-blue-400);
-    color: white;
+    color: var(--et-sdk-light-0);
 }
 
 .et-sdk-datepicker--section__active:hover {

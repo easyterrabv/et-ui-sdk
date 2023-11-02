@@ -117,7 +117,7 @@ export default defineComponent({
     appearance: none;
     vertical-align: middle;
     cursor: pointer;
-    background-color: white;
+    background-color: var(--et-sdk-light-0);
     border-radius: 4px;
     border: 1.5px solid var(--et-sdk-dark-400);
     position: relative;

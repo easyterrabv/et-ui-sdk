@@ -446,7 +446,7 @@ export default defineComponent({
     position: sticky;
     top: 0;
     z-index: 10;
-    background: white;
+    background: var(--et-sdk-light-0);
 }
 
 .et-sdk-table--head-row {
@@ -514,7 +514,7 @@ export default defineComponent({
     position: sticky;
     bottom: 0;
     z-index: 10;
-    background-color: white;
+    background-color: var(--et-sdk-light-0);
 }
 
 .et-sdk-table--footer-content {

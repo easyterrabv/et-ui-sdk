@@ -57,7 +57,7 @@ export default defineComponent({
 }
 
 .et-sdk-sidebar-item:hover {
-    background-color: white;
+    background-color: var(--et-sdk-light-0);
 }
 
 .et-sdk-sidebar-item__active:hover {
@@ -86,6 +86,6 @@ export default defineComponent({
 }
 
 .et-sdk-sidebar-item__active--icon {
-    color: white;
+    color: var(--et-sdk-light-0);
 }
 </style>

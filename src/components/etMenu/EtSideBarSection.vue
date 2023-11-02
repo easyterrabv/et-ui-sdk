@@ -70,7 +70,7 @@ export default defineComponent({
 }
 
 .et-sdk-side-bar-section--label-wrapper--action:hover {
-    background-color: white;
+    background-color: var(--et-sdk-light-0);
     color: var(--et-sdk-blue-600);
 }
 

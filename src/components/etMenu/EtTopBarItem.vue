@@ -35,11 +35,11 @@ export default defineComponent({
 
 .et-sdk-top-bar-item:hover {
     background-color: var(--et-sdk-dark-600);
-    color: white;
+    color: var(--et-sdk-light-0);
 }
 
 .et-sdk-top-bar-item__active {
     background-color: var(--et-sdk-dark-900);
-    color: white;
+    color: var(--et-sdk-light-0);
 }
 </style>

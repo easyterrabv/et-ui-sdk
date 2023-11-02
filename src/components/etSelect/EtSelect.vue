@@ -232,7 +232,7 @@ export default defineComponent({
 .et-sdk-select {
     display: inline-block;
     box-shadow: var(--et-sdk-shadow-normal);
-    background-color: white;
+    background-color: var(--et-sdk-light-0);
     padding-top: 8px;
     padding-bottom: 8px;
     border-radius: 4px;
