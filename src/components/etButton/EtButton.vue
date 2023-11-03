@@ -102,8 +102,8 @@ export default defineComponent({
     color: initial;
 
     /* size M styling */
-    padding: 10px 14px;
-    font-size: var(--et-sdk-font-size-small);
+    padding: 8px 12px;
+    font-size: var(--et-sdk-font-size-normal);
 }
 
 .et-sdk-button:hover:not(.et-sdk-button__readonly):not(
@@ -202,17 +202,17 @@ export default defineComponent({
 }
 
 .et-sdk-button__xs {
-    padding: 6px 10px;
+    padding: 4px 8px;
     font-size: var(--et-sdk-font-size-tiny);
 }
 
 .et-sdk-button__s {
-    padding: 8px 12px;
-    font-size: var(--et-sdk-font-size-tiny);
+    padding: 6px 10px;
+    font-size: var(--et-sdk-font-size-normal);
 }
 
 .et-sdk-button__l {
-    padding: 12px 16px;
-    font-size: var(--et-sdk-font-size-normal);
+    padding: 10px 14px;
+    font-size: var(--et-sdk-font-size-large);
 }
 </style>
