@@ -208,17 +208,21 @@ export default defineComponent({
 
 .et-sdk-toggle__xs .et-sdk-toggle--text {
     font-size: var(--et-sdk-font-size-tiny);
+    line-height: 16px;
 }
 
 .et-sdk-toggle__s .et-sdk-toggle--text {
     font-size: var(--et-sdk-font-size-small);
+    line-height: 16px;
 }
 
 .et-sdk-toggle__m .et-sdk-toggle--text {
     font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
 }
 
 .et-sdk-toggle__l .et-sdk-toggle--text {
     font-size: var(--et-sdk-font-size-large);
+    line-height: 24px;
 }
 </style>

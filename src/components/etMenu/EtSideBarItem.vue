@@ -47,6 +47,7 @@ export default defineComponent({
     padding-bottom: 4px;
     cursor: pointer;
     font-size: var(--et-sdk-font-size-small);
+    line-height: 16px;
     transition: all 150ms ease-in-out;
     background-color: var(--et-sdk-dark-50);
 }

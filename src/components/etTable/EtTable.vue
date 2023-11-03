@@ -460,6 +460,7 @@ export default defineComponent({
     color: var(--et-sdk-dark-400);
 
     font-size: var(--et-sdk-font-size-small);
+    line-height: 16px;
     font-weight: var(--et-sdk-font-weight-semibold);
 }
 
@@ -486,6 +487,7 @@ export default defineComponent({
     max-width: 100vw;
     text-align: center;
     font-size: var(--et-sdk-font-size-extra-large);
+    line-height: 28px;
     padding: 16px;
 }
 

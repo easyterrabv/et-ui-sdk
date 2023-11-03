@@ -11,6 +11,6 @@
     display: block;
     font-size: var(--et-sdk-font-size-small);
     font-weight: var(--et-sdk-font-weight-normal);
-    line-height: 24px;
+    line-height: 16px;
 }
 </style>

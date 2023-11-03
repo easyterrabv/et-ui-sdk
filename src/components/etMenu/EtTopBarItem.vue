@@ -30,6 +30,7 @@ export default defineComponent({
     padding: 10px 15px;
     font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
     cursor: pointer;
 }
 

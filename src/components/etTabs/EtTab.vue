@@ -45,6 +45,7 @@ export default defineComponent({
     cursor: pointer;
 
     font-size: var(--et-sdk-font-size-small);
+    line-height: 16px;
 }
 
 .et-sdk-tab__active {

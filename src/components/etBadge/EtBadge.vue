@@ -43,6 +43,7 @@ export default defineComponent({
 
     /* S size */
     font-size: var(--et-sdk-font-size-tiny);
+    line-height: 16px;
     padding: 2px 8px;
 }
 
@@ -68,16 +69,19 @@ export default defineComponent({
 
 .et-sdk-badge__xs {
     font-size: var(--et-sdk-font-size-tiny);
+    line-height: 16px;
     padding: 2px 4px;
 }
 
 .et-sdk-badge__m {
     font-size: var(--et-sdk-font-size-small);
+    line-height: 16px;
     padding: 4px 12px;
 }
 
 .et-sdk-badge__l {
     font-size: var(--et-sdk-font-size-small);
+    line-height: 16px;
     padding: 6px 16px;
 }
 </style>

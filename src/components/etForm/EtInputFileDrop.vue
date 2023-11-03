@@ -145,5 +145,6 @@ export default defineComponent({
 
 .et-sdk-input-file-drop--text {
     font-size: var(--et-sdk-font-size-small);
+    line-height: 16px;
 }
 </style>

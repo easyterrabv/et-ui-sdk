@@ -126,6 +126,7 @@ export default defineComponent({
     text-align: center;
     line-height: 12px;
     font-size: var(--et-sdk-font-size-extra-large);
+    line-height: 28px;
     font-weight: var(--et-sdk-font-weight-bold);
 
     width: 15px;

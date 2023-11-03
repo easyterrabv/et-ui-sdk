@@ -51,6 +51,7 @@ export default defineComponent({
     padding-left: 32px;
     padding-right: 32px;
     font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
     font-weight: var(--et-sdk-font-weight-semibold);
 }
 

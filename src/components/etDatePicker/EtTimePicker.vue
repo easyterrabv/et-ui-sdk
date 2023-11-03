@@ -153,6 +153,7 @@ export default defineComponent({
     box-shadow: var(--et-sdk-shadow-normal);
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
     color: var(--et-sdk-dark-800);
     background-color: var(--et-sdk-light-0);
 }

@@ -104,6 +104,7 @@ export default defineComponent({
     /* size M styling */
     padding: 8px 12px;
     font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
 }
 
 .et-sdk-button:hover:not(.et-sdk-button__readonly):not(
@@ -204,15 +205,18 @@ export default defineComponent({
 .et-sdk-button__xs {
     padding: 4px 8px;
     font-size: var(--et-sdk-font-size-tiny);
+    line-height: 16px;
 }
 
 .et-sdk-button__s {
     padding: 6px 10px;
     font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
 }
 
 .et-sdk-button__l {
     padding: 10px 14px;
     font-size: var(--et-sdk-font-size-large);
+    line-height: 24px;
 }
 </style>
