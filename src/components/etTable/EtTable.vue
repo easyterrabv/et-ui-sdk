@@ -456,7 +456,7 @@ export default defineComponent({
 }
 
 .et-sdk-table--head-row th:not(.filler) {
-    padding: 2px;
+    padding: 8px;
     color: var(--et-sdk-dark-400);
 
     font-size: var(--et-sdk-font-size-small);
@@ -497,7 +497,7 @@ export default defineComponent({
 }
 
 .et-sdk-table--body-row td:not(.filler) {
-    padding: 2px;
+    padding: 8px;
 }
 
 .et-sdk-table--body-row__clickable:hover {
