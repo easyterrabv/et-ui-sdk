@@ -236,11 +236,11 @@
                             <EtLayer title="Add Table">
                                 <EtIconTable
                                     transform="shrink-2"
-                                    class="et-sdk-table-icon-main"
+                                    class="et-sdk-simple-table-icon-main"
                                 />
                                 <EtIconCirclePlus
                                     transform="right-6 down-6 shrink-3"
-                                    class="et-sdk-table-icon-secondary__success"
+                                    class="et-sdk-simple-table-icon-secondary__success"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -253,11 +253,11 @@
                             <EtLayer title="Remove Table">
                                 <EtIconTable
                                     transform="shrink-2"
-                                    class="et-sdk-table-icon-main"
+                                    class="et-sdk-simple-table-icon-main"
                                 />
                                 <EtIconCircleMinus
                                     transform="right-6 down-6 shrink-3"
-                                    class="et-sdk-table-icon-secondary__danger"
+                                    class="et-sdk-simple-table-icon-secondary__danger"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -270,11 +270,11 @@
                             <EtLayer title="Add column">
                                 <EtIconTableColumns
                                     transform="shrink-2"
-                                    class="et-sdk-table-icon-main"
+                                    class="et-sdk-simple-table-icon-main"
                                 />
                                 <EtIconCirclePlus
                                     transform="right-6 down-6 shrink-3"
-                                    class="et-sdk-table-icon-secondary__success"
+                                    class="et-sdk-simple-table-icon-secondary__success"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -287,11 +287,11 @@
                             <EtLayer title="Remove column">
                                 <EtIconTableColumns
                                     transform="shrink-2"
-                                    class="et-sdk-table-icon-main"
+                                    class="et-sdk-simple-table-icon-main"
                                 />
                                 <EtIconCircleMinus
                                     transform="right-6 down-6 shrink-3"
-                                    class="et-sdk-table-icon-secondary__danger"
+                                    class="et-sdk-simple-table-icon-secondary__danger"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -304,11 +304,11 @@
                             <EtLayer title="Add row">
                                 <EtIconTableCells
                                     transform="shrink-2"
-                                    class="et-sdk-table-icon-main"
+                                    class="et-sdk-simple-table-icon-main"
                                 />
                                 <EtIconCirclePlus
                                     transform="right-6 down-6 shrink-3"
-                                    class="et-sdk-table-icon-secondary__success"
+                                    class="et-sdk-simple-table-icon-secondary__success"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -321,11 +321,11 @@
                             <EtLayer title="Remove row">
                                 <EtIconTableCells
                                     transform="shrink-2"
-                                    class="et-sdk-table-icon-main"
+                                    class="et-sdk-simple-table-icon-main"
                                 />
                                 <EtIconCircleMinus
                                     transform="right-6 down-6 shrink-3"
-                                    class="et-sdk-table-icon-secondary__danger"
+                                    class="et-sdk-simple-table-icon-secondary__danger"
                                 />
                             </EtLayer>
                         </EtButton>
@@ -714,24 +714,24 @@ export default defineComponent({
     width: 100px;
 }
 
-.et-sdk-table-icon-main {
+.et-sdk-simple-table-icon-main {
     color: var(--et-sdk-dark-300);
 }
 
-.et-sdk-table-icon-secondary__success {
+.et-sdk-simple-table-icon-secondary__success {
     color: var(--et-sdk-success-700);
 }
 
-.et-sdk-table-icon-secondary__danger {
+.et-sdk-simple-table-icon-secondary__danger {
     color: var(--et-sdk-danger-700);
 }
 
-.et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-main {
+.et-sdk-wysiwyg--toolbar__disabled .et-sdk-simple-table-icon-main {
     color: var(--et-sdk-dark-400);
 }
 
-.et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-secondary__success,
-.et-sdk-wysiwyg--toolbar__disabled .et-sdk-table-icon-secondary__danger {
+.et-sdk-wysiwyg--toolbar__disabled .et-sdk-simple-table-icon-secondary__success,
+.et-sdk-wysiwyg--toolbar__disabled .et-sdk-simple-table-icon-secondary__danger {
     color: var(--et-sdk-dark-600);
 }
 

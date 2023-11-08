@@ -1,24 +1,24 @@
 <template>
-    <div class="et-sdk-table-wrapper">
-        <table class="et-sdk-table">
+    <div class="et-sdk-simple-table-wrapper">
+        <table class="et-sdk-simple-table">
             <thead
                 v-if="$slots.header || ($slots.filters && !isStatic)"
-                class="et-sdk-table--head"
+                class="et-sdk-simple-table--head"
             >
                 <tr
                     v-if="$slots.header"
-                    class="et-sdk-table--head-row"
+                    class="et-sdk-simple-table--head-row"
                     :class="{
-                        'et-sdk-table--head-row__no-filters': !(
+                        'et-sdk-simple-table--head-row__no-filters': !(
                             $slots.filters && !isStatic
                         ),
-                        'et-sdk-table--head-row__filters':
+                        'et-sdk-simple-table--head-row__filters':
                             $slots.filters && !isStatic
                     }"
                 >
                     <th
                         v-if="isSelectable"
-                        class="et-sdk-table--head-cell--selectable"
+                        class="et-sdk-simple-table--head-cell--selectable"
                         @click="toggleSelectAll"
                     >
                         <EtCheckbox
@@ -37,7 +37,7 @@
                 </tr>
                 <tr
                     v-if="$slots.filters && !isStatic"
-                    class="et-sdk-table--filters-row"
+                    class="et-sdk-simple-table--filters-row"
                 >
                     <th v-if="isSelectable"></th>
                     <slot
@@ -51,7 +51,7 @@
             <tbody v-if="loading || !ready">
                 <tr>
                     <td colspan="10000">
-                        <div class="et-sdk-table--loading-row">
+                        <div class="et-sdk-simple-table--loading-row">
                             <EtIconSpinner pulse></EtIconSpinner>
                             <span v-if="!ready"> Preparing Table </span>
                             <span v-else> Loading </span>
@@ -63,13 +63,13 @@
                 <tr
                     v-for="row in sortedRows"
                     :key="row.key"
-                    class="et-sdk-table--body-row"
+                    class="et-sdk-simple-table--body-row"
                     :class="{
-                        'et-sdk-table--body-row__clickable': isClickable,
-                        'et-sdk-table--body-row__selected':
+                        'et-sdk-simple-table--body-row__clickable': isClickable,
+                        'et-sdk-simple-table--body-row__selected':
                             selectedRows.includes(row[rowKey]),
                         // Darker row color if row is clickable & selected
-                        'et-sdk-table--body-row__selected__clickable':
+                        'et-sdk-simple-table--body-row__selected__clickable':
                             isClickable && selectedRows.includes(row[rowKey])
                     }"
                     @click="() => handleRowClick(row)"
@@ -86,13 +86,13 @@
             </tbody>
             <tfoot
                 v-if="!isStatic && ready && !loading"
-                class="et-sdk-table--footer-row"
+                class="et-sdk-simple-table--footer-row"
             >
                 <tr>
                     <td colspan="10000">
-                        <div class="et-sdk-table--footer-content">
+                        <div class="et-sdk-simple-table--footer-content">
                             <div
-                                class="et-sdk-table--footer-content--total-count"
+                                class="et-sdk-simple-table--footer-content--total-count"
                             >
                                 <small v-if="totalRows"
                                     >Total: {{ totalRows }}</small
@@ -100,7 +100,7 @@
                             </div>
                             <div>
                                 <div
-                                    class="et-sdk-table--footer-content--pagination"
+                                    class="et-sdk-simple-table--footer-content--pagination"
                                     v-if="totalRows > internalPerPage"
                                 >
                                     <EtPagination
@@ -426,36 +426,36 @@ export default defineComponent({
 </script>
 
 <style>
-.et-sdk-table-wrapper .filler {
+.et-sdk-simple-table-wrapper .filler {
     max-width: 100%;
 }
 
-.et-sdk-table-wrapper {
+.et-sdk-simple-table-wrapper {
     overflow-y: auto;
     height: 100%;
     scrollbar-width: none;
 }
 
-.et-sdk-table-wrapper::webkit-scrollbar {
+.et-sdk-simple-table-wrapper::webkit-scrollbar {
     display: none;
 }
 
-.et-sdk-table {
+.et-sdk-simple-table {
     width: 100%;
 }
 
-.et-sdk-table--head {
+.et-sdk-simple-table--head {
     position: sticky;
     top: 0;
     z-index: 10;
     background: var(--et-sdk-light-0);
 }
 
-.et-sdk-table--head-row {
+.et-sdk-simple-table--head-row {
     text-align: left;
 }
 
-.et-sdk-table--head-row th:not(.filler) {
+.et-sdk-simple-table--head-row th:not(.filler) {
     padding: 8px;
     color: var(--et-sdk-dark-400);
 
@@ -464,25 +464,25 @@ export default defineComponent({
     font-weight: var(--et-sdk-font-weight-semibold);
 }
 
-.et-sdk-table--head-row__no-filters {
+.et-sdk-simple-table--head-row__no-filters {
     border-bottom: 1px solid var(--et-sdk-dark-200);
 }
 
-.et-sdk-table--head-cell--selectable {
+.et-sdk-simple-table--head-cell--selectable {
     width: 5px;
 }
 
-.et-sdk-table--filters-row {
+.et-sdk-simple-table--filters-row {
     border-bottom: 1px solid var(--et-sdk-dark-200);
 }
 
-.et-sdk-table--filters-row td:not(.filler) {
+.et-sdk-simple-table--filters-row td:not(.filler) {
     padding-left: 8px;
     padding-right: 8px;
     padding-bottom: 4px;
 }
 
-.et-sdk-table--loading-row {
+.et-sdk-simple-table--loading-row {
     width: 100%;
     max-width: 100vw;
     text-align: center;
@@ -491,29 +491,29 @@ export default defineComponent({
     padding: 16px;
 }
 
-.et-sdk-table--body-row {
+.et-sdk-simple-table--body-row {
     border-bottom: 1px solid var(--et-sdk-dark-200);
     transition: all 150ms ease-in-out;
 }
 
-.et-sdk-table--body-row td:not(.filler) {
+.et-sdk-simple-table--body-row td:not(.filler) {
     padding: 8px;
 }
 
-.et-sdk-table--body-row__clickable:hover {
+.et-sdk-simple-table--body-row__clickable:hover {
     cursor: pointer;
     background-color: var(--et-sdk-dark-100);
 }
 
-.et-sdk-table--body-row__selected {
+.et-sdk-simple-table--body-row__selected {
     background-color: var(--et-sdk-blue-300);
 }
 
-.et-sdk-table--body-row__selected__clickable:hover {
+.et-sdk-simple-table--body-row__selected__clickable:hover {
     background-color: var(--et-sdk-blue-400);
 }
 
-.et-sdk-table--footer-row {
+.et-sdk-simple-table--footer-row {
     border-top: 1px solid var(--et-sdk-dark-200);
     position: sticky;
     bottom: 0;
@@ -521,22 +521,22 @@ export default defineComponent({
     background-color: var(--et-sdk-light-0);
 }
 
-.et-sdk-table--footer-content {
+.et-sdk-simple-table--footer-content {
     display: grid;
     gap: 16px;
     grid-template-columns: 240px auto 240px;
 }
 
-.et-sdk-table--footer-content > div {
+.et-sdk-simple-table--footer-content > div {
     padding: 4px;
 }
 
-.et-sdk-table--footer-content--pagination {
+.et-sdk-simple-table--footer-content--pagination {
     margin: 0 auto;
     width: 200px;
 }
 
-.et-sdk-table--footer-content--total-count {
+.et-sdk-simple-table--footer-content--total-count {
     color: var(--et-sdk-dark-300);
 }
 </style>
