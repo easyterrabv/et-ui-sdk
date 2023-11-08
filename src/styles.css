@@ -77,3 +77,7 @@ html {
 .et-sdk-input-like--content::-webkit-scrollbar {
     display: none;
 }
+
+.no-wrap {
+    white-space: nowrap;
+}
