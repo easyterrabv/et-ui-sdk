@@ -9,6 +9,12 @@ fi
 
 npm run format
 npm run type-check
+
+if [ $? -ne 0 ]; then
+  echo "Type checking failed. Aborting commit."
+  exit 1
+fi
+
 tsc
 
 # Store the edited files in an array

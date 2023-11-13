@@ -8,7 +8,7 @@
 <script lang="ts">
 import EtDataGrid from "src/components/etDataGrid/EtDataGrid.vue";
 import {defineComponent, markRaw} from "vue";
-import type {DataGridColumn} from "src/components/etDataGrid/interfaces/DataGridColumn.ts";
+import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/DataGridColumn";
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
 
