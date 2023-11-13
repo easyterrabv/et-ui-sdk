@@ -8,6 +8,7 @@ if [ $? -ne 0 ]; then
 fi
 
 npm run format
+npm run type-check
 tsc
 
 # Store the edited files in an array
