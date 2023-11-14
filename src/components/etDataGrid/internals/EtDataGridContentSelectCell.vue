@@ -1,10 +1,11 @@
 <template>
     <div
         class="et-sdk-data-grid--checkbox-cell et-sdk-data-grid--cell"
-        @click="() => checkedRows?.toggle(props.row)"
+        @click.stop="() => checkedRows?.toggle(props.row)"
     >
         <div class="et-sdk-data-grid--checkbox-cell--checkbox">
             <EtCheckbox
+                @click.stop="() => checkedRows?.toggle(props.row)"
                 :checked="checkedRows?.isSelected(props.row)"
                 readonly
             />

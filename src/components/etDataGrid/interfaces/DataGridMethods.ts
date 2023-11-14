@@ -9,6 +9,7 @@ export interface CheckedProvide<T = object> {
     selectAll: () => void;
     unSelectAll: () => void;
     allSelected: () => boolean;
+    anySelected: () => boolean;
     someSelected: () => boolean;
     toggleAll: () => void;
 

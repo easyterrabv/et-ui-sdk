@@ -50,17 +50,22 @@ export function useChecked<T extends RowObject = RowObject>(
             this.unSelectAll();
         },
         allSelected() {
+            // all means all.
             const selectedRowsCount = (this.rows || []).length;
             const totalRows = (rows || []).length;
-
             return selectedRowsCount >= totalRows;
         },
+        anySelected() {
+            // any selected means: At least one, but could also be all of them;
+            const selectedRowsCount = (this.rows || []).length;
+            return selectedRowsCount > 0;
+        },
         someSelected() {
+            // SOME !== all. so only return true if there is atleast one selected but not all
             if (this.allSelected()) {
                 return false;
             }
-            const selectedRowsCount = (this.rows || []).length;
-            return selectedRowsCount > 0;
+            return this.anySelected();
         },
         toggleAll() {
             if (this.allSelected()) {
