@@ -27,7 +27,8 @@ export default defineComponent({
         return {
             rowInfo: {
                 idKey: 'key',
-                isSelectable: true
+                isSelectable: true,
+                onRowClick: this.handleRowClick
             },
             columns: [
                 {
@@ -138,6 +139,12 @@ export default defineComponent({
                 {key: 69, name: 'Joe Doe', email: 'j.doe@example.com'},
                 {key: 70, name: 'Jesse Doe', email: 'j.doe@example.com'},
             ] as ExampleRow[]
+        }
+    },
+    methods: {
+        handleRowClick(row: ExampleRow) {
+            console.log('ROW HAS BEEN CLICKED ON!');
+            console.log(row);
         }
     }
 });

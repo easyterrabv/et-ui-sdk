@@ -11,6 +11,9 @@ export function useChecked<T extends RowObject = RowObject>(
     return reactive<CheckedProvide<T>>({
         rows: [],
         select(row) {
+            if (!rowInfo.isSelectable) {
+                return;
+            }
             const checkedRows = this.rows || [];
             checkedRows.push(row);
             this.rows = checkedRows;
@@ -41,6 +44,9 @@ export function useChecked<T extends RowObject = RowObject>(
         },
 
         selectAll() {
+            if (!rowInfo.isSelectable) {
+                return;
+            }
             this.rows = rows;
         },
         unSelectAll() {

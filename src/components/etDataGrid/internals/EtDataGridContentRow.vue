@@ -2,8 +2,7 @@
     <div
         class="et-sdk-data-grid--content-row et-sdk-data-grid--row"
         :class="{
-            // 'et-sdk-data-grid--content-row__clickable':
-            //     props.rowInfo.isSelectable,
+            'et-sdk-data-grid--content-row__clickable': isRowClickable,
             'et-sdk-data-grid--content-row__checked': isRowChecked
         }"
         @click.stop="() => handleClick()"
@@ -38,13 +37,24 @@ const checkedRows =
     inject<CheckedProvide<{ [key: string]: unknown }>>("checkedRows");
 
 const isRowChecked = computed(() => {
+    if (!props.rowInfo.isSelectable) {
+        return false;
+    }
     return checkedRows?.isSelected(props.row);
 });
 
-function handleClick() {
+const isRowClickable = computed(() => {
+    return !!props.rowInfo.onRowClick;
+});
+
+async function handleClick() {
     if (checkedRows?.anySelected()) {
         checkedRows?.toggle(props.row);
         return;
+    }
+
+    if (isRowClickable) {
+        await props.rowInfo.onRowClick?.(props.row);
     }
 }
 </script>
