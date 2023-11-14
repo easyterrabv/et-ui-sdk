@@ -46,8 +46,8 @@ export default defineComponent({
     padding-top: 4px;
     padding-bottom: 4px;
     cursor: pointer;
-    font-size: var(--et-sdk-font-size-small);
-    line-height: 16px;
+    font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
     transition: all 150ms ease-in-out;
     background-color: var(--et-sdk-dark-50);
 }

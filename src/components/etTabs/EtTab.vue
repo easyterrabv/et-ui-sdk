@@ -40,12 +40,12 @@ export default defineComponent({
 
 <style>
 .et-sdk-tab {
-    padding-bottom: 5px;
+    padding: 6px 12px;
 
     cursor: pointer;
 
-    font-size: var(--et-sdk-font-size-small);
-    line-height: 16px;
+    font-size: var(--et-sdk-font-size-normal);
+    line-height: 20px;
 }
 
 .et-sdk-tab__active {
