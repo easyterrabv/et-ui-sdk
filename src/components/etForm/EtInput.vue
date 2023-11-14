@@ -371,7 +371,7 @@ export default defineComponent({
 <style>
 .et-sdk-input-wrapper {
     position: relative;
-    width: 320px;
+    min-width: 100px;
     max-width: 100%;
 }
 
