@@ -1,6 +1,6 @@
 <template>
     <a :href="'mailto:' + rawContent" @click.stop="">
-        {{formattedContent}}
+        <slot></slot>
     </a>
 </template>
 

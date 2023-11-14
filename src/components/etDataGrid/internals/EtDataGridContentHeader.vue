@@ -1,6 +1,9 @@
 <template>
     <div class="et-sdk-data-grid--content-header">
         <div class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row">
+            <EtDataGridContentHeaderSelectCell
+                v-if="props.rowInfo.isSelectable"
+            />
             <template v-for="column in columns" :key="column.guid">
                 <EtDataGridContentHeaderCell :column="column" />
             </template>
@@ -10,11 +13,17 @@
 
 <script setup lang="ts">
 import EtDataGridContentHeaderCell from "src/components/etDataGrid/internals/EtDataGridContentHeaderCell.vue";
+import EtDataGridContentHeaderSelectCell from "src/components/etDataGrid/internals/EtDataGridContentHeaderSelectCell.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";
+import type { DataGridRow } from "../interfaces/DataGridRow";
 
 const props = defineProps({
+    rowInfo: {
+        type: Object as PropType<DataGridRow>,
+        required: true
+    },
     columns: {
         type: Array as PropType<DataGridColumn[]>,
         required: true

@@ -1,38 +1,48 @@
 <template>
     <div class="et-sdk-data-grid--content-wrapper">
         <div class="et-sdk-data-grid--content">
-            <template v-for="row in data">
-                <div
-                    class="et-sdk-data-grid--content-row et-sdk-data-grid--row et-sdk-data-grid--content-row__clickable"
-                >
-                    <template v-for="column in columns" :key="column.guid">
-                        <EtDataGridContentCell :column="column" :row="row" />
-                    </template>
-                </div>
-            </template>
+            <EtDataGridContentRow
+                v-for="row in data"
+                :row="row"
+                :rowInfo="rowInfo"
+                :key="row[rowKeyIdentifier]"
+            >
+                <template v-for="column in columns" :key="column.guid">
+                    <EtDataGridContentCell :column="column" :row="row" />
+                </template>
+            </EtDataGridContentRow>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import EtDataGridContentRow from "src/components/etDataGrid/internals/EtDataGridContentRow.vue";
 import EtDataGridContentCell from "src/components/etDataGrid/internals/EtDataGridContentCell.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";
+import { ref } from "vue";
+import type { DataGridRow } from "../interfaces/DataGridRow";
 
 const props = defineProps({
     columns: {
         type: Array as PropType<DataGridColumn[]>,
         required: true
     },
+    rowInfo: {
+        type: Object as PropType<DataGridRow>,
+        required: true
+    },
     data: {
-        type: Array as PropType<object[]>,
+        type: Array as PropType<{ [key: string]: any }>,
         required: false,
         default() {
             return [];
         }
     }
 });
+
+const rowKeyIdentifier = ref(props.rowInfo?.idKey || "guid");
 </script>
 
 <style>
@@ -59,15 +69,5 @@ const props = defineProps({
 
     display: flex;
     flex-direction: column;
-}
-
-.et-sdk-data-grid--content-row {
-    display: flex;
-    flex-direction: row;
-}
-
-.et-sdk-data-grid--content-row__clickable:hover {
-    background-color: var(--et-sdk-dark-100);
-    cursor: pointer;
 }
 </style>

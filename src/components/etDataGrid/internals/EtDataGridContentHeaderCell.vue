@@ -39,5 +39,6 @@ const styling = computed(() => {
     color: var(--et-sdk-dark-400);
     font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-small);
+    text-align: left;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
     <EtDataGrid
+        :rowInfo="rowInfo"
         :columns="columns"
         :data="staticData"
     ></EtDataGrid>
@@ -24,6 +25,10 @@ export default defineComponent({
     },
     data() {
         return {
+            rowInfo: {
+                idKey: 'key',
+                isSelectable: true
+            },
             columns: [
                 {
                     guid: "1",

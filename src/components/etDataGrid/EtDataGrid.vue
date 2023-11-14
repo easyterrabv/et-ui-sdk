@@ -1,8 +1,12 @@
 <template>
     <div class="et-sdk-data-grid--container">
         <EtDataGridContentContainer>
-            <EtDataGridContentHeader :columns="columns" />
-            <EtDataGridContent :columns="columns" :data="data" />
+            <EtDataGridContentHeader :columns="columns" :rowInfo="rowInfo" />
+            <EtDataGridContent
+                :columns="columns"
+                :rowInfo="rowInfo"
+                :data="data"
+            />
         </EtDataGridContentContainer>
     </div>
 </template>
@@ -13,21 +17,44 @@ import EtDataGridContentHeader from "src/components/etDataGrid/internals/EtDataG
 import EtDataGridContent from "src/components/etDataGrid/internals/EtDataGridContent.vue";
 
 import type { DataGridColumn } from "./interfaces/DataGridColumn";
-import type { PropType } from "vue";
+import { type PropType, reactive, watch, provide } from "vue";
+import type { DataGridRow } from "./interfaces/DataGridRow";
+import type { CheckedProvide } from "./interfaces/DataGridMethods";
+import { useChecked } from "./composables/useChecked";
+
+type RowObject = { [key: string]: unknown };
 
 const props = defineProps({
+    rowInfo: {
+        type: Object as PropType<DataGridRow<RowObject>>,
+        required: true
+    },
     columns: {
-        type: Array as PropType<DataGridColumn[]>,
+        type: Array as PropType<DataGridColumn<RowObject>[]>,
         required: true
     },
     data: {
-        type: Array as PropType<object[]>,
+        type: Array as PropType<RowObject[]>,
         required: false,
         default() {
             return [];
         }
     }
 });
+
+const checkedRows = useChecked<RowObject>(props.rowInfo, props.data);
+provide<CheckedProvide<RowObject>>("checkedRows", checkedRows);
+
+watch(
+    () => checkedRows.rows,
+    (rows) => {
+        console.log(rows);
+    },
+    {
+        deep: true,
+        immediate: true
+    }
+);
 </script>
 
 <style>
@@ -62,5 +89,20 @@ const props = defineProps({
 .et-sdk-data-grid--cell {
     padding: 0 6px;
     line-height: 40px;
+}
+
+/* used in different files */
+.et-sdk-data-grid--checkbox-cell {
+    min-width: 15px;
+    width: 15px;
+    max-width: 15px;
+
+    box-sizing: content-box;
+}
+
+/* used in different files */
+.et-sdk-data-grid--checkbox-cell--checkbox {
+    display: inline-block;
+    vertical-align: middle;
 }
 </style>
