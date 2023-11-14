@@ -2,7 +2,7 @@
     <EtDataGrid
         :rowInfo="rowInfo"
         :columns="columns"
-        :data="staticData"
+        :dataGetter="dataGetter"
     ></EtDataGrid>
 </template>
 
@@ -12,6 +12,7 @@ import {defineComponent, markRaw} from "vue";
 import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/DataGridColumn";
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
+import {wait} from "../../src/helpers/async";
 
 type ExampleRow = {
     key: number,
@@ -145,6 +146,13 @@ export default defineComponent({
         handleRowClick(row: ExampleRow) {
             console.log('ROW HAS BEEN CLICKED ON!');
             console.log(row);
+        },
+        async dataGetter() {
+            await wait(1500);
+            return [
+                this.staticData,
+                this.staticData.length
+            ]
         }
     }
 });

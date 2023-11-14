@@ -60,11 +60,6 @@ async function handleClick() {
 </script>
 
 <style>
-.et-sdk-data-grid--content-row {
-    display: flex;
-    flex-direction: row;
-}
-
 .et-sdk-data-grid--content-row__clickable:hover {
     background-color: var(--et-sdk-dark-100);
     cursor: pointer;

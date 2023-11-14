@@ -4,9 +4,16 @@ import type { DataGridRow } from "../interfaces/DataGridRow";
 
 type RowObject = { [key: string]: unknown };
 
+function getRows<T extends RowObject = RowObject>(rows: T[] | (() => T[])) {
+    if (typeof rows === "function") {
+        return rows();
+    }
+    return rows;
+}
+
 export function useChecked<T extends RowObject = RowObject>(
     rowInfo: DataGridRow<T>,
-    rows: T[]
+    tableRows: T[] | (() => T[])
 ) {
     return reactive<CheckedProvide<T>>({
         rows: [],
@@ -47,7 +54,7 @@ export function useChecked<T extends RowObject = RowObject>(
             if (!rowInfo.isSelectable) {
                 return;
             }
-            this.rows = rows;
+            this.rows = getRows(tableRows);
         },
         unSelectAll() {
             this.rows = [];
@@ -58,7 +65,10 @@ export function useChecked<T extends RowObject = RowObject>(
         allSelected() {
             // all means all.
             const selectedRowsCount = (this.rows || []).length;
-            const totalRows = (rows || []).length;
+            const totalRows = (getRows(tableRows) || []).length;
+            if (totalRows === 0) {
+                return false;
+            }
             return selectedRowsCount >= totalRows;
         },
         anySelected() {
@@ -67,7 +77,7 @@ export function useChecked<T extends RowObject = RowObject>(
             return selectedRowsCount > 0;
         },
         someSelected() {
-            // SOME !== all. so only return true if there is atleast one selected but not all
+            // SOME !== all. so only return true if there is at least one selected but not all
             if (this.allSelected()) {
                 return false;
             }

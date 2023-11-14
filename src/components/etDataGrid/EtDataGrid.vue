@@ -5,7 +5,7 @@
             <EtDataGridContent
                 :columns="columns"
                 :rowInfo="rowInfo"
-                :data="data"
+                :data="rows"
             />
         </EtDataGridContentContainer>
     </div>
@@ -17,10 +17,12 @@ import EtDataGridContentHeader from "src/components/etDataGrid/internals/EtDataG
 import EtDataGridContent from "src/components/etDataGrid/internals/EtDataGridContent.vue";
 
 import type { DataGridColumn } from "./interfaces/DataGridColumn";
-import { type PropType, reactive, watch, provide } from "vue";
+import { type PropType, watch, provide, ref, type Ref } from "vue";
 import type { DataGridRow } from "./interfaces/DataGridRow";
 import type { CheckedProvide } from "./interfaces/DataGridMethods";
 import { useChecked } from "./composables/useChecked";
+
+import { Debounce } from "../../helpers/debounce";
 
 type RowObject = { [key: string]: unknown };
 
@@ -35,15 +37,47 @@ const props = defineProps({
     },
     data: {
         type: Array as PropType<RowObject[]>,
-        required: false,
-        default() {
-            return [];
-        }
+        required: false
+    },
+    dataGetter: {
+        type: Function as PropType<() => Promise<[RowObject[], number]>>,
+        required: false
     }
 });
 
-const checkedRows = useChecked<RowObject>(props.rowInfo, props.data);
+const rows = ref<RowObject[]>([]);
+const isLoading = ref<boolean>(false);
+const totalRows = ref<number>(0);
+
+const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
+
+async function __searchData() {
+    if (!props.dataGetter && !props.data) {
+        throw new Error("No Data or DataGetter provided");
+    }
+
+    let resultRows: RowObject[] = [];
+    let resultTotalRows: number = 0;
+
+    if (props.dataGetter) {
+        isLoading.value = true;
+        [resultRows, resultTotalRows] = await props.dataGetter();
+        isLoading.value = false;
+    }
+
+    if (props.data) {
+        resultRows = props.data || [];
+        resultTotalRows = resultRows.length;
+    }
+
+    rows.value = resultRows;
+    totalRows.value = resultTotalRows;
+}
+const searchData = new Debounce(__searchData, 100);
+searchData.debounce();
+
 provide<CheckedProvide<RowObject>>("checkedRows", checkedRows);
+provide<Ref<boolean>>("isLoading", isLoading);
 
 watch(
     () => checkedRows.rows,
@@ -51,8 +85,7 @@ watch(
         console.log(rows);
     },
     {
-        deep: true,
-        immediate: true
+        deep: true
     }
 );
 </script>
@@ -104,5 +137,11 @@ watch(
 .et-sdk-data-grid--checkbox-cell--checkbox {
     display: inline-block;
     vertical-align: middle;
+}
+
+/* used in different files */
+.et-sdk-data-grid--content-row {
+    display: flex;
+    flex-direction: row;
 }
 </style>

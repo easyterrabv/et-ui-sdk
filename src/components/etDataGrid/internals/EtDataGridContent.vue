@@ -1,27 +1,31 @@
 <template>
     <div class="et-sdk-data-grid--content-wrapper">
         <div class="et-sdk-data-grid--content">
-            <EtDataGridContentRow
-                v-for="row in data"
-                :row="row"
-                :rowInfo="rowInfo"
-                :key="row[rowKeyIdentifier]"
-            >
-                <template v-for="column in columns" :key="column.guid">
-                    <EtDataGridContentCell :column="column" :row="row" />
-                </template>
-            </EtDataGridContentRow>
+            <template v-if="!isLoading">
+                <EtDataGridContentRow
+                    v-for="row in data"
+                    :row="row"
+                    :rowInfo="rowInfo"
+                    :key="row[rowKeyIdentifier]"
+                >
+                    <template v-for="column in columns" :key="column.guid">
+                        <EtDataGridContentCell :column="column" :row="row" />
+                    </template>
+                </EtDataGridContentRow>
+            </template>
+            <EtDataGridContentLoadingRow v-else />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import EtDataGridContentRow from "src/components/etDataGrid/internals/EtDataGridContentRow.vue";
+import EtDataGridContentLoadingRow from "src/components/etDataGrid/internals/EtDataGridContentLoadingRow.vue";
 import EtDataGridContentCell from "src/components/etDataGrid/internals/EtDataGridContentCell.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
-import type { PropType } from "vue";
-import { ref } from "vue";
+import type { PropType, Ref } from "vue";
+import { ref, inject } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
 
 const props = defineProps({
@@ -43,6 +47,8 @@ const props = defineProps({
 });
 
 const rowKeyIdentifier = ref(props.rowInfo?.idKey || "guid");
+
+const isLoading = inject<Ref<boolean>>("isLoading");
 </script>
 
 <style>
