@@ -1,5 +1,6 @@
 <template>
     <EtDataGrid
+        ref="table"
         :rowInfo="rowInfo"
         :columns="columns"
         :dataGetter="dataGetter"
@@ -171,6 +172,13 @@ export default defineComponent({
                 this.staticData.length
             ]
         }
+    },
+    async mounted() {
+        await wait(5000);
+        (this.$refs.table as any).setFilters({
+            email: 'j.doe@example.com'
+        });
+
     }
 });
 

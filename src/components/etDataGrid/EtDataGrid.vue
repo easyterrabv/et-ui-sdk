@@ -23,19 +23,18 @@ import { type PropType, watch, provide, ref, type Ref } from "vue";
 import type { DataGridRow } from "./interfaces/DataGridRow";
 import type {
     CheckedProvide,
-    sortDirections,
+    FilterObject,
+    FiltersProvide,
     SortingObject,
     SortingProvide
 } from "./interfaces/DataGridMethods";
 import { useChecked } from "./composables/useChecked";
 import { useSorting } from "./composables/useSorting";
+import { useFilters } from "./composables/useFilters";
 
 import { Debounce } from "../../helpers/debounce";
 
 type RowObject = { [key: string]: unknown };
-type FilterObject = {
-    [key: string]: string | number | boolean | Array<unknown>;
-};
 
 const props = defineProps({
     rowInfo: {
@@ -71,9 +70,9 @@ const isLoading = ref<boolean>(false);
 const totalRows = ref<number>(0);
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
-
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
+const filters = useFilters<RowObject>(props.columns);
 
 let dataRequest: CancelablePromise<[RowObject[], number]>;
 
@@ -91,7 +90,9 @@ async function __searchData() {
         isLoading.value = true;
 
         dataRequest?.cancel();
-        dataRequest = cancelable(props.dataGetter({}, sorting.sorting || {}));
+        dataRequest = cancelable(
+            props.dataGetter(filters.filters || {}, sorting.sorting || {})
+        );
 
         [resultRows, resultTotalRows] = await dataRequest;
         isLoading.value = false;
@@ -113,14 +114,19 @@ function searchData() {
 
 provide<CheckedProvide<RowObject>>("checkedRows", checkedRows);
 provide<SortingProvide<RowObject>>("sorting", sorting);
+provide<FiltersProvide>("filters", filters);
 provide<Ref<boolean>>("isLoading", isLoading);
 
 watch(
-    () => sorting.sorting,
+    () => ({
+        sorting: sorting.sorting,
+        filters: filters.filters
+    }),
     () => {
         searchData();
     },
     {
+        deep: true,
         immediate: true
     }
 );
@@ -128,12 +134,19 @@ watch(
 watch(
     () => checkedRows.rows,
     (rows) => {
+        console.log("checked?");
         console.log(rows);
     },
     {
         deep: true
     }
 );
+
+defineExpose({
+    setFilters: function (newFilters: FilterObject) {
+        filters.setFilters(newFilters);
+    }
+});
 </script>
 
 <style>

@@ -1,4 +1,5 @@
 import type { Raw } from "@vue/reactivity";
+import type { FilterValue } from "./DataGridMethods";
 
 export type WidthUnit = "px" | "%";
 
@@ -14,6 +15,10 @@ export interface DataGridColumn<T = object> {
         sorting?: {
             field: string; // KeyUnit;
             default?: "ASC" | "DESC";
+        };
+        filter?: {
+            field: string;
+            default?: FilterValue;
         };
     };
     content: {

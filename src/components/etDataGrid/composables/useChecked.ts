@@ -57,6 +57,10 @@ export function useChecked<T extends RowObject = RowObject>(
             this.rows = getRows(tableRows);
         },
         unSelectAll() {
+            if (this.rows.length <= 0) {
+                // to prevent extra update
+                return;
+            }
             this.rows = [];
         },
         reset() {

@@ -33,3 +33,28 @@ export interface SortingProvide<T = object> {
     isSortable: (column: DataGridColumn<T>) => boolean;
     getSorting: (column: DataGridColumn<T>) => sortDirections;
 }
+
+export type FilterValue =
+    | string
+    | number
+    | boolean
+    | null
+    | undefined
+    | FilterObject[]
+    | FilterObject;
+
+export type FilterObject = {
+    [field: string]: FilterValue;
+};
+
+export interface FiltersProvide {
+    filters: FilterObject;
+
+    setFilters: (filters: FilterObject) => void;
+
+    setFilter: (field: string, value: FilterValue) => void;
+    getFilter: (field: string) => FilterValue;
+
+    clearFilters: () => void;
+    reset: () => void;
+}
