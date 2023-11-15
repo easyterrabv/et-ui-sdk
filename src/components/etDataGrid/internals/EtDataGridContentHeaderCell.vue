@@ -40,7 +40,7 @@ import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";
 import { computed, ref, inject } from "vue";
 import { getCellStyling } from "../services/DataGridCellHelpers";
-import { type SortingProvide } from "../interfaces/DataGridMethods";
+import type { SortingProvide } from "../interfaces/DataGridMethods";
 
 import EtIconSort from "src/components/etIcon/EtIconSort.vue";
 import EtIconSortUp from "src/components/etIcon/EtIconSortUp.vue";
@@ -54,7 +54,7 @@ const props = defineProps({
 });
 
 const customComponent = ref<object | undefined>(props.column.header?.component);
-const sorting = inject<SortingProvide<{ [key: string]: unknown }>>("sorting");
+const sorting = inject<SortingProvide>("sorting");
 
 function handleClick() {
     sorting?.toggleSorting(props.column);

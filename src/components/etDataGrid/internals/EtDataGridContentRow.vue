@@ -21,6 +21,7 @@ import { type DataGridRow } from "../interfaces/DataGridRow";
 
 import EtDataGridContentSelectCell from "src/components/etDataGrid/internals/EtDataGridContentSelectCell.vue";
 import type { CheckedProvide } from "../interfaces/DataGridMethods";
+import type { RowObject } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
     rowInfo: {
@@ -28,13 +29,12 @@ const props = defineProps({
         required: true
     },
     row: {
-        type: Object as PropType<{ [key: string]: unknown }>,
+        type: Object as PropType<RowObject>,
         required: true
     }
 });
 
-const checkedRows =
-    inject<CheckedProvide<{ [key: string]: unknown }>>("checkedRows");
+const checkedRows = inject<CheckedProvide>("checkedRows");
 
 const isRowChecked = computed(() => {
     if (!props.rowInfo.isSelectable) {

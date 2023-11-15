@@ -27,6 +27,7 @@ import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType, Ref } from "vue";
 import { ref, inject } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
+import type { RowObject } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
     columns: {
@@ -38,7 +39,7 @@ const props = defineProps({
         required: true
     },
     data: {
-        type: Array as PropType<{ [key: string]: any }>,
+        type: Array as PropType<RowObject[]>,
         required: false,
         default() {
             return [];

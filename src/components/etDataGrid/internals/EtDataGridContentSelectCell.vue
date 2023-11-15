@@ -16,15 +16,14 @@
 <script lang="ts" setup>
 import EtCheckbox from "src/components/etForm/EtCheckbox.vue";
 import { type PropType, inject } from "vue";
-import { type CheckedProvide } from "../interfaces/DataGridMethods";
+import type { CheckedProvide, RowObject } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
     row: {
-        type: Object as PropType<{ [key: string]: unknown }>,
+        type: Object as PropType<RowObject>,
         required: true
     }
 });
 
-const checkedRows =
-    inject<CheckedProvide<{ [key: string]: unknown }>>("checkedRows");
+const checkedRows = inject<CheckedProvide>("checkedRows");
 </script>

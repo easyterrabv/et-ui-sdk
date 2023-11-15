@@ -1,6 +1,8 @@
 import type { DataGridColumn } from "./DataGridColumn";
 
-export interface CheckedProvide<T = object> {
+export type RowObject = { [key: string]: unknown };
+
+export interface CheckedProvide<T extends RowObject = RowObject> {
     rows: T[];
 
     select: (row: T) => void;
@@ -21,7 +23,7 @@ export interface CheckedProvide<T = object> {
 export type SortingObject = { [key: string]: sortDirections };
 export type sortDirections = "ASC" | "DESC" | null;
 
-export interface SortingProvide<T = object> {
+export interface SortingProvide<T extends RowObject = RowObject> {
     isMultiSorting: boolean;
     sorting: SortingObject;
     getField: (column: DataGridColumn<T>) => string | null;

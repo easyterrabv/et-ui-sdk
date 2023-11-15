@@ -25,6 +25,7 @@ import type {
     CheckedProvide,
     FilterObject,
     FiltersProvide,
+    RowObject,
     SortingObject,
     SortingProvide
 } from "./interfaces/DataGridMethods";
@@ -34,15 +35,13 @@ import { useFilters } from "./composables/useFilters";
 
 import { Debounce } from "../../helpers/debounce";
 
-type RowObject = { [key: string]: unknown };
-
 const props = defineProps({
     rowInfo: {
-        type: Object as PropType<DataGridRow<RowObject>>,
+        type: Object as PropType<DataGridRow>,
         required: true
     },
     columns: {
-        type: Array as PropType<DataGridColumn<RowObject>[]>,
+        type: Array as PropType<DataGridColumn[]>,
         required: true
     },
     data: {
@@ -64,6 +63,10 @@ const props = defineProps({
         default: false
     }
 });
+
+const emit = defineEmits<{
+    (e: "checked", rows: RowObject[]): void;
+}>();
 
 const rows = ref<RowObject[]>([]);
 const isLoading = ref<boolean>(false);
@@ -112,8 +115,8 @@ function searchData() {
     searchDataDebounce.debounce();
 }
 
-provide<CheckedProvide<RowObject>>("checkedRows", checkedRows);
-provide<SortingProvide<RowObject>>("sorting", sorting);
+provide<CheckedProvide>("checkedRows", checkedRows);
+provide<SortingProvide>("sorting", sorting);
 provide<FiltersProvide>("filters", filters);
 provide<Ref<boolean>>("isLoading", isLoading);
 
@@ -133,9 +136,8 @@ watch(
 
 watch(
     () => checkedRows.rows,
-    (rows) => {
-        console.log("checked?");
-        console.log(rows);
+    (rows: RowObject[]) => {
+        emit("checked", rows);
     },
     {
         deep: true

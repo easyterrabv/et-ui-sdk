@@ -17,8 +17,6 @@
 <script lang="ts" setup>
 import EtCheckbox from "src/components/etForm/EtCheckbox.vue";
 import { inject } from "vue";
-import { type CheckedProvide } from "../interfaces/DataGridMethods";
-
-const checkedRows =
-    inject<CheckedProvide<{ [key: string]: unknown }>>("checkedRows");
+import type { CheckedProvide } from "../interfaces/DataGridMethods";
+const checkedRows = inject<CheckedProvide>("checkedRows");
 </script>

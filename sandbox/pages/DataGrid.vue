@@ -4,6 +4,7 @@
         :rowInfo="rowInfo"
         :columns="columns"
         :dataGetter="dataGetter"
+        @checked="onRowsChecked"
     ></EtDataGrid>
 </template>
 
@@ -171,7 +172,10 @@ export default defineComponent({
                 this.staticData,
                 this.staticData.length
             ]
-        }
+        },
+        onRowsChecked(rows: ExampleRow) {
+            console.log(rows);
+        },
     },
     async mounted() {
         await wait(5000);

@@ -5,8 +5,7 @@ import type {
     FilterValue
 } from "../interfaces/DataGridMethods";
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
-
-type RowObject = { [key: string]: unknown };
+import type { RowObject } from "../interfaces/DataGridMethods";
 
 export function useFilters<T extends RowObject = RowObject>(
     columns: DataGridColumn<T>[]

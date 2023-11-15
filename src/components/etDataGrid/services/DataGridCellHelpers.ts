@@ -1,6 +1,9 @@
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
+import type { RowObject } from "../interfaces/DataGridMethods";
 
-export function getCellStyling(column: DataGridColumn): {
+export function getCellStyling<T extends RowObject = RowObject>(
+    column: DataGridColumn<T>
+): {
     [key: string]: string;
 } {
     const styles: { [key: string]: string } = {};
@@ -16,7 +19,7 @@ export function getCellStyling(column: DataGridColumn): {
     return styles;
 }
 
-export async function getCellFormattedContent<T = object>(
+export async function getCellFormattedContent<T extends RowObject = RowObject>(
     rawContent: unknown,
     column: DataGridColumn<T>,
     row: T
@@ -27,5 +30,5 @@ export async function getCellFormattedContent<T = object>(
         return rawContent as string;
     }
 
-    return await formatter<T>(rawContent, row);
+    return await formatter(rawContent, row);
 }
