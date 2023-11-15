@@ -1,5 +1,8 @@
 <template>
-    <div v-if="pagination" class="et-sdk-data-grid-pagination">
+    <div
+        v-if="pagination && pagination.totalRows > 0"
+        class="et-sdk-data-grid-pagination"
+    >
         {{ start }} - {{ end }} of {{ pagination.totalRows }}
         <span
             class="et-sdk-data-grid-pagination--button"
