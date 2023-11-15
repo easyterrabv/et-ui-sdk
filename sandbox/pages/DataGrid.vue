@@ -159,7 +159,9 @@ export default defineComponent({
         },
         async dataGetter(
             filters: { [key: string]: string | number | boolean | Array<unknown> },
-            sorting: SortingObject
+            sorting: SortingObject,
+            page: number,
+            perPage: number
         ) {
 
             console.log({
@@ -167,9 +169,12 @@ export default defineComponent({
                 sorting
             });
 
+            const start = (page - 1) * perPage;
+            const end = start + perPage;
+
             await wait(1500);
             return [
-                this.staticData,
+                this.staticData.slice(start, end),
                 this.staticData.length
             ]
         },

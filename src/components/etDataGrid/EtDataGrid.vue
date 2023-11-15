@@ -25,6 +25,7 @@ import type {
     CheckedProvide,
     FilterObject,
     FiltersProvide,
+    PaginationProvide,
     RowObject,
     SortingObject,
     SortingProvide
@@ -32,6 +33,7 @@ import type {
 import { useChecked } from "./composables/useChecked";
 import { useSorting } from "./composables/useSorting";
 import { useFilters } from "./composables/useFilters";
+import { usePagination } from "./composables/usePagination";
 
 import { Debounce } from "../../helpers/debounce";
 
@@ -52,7 +54,9 @@ const props = defineProps({
         type: Function as PropType<
             (
                 filters: FilterObject,
-                sorting: SortingObject
+                sorting: SortingObject,
+                page: number,
+                perPage: number
             ) => Promise<[RowObject[], number]>
         >,
         required: false
@@ -70,12 +74,12 @@ const emit = defineEmits<{
 
 const rows = ref<RowObject[]>([]);
 const isLoading = ref<boolean>(false);
-const totalRows = ref<number>(0);
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
 const filters = useFilters<RowObject>(props.columns);
+const pagination = usePagination();
 
 let dataRequest: CancelablePromise<[RowObject[], number]>;
 
@@ -94,10 +98,15 @@ async function __searchData() {
 
         dataRequest?.cancel();
         dataRequest = cancelable(
-            props.dataGetter(filters.filters || {}, sorting.sorting || {})
+            props.dataGetter(
+                filters.filters || {},
+                sorting.sorting || {},
+                pagination.page || 1,
+                pagination.perPage || 50
+            )
         );
 
-        [resultRows, resultTotalRows] = await dataRequest;
+        [resultRows, pagination.totalRows] = await dataRequest;
         isLoading.value = false;
     }
 
@@ -107,7 +116,6 @@ async function __searchData() {
     }
 
     rows.value = resultRows;
-    totalRows.value = resultTotalRows;
 }
 const searchDataDebounce = new Debounce(__searchData, 100);
 
@@ -118,12 +126,15 @@ function searchData() {
 provide<CheckedProvide>("checkedRows", checkedRows);
 provide<SortingProvide>("sorting", sorting);
 provide<FiltersProvide>("filters", filters);
+provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
 
 watch(
     () => ({
         sorting: sorting.sorting,
-        filters: filters.filters
+        filters: filters.filters,
+        page: pagination.page,
+        perPage: pagination.perPage
     }),
     () => {
         searchData();

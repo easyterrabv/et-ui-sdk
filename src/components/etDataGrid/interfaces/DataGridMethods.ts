@@ -60,3 +60,10 @@ export interface FiltersProvide {
     clearFilters: () => void;
     reset: () => void;
 }
+
+export interface PaginationProvide {
+    page: number;
+    perPage: number;
+
+    totalRows: number;
+}
