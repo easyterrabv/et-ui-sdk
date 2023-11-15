@@ -4,7 +4,13 @@
             class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-functionality"
         >
             <div class="et-sdk-data-grid--content-header-functionality__left">
-                <!--No content here for now -->
+                <span
+                    class="et-sdk-data-grid-icon-button"
+                    v-if="searchData"
+                    @click="() => searchData?.()"
+                >
+                    <EtIconArrowRotateRight />
+                </span>
             </div>
             <div class="et-sdk-data-grid--content-header-functionality__right">
                 <EtDataGridPagination />
@@ -25,10 +31,12 @@
 import EtDataGridContentHeaderCell from "src/components/etDataGrid/internals/EtDataGridContentHeaderCell.vue";
 import EtDataGridContentHeaderSelectCell from "src/components/etDataGrid/internals/EtDataGridContentHeaderSelectCell.vue";
 import EtDataGridPagination from "src/components/etDataGrid/internals/EtDataGridPagination.vue";
+import EtIconArrowRotateRight from "src/components/etIcon/EtIconArrowRotateRight.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
+import { inject } from "vue";
 
 const props = defineProps({
     rowInfo: {
@@ -40,6 +48,8 @@ const props = defineProps({
         required: true
     }
 });
+
+const searchData = inject<() => void>("searchData");
 </script>
 
 <style>

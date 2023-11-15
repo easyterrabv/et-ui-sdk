@@ -128,6 +128,7 @@ provide<SortingProvide>("sorting", sorting);
 provide<FiltersProvide>("filters", filters);
 provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
+provide<() => void>("searchData", searchData);
 
 watch(
     () => ({
@@ -215,5 +216,42 @@ defineExpose({
 .et-sdk-data-grid--content-row {
     display: flex;
     flex-direction: row;
+}
+
+/* used in different files */
+.et-sdk-data-grid-icon-button {
+    color: var(--et-sdk-dark-400);
+    font-weight: var(--et-sdk-font-weight-semibold);
+    font-size: var(--et-sdk-font-size-small);
+
+    padding: 8px;
+    margin-left: 2px;
+    margin-right: 2px;
+
+    border-radius: 9999px;
+    cursor: pointer;
+}
+
+/* used in different files */
+.et-sdk-data-grid-icon-button:not(
+        .et-sdk-data-grid-icon-button__disabled
+    ):hover {
+    background-color: var(--et-sdk-dark-100);
+}
+
+/* used in different files */
+.et-sdk-data-grid-icon-button:first-child {
+    margin-left: 0;
+}
+
+/* used in different files */
+.et-sdk-data-grid-icon-button:last-child {
+    margin-right: 0;
+}
+
+/* used in different files */
+.et-sdk-data-grid-icon-button__disabled {
+    cursor: not-allowed;
+    color: var(--et-sdk-dark-300);
 }
 </style>

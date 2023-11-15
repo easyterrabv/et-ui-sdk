@@ -5,18 +5,18 @@
     >
         {{ start }} - {{ end }} of {{ pagination.totalRows }}
         <span
-            class="et-sdk-data-grid-pagination--button"
+            class="et-sdk-data-grid-icon-button"
             :class="{
-                'et-sdk-data-grid-pagination--button__disabled': !hasPrevious
+                'et-sdk-data-grid-icon-button__disabled': !hasPrevious
             }"
             @click="() => previousPage()"
         >
             <EtIconChevronLeft />
         </span>
         <span
-            class="et-sdk-data-grid-pagination--button"
+            class="et-sdk-data-grid-icon-button"
             :class="{
-                'et-sdk-data-grid-pagination--button__disabled': !hasNext
+                'et-sdk-data-grid-icon-button__disabled': !hasNext
             }"
             @click="() => nextPage()"
         >
@@ -89,29 +89,5 @@ function nextPage() {
     color: var(--et-sdk-dark-400);
     font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-small);
-}
-
-.et-sdk-data-grid-pagination--button {
-    padding: 8px;
-    margin-left: 2px;
-    margin-right: 2px;
-
-    border-radius: 9999px;
-    cursor: pointer;
-}
-
-.et-sdk-data-grid-pagination--button:not(
-        .et-sdk-data-grid-pagination--button__disabled
-    ):hover {
-    background-color: var(--et-sdk-dark-100);
-}
-
-.et-sdk-data-grid-pagination--button:last-child {
-    margin-right: 0;
-}
-
-.et-sdk-data-grid-pagination--button__disabled {
-    cursor: not-allowed;
-    color: var(--et-sdk-dark-300);
 }
 </style>
