@@ -39,6 +39,7 @@
     "@tiptap/starter-kit": "^2.0.4",
     "@tiptap/vue-3": "^2.0.4",
     "@vue/tsconfig": "^0.4.0",
+    "cancelable-promise": "^4.3.1",
     "dateformat": "^5.0.3",
     "vue-tsc": "^1.8.5"
   },

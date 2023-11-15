@@ -12,6 +12,8 @@
 </template>
 
 <script setup lang="ts">
+import { cancelable, type CancelablePromise } from "cancelable-promise";
+
 import EtDataGridContentContainer from "src/components/etDataGrid/internals/EtDataGridContentContainer.vue";
 import EtDataGridContentHeader from "src/components/etDataGrid/internals/EtDataGridContentHeader.vue";
 import EtDataGridContent from "src/components/etDataGrid/internals/EtDataGridContent.vue";
@@ -73,6 +75,8 @@ const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
 
+let dataRequest: CancelablePromise<[RowObject[], number]>;
+
 async function __searchData() {
     if (!props.dataGetter && !props.data) {
         throw new Error("No Data or DataGetter provided");
@@ -85,10 +89,11 @@ async function __searchData() {
 
     if (props.dataGetter) {
         isLoading.value = true;
-        [resultRows, resultTotalRows] = await props.dataGetter(
-            {},
-            sorting.sorting || {}
-        );
+
+        dataRequest?.cancel();
+        dataRequest = cancelable(props.dataGetter({}, sorting.sorting || {}));
+
+        [resultRows, resultTotalRows] = await dataRequest;
         isLoading.value = false;
     }
 
