@@ -11,6 +11,10 @@ export interface DataGridColumn<T = object> {
     header?: {
         label: string;
         component?: Raw<object>;
+        sorting?: {
+            field: string; // KeyUnit;
+            default?: "ASC" | "DESC";
+        };
     };
     content: {
         key: string; // KeyUnit;

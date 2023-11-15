@@ -19,12 +19,21 @@ import EtDataGridContent from "src/components/etDataGrid/internals/EtDataGridCon
 import type { DataGridColumn } from "./interfaces/DataGridColumn";
 import { type PropType, watch, provide, ref, type Ref } from "vue";
 import type { DataGridRow } from "./interfaces/DataGridRow";
-import type { CheckedProvide } from "./interfaces/DataGridMethods";
+import type {
+    CheckedProvide,
+    sortDirections,
+    SortingObject,
+    SortingProvide
+} from "./interfaces/DataGridMethods";
 import { useChecked } from "./composables/useChecked";
+import { useSorting } from "./composables/useSorting";
 
 import { Debounce } from "../../helpers/debounce";
 
 type RowObject = { [key: string]: unknown };
+type FilterObject = {
+    [key: string]: string | number | boolean | Array<unknown>;
+};
 
 const props = defineProps({
     rowInfo: {
@@ -40,8 +49,18 @@ const props = defineProps({
         required: false
     },
     dataGetter: {
-        type: Function as PropType<() => Promise<[RowObject[], number]>>,
+        type: Function as PropType<
+            (
+                filters: FilterObject,
+                sorting: SortingObject
+            ) => Promise<[RowObject[], number]>
+        >,
         required: false
+    },
+    isMultiSorting: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 
@@ -51,17 +70,25 @@ const totalRows = ref<number>(0);
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 
+const sorting = useSorting<RowObject>(props.isMultiSorting);
+sorting.reset(props.columns);
+
 async function __searchData() {
     if (!props.dataGetter && !props.data) {
         throw new Error("No Data or DataGetter provided");
     }
+
+    checkedRows.reset();
 
     let resultRows: RowObject[] = [];
     let resultTotalRows: number = 0;
 
     if (props.dataGetter) {
         isLoading.value = true;
-        [resultRows, resultTotalRows] = await props.dataGetter();
+        [resultRows, resultTotalRows] = await props.dataGetter(
+            {},
+            sorting.sorting || {}
+        );
         isLoading.value = false;
     }
 
@@ -73,11 +100,25 @@ async function __searchData() {
     rows.value = resultRows;
     totalRows.value = resultTotalRows;
 }
-const searchData = new Debounce(__searchData, 100);
-searchData.debounce();
+const searchDataDebounce = new Debounce(__searchData, 100);
+
+function searchData() {
+    searchDataDebounce.debounce();
+}
 
 provide<CheckedProvide<RowObject>>("checkedRows", checkedRows);
+provide<SortingProvide<RowObject>>("sorting", sorting);
 provide<Ref<boolean>>("isLoading", isLoading);
+
+watch(
+    () => sorting.sorting,
+    () => {
+        searchData();
+    },
+    {
+        immediate: true
+    }
+);
 
 watch(
     () => checkedRows.rows,

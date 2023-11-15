@@ -1,9 +1,30 @@
 <template>
     <div
         class="et-sdk-data-grid--content-header--cell et-sdk-data-grid--cell"
+        :class="{
+            'et-sdk-data-grid--content-header--cell__sortable':
+                sorting?.isSortable(column)
+        }"
+        @click="() => handleClick()"
         :style="styling"
     >
         <template v-if="column.header">
+            <span
+                v-if="sorting && sorting.isSortable(column)"
+                class="et-sdk-data-grid--content-header--sorting"
+            >
+                <EtIconSort
+                    class="et-sdk-data-grid--content-header--sorting__icon"
+                ></EtIconSort>
+                <EtIconSortUp
+                    class="et-sdk-data-grid--content-header--sorting__direction-icon"
+                    v-if="sorting.getSorting(column) === 'ASC'"
+                ></EtIconSortUp>
+                <EtIconSortDown
+                    class="et-sdk-data-grid--content-header--sorting__direction-icon"
+                    v-else-if="sorting.getSorting(column) === 'DESC'"
+                ></EtIconSortDown>
+            </span>
             <template v-if="!customComponent">
                 {{ column.header.label }}
             </template>
@@ -17,8 +38,13 @@
 <script setup lang="ts">
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";
-import { computed, ref } from "vue";
+import { computed, ref, inject } from "vue";
 import { getCellStyling } from "../services/DataGridCellHelpers";
+import { type SortingProvide } from "../interfaces/DataGridMethods";
+
+import EtIconSort from "src/components/etIcon/EtIconSort.vue";
+import EtIconSortUp from "src/components/etIcon/EtIconSortUp.vue";
+import EtIconSortDown from "src/components/etIcon/EtIconSortDown.vue";
 
 const props = defineProps({
     column: {
@@ -28,6 +54,11 @@ const props = defineProps({
 });
 
 const customComponent = ref<object | undefined>(props.column.header?.component);
+const sorting = inject<SortingProvide<{ [key: string]: unknown }>>("sorting");
+
+function handleClick() {
+    sorting?.toggleSorting(props.column);
+}
 
 const styling = computed(() => {
     return getCellStyling(props.column);
@@ -40,5 +71,24 @@ const styling = computed(() => {
     font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-small);
     text-align: left;
+}
+
+.et-sdk-data-grid--content-header--cell__sortable {
+    cursor: pointer;
+}
+
+.et-sdk-data-grid--content-header--sorting {
+    position: relative;
+}
+
+.et-sdk-data-grid--content-header--sorting__icon {
+    color: var(--et-sdk-dark-200);
+}
+
+.et-sdk-data-grid--content-header--sorting__direction-icon {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    color: var(--et-sdk-dark-400);
 }
 </style>

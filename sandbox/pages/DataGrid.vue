@@ -13,6 +13,7 @@ import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/Da
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
 import {wait} from "../../src/helpers/async";
+import type {SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 
 type ExampleRow = {
     key: number,
@@ -46,7 +47,10 @@ export default defineComponent({
                     guid: "2",
                     width: "300px",
                     header: {
-                        label: "Name"
+                        label: "Name",
+                        sorting: {
+                            field: 'name'
+                        }
                     },
                     content: {
                         key: "name",
@@ -59,7 +63,11 @@ export default defineComponent({
                     guid: "3",
                     width: "grow",
                     header: {
-                        label: "Email"
+                        label: "Email",
+                        sorting: {
+                            field: 'email',
+                            default: 'ASC'
+                        }
                     },
                     content: {
                         key: "email",
@@ -147,7 +155,16 @@ export default defineComponent({
             console.log('ROW HAS BEEN CLICKED ON!');
             console.log(row);
         },
-        async dataGetter() {
+        async dataGetter(
+            filters: { [key: string]: string | number | boolean | Array<unknown> },
+            sorting: SortingObject
+        ) {
+
+            console.log({
+                filters,
+                sorting
+            });
+
             await wait(1500);
             return [
                 this.staticData,
