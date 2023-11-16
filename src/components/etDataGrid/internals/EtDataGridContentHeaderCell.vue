@@ -1,10 +1,13 @@
 <template>
     <div
         class="et-sdk-data-grid--content-header--cell et-sdk-data-grid--cell"
-        :class="{
-            'et-sdk-data-grid--content-header--cell__sortable':
-                sorting?.isSortable(column)
-        }"
+        :class="[
+            column.header?.class,
+            {
+                'et-sdk-data-grid--content-header--cell__sortable':
+                    sorting?.isSortable(column)
+            }
+        ]"
         @click="() => handleClick()"
         :style="styling"
     >

@@ -1,6 +1,7 @@
 <template>
     <div
         class="et-sdk-data-grid--content--cell et-sdk-data-grid--cell"
+        :class="[column.content?.class]"
         :style="styling"
     >
         <template v-if="!customComponent">

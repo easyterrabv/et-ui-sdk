@@ -12,6 +12,7 @@ export interface DataGridColumn<T extends RowObject = RowObject> {
     header?: {
         label: string;
         component?: Raw<object>;
+        class?: string;
         sorting?: {
             field: string; // KeyUnit;
             default?: "ASC" | "DESC";
@@ -25,5 +26,6 @@ export interface DataGridColumn<T extends RowObject = RowObject> {
         key: string; // KeyUnit;
         formatter?: (data: unknown, row: T) => Promise<string>;
         component?: Raw<object>;
+        class?: string;
     };
 }

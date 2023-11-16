@@ -248,6 +248,10 @@ defineExpose({
 .et-sdk-data-grid--cell {
     padding: 0 6px;
     line-height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 500px;
 }
 
 /* used in different files */
