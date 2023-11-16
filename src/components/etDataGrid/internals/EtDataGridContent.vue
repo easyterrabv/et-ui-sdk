@@ -6,7 +6,7 @@
                     v-for="row in data"
                     :row="row"
                     :rowInfo="rowInfo"
-                    :key="row[rowKeyIdentifier] as string"
+                    :key="getContentFromKey(row, rowKeyIdentifier)"
                 >
                     <template v-for="column in columns" :key="column.guid">
                         <EtDataGridContentCell :column="column" :row="row" />
@@ -28,6 +28,7 @@ import type { PropType, Ref } from "vue";
 import { ref, inject } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
 import type { RowObject } from "../interfaces/DataGridMethods";
+import { getContentFromKey } from "../services/DataGridCellHelpers";
 
 const props = defineProps({
     columns: {

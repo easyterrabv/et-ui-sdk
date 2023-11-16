@@ -25,7 +25,8 @@ import type { PropType } from "vue";
 import { ref, computed, watch } from "vue";
 import {
     getCellFormattedContent,
-    getCellStyling
+    getCellStyling,
+    getContentFromKey
 } from "../services/DataGridCellHelpers";
 
 const props = defineProps({
@@ -48,7 +49,7 @@ const styling = computed(() => {
     return getCellStyling(props.column);
 });
 
-const rawContent = ref(props.row[props.column.content.key]);
+const rawContent = ref(getContentFromKey(props.row, props.column.content.key));
 const formattedContent = ref<string>("");
 
 watch(

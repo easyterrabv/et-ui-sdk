@@ -19,6 +19,11 @@ export function getCellStyling<T extends RowObject = RowObject>(
     return styles;
 }
 
+export function getContentFromKey(row: any, key: string | string[]): string {
+    const path: string[] = Array.isArray(key) ? key : key.split(".");
+    return path.reduce((o, k) => (o || {})[k], row);
+}
+
 export async function getCellFormattedContent<T extends RowObject = RowObject>(
     rawContent: unknown,
     column: DataGridColumn<T>,
