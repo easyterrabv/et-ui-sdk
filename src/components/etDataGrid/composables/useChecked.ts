@@ -1,6 +1,7 @@
 import { reactive } from "vue";
 import type { CheckedProvide, RowObject } from "../interfaces/DataGridMethods";
 import type { DataGridRow } from "../interfaces/DataGridRow";
+import { getContentFromKey } from "../services/DataGridCellHelpers";
 
 function getRows<T extends RowObject = RowObject>(rows: T[] | (() => T[])) {
     if (typeof rows === "function") {
@@ -24,17 +25,19 @@ export function useChecked<T extends RowObject = RowObject>(
             this.rows = checkedRows;
         },
         unSelect(needle) {
-            const needleKey = needle[rowInfo.idKey || "guid"];
+            const key = rowInfo.idKey || "guid";
+            const needleKey = getContentFromKey(needle, key);
             this.rows = (this.rows || []).filter((hay) => {
-                const hayKey = hay[rowInfo.idKey || "guid"];
+                const hayKey = getContentFromKey(hay, key);
                 return needleKey !== hayKey;
             });
         },
         isSelected(needle) {
-            const needleKey = needle[rowInfo.idKey || "guid"];
+            const key = rowInfo.idKey || "guid";
+            const needleKey = getContentFromKey(needle, key);
             return (
                 (this.rows || []).findIndex((hay) => {
-                    const hayKey = hay[rowInfo.idKey || "guid"];
+                    const hayKey = getContentFromKey(hay, key);
                     return needleKey === hayKey;
                 }) > -1
             );
