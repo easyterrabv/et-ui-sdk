@@ -14,9 +14,9 @@
 <script setup lang="ts">
 import { cancelable, type CancelablePromise } from "cancelable-promise";
 
-import EtDataGridContentContainer from "src/components/etDataGrid/internals/EtDataGridContentContainer.vue";
-import EtDataGridContentHeader from "src/components/etDataGrid/internals/EtDataGridContentHeader.vue";
-import EtDataGridContent from "src/components/etDataGrid/internals/EtDataGridContent.vue";
+import EtDataGridContentContainer from "./internals/EtDataGridContentContainer.vue";
+import EtDataGridContentHeader from "./internals/EtDataGridContentHeader.vue";
+import EtDataGridContent from "./internals/EtDataGridContent.vue";
 
 import type { DataGridColumn } from "./interfaces/DataGridColumn";
 import {

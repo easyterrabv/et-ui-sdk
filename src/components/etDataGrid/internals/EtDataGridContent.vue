@@ -6,7 +6,7 @@
                     v-for="row in data"
                     :row="row"
                     :rowInfo="rowInfo"
-                    :key="row[rowKeyIdentifier]"
+                    :key="row[rowKeyIdentifier] as string"
                 >
                     <template v-for="column in columns" :key="column.guid">
                         <EtDataGridContentCell :column="column" :row="row" />
@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import EtDataGridContentRow from "src/components/etDataGrid/internals/EtDataGridContentRow.vue";
-import EtDataGridContentLoadingRow from "src/components/etDataGrid/internals/EtDataGridContentLoadingRow.vue";
-import EtDataGridContentCell from "src/components/etDataGrid/internals/EtDataGridContentCell.vue";
+import EtDataGridContentRow from "./EtDataGridContentRow.vue";
+import EtDataGridContentLoadingRow from "./EtDataGridContentLoadingRow.vue";
+import EtDataGridContentCell from "./EtDataGridContentCell.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType, Ref } from "vue";

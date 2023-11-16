@@ -42,9 +42,9 @@ import { computed, ref, inject } from "vue";
 import { getCellStyling } from "../services/DataGridCellHelpers";
 import type { SortingProvide } from "../interfaces/DataGridMethods";
 
-import EtIconSort from "src/components/etIcon/EtIconSort.vue";
-import EtIconSortUp from "src/components/etIcon/EtIconSortUp.vue";
-import EtIconSortDown from "src/components/etIcon/EtIconSortDown.vue";
+import EtIconSort from "../../etIcon/EtIconSort.vue";
+import EtIconSortUp from "../../etIcon/EtIconSortUp.vue";
+import EtIconSortDown from "../../etIcon/EtIconSortDown.vue";
 
 const props = defineProps({
     column: {

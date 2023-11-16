@@ -1,8 +1,7 @@
 import { reactive } from "vue";
 import type {
     FilterObject,
-    FiltersProvide,
-    FilterValue
+    FiltersProvide
 } from "../interfaces/DataGridMethods";
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { RowObject } from "../interfaces/DataGridMethods";

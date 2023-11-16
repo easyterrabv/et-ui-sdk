@@ -29,8 +29,8 @@
 import { inject, computed } from "vue";
 import type { PaginationProvide } from "../interfaces/DataGridMethods";
 
-import EtIconChevronLeft from "src/components/etIcon/EtIconChevronLeft.vue";
-import EtIconChevronRight from "src/components/etIcon/EtIconChevronRight.vue";
+import EtIconChevronLeft from "../../etIcon/EtIconChevronLeft.vue";
+import EtIconChevronRight from "../../etIcon/EtIconChevronRight.vue";
 
 const pagination = inject<PaginationProvide>("pagination");
 const defaultPerPage = 50;

@@ -28,10 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import EtDataGridContentHeaderCell from "src/components/etDataGrid/internals/EtDataGridContentHeaderCell.vue";
-import EtDataGridContentHeaderSelectCell from "src/components/etDataGrid/internals/EtDataGridContentHeaderSelectCell.vue";
-import EtDataGridPagination from "src/components/etDataGrid/internals/EtDataGridPagination.vue";
-import EtIconArrowRotateRight from "src/components/etIcon/EtIconArrowRotateRight.vue";
+import EtDataGridContentHeaderCell from "./EtDataGridContentHeaderCell.vue";
+import EtDataGridContentHeaderSelectCell from "./EtDataGridContentHeaderSelectCell.vue";
+import EtDataGridPagination from "./EtDataGridPagination.vue";
+import EtIconArrowRotateRight from "../../etIcon/EtIconArrowRotateRight.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";

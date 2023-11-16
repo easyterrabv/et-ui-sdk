@@ -19,7 +19,7 @@
 import { type PropType, inject, computed } from "vue";
 import { type DataGridRow } from "../interfaces/DataGridRow";
 
-import EtDataGridContentSelectCell from "src/components/etDataGrid/internals/EtDataGridContentSelectCell.vue";
+import EtDataGridContentSelectCell from "./EtDataGridContentSelectCell.vue";
 import type { CheckedProvide } from "../interfaces/DataGridMethods";
 import type { RowObject } from "../interfaces/DataGridMethods";
 
