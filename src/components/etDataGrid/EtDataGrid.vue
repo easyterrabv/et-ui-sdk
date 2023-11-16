@@ -19,7 +19,14 @@ import EtDataGridContentHeader from "src/components/etDataGrid/internals/EtDataG
 import EtDataGridContent from "src/components/etDataGrid/internals/EtDataGridContent.vue";
 
 import type { DataGridColumn } from "./interfaces/DataGridColumn";
-import { type PropType, watch, provide, ref, type Ref } from "vue";
+import {
+    type PropType,
+    watch,
+    provide,
+    ref,
+    type Ref,
+    type UnwrapNestedRefs
+} from "vue";
 import type { DataGridRow } from "./interfaces/DataGridRow";
 import type {
     CheckedProvide,
@@ -36,8 +43,21 @@ import { useFilters } from "./composables/useFilters";
 import { usePagination } from "./composables/usePagination";
 
 import { Debounce } from "../../helpers/debounce";
+import { type IUseUrlData, useUrlData } from "./composables/useUrlData";
+import { useRouter, useRoute } from "vue-router";
+
+interface IDataGridCriteria {
+    sorting: SortingObject;
+    filters: FilterObject;
+    page: number;
+    perPage: number;
+}
 
 const props = defineProps({
+    name: {
+        type: String,
+        required: false
+    },
     rowInfo: {
         type: Object as PropType<DataGridRow>,
         required: true
@@ -80,6 +100,30 @@ const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
 const filters = useFilters<RowObject>(props.columns);
 const pagination = usePagination();
+const route = useRoute();
+const router = useRouter();
+
+let urlData: UnwrapNestedRefs<IUseUrlData<IDataGridCriteria>>;
+if (props.name && route && router) {
+    urlData = useUrlData<IDataGridCriteria>(props.name, route, router);
+
+    const savedUrlData = urlData.getDataFromUrl();
+    if (savedUrlData?.sorting) {
+        sorting.sorting = savedUrlData.sorting;
+    }
+
+    if (savedUrlData?.filters) {
+        filters.filters = savedUrlData.filters;
+    }
+
+    if (savedUrlData?.page) {
+        pagination.page = savedUrlData.page;
+    }
+
+    if (savedUrlData?.perPage) {
+        pagination.perPage = savedUrlData.perPage;
+    }
+}
 
 let dataRequest: CancelablePromise<[RowObject[], number]>;
 
@@ -97,6 +141,7 @@ async function __searchData() {
         isLoading.value = true;
 
         dataRequest?.cancel();
+
         dataRequest = cancelable(
             props.dataGetter(
                 filters.filters || {},
@@ -107,6 +152,14 @@ async function __searchData() {
         );
 
         [resultRows, pagination.totalRows] = await dataRequest;
+        if (urlData) {
+            await urlData.setDataToUrl({
+                sorting: sorting.sorting,
+                filters: filters.filters,
+                page: pagination.page,
+                perPage: pagination.perPage
+            });
+        }
         isLoading.value = false;
     }
 

@@ -1,5 +1,6 @@
 <template>
     <EtDataGrid
+        name="datagridtest"
         ref="table"
         :rowInfo="rowInfo"
         :columns="columns"
