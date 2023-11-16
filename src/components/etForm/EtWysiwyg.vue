@@ -643,7 +643,7 @@ export default defineComponent({
             editable: !this.hasDisabledInput,
             editorProps: {
                 attributes: {
-                    class: "et-sdk-wysiwyg--editor-textarea prose prose-sm"
+                    class: "et-sdk-wysiwyg--editor-textarea prose"
                 }
             },
             extensions: [
