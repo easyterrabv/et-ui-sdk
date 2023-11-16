@@ -59,6 +59,16 @@
                                 Simple Table
                             </EtSideBarItem>
                         </router-link>
+                        <router-link to="/data-grid">
+                            <EtSideBarItem
+                                :isActive="$route.matched.some(({path}) => path === '/data-grid')"
+                                :isCollapsed="scope.isCollapsed">
+                                <template #icon>
+                                    <EtIconTable />
+                                </template>
+                                Data Grid
+                            </EtSideBarItem>
+                        </router-link>
                     </EtSideBarSection>
 
                     <EtSideBarSection :isCollapsed="scope.isCollapsed">
@@ -153,6 +163,7 @@ import EtIconAnglesLeft from "src/components/etIcon/EtIconAnglesLeft.vue";
 import EtIconHouse from "src/components/etIcon/EtIconHouse.vue";
 import EtIconEnvelope from "src/components/etIcon/EtIconEnvelope.vue";
 import EtIconCircleDot from "src/components/etIcon/EtIconCircleDot.vue";
+import EtIconTable from "src/components/etIcon/EtIconTable.vue";
 import EtIconTag from "src/components/etIcon/EtIconTag.vue";
 import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
 import EtIconTurnRight from "src/components/etIcon/EtIconTurnRight.vue";
@@ -185,7 +196,8 @@ export default defineComponent({
         EtIconCircleDot,
         EtIconTag,
         EtIconPlus,
-        EtIconTurnRight
+        EtIconTurnRight,
+        EtIconTable
     }
 });
 </script>

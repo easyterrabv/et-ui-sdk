@@ -3,7 +3,7 @@
         ref="checkbox"
         class="et-sdk-checkbox"
         :class="{
-            'et-sdk-checkbox__checked': checked,
+            'et-sdk-checkbox__checked': internalChecked,
             'et-sdk-checkbox__indeterminate': indeterminate
         }"
         type="checkbox"
@@ -124,7 +124,6 @@ export default defineComponent({
     color: var(--et-sdk-blue-600);
     fill: var(--et-sdk-blue-600);
     text-align: center;
-    line-height: 12px;
     font-size: var(--et-sdk-font-size-extra-large);
     line-height: 28px;
     font-weight: var(--et-sdk-font-weight-bold);
@@ -136,7 +135,7 @@ export default defineComponent({
 .et-sdk-checkbox:before {
     position: absolute;
     left: -2px;
-    top: -1px;
+    top: -8px;
 }
 
 .et-sdk-checkbox__checked:before {
