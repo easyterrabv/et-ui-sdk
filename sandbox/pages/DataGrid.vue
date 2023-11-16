@@ -4,7 +4,7 @@
         ref="table"
         :rowInfo="rowInfo"
         :columns="columns"
-        :dataGetter="dataGetter"
+        :data-getter="dataGetter"
         @checked="onRowsChecked"
     ></EtDataGrid>
 </template>

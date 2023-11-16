@@ -1,6 +1,6 @@
 import type { DataGridColumn } from "./DataGridColumn";
 
-export type RowObject = { [key: string]: unknown };
+export type RowObject<T extends object = { [key: string]: any }> = T;
 
 export interface CheckedProvide<T extends RowObject = RowObject> {
     rows: T[];
