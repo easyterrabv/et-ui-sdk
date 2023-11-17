@@ -33,7 +33,14 @@ export default defineComponent({
             rowInfo: {
                 idKey: 'key',
                 isSelectable: true,
-                onRowClick: this.handleRowClick
+                onRowClick: this.handleRowClick,
+                class: () => {
+                    const random = Math.round(Math.random() * 2);
+                    if(random === 1){
+                        return ["et-sdk-sandbox-row"];
+                    }
+                    return [];
+                }
             },
             columns: [
                 {
@@ -188,8 +195,13 @@ export default defineComponent({
         (this.$refs.table as any).setFilters({
             email: 'j.doe@example.com'
         });
-
     }
 });
 
 </script>
+
+<style>
+.et-sdk-sandbox-row{
+    background-color: var(--et-sdk-warning-100);
+}
+</style>

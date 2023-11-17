@@ -1,10 +1,13 @@
 <template>
     <div
         class="et-sdk-data-grid--content-row et-sdk-data-grid--row"
-        :class="{
-            'et-sdk-data-grid--content-row__clickable': isRowClickable,
-            'et-sdk-data-grid--content-row__checked': isRowChecked
-        }"
+        :class="[
+            {
+                'et-sdk-data-grid--content-row__clickable': isRowClickable,
+                'et-sdk-data-grid--content-row__checked': isRowChecked
+            },
+            ...rowClasses
+        ]"
         @click.stop="() => handleClick()"
     >
         <EtDataGridContentSelectCell
@@ -22,6 +25,7 @@ import { type DataGridRow } from "../interfaces/DataGridRow";
 import EtDataGridContentSelectCell from "./EtDataGridContentSelectCell.vue";
 import type { CheckedProvide } from "../interfaces/DataGridMethods";
 import type { RowObject } from "../interfaces/DataGridMethods";
+import { getRowClass } from "../services/DataGridRowHelpers";
 
 const props = defineProps({
     rowInfo: {
@@ -35,6 +39,7 @@ const props = defineProps({
 });
 
 const checkedRows = inject<CheckedProvide>("checkedRows");
+const rowClasses = getRowClass(props.rowInfo, props.row);
 
 const isRowChecked = computed(() => {
     if (!props.rowInfo.isSelectable) {
