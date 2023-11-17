@@ -74,6 +74,10 @@ const styling = computed(() => {
     font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-small);
     text-align: left;
+
+    line-height: 30px !important;
+    padding-top: 7px !important;
+    padding-bottom: 3px !important;
 }
 
 .et-sdk-data-grid--content-header--cell__sortable {
