@@ -1,6 +1,13 @@
 import type { DataGridColumn } from "./DataGridColumn";
+import type { Raw } from "@vue/reactivity";
 
 export type RowObject<T extends object = { [key: string]: any }> = T;
+
+export interface BulkMethod<T extends RowObject = RowObject> {
+    method: (rows: T[]) => Promise<void>;
+    component?: Raw<object>; // Icon object
+    title?: string;
+}
 
 export interface CheckedProvide<T extends RowObject = RowObject> {
     rows: T[];
@@ -13,7 +20,9 @@ export interface CheckedProvide<T extends RowObject = RowObject> {
     selectAll: () => void;
     unSelectAll: () => void;
     allSelected: () => boolean;
+    // any selected means: At least one, but could also be all of them;
     anySelected: () => boolean;
+    // SOME !== all. so only return true if there is at least one selected but not all
     someSelected: () => boolean;
     toggleAll: () => void;
 

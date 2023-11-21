@@ -4,6 +4,7 @@
         ref="table"
         :rowInfo="rowInfo"
         :columns="columns"
+        :bulk-methods="bulkMethods"
         :data-getter="dataGetter"
         @checked="onRowsChecked"
     ></EtDataGrid>
@@ -16,7 +17,8 @@ import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/Da
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
 import {wait} from "../../src/helpers/async";
-import type {SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import type {BulkMethod, SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
 
 type ExampleRow = {
     key: number,
@@ -85,6 +87,22 @@ export default defineComponent({
                     }
                 },
             ] as DataGridColumn[],
+
+            bulkMethods: [
+                {
+                    method(rows) {
+                        console.log('bulk method rows', rows);
+                    },
+                    title: 'testing bulk methods'
+                },
+                {
+                    method(rows) {
+                        console.log('bulk method rows 2', rows);
+                    },
+                    title: 'testing bulk methods 2',
+                    component: markRaw(EtIconPaperclip)
+                }
+            ]  as BulkMethod[],
 
             staticData: [
                 {key: 1, name: 'John Doe', email: 'j.doe@example.com'},

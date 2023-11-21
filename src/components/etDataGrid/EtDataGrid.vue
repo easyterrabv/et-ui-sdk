@@ -1,7 +1,11 @@
 <template>
     <div class="et-sdk-data-grid--container">
         <EtDataGridContentContainer>
-            <EtDataGridContentHeader :columns="columns" :rowInfo="rowInfo" />
+            <EtDataGridContentHeader
+                :columns="columns"
+                :rowInfo="rowInfo"
+                :bulk-methods="bulkMethods"
+            />
             <EtDataGridContent
                 :columns="columns"
                 :rowInfo="rowInfo"
@@ -29,6 +33,7 @@ import {
 } from "vue";
 import type { DataGridRow } from "./interfaces/DataGridRow";
 import type {
+    BulkMethod,
     CheckedProvide,
     FilterObject,
     FiltersProvide,
@@ -80,6 +85,13 @@ const props = defineProps({
             ) => Promise<[RowObject[], number]>
         >,
         required: false
+    },
+    bulkMethods: {
+        type: Array as PropType<BulkMethod[]>,
+        required: false,
+        default() {
+            return [];
+        }
     },
     isMultiSorting: {
         type: Boolean,

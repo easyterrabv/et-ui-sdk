@@ -4,12 +4,33 @@
             class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-functionality"
         >
             <div class="et-sdk-data-grid--content-header-functionality__left">
+                <EtTooltip>
+                    <span
+                        class="et-sdk-data-grid-icon-button"
+                        v-if="searchData"
+                        @click="() => searchData?.()"
+                    >
+                        <EtIconArrowRotateRight />
+                    </span>
+                    <template #tooltip> Test </template>
+                </EtTooltip>
                 <span
-                    class="et-sdk-data-grid-icon-button"
-                    v-if="searchData"
-                    @click="() => searchData?.()"
+                    class="et-sdk-data-grid--content-header-functionality__left--bulk-methods"
+                    v-if="hasBulkMethods && hasAnyChecked"
                 >
-                    <EtIconArrowRotateRight />
+                    <EtTooltip v-for="bulkMethod in bulkMethods">
+                        <span
+                            class="et-sdk-data-grid-icon-button"
+                            @click="() => handleBulkMethod(bulkMethod)"
+                        >
+                            <component
+                                :is="bulkMethod.component || EtIconSquare"
+                            />
+                        </span>
+                        <template #tooltip v-if="bulkMethod.title">
+                            {{ bulkMethod.title }}
+                        </template>
+                    </EtTooltip>
                 </span>
             </div>
             <div class="et-sdk-data-grid--content-header-functionality__right">
@@ -32,11 +53,15 @@ import EtDataGridContentHeaderCell from "./EtDataGridContentHeaderCell.vue";
 import EtDataGridContentHeaderSelectCell from "./EtDataGridContentHeaderSelectCell.vue";
 import EtDataGridPagination from "./EtDataGridPagination.vue";
 import EtIconArrowRotateRight from "../../etIcon/EtIconArrowRotateRight.vue";
+import EtIconSquare from "../../etIcon/EtIconSquare.vue";
+import EtTooltip from "../../EtToolTip.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
-import { inject } from "vue";
+import { computed, inject } from "vue";
+import type { BulkMethod } from "../interfaces/DataGridMethods";
+import type { CheckedProvide } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
     rowInfo: {
@@ -46,10 +71,43 @@ const props = defineProps({
     columns: {
         type: Array as PropType<DataGridColumn[]>,
         required: true
+    },
+    bulkMethods: {
+        type: Array as PropType<BulkMethod[]>,
+        required: false,
+        default() {
+            return [];
+        }
     }
 });
 
 const searchData = inject<() => void>("searchData");
+const checkedRows = inject<CheckedProvide>("checkedRows");
+
+const hasBulkMethods = computed(() => (props.bulkMethods || []).length > 0);
+const hasAnyChecked = computed(() => checkedRows && checkedRows.anySelected());
+
+async function handleBulkMethod(bulkMethod: BulkMethod) {
+    if (!bulkMethod) {
+        return;
+    }
+
+    if (!hasAnyChecked) {
+        return;
+    }
+
+    const method = bulkMethod.method;
+    if (!method) {
+        return;
+    }
+
+    const rows = checkedRows?.rows || [];
+    if (!rows || rows.length <= 0) {
+        return;
+    }
+
+    await method(rows);
+}
 </script>
 
 <style>
@@ -67,5 +125,11 @@ const searchData = inject<() => void>("searchData");
     border-bottom: none !important;
     justify-content: space-between;
     line-height: 40px;
+}
+
+.et-sdk-data-grid--content-header-functionality__left--bulk-methods {
+    border-left: 1px solid var(--et-sdk-dark-300);
+    margin-left: 8px;
+    padding-left: 8px;
 }
 </style>
