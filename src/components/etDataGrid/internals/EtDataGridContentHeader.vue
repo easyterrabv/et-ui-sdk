@@ -12,7 +12,7 @@
                     >
                         <EtIconArrowRotateRight />
                     </span>
-                    <template #tooltip> Test </template>
+                    <template #tooltip> Reload </template>
                 </EtTooltip>
                 <span
                     class="et-sdk-data-grid--content-header-functionality__left--bulk-methods"
