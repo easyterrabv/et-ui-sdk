@@ -253,7 +253,6 @@ defineExpose({
     width: fit-content;
     padding-left: 20px;
     padding-right: 20px;
-    justify-content: space-between;
 
     border-bottom: 1px solid var(--et-sdk-dark-100);
 }
