@@ -23,12 +23,13 @@
 <script setup lang="ts">
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType } from "vue";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, inject } from "vue";
 import {
     getCellFormattedContent,
     getCellStyling,
     getContentFromKey
 } from "../services/DataGridCellHelpers";
+import type { CellWidthProvide } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
     column: {
@@ -45,9 +46,10 @@ const props = defineProps({
 });
 
 const customComponent = ref<object | undefined>(props.column.content.component);
+const cellWidth = inject<CellWidthProvide>("cellWidth");
 
 const styling = computed(() => {
-    return getCellStyling(props.column);
+    return getCellStyling(props.column, cellWidth);
 });
 
 const rawContent = ref(getContentFromKey(props.row, props.column.content.key));

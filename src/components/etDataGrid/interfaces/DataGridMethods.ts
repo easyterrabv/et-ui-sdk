@@ -76,3 +76,20 @@ export interface PaginationProvide {
 
     totalRows: number;
 }
+
+export interface CellWidthProvide<T extends RowObject = RowObject> {
+    growCells: number;
+    maxGrowCellWidth: number | null;
+
+    calculateGrowCells: (columns: DataGridColumn<T>[]) => void;
+    calculateMaxWidth: (
+        tableWidth: number,
+        columns: DataGridColumn<T>[],
+        isSelectable: boolean
+    ) => void;
+    calculate: (
+        tableWidth: number,
+        columns: DataGridColumn<T>[],
+        isSelectable: boolean
+    ) => void;
+}

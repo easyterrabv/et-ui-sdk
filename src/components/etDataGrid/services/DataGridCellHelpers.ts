@@ -1,8 +1,10 @@
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { RowObject } from "../interfaces/DataGridMethods";
+import type { CellWidthProvide } from "../interfaces/DataGridMethods";
 
 export function getCellStyling<T extends RowObject = RowObject>(
-    column: DataGridColumn<T>
+    column: DataGridColumn<T>,
+    cellWidth?: CellWidthProvide
 ): {
     [key: string]: string;
 } {
@@ -12,6 +14,9 @@ export function getCellStyling<T extends RowObject = RowObject>(
 
     if (width === "grow") {
         styles["flex-grow"] = "1";
+        if (cellWidth) {
+            styles["max-width"] = cellWidth.maxGrowCellWidth + "px";
+        }
     } else if (width) {
         styles.width = width;
     }

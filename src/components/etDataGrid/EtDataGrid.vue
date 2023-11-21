@@ -1,5 +1,5 @@
 <template>
-    <div class="et-sdk-data-grid--container">
+    <div class="et-sdk-data-grid--container" ref="container">
         <EtDataGridContentContainer>
             <EtDataGridContentHeader
                 :columns="columns"
@@ -29,11 +29,14 @@ import {
     provide,
     ref,
     type Ref,
-    type UnwrapNestedRefs
+    type UnwrapNestedRefs,
+    onMounted,
+    onBeforeUnmount
 } from "vue";
 import type { DataGridRow } from "./interfaces/DataGridRow";
 import type {
     BulkMethod,
+    CellWidthProvide,
     CheckedProvide,
     FilterObject,
     FiltersProvide,
@@ -50,6 +53,7 @@ import { usePagination } from "./composables/usePagination";
 import { Debounce } from "../../helpers/debounce";
 import { type IUseUrlData, useUrlData } from "./composables/useUrlData";
 import { useRouter, useRoute } from "vue-router";
+import { useCellWidth } from "./composables/useCellWidth";
 
 interface IDataGridCriteria {
     sorting: SortingObject;
@@ -111,6 +115,7 @@ const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
 const filters = useFilters<RowObject>(props.columns);
+const cellWidth = useCellWidth();
 const pagination = usePagination();
 const route = useRoute();
 const router = useRouter();
@@ -147,7 +152,6 @@ async function __searchData() {
     checkedRows.reset();
 
     let resultRows: RowObject[] = [];
-    let resultTotalRows: number = 0;
 
     if (props.dataGetter) {
         isLoading.value = true;
@@ -177,7 +181,6 @@ async function __searchData() {
 
     if (props.data) {
         resultRows = props.data || [];
-        resultTotalRows = resultRows.length;
     }
 
     rows.value = resultRows;
@@ -194,6 +197,7 @@ provide<FiltersProvide>("filters", filters);
 provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
 provide<() => void>("searchData", searchData);
+provide<CellWidthProvide>("cellWidth", cellWidth);
 
 watch(
     () => ({
@@ -226,6 +230,25 @@ defineExpose({
         filters.setFilters(newFilters);
     },
     searchData
+});
+
+function calculateMaxCellWidth() {
+    const tableWidth = (container.value as any).getBoundingClientRect().width;
+    cellWidth.calculate(
+        tableWidth,
+        props.columns,
+        props.rowInfo.isSelectable || false
+    );
+}
+
+const container = ref(null);
+onMounted(() => {
+    calculateMaxCellWidth();
+    window.addEventListener("resize", calculateMaxCellWidth);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener("resize", calculateMaxCellWidth);
 });
 </script>
 
@@ -264,7 +287,6 @@ defineExpose({
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: 500px;
 }
 
 /* used in different files */
