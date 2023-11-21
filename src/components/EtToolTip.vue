@@ -27,6 +27,11 @@ const props = defineProps({
         type: String as PropType<Placement>,
         required: false,
         default: "bottom"
+    },
+    offset: {
+        type: Number,
+        required: false,
+        default: 10
     }
 });
 
@@ -48,7 +53,15 @@ function hideToolTip() {
 onMounted(() => {
     popperInstance = reactive(
         createPopper(toggle.value as any, content.value as any, {
-            placement: props.direction
+            placement: props.direction,
+            modifiers: [
+                {
+                    name: "offset",
+                    options: {
+                        offset: [0, props.offset]
+                    }
+                }
+            ]
         })
     );
 
