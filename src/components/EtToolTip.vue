@@ -1,46 +1,69 @@
 <template>
     <span class="et-sdk-tooltip-wrapper">
-        <slot></slot>
-        <span
-            class="et-sdk-tooltip-wrapper--tooltip no-wrap"
-            :class="{
-                'et-sdk-tooltip-wrapper--tooltip__bottom':
-                    props.direction === 'bottom',
-                'et-sdk-tooltip-wrapper--tooltip__right':
-                    props.direction === 'right'
-            }"
-        >
-            <slot name="tooltip"></slot>
+        <span class="et-sdk-tooltip--toggle" ref="toggle">
+            <slot></slot>
         </span>
+        <Teleport to="body">
+            <div
+                ref="content"
+                v-show="isVisible"
+                class="et-sdk-tooltip--content et-sdk-tooltip-wrapper--tooltip no-wrap"
+            >
+                <slot name="tooltip"></slot>
+            </div>
+        </Teleport>
     </span>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from "vue";
+import { createPopper } from "@popperjs/core";
+import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
+import type { Placement } from "@popperjs/core/lib/enums";
+import type { Instance } from "@popperjs/core/lib/types";
 
 const props = defineProps({
     direction: {
-        type: String as PropType<"bottom" | "right">,
+        type: String as PropType<Placement>,
         required: false,
         default: "bottom"
     }
 });
+
+const toggle = ref(null);
+const content = ref(null);
+const isVisible = ref(false);
+
+let popperInstance: Instance;
+
+async function showToolTip() {
+    isVisible.value = true;
+    await popperInstance?.update();
+}
+
+function hideToolTip() {
+    isVisible.value = false;
+}
+
+onMounted(() => {
+    popperInstance = reactive(
+        createPopper(toggle.value as any, content.value as any, {
+            placement: props.direction
+        })
+    );
+
+    (toggle.value as any).addEventListener("mouseenter", showToolTip);
+    (toggle.value as any).addEventListener("mouseleave", hideToolTip);
+});
+
+onBeforeUnmount(() => {
+    (toggle.value as any).removeEventListener("mouseenter", showToolTip);
+    (toggle.value as any).removeEventListener("mouseleave", hideToolTip);
+});
 </script>
 
 <style>
-.et-sdk-tooltip-wrapper {
-    position: relative;
-}
-
-.et-sdk-tooltip-wrapper:hover > .et-sdk-tooltip-wrapper--tooltip {
-    display: initial;
-}
-
 .et-sdk-tooltip-wrapper--tooltip {
-    display: none;
-
-    position: absolute;
-
     background-color: var(--et-sdk-dark-600);
     color: var(--et-sdk-dark-50);
     border-radius: 99999px;
@@ -50,41 +73,5 @@ const props = defineProps({
     box-shadow: var(--et-sdk-shadow-normal);
 
     z-index: 1000;
-}
-
-.et-sdk-tooltip-wrapper--tooltip:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-width: 4px;
-    border-style: solid;
-    border-color: transparent transparent var(--et-sdk-dark-600) transparent;
-}
-
-.et-sdk-tooltip-wrapper--tooltip__bottom {
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 6px;
-}
-
-.et-sdk-tooltip-wrapper--tooltip__bottom:after {
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.et-sdk-tooltip-wrapper--tooltip__right {
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
-    margin-left: 6px;
-}
-
-.et-sdk-tooltip-wrapper--tooltip__right:after {
-    right: 100%;
-    transform: translate(1px, 2px);
-    border-color: transparent var(--et-sdk-dark-600) transparent transparent;
 }
 </style>
