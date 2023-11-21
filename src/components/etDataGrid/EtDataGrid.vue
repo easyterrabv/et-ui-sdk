@@ -224,7 +224,8 @@ watch(
 defineExpose({
     setFilters: function (newFilters: FilterObject) {
         filters.setFilters(newFilters);
-    }
+    },
+    searchData
 });
 </script>
 
