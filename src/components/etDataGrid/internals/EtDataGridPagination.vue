@@ -3,7 +3,56 @@
         v-if="pagination && pagination.totalRows > 0"
         class="et-sdk-data-grid-pagination"
     >
-        {{ start }} - {{ end }} of {{ pagination.totalRows }}
+        <EtPopover class="et-sdk-data-grid-pagination--per-page-popover">
+            <template #toggle>
+                <span>
+                    {{ start }} - {{ end }} of {{ pagination.totalRows }}
+                </span>
+            </template>
+            <EtButtonGroup
+                isVertical
+                class="et-sdk-data-grid-pagination--per-page-popover--options"
+            >
+                <EtButtonPrimary :size="UI_SIZING.XS" readonly>
+                    Per Page
+                </EtButtonPrimary>
+                <EtButtonDefault
+                    :active="pagination.perPage === 50"
+                    :size="UI_SIZING.XS"
+                    @click="() => setPerPage(50)"
+                >
+                    50
+                </EtButtonDefault>
+                <EtButtonDefault
+                    :active="pagination.perPage === 100"
+                    :size="UI_SIZING.XS"
+                    @click="() => setPerPage(100)"
+                >
+                    100
+                </EtButtonDefault>
+                <EtButtonDefault
+                    :active="pagination.perPage === 250"
+                    :size="UI_SIZING.XS"
+                    @click="() => setPerPage(250)"
+                >
+                    250
+                </EtButtonDefault>
+                <EtButtonDefault
+                    :active="pagination.perPage === 500"
+                    :size="UI_SIZING.XS"
+                    @click="() => setPerPage(500)"
+                >
+                    500
+                </EtButtonDefault>
+                <EtButtonDefault
+                    :active="pagination.perPage === 1000"
+                    :size="UI_SIZING.XS"
+                    @click="() => setPerPage(1000)"
+                >
+                    1000
+                </EtButtonDefault>
+            </EtButtonGroup>
+        </EtPopover>
         <span
             class="et-sdk-data-grid-icon-button"
             :class="{
@@ -31,6 +80,12 @@ import type { PaginationProvide } from "../interfaces/DataGridMethods";
 
 import EtIconChevronLeft from "../../etIcon/EtIconChevronLeft.vue";
 import EtIconChevronRight from "../../etIcon/EtIconChevronRight.vue";
+
+import EtPopover from "../../EtPopover.vue";
+import EtButtonGroup from "../../etButton/EtButtonGroup.vue";
+import EtButtonDefault from "../../etButton/EtButtonDefault.vue";
+import EtButtonPrimary from "../../etButton/EtButtonPrimary.vue";
+import { UI_SIZING } from "../../../helpers/enums";
 
 const pagination = inject<PaginationProvide>("pagination");
 const defaultPerPage = 50;
@@ -82,6 +137,13 @@ function nextPage() {
     }
     pagination.page++;
 }
+
+function setPerPage(perPage: number) {
+    if (!pagination) {
+        return;
+    }
+    pagination.perPage = perPage;
+}
 </script>
 
 <style>
@@ -89,5 +151,13 @@ function nextPage() {
     color: var(--et-sdk-dark-400);
     font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-small);
+}
+
+.et-sdk-data-grid-pagination--per-page-popover {
+    display: inline-block;
+}
+
+.et-sdk-data-grid-pagination--per-page-popover--options {
+    font-weight: var(--et-sdk-font-weight-normal);
 }
 </style>
