@@ -1,5 +1,5 @@
 <template>
-    <EtIcon icon="envelope" />
+    <EtIcon prefix="far" icon="envelope" />
 </template>
 
 <script setup lang="ts">
