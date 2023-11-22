@@ -32,25 +32,25 @@ export default defineComponent({
 }
 
 .et-sdk-alert__primary {
-    background-color: var(--et-sdk-blue-300);
+    background-color: var(--et-sdk-blue-100);
     color: var(--et-sdk-blue-700);
     border: 1px solid var(--et-sdk-blue-300);
 }
 
 .et-sdk-alert__success {
-    background-color: var(--et-sdk-success-300);
+    background-color: var(--et-sdk-success-100);
     color: var(--et-sdk-success-700);
     border: 1px solid var(--et-sdk-success-300);
 }
 
 .et-sdk-alert__danger {
-    background-color: var(--et-sdk-danger-300);
+    background-color: var(--et-sdk-danger-100);
     color: var(--et-sdk-danger-700);
     border: 1px solid var(--et-sdk-danger-300);
 }
 
 .et-sdk-alert__warning {
-    background-color: var(--et-sdk-warning-300);
+    background-color: var(--et-sdk-warning-100);
     color: var(--et-sdk-warning-700);
     border: 1px solid var(--et-sdk-warning-300);
 }

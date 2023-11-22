@@ -12,6 +12,7 @@
     --et-sdk-dark-800: #1e293b;
     --et-sdk-dark-900: #0f172a;
 
+    --et-sdk-blue-100: #dbeafe;
     --et-sdk-blue-300: #93c5fd;
     --et-sdk-blue-400: #60a5fa;
     --et-sdk-blue-600: #2563eb;
@@ -22,6 +23,7 @@
     --et-sdk-success-500: #10b981;
     --et-sdk-success-700: #047857;
 
+    --et-sdk-danger-50: #FEF2F2;
     --et-sdk-danger-100: #ffe4e6;
     --et-sdk-danger-300: #fda4af;
     --et-sdk-danger-500: #f43f5e;
@@ -39,6 +41,7 @@
 
     --et-sdk-font-size-tiny: 10px;
     --et-sdk-font-size-small: 12px;
+    --et-sdk-font-size-normal-s: 13px;
     --et-sdk-font-size-normal: 14px;
     --et-sdk-font-size-large: 16px;
     --et-sdk-font-size-extra-large: 20px;

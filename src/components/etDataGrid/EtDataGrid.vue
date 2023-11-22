@@ -268,6 +268,7 @@ onBeforeUnmount(() => {
     flex-direction: column;
 
     background-color: var(--et-sdk-light-0);
+    font-size: var(--et-sdk-font-size-normal-s);
 }
 
 /* used in different files */

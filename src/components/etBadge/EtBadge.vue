@@ -48,22 +48,22 @@ export default defineComponent({
 }
 
 .et-sdk-badge__primary {
-    background-color: var(--et-sdk-blue-300);
+    background-color: var(--et-sdk-blue-100);
     color: var(--et-sdk-blue-700);
 }
 
 .et-sdk-badge__success {
-    background-color: var(--et-sdk-success-300);
+    background-color: var(--et-sdk-success-100);
     color: var(--et-sdk-success-700);
 }
 
 .et-sdk-badge__danger {
-    background-color: var(--et-sdk-danger-300);
-    color: var(--et-sdk-danger-700);
+    background-color: var(--et-sdk-danger-100);
+    color: var(--et-sdk-red-600);
 }
 
 .et-sdk-badge__warning {
-    background-color: var(--et-sdk-warning-300);
+    background-color: var(--et-sdk-warning-100);
     color: var(--et-sdk-warning-700);
 }
 
