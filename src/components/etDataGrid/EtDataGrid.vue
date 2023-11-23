@@ -230,7 +230,7 @@ watch(
     }
 );
 
-function patchRow(rowId: typeof props.rowInfo.idKey, data: Partial<RowObject>) {
+function patchRow(rowId: string | number, data: any) {
     const dataValues = Object.entries<any>(data);
 
     (rows.value || []).forEach((row, index) => {
@@ -244,9 +244,9 @@ function patchRow(rowId: typeof props.rowInfo.idKey, data: Partial<RowObject>) {
 }
 
 defineExpose({
-    setFilters: function (newFilters: FilterObject) {
-        filters.setFilters(newFilters);
-    },
+    checked: checkedRows,
+    filters: filters,
+
     patchRow,
     searchData
 });
