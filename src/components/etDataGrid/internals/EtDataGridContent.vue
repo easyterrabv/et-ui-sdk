@@ -6,7 +6,7 @@
                     v-for="row in data"
                     :row="row"
                     :rowInfo="rowInfo"
-                    :key="getContentFromKey(row, rowKeyIdentifier)"
+                    :key="keys[row[rowKeyIdentifier]] || row[rowKeyIdentifier]"
                 >
                     <template v-for="column in columns" :key="column.guid">
                         <EtDataGridContentCell :column="column" :row="row" />
@@ -25,10 +25,11 @@ import EtDataGridContentCell from "./EtDataGridContentCell.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType, Ref } from "vue";
-import { ref, inject } from "vue";
+import { ref, inject, computed } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
 import type { RowObject } from "../interfaces/DataGridMethods";
 import { getContentFromKey } from "../services/DataGridCellHelpers";
+import type { RowVersionProvider } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
     columns: {
@@ -49,6 +50,18 @@ const props = defineProps({
 });
 
 const rowKeyIdentifier = ref(props.rowInfo?.idKey || "guid");
+const rowVersion = inject<RowVersionProvider>("rowVersion");
+
+const keys = computed(() => {
+    const _ks: Record<string, string> = {};
+    (props.data || []).forEach((row) => {
+        const k = getContentFromKey(row, rowKeyIdentifier.value);
+        const version = rowVersion?.versions[k] || 0;
+        _ks[k] = `${k}-v${version}`;
+    });
+
+    return _ks;
+});
 
 const isLoading = inject<Ref<boolean>>("isLoading");
 </script>

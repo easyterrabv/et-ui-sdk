@@ -42,3 +42,29 @@ export async function getCellFormattedContent<T extends RowObject = RowObject>(
 
     return await formatter(rawContent, row);
 }
+
+export function assignToPath<T extends RowObject = RowObject>(
+    obj: T,
+    path: string,
+    value: any
+) {
+    let schema = obj; // a moving reference to internal objects within obj
+    const pList = path.split(".");
+    const len = pList.length;
+    for (let i = 0; i < len - 1; i++) {
+        const elem = pList[i];
+        if (!schema[elem]) {
+            (schema as RowObject)[elem] = {};
+        }
+        schema = schema[elem];
+    }
+
+    const currentValue = schema[pList[len - 1]];
+
+    if (currentValue !== value) {
+        (schema as RowObject)[pList[len - 1]] = value;
+        return [true, currentValue, value];
+    }
+
+    return [false, currentValue, value];
+}

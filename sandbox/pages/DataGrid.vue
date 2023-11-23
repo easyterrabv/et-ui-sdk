@@ -231,9 +231,11 @@ export default defineComponent({
     },
     async mounted() {
         await wait(5000);
-        (this.$refs.table as any).setFilters({
-            email: 'j.doe@example.com'
-        });
+        (this.$refs.table as any).patchRow(1,
+            {
+                name: 'Patched content!'
+            }
+        );
     }
 });
 

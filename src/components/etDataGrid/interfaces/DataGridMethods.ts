@@ -1,7 +1,7 @@
 import type { DataGridColumn } from "./DataGridColumn";
 import type { Raw } from "@vue/reactivity";
 
-export type RowObject<T extends object = { [key: string]: any }> = T;
+export type RowObject = { [key: string]: any };
 
 export interface BulkMethod<T extends RowObject = RowObject> {
     method: (rows: T[]) => Promise<void>;
@@ -92,4 +92,10 @@ export interface CellWidthProvide<T extends RowObject = RowObject> {
         columns: DataGridColumn<T>[],
         isSelectable: boolean
     ) => void;
+}
+
+export interface RowVersionProvider<T extends RowObject = RowObject> {
+    versions: Record<string, number>;
+    reset: (rows: T[]) => void;
+    increment: (row: T) => void;
 }

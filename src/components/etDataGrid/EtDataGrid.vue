@@ -42,6 +42,7 @@ import type {
     FiltersProvide,
     PaginationProvide,
     RowObject,
+    RowVersionProvider,
     SortingObject,
     SortingProvide
 } from "./interfaces/DataGridMethods";
@@ -54,6 +55,8 @@ import { Debounce } from "../../helpers/debounce";
 import { type IUseUrlData, useUrlData } from "./composables/useUrlData";
 import { useRouter, useRoute } from "vue-router";
 import { useCellWidth } from "./composables/useCellWidth";
+import { useRowVersion } from "./composables/useRowVersion";
+import { assignToPath } from "./services/DataGridCellHelpers";
 
 interface IDataGridCriteria {
     sorting: SortingObject;
@@ -117,6 +120,7 @@ sorting.reset(props.columns);
 const filters = useFilters<RowObject>(props.columns);
 const cellWidth = useCellWidth();
 const pagination = usePagination();
+const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");
 const route = useRoute();
 const router = useRouter();
 
@@ -198,6 +202,7 @@ provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
 provide<() => void>("searchData", searchData);
 provide<CellWidthProvide>("cellWidth", cellWidth);
+provide<RowVersionProvider>("rowVersion", rowVersion);
 
 watch(
     () => ({
@@ -225,10 +230,24 @@ watch(
     }
 );
 
+function patchRow(rowId: typeof props.rowInfo.idKey, data: Partial<RowObject>) {
+    const dataValues = Object.entries<any>(data);
+
+    (rows.value || []).forEach((row, index) => {
+        if (row[props.rowInfo.idKey] === rowId) {
+            dataValues.forEach(([key, value]) => {
+                assignToPath(row, key, value);
+            });
+            rowVersion.increment(row);
+        }
+    });
+}
+
 defineExpose({
     setFilters: function (newFilters: FilterObject) {
         filters.setFilters(newFilters);
     },
+    patchRow,
     searchData
 });
 
