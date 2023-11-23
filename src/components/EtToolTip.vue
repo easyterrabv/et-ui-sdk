@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import { createPopper } from "@popperjs/core";
-import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
+import { onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
 import type { Placement } from "@popperjs/core/lib/enums";
 import type { Instance } from "@popperjs/core/lib/types";
 import { wait } from "../helpers/async";
@@ -46,6 +46,11 @@ const props = defineProps({
         type: String,
         required: false,
         default: ""
+    },
+    keepAliveOnContent: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 
@@ -54,6 +59,8 @@ const content = ref(null);
 const isVisible = ref(false);
 const waiter = ref<CancelablePromise | null>(null);
 const isOnElement = ref(false);
+
+let hasKeepAliveEvents = false;
 
 let popperInstance: Instance;
 
@@ -70,11 +77,32 @@ async function showToolTip() {
     }
 }
 
-function hideToolTip() {
+async function hideToolTip() {
     waiter.value?.cancel?.();
     isOnElement.value = false;
+
+    if (props.keepAliveOnContent) {
+        await wait(200);
+        if (isOnElement.value) {
+            return;
+        }
+    }
     isVisible.value = false;
 }
+
+watch(
+    () => props.keepAliveOnContent,
+    () => {
+        if (props.keepAliveOnContent && !hasKeepAliveEvents) {
+            (content.value as any).addEventListener("mouseenter", showToolTip);
+            (content.value as any).addEventListener("mouseleave", hideToolTip);
+            hasKeepAliveEvents = true;
+        }
+    },
+    {
+        immediate: true
+    }
+);
 
 onMounted(() => {
     popperInstance = reactive(
@@ -98,6 +126,9 @@ onMounted(() => {
 onBeforeUnmount(() => {
     (toggle.value as any).removeEventListener("mouseenter", showToolTip);
     (toggle.value as any).removeEventListener("mouseleave", hideToolTip);
+
+    (content.value as any).removeEventListener("mouseenter", showToolTip);
+    (content.value as any).removeEventListener("mouseleave", hideToolTip);
 });
 </script>
 
