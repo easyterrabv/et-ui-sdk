@@ -98,9 +98,6 @@ watch(
             (content.value as any).addEventListener("mouseleave", hideToolTip);
             hasKeepAliveEvents = true;
         }
-    },
-    {
-        immediate: true
     }
 );
 
@@ -121,6 +118,12 @@ onMounted(() => {
 
     (toggle.value as any).addEventListener("mouseenter", showToolTip);
     (toggle.value as any).addEventListener("mouseleave", hideToolTip);
+
+    if (props.keepAliveOnContent && !hasKeepAliveEvents) {
+        (content.value as any).addEventListener("mouseenter", showToolTip);
+        (content.value as any).addEventListener("mouseleave", hideToolTip);
+        hasKeepAliveEvents = true;
+    }
 });
 
 onBeforeUnmount(() => {
