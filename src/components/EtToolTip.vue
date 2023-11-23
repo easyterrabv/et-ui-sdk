@@ -8,6 +8,7 @@
                 ref="content"
                 v-show="isVisible"
                 class="et-sdk-tooltip--content et-sdk-tooltip-wrapper--tooltip no-wrap"
+                :class="contentClass"
             >
                 <slot name="tooltip"></slot>
             </div>
@@ -21,6 +22,8 @@ import { createPopper } from "@popperjs/core";
 import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 import type { Placement } from "@popperjs/core/lib/enums";
 import type { Instance } from "@popperjs/core/lib/types";
+import { wait } from "../helpers/async";
+import type { CancelablePromise } from "cancelable-promise";
 
 const props = defineProps({
     direction: {
@@ -32,21 +35,44 @@ const props = defineProps({
         type: Number,
         required: false,
         default: 10
+    },
+    delay: {
+        // In Milliseconds
+        type: Number,
+        required: false,
+        default: 0
+    },
+    contentClass: {
+        type: String,
+        required: false,
+        default: ""
     }
 });
 
 const toggle = ref(null);
 const content = ref(null);
 const isVisible = ref(false);
+const waiter = ref<CancelablePromise | null>(null);
+const isOnElement = ref(false);
 
 let popperInstance: Instance;
 
 async function showToolTip() {
-    isVisible.value = true;
-    await popperInstance?.update();
+    isOnElement.value = true;
+    if (props.delay) {
+        waiter.value = wait(props.delay);
+        await waiter.value;
+    }
+
+    if (isOnElement.value) {
+        isVisible.value = true;
+        await popperInstance?.update();
+    }
 }
 
 function hideToolTip() {
+    waiter.value?.cancel?.();
+    isOnElement.value = false;
     isVisible.value = false;
 }
 
