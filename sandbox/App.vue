@@ -49,16 +49,6 @@
                                 Inputs
                             </EtSideBarItem>
                         </router-link>
-                        <router-link to="/simple-table">
-                            <EtSideBarItem
-                                :isActive="$route.matched.some(({path}) => path === '/simple-table')"
-                                :isCollapsed="scope.isCollapsed">
-                                <template #icon>
-                                    <EtIconCircleDot />
-                                </template>
-                                Simple Table
-                            </EtSideBarItem>
-                        </router-link>
                         <router-link to="/data-grid">
                             <EtSideBarItem
                                 :isActive="$route.matched.some(({path}) => path === '/data-grid')"
