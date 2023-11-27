@@ -1,13 +1,13 @@
 import { reactive } from "vue";
 import type {
+    FilterDefinition,
     FilterObject,
-    FiltersProvide
+    FiltersProvide,
+    RowObject
 } from "../interfaces/DataGridMethods";
-import type { DataGridColumn } from "../interfaces/DataGridColumn";
-import type { RowObject } from "../interfaces/DataGridMethods";
 
 export function useFilters<T extends RowObject = RowObject>(
-    columns: DataGridColumn<T>[]
+    filters: FilterDefinition[]
 ) {
     return reactive<FiltersProvide>({
         filters: {},
@@ -27,9 +27,7 @@ export function useFilters<T extends RowObject = RowObject>(
         reset() {
             const newFilters: FilterObject = {};
 
-            columns.forEach((column) => {
-                const header = column.header;
-                const filter = header?.filter;
+            filters.forEach((filter) => {
                 if (!filter) {
                     return;
                 }

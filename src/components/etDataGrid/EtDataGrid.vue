@@ -38,6 +38,7 @@ import type {
     BulkMethod,
     CellWidthProvide,
     CheckedProvide,
+    FilterDefinition,
     FilterObject,
     FiltersProvide,
     PaginationProvide,
@@ -100,6 +101,13 @@ const props = defineProps({
             return [];
         }
     },
+    filters: {
+        type: Array as PropType<FilterDefinition[]>,
+        required: false,
+        default() {
+            return [];
+        }
+    },
     isMultiSorting: {
         type: Boolean,
         required: false,
@@ -117,7 +125,7 @@ const isLoading = ref<boolean>(false);
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
-const filters = useFilters<RowObject>(props.columns);
+const filters = useFilters<RowObject>(props.filters);
 const cellWidth = useCellWidth();
 const pagination = usePagination();
 const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");

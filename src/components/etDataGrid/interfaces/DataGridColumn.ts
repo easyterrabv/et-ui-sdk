@@ -17,10 +17,6 @@ export interface DataGridColumn<T extends RowObject = RowObject> {
             field: string; // KeyUnit;
             default?: "ASC" | "DESC";
         };
-        filter?: {
-            field: string;
-            default?: FilterValue;
-        };
     };
     content: {
         key: string; // KeyUnit;
