@@ -4,7 +4,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Index from "sandbox/pages/Index.vue";
 import VariousComponents from "sandbox/pages/VariousComponents.vue";
 import InputComponents from "sandbox/pages/InputsComponents.vue"
-import SimpleTableComponent from "sandbox/pages/SimpleTableComponent.vue";
 import DataGrid from "sandbox/pages/DataGrid.vue";
 
 // @ts-ignore
@@ -17,7 +16,6 @@ app.use(createRouter({
         {path: '/', component: Index},
         {path: '/various', component: VariousComponents},
         {path: '/inputs', component: InputComponents},
-        {path: '/simple-table', component: SimpleTableComponent},
         {path: '/data-grid', component: DataGrid},
     ]
 }));
