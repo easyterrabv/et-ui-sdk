@@ -83,7 +83,7 @@ const filters = inject<FiltersProvide>("filters");
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
 
 const filterDefinitions = computed(() => filters?.getFiltersDefinitions());
-const hasFilterDefinitions = computed(() => !!filterDefinitions.value);
+const hasFilterDefinitions = computed(() => !!filters?.hasFilters());
 const filterValuesList = computed(() => {
     const filterValuesObject = filters?.filtersValues || {};
 

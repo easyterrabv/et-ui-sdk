@@ -38,7 +38,7 @@ export function useFilters<T extends RowObject = RowObject>(
         },
         reset() {
             const newFilters: FilterObject = {};
-            const filterDefinitions = this.getFiltersDefinitions() || [];
+            const filterDefinitions = this.getFiltersDefinitions();
 
             filterDefinitions.forEach((filterDefinition: FilterDefinition) => {
                 if (!filterDefinition) {
@@ -59,7 +59,7 @@ export function useFilters<T extends RowObject = RowObject>(
             return filtersDefinitionsGetter();
         },
         hasFilters() {
-            const filterDefinitions = this.getFiltersDefinitions() || [];
+            const filterDefinitions = this.getFiltersDefinitions();
             return filterDefinitions.length > 0;
         }
     });
