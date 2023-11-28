@@ -35,11 +35,13 @@
                 class="et-sdk-data-grid__filters-wrapper"
                 v-show="isVisible"
                 @click.stop=""
+                @keyup.esc="hideToolTip"
             >
                 <div class="et-sdk-data-grid__filters-container">
                     <EtDataGridFilter
                         v-for="filterDefinition in filterDefinitions"
                         :filterDefinition="filterDefinition"
+                        @on-enter="() => applyFilters()"
                     />
                 </div>
                 <div class="et-sdk-data-grid__filters-functionality">
@@ -130,6 +132,11 @@ async function showToolTip() {
     sdkOverlay?.setTransparency(true);
     sdkOverlay?.setVisibility(true);
     await popperInstance?.update();
+
+    const firstInput = content.value?.querySelector("input");
+    if (firstInput) {
+        firstInput.focus();
+    }
 }
 
 async function hideToolTip() {

@@ -23,6 +23,7 @@
                             null
                         )
                 "
+                @enter="$emit('onEnter')"
             />
         </div>
     </div>
