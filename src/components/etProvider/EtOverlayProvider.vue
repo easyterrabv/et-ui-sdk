@@ -1,13 +1,13 @@
 <template>
-    <slot></slot>
+    <slot />
     <div
+        v-show="isVisible"
         class="et-sdk-overlay-provider"
         :class="{
             'et-sdk-overlay-provider__is-transparent': isTransparent
         }"
         @click="() => handleEvent(EtOverlayEvent.onClick)"
-        v-show="isVisible"
-    ></div>
+    />
 </template>
 
 <script lang="ts" setup>
@@ -17,14 +17,14 @@ import {
     type IEtOverlayProvide
 } from "./EtOverlayProviderInterfaces";
 
-const isVisible = ref<boolean>(false);
-const isTransparent = ref<boolean>(false);
+const isVisible = ref(false);
+const isTransparent = ref(false);
 
 // Doesn't need to be reactive. There are no watchers/computed's and is not rendered in dom
 const events = new Map<EtOverlayEvent, Array<() => void>>();
 
 function setVisibility(visibility: boolean) {
-    isVisible.value = visibility || false;
+    isVisible.value = visibility;
     handleEvent(visibility ? EtOverlayEvent.onShow : EtOverlayEvent.onHide);
 }
 
@@ -63,8 +63,8 @@ provide<IEtOverlayProvide>("SDKOverlayProvide", {
     position: fixed;
     left: 0;
     top: 0;
-    height: 100vh;
-    width: 100vw;
+    height: 100dvh;
+    width: 100dvw;
 
     background-color: var(--et-sdk-dark-900);
     opacity: 0.2;
