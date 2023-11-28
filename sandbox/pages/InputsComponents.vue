@@ -1,63 +1,5 @@
 <template>
     <EtContent>
-        <EtInputSmartFilter
-            @filters="console.log"
-            name="testFilter"
-            :saveFilters="true"
-            :filterOptions="[
-                {code: 'from', label: 'From'},
-                {code: 'to', label: 'To'},
-                {code: 'CC', label: 'CC'},
-                {code: 'BCC', label: 'BCC'},
-            ]"
-        >
-            <template #default="{setValue, values}">
-                <EtSmartFilter>
-                    <template #label>
-                        From
-                    </template>
-                    <EtInput
-                        :modelValue="values['from']"
-                        @change="(val:  string | number | null) => setValue('from', val)"
-                        :size="UI_SIZING.S"
-                    />
-                </EtSmartFilter>
-
-                <EtSmartFilter>
-                    <template #label>
-                        To
-                    </template>
-                    <EtInput
-                        :modelValue="values['to']"
-                        @change="(val: string | number | null) => setValue('to', val)"
-                        :size="UI_SIZING.S"
-                    />
-                </EtSmartFilter>
-
-                <EtSmartFilter>
-                    <template #label>
-                        CC
-                    </template>
-                    <EtInput
-                        :modelValue="values['cc']"
-                        @change="(val: string | number | null) => setValue('cc', val)"
-                        :size="UI_SIZING.S"
-                    />
-                </EtSmartFilter>
-
-                <EtSmartFilter>
-                    <template #label>
-                        BCC
-                    </template>
-                    <EtInput
-                        :modelValue="values['bcc']"
-                        @change="(val: string | number | null) => setValue('bcc', val)"
-                        :size="UI_SIZING.S"
-                    />
-                </EtSmartFilter>
-            </template>
-        </EtInputSmartFilter>
-
         <EtCard style="margin-top: 16px;">
             <template #header>
                 Basic inputs
@@ -169,9 +111,6 @@ import {UI_SIZING, UI_TYPES} from "../../src/helpers/enums";
 import EtContent from "src/layouts/Content.vue";
 import EtCard from "src/components/EtCard.vue";
 
-import EtInputSmartFilter from "src/components/etTable/etFilter/EtInputSmartFilter.vue";
-import EtSmartFilter from "src/components/etTable/etFilter/EtSmartFilter.vue";
-
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
@@ -199,9 +138,6 @@ export default defineComponent({
         EtCard,
         EtForm,
         EtFormGroup,
-
-        EtInputSmartFilter,
-        EtSmartFilter,
 
         EtInput,
         EtInputGroup,
