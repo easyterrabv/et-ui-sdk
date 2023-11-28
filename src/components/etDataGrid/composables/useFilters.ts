@@ -7,32 +7,33 @@ import type {
 } from "../interfaces/DataGridMethods";
 
 export function useFilters<T extends RowObject = RowObject>(
-    filters: FilterDefinition[]
+    filtersDefinitionsGetter: () => FilterDefinition[]
 ) {
     return reactive<FiltersProvide>({
-        filters: {},
+        filtersValues: {},
 
         setFilters(newFilters: FilterObject) {
-            this.filters = newFilters;
+            this.filtersValues = newFilters;
         },
         setFilter(field, value) {
-            this.filters[field] = value;
+            this.filtersValues[field] = value;
         },
         getFilter(field) {
-            return this.filters[field] || null;
+            return this.filtersValues[field] || null;
         },
         clearFilters() {
             this.setFilters({});
         },
         reset() {
             const newFilters: FilterObject = {};
+            const filterDefinitions = this.getFiltersDefinitions() || [];
 
-            filters.forEach((filter) => {
-                if (!filter) {
+            filterDefinitions.forEach((filterDefinition: FilterDefinition) => {
+                if (!filterDefinition) {
                     return;
                 }
 
-                const { field, default: defaultValue } = filter;
+                const { field, default: defaultValue } = filterDefinition;
 
                 if (defaultValue) {
                     newFilters[field] = defaultValue;
@@ -40,6 +41,14 @@ export function useFilters<T extends RowObject = RowObject>(
             });
 
             this.setFilters(newFilters);
+        },
+
+        getFiltersDefinitions() {
+            return filtersDefinitionsGetter();
+        },
+        hasFilters() {
+            const filterDefinitions = this.getFiltersDefinitions() || [];
+            return filterDefinitions.length > 0;
         }
     });
 }

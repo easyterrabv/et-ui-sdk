@@ -20,6 +20,7 @@ export type FilterValue =
 
 export interface FilterDefinition {
     field: string;
+    label?: string;
     default?: FilterValue;
 }
 
@@ -64,7 +65,7 @@ export type FilterObject = {
 };
 
 export interface FiltersProvide {
-    filters: FilterObject;
+    filtersValues: FilterObject;
 
     setFilters: (filters: FilterObject) => void;
 
@@ -73,6 +74,9 @@ export interface FiltersProvide {
 
     clearFilters: () => void;
     reset: () => void;
+
+    getFiltersDefinitions: () => FilterDefinition[];
+    hasFilters: () => boolean;
 }
 
 export interface PaginationProvide {

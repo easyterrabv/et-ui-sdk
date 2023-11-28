@@ -1,5 +1,5 @@
 import type { Raw } from "@vue/reactivity";
-import type { FilterValue, RowObject } from "./DataGridMethods";
+import type { RowObject } from "./DataGridMethods";
 
 export type WidthUnit = "px" | "%";
 

@@ -1,6 +1,11 @@
 <template>
     <div class="et-sdk-data-grid--content-header">
         <div
+            class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-search-input"
+        >
+            <EtDataGridFilterInput />
+        </div>
+        <div
             class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-functionality"
         >
             <div class="et-sdk-data-grid--content-header-functionality__left">
@@ -51,6 +56,7 @@
 <script setup lang="ts">
 import EtDataGridContentHeaderCell from "./EtDataGridContentHeaderCell.vue";
 import EtDataGridContentHeaderSelectCell from "./EtDataGridContentHeaderSelectCell.vue";
+import EtDataGridFilterInput from "./filters/EtDataGridFilterInput.vue";
 import EtDataGridPagination from "./EtDataGridPagination.vue";
 import EtIconArrowRotateRight from "../../etIcon/EtIconArrowRotateRight.vue";
 import EtIconSquare from "../../etIcon/EtIconSquare.vue";
@@ -125,6 +131,10 @@ async function handleBulkMethod(bulkMethod: BulkMethod) {
     border-bottom: none !important;
     justify-content: space-between;
     line-height: 40px;
+}
+
+.et-sdk-data-grid--content-header-search-input {
+    border-bottom: none !important;
 }
 
 .et-sdk-data-grid--content-header-functionality__left--bulk-methods {
