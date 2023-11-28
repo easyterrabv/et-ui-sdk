@@ -1,143 +1,146 @@
 <template>
-    <EtFull>
-        <EtMenuTop>
-            <template #top>
-                <img
-                    src="https://cdn.easyterra.com/images/themes/easyterra/logo.svg"
-                    alt="EasyTerra"
-                    style="margin-right: 16px;"
-                    width="196"
-                    height="40" />
+    <EtOverlayProvider>
+        <EtFull>
+            <EtMenuTop>
+                <template #top>
+                    <img
+                        src="https://cdn.easyterra.com/images/themes/easyterra/logo.svg"
+                        alt="EasyTerra"
+                        style="margin-right: 16px;"
+                        width="196"
+                        height="40" />
 
-                <EtTopBarItem active>
-                    Components
-                </EtTopBarItem>
-            </template>
-
-            <template #topEnd>
-                <EtTopBarItem>
-                    <a href="#">
-                        <EtIconArrowRightFromBracket title="Sign out" />
-                    </a>
-                </EtTopBarItem>
-            </template>
-
-            <EtMenuLeft>
-                <template #menu="scope">
-
-                    <EtSideBarSection :isCollapsed="scope.isCollapsed">
-                        <template #label>
-                            Components
-                        </template>
-                        <router-link to="/various">
-                            <EtSideBarItem
-                                :isActive="$route.matched.some(({path}) => path === '/various')"
-                                :isCollapsed="scope.isCollapsed">
-                                <template #icon>
-                                    <EtIconEnvelope />
-                                </template>
-                                Various
-                            </EtSideBarItem>
-                        </router-link>
-                        <router-link to="/inputs">
-                            <EtSideBarItem
-                                :isActive="$route.matched.some(({path}) => path === '/inputs')"
-                                :isCollapsed="scope.isCollapsed">
-                                <template #icon>
-                                    <EtIconTurnRight />
-                                </template>
-                                Inputs
-                            </EtSideBarItem>
-                        </router-link>
-                        <router-link to="/data-grid">
-                            <EtSideBarItem
-                                :isActive="$route.matched.some(({path}) => path === '/data-grid')"
-                                :isCollapsed="scope.isCollapsed">
-                                <template #icon>
-                                    <EtIconTable />
-                                </template>
-                                Data Grid
-                            </EtSideBarItem>
-                        </router-link>
-                    </EtSideBarSection>
-
-                    <EtSideBarSection :isCollapsed="scope.isCollapsed">
-                        <template #label>
-                            Labels
-                        </template>
-                        <template #action>
-                            <EtIconPlus />
-                        </template>
-                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Booking notifications
-                        </EtSideBarItem>
-                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Price Alerts
-                        </EtSideBarItem>
-                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Booking notifications
-                        </EtSideBarItem>
-                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Price Alerts
-                        </EtSideBarItem>
-                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Booking notifications
-                        </EtSideBarItem>
-                        <EtSideBarItem :isCollapsed="scope.isCollapsed">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Price Alerts
-                        </EtSideBarItem>
-                    </EtSideBarSection>
-
-                    <EtSideBarSection :isCollapsed="scope.isCollapsed">
-                        <template #label>
-                            Buttons
-                        </template>
-
-                        <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('Aii, I am disabled, you should not see this')">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Disabled
-                        </EtSideBarButton>
-
-                        <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('test')">
-                            <template #icon>
-                                <EtIconTag style="color: initial;" />
-                            </template>
-                            Test
-                        </EtSideBarButton>
-                    </EtSideBarSection>
+                    <EtTopBarItem active>
+                        Components
+                    </EtTopBarItem>
                 </template>
 
-                <router-view v-slot="{ Component }">
-                    <component v-if="Component" :is="Component" />
-                </router-view>
-            </EtMenuLeft>
-        </EtMenuTop>
-    </EtFull>
+                <template #topEnd>
+                    <EtTopBarItem>
+                        <a href="#">
+                            <EtIconArrowRightFromBracket title="Sign out" />
+                        </a>
+                    </EtTopBarItem>
+                </template>
+
+                <EtMenuLeft>
+                    <template #menu="scope">
+
+                        <EtSideBarSection :isCollapsed="scope.isCollapsed">
+                            <template #label>
+                                Components
+                            </template>
+                            <router-link to="/various">
+                                <EtSideBarItem
+                                    :isActive="$route.matched.some(({path}) => path === '/various')"
+                                    :isCollapsed="scope.isCollapsed">
+                                    <template #icon>
+                                        <EtIconEnvelope />
+                                    </template>
+                                    Various
+                                </EtSideBarItem>
+                            </router-link>
+                            <router-link to="/inputs">
+                                <EtSideBarItem
+                                    :isActive="$route.matched.some(({path}) => path === '/inputs')"
+                                    :isCollapsed="scope.isCollapsed">
+                                    <template #icon>
+                                        <EtIconTurnRight />
+                                    </template>
+                                    Inputs
+                                </EtSideBarItem>
+                            </router-link>
+                            <router-link to="/data-grid">
+                                <EtSideBarItem
+                                    :isActive="$route.matched.some(({path}) => path === '/data-grid')"
+                                    :isCollapsed="scope.isCollapsed">
+                                    <template #icon>
+                                        <EtIconTable />
+                                    </template>
+                                    Data Grid
+                                </EtSideBarItem>
+                            </router-link>
+                        </EtSideBarSection>
+
+                        <EtSideBarSection :isCollapsed="scope.isCollapsed">
+                            <template #label>
+                                Labels
+                            </template>
+                            <template #action>
+                                <EtIconPlus />
+                            </template>
+                            <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Booking notifications
+                            </EtSideBarItem>
+                            <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Price Alerts
+                            </EtSideBarItem>
+                            <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Booking notifications
+                            </EtSideBarItem>
+                            <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Price Alerts
+                            </EtSideBarItem>
+                            <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Booking notifications
+                            </EtSideBarItem>
+                            <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Price Alerts
+                            </EtSideBarItem>
+                        </EtSideBarSection>
+
+                        <EtSideBarSection :isCollapsed="scope.isCollapsed">
+                            <template #label>
+                                Buttons
+                            </template>
+
+                            <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('Aii, I am disabled, you should not see this')">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Disabled
+                            </EtSideBarButton>
+
+                            <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('test')">
+                                <template #icon>
+                                    <EtIconTag style="color: initial;" />
+                                </template>
+                                Test
+                            </EtSideBarButton>
+                        </EtSideBarSection>
+                    </template>
+
+                    <router-view v-slot="{ Component }">
+                        <component v-if="Component" :is="Component" />
+                    </router-view>
+                </EtMenuLeft>
+            </EtMenuTop>
+        </EtFull>
+    </EtOverlayProvider>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 
+import EtOverlayProvider from "src/components/etProvider/EtOverlayProvider.vue";
 import EtFull from "src/layouts/Full.vue";
 import EtMenuTop from "src/layouts/MenuTop.vue";
 import EtMenuLeft from "src/layouts/MenuLeft.vue";
@@ -170,6 +173,7 @@ export default defineComponent({
         }
     },
     components: {
+        EtOverlayProvider,
         EtFull,
         EtMenuTop,
         EtMenuLeft,
