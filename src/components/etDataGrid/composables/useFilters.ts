@@ -1,40 +1,51 @@
 import { reactive } from "vue";
 import type {
+    FilterDefinition,
     FilterObject,
-    FiltersProvide
+    FiltersProvide,
+    RowObject
 } from "../interfaces/DataGridMethods";
-import type { DataGridColumn } from "../interfaces/DataGridColumn";
-import type { RowObject } from "../interfaces/DataGridMethods";
 
 export function useFilters<T extends RowObject = RowObject>(
-    columns: DataGridColumn<T>[]
+    filtersDefinitionsGetter: () => FilterDefinition[]
 ) {
     return reactive<FiltersProvide>({
-        filters: {},
+        filtersValues: {},
 
         setFilters(newFilters: FilterObject) {
-            this.filters = newFilters;
+            this.filtersValues = Object.entries(newFilters).reduce(
+                (prev: FilterObject, [key, value]) => {
+                    if (value !== null && value !== undefined) {
+                        prev[key] = value;
+                    }
+                    return prev;
+                },
+                {}
+            );
         },
         setFilter(field, value) {
-            this.filters[field] = value;
+            if (value === null || value === undefined) {
+                delete this.filtersValues[field];
+            } else {
+                this.filtersValues[field] = value;
+            }
         },
         getFilter(field) {
-            return this.filters[field] || null;
+            return this.filtersValues[field] ?? null;
         },
         clearFilters() {
             this.setFilters({});
         },
         reset() {
             const newFilters: FilterObject = {};
+            const filterDefinitions = this.getFiltersDefinitions() || [];
 
-            columns.forEach((column) => {
-                const header = column.header;
-                const filter = header?.filter;
-                if (!filter) {
+            filterDefinitions.forEach((filterDefinition: FilterDefinition) => {
+                if (!filterDefinition) {
                     return;
                 }
 
-                const { field, default: defaultValue } = filter;
+                const { field, default: defaultValue } = filterDefinition;
 
                 if (defaultValue) {
                     newFilters[field] = defaultValue;
@@ -42,6 +53,14 @@ export function useFilters<T extends RowObject = RowObject>(
             });
 
             this.setFilters(newFilters);
+        },
+
+        getFiltersDefinitions() {
+            return filtersDefinitionsGetter();
+        },
+        hasFilters() {
+            const filterDefinitions = this.getFiltersDefinitions() || [];
+            return filterDefinitions.length > 0;
         }
     });
 }

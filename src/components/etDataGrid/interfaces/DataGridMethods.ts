@@ -9,6 +9,21 @@ export interface BulkMethod<T extends RowObject = RowObject> {
     title?: string;
 }
 
+export type FilterValue =
+    | string
+    | number
+    | boolean
+    | null
+    | undefined
+    | FilterObject[]
+    | FilterObject;
+
+export interface FilterDefinition {
+    field: string;
+    label?: string;
+    default?: FilterValue;
+}
+
 export interface CheckedProvide<T extends RowObject = RowObject> {
     rows: T[];
 
@@ -45,21 +60,12 @@ export interface SortingProvide<T extends RowObject = RowObject> {
     getSorting: (column: DataGridColumn<T>) => sortDirections;
 }
 
-export type FilterValue =
-    | string
-    | number
-    | boolean
-    | null
-    | undefined
-    | FilterObject[]
-    | FilterObject;
-
 export type FilterObject = {
     [field: string]: FilterValue;
 };
 
 export interface FiltersProvide {
-    filters: FilterObject;
+    filtersValues: FilterObject;
 
     setFilters: (filters: FilterObject) => void;
 
@@ -68,7 +74,15 @@ export interface FiltersProvide {
 
     clearFilters: () => void;
     reset: () => void;
+
+    getFiltersDefinitions: () => FilterDefinition[];
+    hasFilters: () => boolean;
 }
+
+export type FiltersStagingProvide = Pick<
+    FiltersProvide,
+    "filtersValues" | "setFilter" | "getFilter"
+>;
 
 export interface PaginationProvide {
     page: number;

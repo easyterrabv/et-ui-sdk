@@ -38,6 +38,7 @@ import type {
     BulkMethod,
     CellWidthProvide,
     CheckedProvide,
+    FilterDefinition,
     FilterObject,
     FiltersProvide,
     PaginationProvide,
@@ -100,6 +101,13 @@ const props = defineProps({
             return [];
         }
     },
+    filters: {
+        type: Array as PropType<FilterDefinition[]>,
+        required: false,
+        default() {
+            return [];
+        }
+    },
     isMultiSorting: {
         type: Boolean,
         required: false,
@@ -117,7 +125,7 @@ const isLoading = ref<boolean>(false);
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
-const filters = useFilters<RowObject>(props.columns);
+const filters = useFilters<RowObject>(() => props.filters);
 const cellWidth = useCellWidth();
 const pagination = usePagination();
 const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");
@@ -134,7 +142,7 @@ if (props.name && route && router) {
     }
 
     if (savedUrlData?.filters) {
-        filters.filters = savedUrlData.filters;
+        filters.filtersValues = savedUrlData.filters;
     }
 
     if (savedUrlData?.page) {
@@ -164,7 +172,7 @@ async function __searchData() {
 
         dataRequest = cancelable(
             props.dataGetter(
-                filters.filters || {},
+                filters.filtersValues || {},
                 sorting.sorting || {},
                 pagination.page || 1,
                 pagination.perPage || 50
@@ -175,7 +183,7 @@ async function __searchData() {
         if (urlData) {
             await urlData.setDataToUrl({
                 sorting: sorting.sorting,
-                filters: filters.filters,
+                filters: filters.filtersValues,
                 page: pagination.page,
                 perPage: pagination.perPage
             });
@@ -207,7 +215,7 @@ provide<RowVersionProvider>("rowVersion", rowVersion);
 watch(
     () => ({
         sorting: sorting.sorting,
-        filters: filters.filters,
+        filters: filters.filtersValues,
         page: pagination.page,
         perPage: pagination.perPage
     }),

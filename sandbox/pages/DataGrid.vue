@@ -3,6 +3,7 @@
         name="datagridtest"
         ref="table"
         :rowInfo="rowInfo"
+        :filters="tableFilters"
         :columns="columns"
         :bulk-methods="bulkMethods"
         :data-getter="dataGetter"
@@ -19,6 +20,7 @@ import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentC
 import {wait} from "../../src/helpers/async";
 import type {BulkMethod, SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
+import {type FilterDefinition} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 
 type ExampleRow = {
     key: number,
@@ -125,6 +127,11 @@ export default defineComponent({
                 }
             ]  as BulkMethod[],
 
+            tableFilters: [
+                {field: 'name', label: 'Name', default: ''},
+                {field: 'email', label: 'Email', default: ''},
+                {field: 'text', label: 'Contains words', default: ''},
+            ] as FilterDefinition[],
             staticData: [
                 {key: 1, name: 'John Doe', email: 'j.doe@example.com', text: 'Maecenas pretium posuere leo, interdum placerat ante placerat quis. Vivamus imperdiet ultricies sapien id posuere. Curabitur pharetra, risus nec interdum commodo, arcu ex dapibus nisl, eu pellentesque dolor ipsum quis dui. Praesent nec molestie ligula. Praesent feugiat dolor lobortis ante porttitor consequat. Nullam in varius tellus. Ut faucibus magna elit, a tincidunt lorem fermentum sed.'},
                 {key: 2, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},

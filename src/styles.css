@@ -74,7 +74,8 @@ html {
     overflow-x: auto;
 }
 
-.et-sdk-input-like--content::-webkit-scrollbar {
+.et-sdk-input-like--content::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar{
     display: none;
 }
 
