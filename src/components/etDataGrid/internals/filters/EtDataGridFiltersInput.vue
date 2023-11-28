@@ -15,8 +15,9 @@
                 >
                     <span
                         class="et-sdk-data-grid__filter-content__filter-value__label"
-                        >{{ filterValue.label }}</span
                     >
+                        {{ filterValue.label }}
+                    </span>
                     {{ filterValue.value }}
                 </span>
             </div>
@@ -100,7 +101,6 @@ const filterValuesList = computed(() => {
 const filterValueStaging = reactive<FiltersStagingProvide>({
     filtersValues: {},
     setFilter(field, value) {
-        console.log(field, value);
         this.filtersValues[field] = value;
     },
     getFilter(field) {
