@@ -104,7 +104,7 @@ const filterValueStaging = reactive<FiltersStagingProvide>({
         this.filtersValues[field] = value;
     },
     getFilter(field) {
-        return this.filtersValues[field] || null;
+        return this.filtersValues[field] ?? null;
     }
 });
 provide<FiltersStagingProvide>("filterValueStaging", filterValueStaging);

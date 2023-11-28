@@ -31,7 +31,7 @@ export function useFilters<T extends RowObject = RowObject>(
             }
         },
         getFilter(field) {
-            return this.filtersValues[field] || null;
+            return this.filtersValues[field] ?? null;
         },
         clearFilters() {
             this.setFilters({});
