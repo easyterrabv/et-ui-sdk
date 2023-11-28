@@ -79,6 +79,11 @@ export interface FiltersProvide {
     hasFilters: () => boolean;
 }
 
+export type FiltersStagingProvide = Pick<
+    FiltersProvide,
+    "filtersValues" | "setFilter" | "getFilter"
+>;
+
 export interface PaginationProvide {
     page: number;
     perPage: number;

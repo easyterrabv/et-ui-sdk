@@ -13,10 +13,22 @@ export function useFilters<T extends RowObject = RowObject>(
         filtersValues: {},
 
         setFilters(newFilters: FilterObject) {
-            this.filtersValues = newFilters;
+            this.filtersValues = Object.entries(newFilters).reduce(
+                (prev: FilterObject, [key, value]) => {
+                    if (value !== null && value !== undefined) {
+                        prev[key] = value;
+                    }
+                    return prev;
+                },
+                {}
+            );
         },
         setFilter(field, value) {
-            this.filtersValues[field] = value;
+            if (value === null || value === undefined) {
+                delete this.filtersValues[field];
+            } else {
+                this.filtersValues[field] = value;
+            }
         },
         getFilter(field) {
             return this.filtersValues[field] || null;

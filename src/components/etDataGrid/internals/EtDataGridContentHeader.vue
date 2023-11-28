@@ -3,7 +3,7 @@
         <div
             class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-search-input"
         >
-            <EtDataGridFilterInput />
+            <EtDataGridFiltersInput />
         </div>
         <div
             class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-functionality"
@@ -56,7 +56,7 @@
 <script setup lang="ts">
 import EtDataGridContentHeaderCell from "./EtDataGridContentHeaderCell.vue";
 import EtDataGridContentHeaderSelectCell from "./EtDataGridContentHeaderSelectCell.vue";
-import EtDataGridFilterInput from "./filters/EtDataGridFilterInput.vue";
+import EtDataGridFiltersInput from "./filters/EtDataGridFiltersInput.vue";
 import EtDataGridPagination from "./EtDataGridPagination.vue";
 import EtIconArrowRotateRight from "../../etIcon/EtIconArrowRotateRight.vue";
 import EtIconSquare from "../../etIcon/EtIconSquare.vue";
