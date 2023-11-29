@@ -128,9 +128,28 @@ export default defineComponent({
             ]  as BulkMethod[],
 
             tableFilters: [
-                {field: 'name', label: 'Name', default: ''},
-                {field: 'email', label: 'Email', default: ''},
-                {field: 'text', label: 'Contains words', default: ''},
+                {
+                    field: 'name',
+                    label: 'Name',
+                    default: ''
+                },
+                {
+                    field: 'email',
+                    label: 'Email',
+                    default: '',
+                    validator: (value) => {
+                        if(typeof value === 'string') {
+                            // Regex from CSE `GET /tickets` endpoint
+                            return value?.match(/^[\w.+-@]+$/)
+                        }
+                        return false;
+                    }
+                },
+                {
+                    field: 'text',
+                    label: 'Contains words',
+                    default: ''
+                },
             ] as FilterDefinition[],
             staticData: [
                 {key: 1, name: 'John Doe', email: 'j.doe@example.com', text: 'Maecenas pretium posuere leo, interdum placerat ante placerat quis. Vivamus imperdiet ultricies sapien id posuere. Curabitur pharetra, risus nec interdum commodo, arcu ex dapibus nisl, eu pellentesque dolor ipsum quis dui. Praesent nec molestie ligula. Praesent feugiat dolor lobortis ante porttitor consequat. Nullam in varius tellus. Ut faucibus magna elit, a tincidunt lorem fermentum sed.'},
