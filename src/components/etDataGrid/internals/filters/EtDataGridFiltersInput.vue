@@ -19,6 +19,14 @@
                         {{ filterValue.label }}
                     </span>
                     {{ filterValue.value }}
+                    <span
+                        class="et-sdk-data-grid__filter-content__filter-value__clear"
+                        @click.stop="
+                            () => filters?.setFilter(filterValue.field, null)
+                        "
+                    >
+                        <EtIconTimes />
+                    </span>
                 </span>
             </div>
             <div
@@ -255,5 +263,20 @@ onBeforeUnmount(() => {
     color: var(--et-sdk-dark-500);
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal-s);
+}
+
+.et-sdk-data-grid__filter-content__filter-value__clear {
+    color: var(--et-sdk-dark-500);
+    font-size: var(--et-sdk-font-size-tiny);
+    margin-right: -10px;
+    top: -1px;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.et-sdk-data-grid__filter-content__filter-value:hover
+    .et-sdk-data-grid__filter-content__filter-value__clear {
+    opacity: 1;
 }
 </style>
