@@ -1,6 +1,11 @@
 <template>
     <div class="et-sdk-data-grid-filter">
-        <div class="et-sdk-data-grid-filter__label">
+        <div
+            class="et-sdk-data-grid-filter__label"
+            :class="{
+                'et-sdk-data-grid-filter__label--invalid': !validFilterValue
+            }"
+        >
             {{ props.filterDefinition.label }}
         </div>
 
@@ -8,21 +13,10 @@
             <EtInput
                 :size="UI_SIZING.S"
                 :model-value="filterValue as string"
-                @change="
-                    (newValue) =>
-                        filterValueStaging?.setFilter(
-                            props.filterDefinition.field,
-                            newValue
-                        )
-                "
+                @change="(newValue) => setFilterValue(newValue)"
                 clear-button
-                @clear="
-                    () =>
-                        filterValueStaging?.setFilter(
-                            props.filterDefinition.field,
-                            null
-                        )
-                "
+                :error="!validFilterValue"
+                @clear="() => setFilterValue(null)"
                 @enter="$emit('onEnter')"
             />
         </div>
@@ -31,11 +25,14 @@
 
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type { FilterDefinition } from "../../interfaces/DataGridMethods";
+import type {
+    FilterDefinition,
+    FilterValue
+} from "../../interfaces/DataGridMethods";
 
 import EtInput from "../../../etForm/EtInput.vue";
 import { UI_SIZING } from "../../../../helpers/enums";
-import { computed, inject } from "vue";
+import { computed, inject, ref } from "vue";
 import type { FiltersStagingProvide } from "../../interfaces/DataGridMethods";
 
 const props = defineProps({
@@ -49,6 +46,31 @@ const filterValueStaging = inject<FiltersStagingProvide>("filterValueStaging");
 const filterValue = computed(
     () => filterValueStaging?.getFilter(props.filterDefinition.field)
 );
+
+const dirty = ref(false);
+
+const validFilterValue = computed(() => {
+    if (!dirty.value) {
+        return true;
+    }
+
+    if (filterValue.value === null || filterValue.value === undefined) {
+        return true;
+    }
+
+    const validator = props.filterDefinition.validator;
+    if (!validator) {
+        return true;
+    }
+
+    return validator(filterValue.value);
+});
+
+function setFilterValue(newValue: FilterValue) {
+    const field = props.filterDefinition.field;
+    dirty.value = true;
+    filterValueStaging?.setFilter(field, newValue);
+}
 </script>
 
 <style>
@@ -68,5 +90,9 @@ const filterValue = computed(
 
 .et-sdk-data-grid-filter__input {
     flex-grow: 1;
+}
+
+.et-sdk-data-grid-filter__label--invalid {
+    color: var(--et-sdk-red-600);
 }
 </style>

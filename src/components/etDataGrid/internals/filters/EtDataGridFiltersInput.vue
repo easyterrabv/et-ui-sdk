@@ -78,6 +78,8 @@ import {
     provide
 } from "vue";
 import type {
+    FilterDefinition,
+    FilterObject,
     FiltersProvide,
     FiltersStagingProvide
 } from "../../interfaces/DataGridMethods";
@@ -153,9 +155,32 @@ async function hideToolTip() {
 }
 
 async function applyFilters() {
-    filters?.setFilters(
-        JSON.parse(JSON.stringify(filterValueStaging.filtersValues || {}))
-    );
+    const validFilters = Object.entries(
+        filterValueStaging.filtersValues || {}
+    ).reduce((prev, [key, value]) => {
+        const definition: FilterDefinition | undefined =
+            filterDefinitions.value?.find((def) => def.field === key);
+        if (!definition) {
+            return prev;
+        }
+
+        const validator = definition.validator;
+
+        // no validator = assume valid;
+        if (!validator) {
+            prev[key] = value;
+            return prev;
+        }
+
+        if (validator(value)) {
+            prev[key] = value;
+            return prev;
+        }
+
+        return prev;
+    }, {} as FilterObject);
+
+    filters?.setFilters(JSON.parse(JSON.stringify(validFilters)));
     await hideToolTip();
 }
 

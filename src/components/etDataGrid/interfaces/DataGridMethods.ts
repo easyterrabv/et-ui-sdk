@@ -22,6 +22,7 @@ export interface FilterDefinition {
     field: string;
     label?: string;
     default?: FilterValue;
+    validator?: (value: FilterValue) => boolean;
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {
