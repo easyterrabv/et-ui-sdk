@@ -9,6 +9,10 @@ export interface BulkMethod<T extends RowObject = RowObject> {
     title?: string;
 }
 
+export enum FilterInputType {
+    INPUT
+}
+
 export type FilterValue =
     | string
     | number
@@ -23,6 +27,7 @@ export interface FilterDefinition {
     label?: string;
     default?: FilterValue;
     validator?: (value: FilterValue) => boolean;
+    type?: FilterInputType;
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {
