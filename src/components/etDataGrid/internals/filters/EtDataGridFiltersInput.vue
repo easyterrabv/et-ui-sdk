@@ -28,9 +28,17 @@
                         <EtIconTimes />
                     </span>
                 </span>
+
+                <span
+                    class="et-sdk-data-grid__filter-content__filter-placeholder"
+                    v-if="!filterValuesList || filterValuesList.length <= 0"
+                >
+                    No filters applied
+                </span>
             </div>
             <div
                 class="et-sdk-data-grid__filter-icon et-sdk-data-grid__filter-icon--clear"
+                v-if="filterValuesList?.length > 0"
                 @click.stop="() => filters?.clearFilters()"
             >
                 <EtIconTimes />
@@ -303,5 +311,9 @@ onBeforeUnmount(() => {
 .et-sdk-data-grid__filter-content__filter-value:hover
     .et-sdk-data-grid__filter-content__filter-value__clear {
     opacity: 1;
+}
+
+.et-sdk-data-grid__filter-content__filter-placeholder {
+    color: var(--et-sdk-dark-400);
 }
 </style>
