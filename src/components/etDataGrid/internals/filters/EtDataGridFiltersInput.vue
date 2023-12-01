@@ -64,8 +64,9 @@
                     <EtButtonPrimary
                         class="et-sdk-data-grid__filters-search-button"
                         @click="() => applyFilters()"
-                        >Search</EtButtonPrimary
                     >
+                        Search
+                    </EtButtonPrimary>
                 </div>
             </div>
         </Teleport>
@@ -173,6 +174,17 @@ async function applyFilters() {
         }
 
         const validator = definition.validator;
+
+        if (value === null || value === undefined) {
+            return prev;
+        }
+
+        if (typeof value === "string") {
+            value = value.trim();
+            if (!value) {
+                return prev;
+            }
+        }
 
         // no validator = assume valid;
         if (!validator) {
