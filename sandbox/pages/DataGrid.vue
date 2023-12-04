@@ -21,6 +21,7 @@ import {wait} from "../../src/helpers/async";
 import type {BulkMethod, SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
 import {type FilterDefinition, FilterInputType} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import {OptionModel} from "../../src/models/Option";
 
 type ExampleRow = {
     key: number,
@@ -149,6 +150,38 @@ export default defineComponent({
                     field: 'text',
                     label: 'Contains words',
                     default: ''
+                },
+                {
+                    field: 'Options',
+                    label: 'Has options',
+                    default: '',
+                    type: FilterInputType.SELECT,
+                    options: [
+                        new OptionModel({
+                            label: "option 1",
+                            value: 1
+                        }),
+                        new OptionModel({
+                            label: "option 2",
+                            value: 2
+                        }),
+                        new OptionModel({
+                            label: "option 3",
+                            value: 3
+                        }),
+                        new OptionModel({
+                            label: "option 4",
+                            value: 4
+                        }),
+                        new OptionModel({
+                            label: "option 5",
+                            value: 5
+                        }),
+                        new OptionModel({
+                            label: "option 6",
+                            value: 6
+                        })
+                    ] as OptionModel[]
                 },
                 {
                     field: 'attachments',

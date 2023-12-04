@@ -1,4 +1,5 @@
 import type { RowObject } from "./DataGridMethods";
+import { type FilterDefinition, FilterInputType } from "./DataGridMethods";
 
 export type IClass = string[];
 export type IRowClass<T extends RowObject = RowObject> =
@@ -11,3 +12,11 @@ export interface DataGridRow<T extends RowObject = RowObject> {
     isSelectable?: boolean;
     class?: IRowClass<T>;
 }
+
+const test: FilterDefinition = {
+    field: "Options",
+    label: "Has Optiosn",
+    default: "",
+    type: FilterInputType.SELECT,
+    options: []
+};

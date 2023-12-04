@@ -2,7 +2,7 @@
     <div class="et-sdk-data-grid-filter">
         <div
             class="et-sdk-data-grid-filter__label"
-            v-show="[FilterInputType.INPUT].includes(filterType)"
+            v-show="![FilterInputType.CHECKBOX].includes(filterType)"
         >
             {{ filterDefinition.label }}
         </div>

@@ -120,17 +120,15 @@ import { UI_SIZING } from "../../helpers/enums";
 export default defineComponent({
     props: {
         options: {
-            type: Array<OptionModel>,
+            type: Array as PropType<OptionModel[]>,
             required: true
         },
         modelValue: {
-            type: Array as PropType<OptionModel | Array<OptionModel> | null>,
-            required: false,
+            type: Object as PropType<OptionModel | OptionModel[] | null>,
             default: null
         },
         multiple: {
             type: Boolean,
-            required: false,
             default: false
         },
         ...commonInputProps
@@ -164,30 +162,36 @@ export default defineComponent({
                 this.internalOptionValue = this.modelValue;
             }
         },
-        internalOptionValue() {
-            if (this.isDifferent()) {
-                this.$emit("update:modelValue", this.internalOptionValue);
+        internalOptionValue: {
+            deep: true,
+            handler() {
+                if (this.isDifferent()) {
+                    this.$emit("update:modelValue", this.internalOptionValue);
+                }
             }
         }
     },
     methods: {
         isDifferent(): boolean {
-            const currentModel: OptionModel[] = Array.isArray(this.modelValue)
-                ? this.modelValue
-                : this.modelValue
-                ? [this.modelValue]
-                : [];
+            let currentModel: OptionModel[] = [];
+            if (Array.isArray(this.modelValue)) {
+                currentModel = this.modelValue;
+            } else if (!Array.isArray(this.modelValue) && !!this.modelValue) {
+                currentModel = [this.modelValue];
+            }
             const currentModelFiltered: OptionModel[] = currentModel.filter(
                 (opt) => !!opt
             );
 
-            const currentInnerModel: OptionModel[] = Array.isArray(
-                this.internalOptionValue
-            )
-                ? this.internalOptionValue
-                : this.internalOptionValue
-                ? [this.internalOptionValue]
-                : [];
+            let currentInnerModel: OptionModel[] = [];
+            if (Array.isArray(this.internalOptionValue)) {
+                currentInnerModel = this.internalOptionValue;
+            } else if (
+                !Array.isArray(this.internalOptionValue) &&
+                !!this.internalOptionValue
+            ) {
+                currentInnerModel = [this.internalOptionValue];
+            }
             const currentInnerModelFiltered = currentInnerModel.filter(
                 (opt) => !!opt
             );

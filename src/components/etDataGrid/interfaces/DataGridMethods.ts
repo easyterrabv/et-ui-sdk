@@ -1,5 +1,6 @@
 import type { DataGridColumn } from "./DataGridColumn";
 import type { Raw } from "@vue/reactivity";
+import { type IOption, OptionModel } from "../../../models/Option";
 
 export type RowObject<T extends object = { [key: string]: any }> = T;
 
@@ -11,8 +12,14 @@ export interface BulkMethod<T extends RowObject = RowObject> {
 
 export enum FilterInputType {
     INPUT,
-    CHECKBOX
+    CHECKBOX,
+    SELECT
 }
+
+export type OptionFilterValue = {
+    value: string | boolean | number | Date;
+    label: string | null;
+};
 
 export type FilterValue =
     | string
@@ -20,15 +27,35 @@ export type FilterValue =
     | boolean
     | null
     | undefined
-    | FilterObject[]
-    | FilterObject;
+    | OptionFilterValue[];
 
-export interface FilterDefinition {
+export type BaseFilterDefinition<T> = {
     field: string;
     label?: string;
     default?: FilterValue;
     validator?: (value: FilterValue) => boolean;
-    type?: FilterInputType;
+    type: T;
+};
+
+export type SelectFilterDefinition<T = FilterInputType.SELECT> =
+    BaseFilterDefinition<T> & {
+        options: OptionModel[] | (() => Promise<OptionModel[]>);
+    };
+
+export type FilterTypeMapping<T> = {
+    [FilterInputType.SELECT]: SelectFilterDefinition<T>;
+    // Future input types can have custom fields to by adding them here.
+};
+
+export type FilterDefinition<T extends FilterInputType = FilterInputType> =
+    T extends keyof FilterTypeMapping<T>
+        ? FilterTypeMapping<T>[T]
+        : BaseFilterDefinition<T>;
+
+export interface FilterDisplay {
+    field: string;
+    value: FilterValue;
+    label: string;
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {

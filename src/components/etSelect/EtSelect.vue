@@ -43,7 +43,7 @@ export default defineComponent({
             default: null
         },
         options: {
-            type: Array<OptionModel>,
+            type: Array as PropType<OptionModel[]>,
             required: true
         },
         multiple: {
@@ -52,7 +52,7 @@ export default defineComponent({
             default: false
         },
         modelValue: {
-            type: Array as PropType<OptionModel | Array<OptionModel> | null>,
+            type: Array as PropType<OptionModel | OptionModel[] | null>,
             required: false,
             default: null
         }

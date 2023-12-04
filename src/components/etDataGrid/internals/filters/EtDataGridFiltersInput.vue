@@ -9,25 +9,10 @@
                 <EtIconSearch />
             </div>
             <div class="et-sdk-data-grid__filter-content hide-scrollbar">
-                <span
-                    v-for="filterValue in filterValuesList"
-                    class="et-sdk-data-grid__filter-content__filter-value"
-                >
-                    <span
-                        class="et-sdk-data-grid__filter-content__filter-value__label"
-                    >
-                        {{ filterValue.label }}
-                    </span>
-                    {{ filterValue.value }}
-                    <span
-                        class="et-sdk-data-grid__filter-content__filter-value__clear"
-                        @click.stop="
-                            () => filters?.setFilter(filterValue.field, null)
-                        "
-                    >
-                        <EtIconTimes />
-                    </span>
-                </span>
+                <EtDataGridFiltersInputValue
+                    v-for="filterDisplay in filterValuesList"
+                    :filterDisplay="filterDisplay"
+                />
 
                 <span
                     class="et-sdk-data-grid__filter-content__filter-placeholder"
@@ -88,6 +73,7 @@ import {
 } from "vue";
 import type {
     FilterDefinition,
+    FilterDisplay,
     FilterObject,
     FiltersProvide,
     FiltersStagingProvide
@@ -99,6 +85,7 @@ import { EtOverlayEvent } from "../../../etProvider/EtOverlayProviderInterfaces"
 
 import EtButtonPrimary from "../../../etButton/EtButtonPrimary.vue";
 import EtDataGridFilter from "./EtDataGridFilter.vue";
+import EtDataGridFiltersInputValue from "./EtDataGridFiltersInputValue.vue";
 
 const filters = inject<FiltersProvide>("filters");
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
@@ -116,7 +103,7 @@ const filterValuesList = computed(() => {
             label: (filterDefinitions?.value || []).find(
                 (definition) => definition.field == key
             )?.label
-        }));
+        })) as FilterDisplay[];
 });
 
 const filterValueStaging = reactive<FiltersStagingProvide>({
@@ -293,36 +280,6 @@ onBeforeUnmount(() => {
 .et-sdk-data-grid__filters-functionality {
     margin-top: 15px;
     float: right;
-}
-
-.et-sdk-data-grid__filter-content__filter-value {
-    background-color: var(--et-sdk-light-0);
-    padding: 5px 15px;
-    border: 1px solid var(--et-sdk-dark-300);
-    border-radius: 999px;
-    margin-right: 5px;
-    font-weight: var(--et-sdk-font-weight-semibold);
-}
-
-.et-sdk-data-grid__filter-content__filter-value__label {
-    color: var(--et-sdk-dark-500);
-    font-weight: var(--et-sdk-font-weight-normal);
-    font-size: var(--et-sdk-font-size-normal-s);
-}
-
-.et-sdk-data-grid__filter-content__filter-value__clear {
-    color: var(--et-sdk-dark-500);
-    font-size: var(--et-sdk-font-size-tiny);
-    margin-right: -10px;
-    top: -1px;
-    position: relative;
-    cursor: pointer;
-    opacity: 0.3;
-}
-
-.et-sdk-data-grid__filter-content__filter-value:hover
-    .et-sdk-data-grid__filter-content__filter-value__clear {
-    opacity: 1;
 }
 
 .et-sdk-data-grid__filter-content__filter-placeholder {
