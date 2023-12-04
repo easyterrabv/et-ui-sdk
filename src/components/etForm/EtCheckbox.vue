@@ -30,34 +30,28 @@ export default defineComponent({
     props: {
         name: {
             type: String,
-            required: false,
             default() {
                 return generateId(25, "input");
             }
         },
         checked: {
             type: Boolean,
-            required: false,
             default: false
         },
         indeterminate: {
             type: Boolean,
-            required: false,
             default: false
         },
         readonly: {
             type: Boolean,
-            required: false,
             default: false
         },
         disabled: {
             type: Boolean,
-            required: false,
             default: false
         },
         tabindex: {
             type: Number,
-            required: false,
             default: 1
         }
     },

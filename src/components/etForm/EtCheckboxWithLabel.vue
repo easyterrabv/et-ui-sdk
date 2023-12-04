@@ -2,11 +2,11 @@
     <label
         class="et-sdk-checkbox-with-label"
         :class="{
-            'et-sdk-checkbox-with-label--disabled': props.disabled
+            'et-sdk-checkbox-with-label--disabled': disabled
         }"
         @click="handleOnClick"
     >
-        <EtCheckBox v-bind="$attrs" ref="checkbox" :disabled="props.disabled" />
+        <EtCheckBox v-bind="$attrs" ref="checkbox" :disabled="disabled" />
         <slot />
     </label>
 </template>
@@ -19,10 +19,9 @@ defineOptions({
     inheritAttrs: false
 });
 
-const props = defineProps({
+defineProps({
     disabled: {
         type: Boolean,
-        required: false,
         default: false
     }
 });
