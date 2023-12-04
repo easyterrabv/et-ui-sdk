@@ -49,6 +49,20 @@
                 <template #label>File Drop Input</template>
                 <EtInputFileDrop />
             </EtFormGroup>
+
+            <EtFormGroup style="margin-top: 16px;">
+                <template #label>Checkbox with label</template>
+                <EtCheckboxWithLabel>
+                    Tick this checkbox and nothing will happen
+                </EtCheckboxWithLabel>
+            </EtFormGroup>
+
+            <EtFormGroup style="margin-top: 16px;">
+                <template #label>Checkbox with label</template>
+                <EtCheckboxWithLabel disabled>
+                    Tick this checkbox and nothing will happen
+                </EtCheckboxWithLabel>
+            </EtFormGroup>
         </EtCard>
 
         <EtCard style="margin-top: 16px;">
@@ -130,6 +144,8 @@ import EtInputTime from "src/components/etForm/EtInputTime.vue";
 
 import EtAlertDanger from "src/components/etAlert/EtAlertDanger.vue";
 
+import EtCheckboxWithLabel from "src/components/etForm/EtCheckboxWithLabel.vue";
+
 import {OptionModel} from "../../src/models/Option";
 
 export default defineComponent({
@@ -142,6 +158,8 @@ export default defineComponent({
         EtInput,
         EtInputGroup,
         EtInputGroupAddon,
+
+        EtCheckboxWithLabel,
 
         EtInputDate,
         EtInputDateRange,
