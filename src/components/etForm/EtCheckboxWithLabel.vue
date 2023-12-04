@@ -4,10 +4,10 @@
         :class="{
             'et-sdk-checkbox-with-label--disabled': disabled
         }"
-        @click="checkbox?.handleOnClick"
+        @click="handleOnClick"
     >
         <EtCheckBox v-bind="$attrs" ref="checkbox" />
-        <slot></slot>
+        <slot />
     </label>
 </template>
 
@@ -19,8 +19,17 @@ defineOptions({
     inheritAttrs: false
 });
 
-const disabled = ref(false);
 const checkbox = ref<typeof EtCheckBox | null>(null);
+
+function handleOnClick() {
+    if (!checkbox.value) {
+        return;
+    }
+
+    checkbox.value.handleOnClick();
+}
+
+const disabled = ref(false);
 watch(
     // Because props fall through and boolean props can have empty string value in $attrs
     // I decided to watch on the value inside the checkbox instead.
