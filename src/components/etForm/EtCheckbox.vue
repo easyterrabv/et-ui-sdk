@@ -3,8 +3,9 @@
         ref="checkbox"
         class="et-sdk-checkbox"
         :class="{
-            'et-sdk-checkbox__checked': internalChecked,
-            'et-sdk-checkbox__indeterminate': indeterminate
+            'et-sdk-checkbox--checked': internalChecked,
+            'et-sdk-checkbox--indeterminate': indeterminate,
+            'et-sdk-checkbox--disabled': disabled
         }"
         type="checkbox"
         :tabindex="tabindex"
@@ -13,10 +14,7 @@
         @click="handleOnClick"
         :indeterminate="internalIndeterminate"
         @keyup.enter="internalChecked = !internalChecked"
-    >
-        <!--        <div v-if="checked">&check;</div>-->
-        <!--        <div v-else-if="indeterminate">&minus;</div>-->
-    </div>
+    />
 </template>
 
 <script lang="ts">
@@ -32,34 +30,28 @@ export default defineComponent({
     props: {
         name: {
             type: String,
-            required: false,
             default() {
                 return generateId(25, "input");
             }
         },
         checked: {
             type: Boolean,
-            required: false,
             default: false
         },
         indeterminate: {
             type: Boolean,
-            required: false,
             default: false
         },
         readonly: {
             type: Boolean,
-            required: false,
             default: false
         },
         disabled: {
             type: Boolean,
-            required: false,
             default: false
         },
         tabindex: {
             type: Number,
-            required: false,
             default: 1
         }
     },
@@ -138,12 +130,17 @@ export default defineComponent({
     top: -8px;
 }
 
-.et-sdk-checkbox__checked:before {
+.et-sdk-checkbox--checked:before {
     content: "\2713";
 }
 
-.et-sdk-checkbox__indeterminate:before {
+.et-sdk-checkbox--indeterminate:before {
     content: "\2013";
     left: 1px;
+}
+
+.et-sdk-checkbox--disabled {
+    cursor: not-allowed;
+    background-color: var(--et-sdk-dark-100);
 }
 </style>
