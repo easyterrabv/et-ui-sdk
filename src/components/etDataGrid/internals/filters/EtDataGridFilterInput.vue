@@ -9,10 +9,26 @@
         @clear="() => setFilterValue(null)"
         @enter="(newValue: FilterValue) => setFilterValue(newValue)"
     />
+
+    <!-- Span element, otherwise the class prop will fall through -->
+    <span
+        v-else-if="filterType === FilterInputType.CHECKBOX"
+        class="et-datagrid-filter-input--checkbox"
+    >
+        <EtCheckboxWithLabel
+            :checked="filterValue as boolean"
+            @update:checked="
+                (newValue: FilterValue) => setFilterValue(newValue)
+            "
+        >
+            {{ filterDefinition.label }}
+        </EtCheckboxWithLabel>
+    </span>
 </template>
 
 <script lang="ts" setup>
 import EtInput from "../../../etForm/EtInput.vue";
+import EtCheckboxWithLabel from "../../../etForm/EtCheckboxWithLabel.vue";
 
 import type { PropType } from "vue";
 import type { FilterDefinition } from "../../interfaces/DataGridMethods";
@@ -59,3 +75,9 @@ function setFilterValue(newValue: FilterValue) {
     filterValueStaging?.setFilter(field, newValue);
 }
 </script>
+
+<style>
+.et-datagrid-filter-input--checkbox {
+    color: var(--et-sdk-dark-500);
+}
+</style>

@@ -20,7 +20,7 @@ import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentC
 import {wait} from "../../src/helpers/async";
 import type {BulkMethod, SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
-import {type FilterDefinition} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import {type FilterDefinition, FilterInputType} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 
 type ExampleRow = {
     key: number,
@@ -149,6 +149,12 @@ export default defineComponent({
                     field: 'text',
                     label: 'Contains words',
                     default: ''
+                },
+                {
+                    field: 'attachments',
+                    label: 'Has Attachments',
+                    default: '',
+                    type: FilterInputType.CHECKBOX
                 },
             ] as FilterDefinition[],
             staticData: [

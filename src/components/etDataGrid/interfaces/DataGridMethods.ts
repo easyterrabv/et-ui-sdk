@@ -10,7 +10,8 @@ export interface BulkMethod<T extends RowObject = RowObject> {
 }
 
 export enum FilterInputType {
-    INPUT
+    INPUT,
+    CHECKBOX
 }
 
 export type FilterValue =

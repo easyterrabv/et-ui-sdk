@@ -1,7 +1,10 @@
 <template>
     <div class="et-sdk-data-grid-filter">
-        <div class="et-sdk-data-grid-filter__label">
-            {{ props.filterDefinition.label }}
+        <div
+            class="et-sdk-data-grid-filter__label"
+            v-show="[FilterInputType.INPUT].includes(filterType)"
+        >
+            {{ filterDefinition.label }}
         </div>
 
         <div class="et-sdk-data-grid-filter__input">
@@ -19,6 +22,8 @@ import type { FilterDefinition } from "../../interfaces/DataGridMethods";
 
 import EtDataGridFilter from "./EtDataGridFilterInput.vue";
 import { wait } from "../../../../helpers/async";
+import { FilterInputType } from "../../interfaces/DataGridMethods";
+import { computed } from "vue";
 
 const props = defineProps({
     filterDefinition: {
@@ -26,6 +31,10 @@ const props = defineProps({
         required: true
     }
 });
+
+const filterType = computed(
+    () => props.filterDefinition.type ?? FilterInputType.INPUT
+);
 
 const emit = defineEmits<{
     (e: "onEnter"): void;
