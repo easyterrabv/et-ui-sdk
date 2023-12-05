@@ -64,5 +64,7 @@ async function emitEnter() {
 
 .et-sdk-data-grid-filter__input {
     flex-grow: 1;
+    /* Keep width fixed by subtracting (label width + gap) */
+    max-width: calc(100% - 165px);
 }
 </style>
