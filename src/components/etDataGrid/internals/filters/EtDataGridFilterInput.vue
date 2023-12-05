@@ -140,6 +140,8 @@ function setFilterValue(newValue: FilterValue | OptionModel[]) {
 
 <style>
 .et-datagrid-filter-input--checkbox {
+    font-weight: var(--et-sdk-font-weight-normal);
+    font-size: var(--et-sdk-font-size-normal-s);
     color: var(--et-sdk-dark-500);
 }
 </style>
