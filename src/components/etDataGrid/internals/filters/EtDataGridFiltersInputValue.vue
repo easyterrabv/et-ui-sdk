@@ -40,7 +40,7 @@
         </template>
         <span
             class="et-sdk-data-grid--filter-content--filter-value--clear"
-            @click.stop="() => filters?.setFilter(filterDisplay.field, null)"
+            @click.stop="removeFilter"
         >
             <EtIconTimes />
         </span>
@@ -93,6 +93,13 @@ function removeOption(item: OptionFilterValue) {
             (val) => val.value !== item.value
         )
     );
+}
+
+function removeFilter() {
+    if (!filters) {
+        return;
+    }
+    filters.setFilter(props.filterDisplay.field, null);
 }
 </script>
 
