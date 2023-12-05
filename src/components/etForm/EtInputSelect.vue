@@ -116,6 +116,7 @@ import { OptionModel } from "../../models/Option";
 
 import { commonInputProps } from "./EtInput.vue";
 import { UI_SIZING } from "../../helpers/enums";
+import { areArraysWithObjectsEqual, makeArray } from "../../helpers/array";
 
 export default defineComponent({
     props: {
@@ -173,51 +174,13 @@ export default defineComponent({
     },
     methods: {
         isDifferent(): boolean {
-            let currentModel: OptionModel[] = [];
-            if (Array.isArray(this.modelValue)) {
-                currentModel = this.modelValue;
-            } else if (!Array.isArray(this.modelValue) && !!this.modelValue) {
-                currentModel = [this.modelValue];
-            }
-            const currentModelFiltered: OptionModel[] = currentModel.filter(
+            const currentArray = makeArray(this.modelValue).filter(
                 (opt) => !!opt
             );
-
-            let currentInnerModel: OptionModel[] = [];
-            if (Array.isArray(this.internalOptionValue)) {
-                currentInnerModel = this.internalOptionValue;
-            } else if (
-                !Array.isArray(this.internalOptionValue) &&
-                !!this.internalOptionValue
-            ) {
-                currentInnerModel = [this.internalOptionValue];
-            }
-            const currentInnerModelFiltered = currentInnerModel.filter(
+            const innerArray = makeArray(this.internalOptionValue).filter(
                 (opt) => !!opt
             );
-
-            const sameLength =
-                currentModelFiltered.length ===
-                currentInnerModelFiltered.length;
-
-            const everyModelInInner = currentModelFiltered.every(
-                (opt: OptionModel) => {
-                    return !!currentInnerModelFiltered.find(
-                        (opt2: OptionModel) => {
-                            return opt.guid === opt2.guid;
-                        }
-                    );
-                }
-            );
-
-            const everyInnerInModel = currentInnerModelFiltered.every(
-                (opt: OptionModel) =>
-                    currentModelFiltered.find(
-                        (opt2: OptionModel) => opt.guid === opt2.guid
-                    )
-            );
-
-            return !sameLength || !everyModelInInner || !everyInnerInModel;
+            return !areArraysWithObjectsEqual("guid", currentArray, innerArray);
         },
         async onInputClick() {
             const popover = this.$refs.popover as typeof EtPopover;

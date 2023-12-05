@@ -26,6 +26,7 @@ import EtCheckbox from "../etForm/EtCheckbox.vue";
 import { OptionModel } from "../../models/Option";
 import { Debounce } from "../../helpers/debounce";
 import { needleFixer } from "../../helpers/misc";
+import { areArraysWithObjectsEqual, makeArray } from "../../helpers/array";
 
 export default defineComponent({
     components: {
@@ -70,13 +71,28 @@ export default defineComponent({
         internalSelected: {
             immediate: true,
             handler(value) {
-                this.$emit("update:modelValue", this.internalSelected);
+                if (this.isDifferent()) {
+                    this.$emit("update:modelValue", this.internalSelected);
+                }
             }
         },
         modelValue: {
             immediate: true,
             handler(modelValue) {
-                this.internalSelected = modelValue;
+                // Have to do it this way.
+                // Ran into an issue that the value was being set by reference
+                // So that when internalSelected was updated, the modelValue in
+                // the parent component would instantly update too..
+                // (when not using @update:modelValue or v-model that is)
+                if (this.multiple) {
+                    if (Array.isArray(modelValue)) {
+                        this.internalSelected = modelValue.map((val) => val);
+                    } else {
+                        this.internalSelected = [];
+                    }
+                } else {
+                    this.internalSelected = modelValue;
+                }
             }
         }
     },
@@ -119,6 +135,15 @@ export default defineComponent({
         }
     },
     methods: {
+        isDifferent(): boolean {
+            const currentArray = makeArray(this.modelValue).filter(
+                (opt) => !!opt
+            );
+            const innerArray = makeArray(this.internalSelected).filter(
+                (opt) => !!opt
+            );
+            return !areArraysWithObjectsEqual("guid", currentArray, innerArray);
+        },
         isSelected(option: OptionModel) {
             if (
                 !this.multiple &&
@@ -176,8 +201,13 @@ export default defineComponent({
                 this.internalSelected = this.internalSelected?.filter(
                     (opt: OptionModel) => opt.guid !== option.guid
                 );
+            } else if (Array.isArray(this.internalSelected)) {
+                this.internalSelected = [
+                    ...(this.internalSelected || []),
+                    option
+                ];
             } else {
-                this.internalSelected?.push(option);
+                this.internalSelected = option;
             }
 
             this.$emit("optionToggled", option);
