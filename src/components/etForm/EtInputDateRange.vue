@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 
 import EtInputGroup from "./EtInputGroup.vue";
 import EtInputGroupAddon from "./EtInputGroupAddon.vue";
@@ -75,13 +75,13 @@ import { wait } from "../../helpers/async";
 import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 
 import { UI_SIZING } from "../../helpers/enums";
-import { OptionModel } from "../../models/Option";
+import type { FilterDateValue } from "../etDataGrid/interfaces/DataGridMethods";
 
 export default defineComponent({
     props: {
         ...commonInputProps,
         modelValue: {
-            type: Array,
+            type: Object as PropType<FilterDateValue>,
             required: false,
             default: null
         },
@@ -120,13 +120,13 @@ export default defineComponent({
             handler() {
                 const newInternalValues: Array<Date | null> = [];
                 if (this.modelValue?.length > 0) {
-                    newInternalValues[0] = this.modelValue[0] as Date | null;
+                    newInternalValues[0] = parseDate(this.modelValue[0]);
                 } else {
                     newInternalValues[0] = null;
                 }
 
                 if (this.modelValue?.length > 1) {
-                    newInternalValues[1] = this.modelValue[1] as Date | null;
+                    newInternalValues[1] = parseDate(this.modelValue[1]);
                 } else {
                     newInternalValues[1] = null;
                 }

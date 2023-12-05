@@ -13,7 +13,8 @@ export interface BulkMethod<T extends RowObject = RowObject> {
 export enum FilterInputType {
     INPUT,
     CHECKBOX,
-    SELECT
+    SELECT,
+    DATERANGE
 }
 
 export type OptionFilterValue = {
@@ -21,15 +22,18 @@ export type OptionFilterValue = {
     label: string | null;
 };
 
+export type FilterDateValue = [Date | null, Date | null];
+
 export type FilterValue =
     | string
     | number
     | boolean
     | null
     | undefined
-    | OptionFilterValue[];
+    | OptionFilterValue[]
+    | FilterDateValue;
 
-export type BaseFilterDefinition<T> = {
+export type BaseFilterDefinition<T = FilterInputType> = {
     field: string;
     label?: string;
     default?: FilterValue;
@@ -42,9 +46,17 @@ export type SelectFilterDefinition<T = FilterInputType.SELECT> =
         options: OptionModel[] | (() => Promise<OptionModel[]>);
     };
 
+export type DateFilterDefinition<T = FilterInputType.DATERANGE> = Omit<
+    BaseFilterDefinition<T>,
+    "default"
+> & {
+    defaultStart?: string | Date;
+    defaultEnd?: string | Date;
+};
+
 export type FilterTypeMapping<T> = {
     [FilterInputType.SELECT]: SelectFilterDefinition<T>;
-    // Future input types can have custom fields to by adding them here.
+    [FilterInputType.DATERANGE]: DateFilterDefinition<T>;
 };
 
 export type FilterDefinition<T extends FilterInputType = FilterInputType> =
@@ -56,6 +68,7 @@ export interface FilterDisplay {
     field: string;
     value: FilterValue;
     label: string;
+    definition: FilterDefinition;
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {

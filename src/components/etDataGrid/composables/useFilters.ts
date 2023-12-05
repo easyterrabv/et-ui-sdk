@@ -1,5 +1,6 @@
 import { reactive } from "vue";
 import type {
+    BaseFilterDefinition,
     FilterDefinition,
     FilterObject,
     FiltersProvide,
@@ -45,7 +46,8 @@ export function useFilters<T extends RowObject = RowObject>(
                     return;
                 }
 
-                const { field, default: defaultValue } = filterDefinition;
+                const { field, default: defaultValue } =
+                    filterDefinition as BaseFilterDefinition;
 
                 if (defaultValue) {
                     newFilters[field] = defaultValue;

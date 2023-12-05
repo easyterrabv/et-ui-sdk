@@ -1,3 +1,6 @@
+import { cancelable } from "cancelable-promise";
 export const wait = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    return cancelable(new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    }));
 };

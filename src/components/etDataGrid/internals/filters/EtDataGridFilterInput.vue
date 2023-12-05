@@ -28,13 +28,23 @@
     <EtInputSelect
         v-else-if="filterType === FilterInputType.SELECT"
         @update:modelValue="
-            (newValues) => setFilterValue(newValues as OptionModel[])
+            (newValues) => setFilterValueFromSelect(newValues as OptionModel[])
         "
         :modelValue="optionModelValue"
-        style="width: 100%"
+        class="et-datagrid-filter-input--select"
         :size="UI_SIZING.S"
         :options="options"
         multiple
+    />
+
+    <EtInputDateRange
+        v-else-if="filterType === FilterInputType.DATERANGE"
+        @update:modelValue="
+            (dates) =>
+                setFilterValueFromDateRange(dates as Array<Date | null> | null)
+        "
+        :modelValue="filterValue as FilterDateValue"
+        :size="UI_SIZING.S"
     />
 </template>
 
@@ -42,9 +52,11 @@
 import EtInput from "../../../etForm/EtInput.vue";
 import EtCheckboxWithLabel from "../../../etForm/EtCheckboxWithLabel.vue";
 import EtInputSelect from "../../../etForm/EtInputSelect.vue";
+import EtInputDateRange from "../../../etForm/EtInputDateRange.vue";
 
 import type { PropType } from "vue";
 import type {
+    FilterDateValue,
     FilterDefinition,
     OptionFilterValue,
     SelectFilterDefinition
@@ -115,26 +127,37 @@ const validFilterValue = computed(() => {
     return props.filterDefinition?.validator?.(filterValue.value) ?? true;
 });
 
-function setFilterValue(newValue: FilterValue | OptionModel[]) {
-    const field = props.filterDefinition?.field!;
-
-    let value: FilterValue;
-    if (
-        Array.isArray(newValue) &&
-        filterType.value === FilterInputType.SELECT
-    ) {
-        value = (newValue as OptionModel[]).map((item: OptionModel) => {
+function setFilterValueFromSelect(newValues: OptionModel[]) {
+    setFilterValue(
+        (newValues as OptionModel[]).map((item: OptionModel) => {
             return {
                 value: item.value,
                 label: item.label
             } as OptionFilterValue;
-        });
-    } else {
-        value = newValue as FilterValue;
+        })
+    );
+}
+
+function setFilterValueFromDateRange(dates: Array<Date | null> | null) {
+    let values: FilterDateValue = [null, null];
+
+    if (dates && Array.isArray(dates)) {
+        if (dates.length <= 0) {
+            values = [null, null];
+        } else if (dates.length === 1) {
+            values = [dates[0], dates[0]];
+        } else if (dates.length >= 2) {
+            values = [dates[0] || null, dates[1] || null];
+        }
     }
 
+    setFilterValue(values);
+}
+
+function setFilterValue(newValue: FilterValue) {
+    const field = props.filterDefinition?.field!;
     dirty.value = true;
-    filterValueStaging?.setFilter(field, value);
+    filterValueStaging?.setFilter(field, newValue);
 }
 </script>
 
@@ -143,5 +166,9 @@ function setFilterValue(newValue: FilterValue | OptionModel[]) {
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal-s);
     color: var(--et-sdk-dark-500);
+}
+
+.et-datagrid-filter-input--select {
+    width: 100%;
 }
 </style>

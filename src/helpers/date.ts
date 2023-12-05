@@ -68,7 +68,17 @@ export const isToday = (date: string | Date): boolean => {
     return sameYear && sameMonth && sameDay;
 };
 
-export const parseDate = (input: string | number): Date | null => {
+export const parseDate = (
+    input: string | number | Date | null
+): Date | null => {
+    if (!input) {
+        return null;
+    }
+
+    if (input instanceof Date) {
+        return input;
+    }
+
     const timestamp = Date.parse(input.toString());
     if (!isNaN(timestamp)) {
         return new Date(timestamp);
@@ -168,10 +178,25 @@ export const dateToYMD = (date: Date): string => {
     return `${year}-${month + 1}-${day}`;
 };
 
-export const dateToFormattedString = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = monthToNameFull(date.getMonth());
-    const day = date.getDate();
+export const dateToFormattedString = (
+    date: Date | string,
+    monthType: "short" | "full" = "full"
+): string => {
+    const parsedDate = parseDate(date);
+
+    if (!parsedDate) {
+        return "Unknown Date";
+    }
+
+    const year = parsedDate.getFullYear();
+    let month;
+    if (monthType === "short") {
+        month = monthToNameShort(parsedDate.getMonth());
+    } else {
+        month = monthToNameFull(parsedDate.getMonth());
+    }
+
+    const day = parsedDate.getDate();
     return `${day} ${month} ${year}`;
 };
 

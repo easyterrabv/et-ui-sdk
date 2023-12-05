@@ -132,12 +132,10 @@ export default defineComponent({
                 {
                     field: 'name',
                     label: 'Name',
-                    default: ''
                 },
                 {
                     field: 'email',
                     label: 'Email',
-                    default: '',
                     validator: (value) => {
                         if(typeof value === 'string') {
                             // Regex from CSE `GET /tickets` endpoint
@@ -149,12 +147,10 @@ export default defineComponent({
                 {
                     field: 'text',
                     label: 'Contains words',
-                    default: ''
                 },
                 {
                     field: 'Options',
                     label: 'Has options',
-                    default: '',
                     type: FilterInputType.SELECT,
                     options: [
                         new OptionModel({
@@ -184,9 +180,13 @@ export default defineComponent({
                     ] as OptionModel[]
                 },
                 {
+                    field: 'created',
+                    label: 'Date Created',
+                    type: FilterInputType.DATERANGE
+                },
+                {
                     field: 'attachments',
                     label: 'Has Attachments',
-                    default: '',
                     type: FilterInputType.CHECKBOX
                 },
             ] as FilterDefinition[],

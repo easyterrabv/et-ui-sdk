@@ -100,9 +100,9 @@ const filterValuesList = computed(() => {
         .map(([key, value]) => ({
             field: key,
             value,
-            label: (filterDefinitions?.value || []).find(
+            definition: (filterDefinitions?.value || []).find(
                 (definition) => definition.field == key
-            )?.label
+            )
         })) as FilterDisplay[];
 });
 
