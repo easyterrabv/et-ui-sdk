@@ -3,11 +3,11 @@
         v-if="filterType === FilterInputType.INPUT"
         :size="UI_SIZING.S"
         :model-value="filterValue as string"
-        @change="(newValue: FilterValue) => setFilterValue(newValue)"
+        @change="(newValue) => setFilterValue(newValue)"
         clear-button
         :error="!validFilterValue"
         @clear="() => setFilterValue(null)"
-        @enter="(newValue: FilterValue) => setFilterValue(newValue)"
+        @enter="(newValue) => setFilterValue(newValue)"
     />
 
     <!-- Span element, otherwise the class prop will fall through -->
@@ -17,9 +17,7 @@
     >
         <EtCheckboxWithLabel
             :checked="filterValue as boolean"
-            @update:checked="
-                (newValue: FilterValue) => setFilterValue(newValue)
-            "
+            @update:checked="(newValue) => setFilterValue(newValue)"
         >
             {{ filterDefinition.label }}
         </EtCheckboxWithLabel>
