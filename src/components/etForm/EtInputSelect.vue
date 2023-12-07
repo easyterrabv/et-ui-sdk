@@ -236,7 +236,7 @@ export default defineComponent({
 
 <style>
 .et-sdk-input-select {
-    display: inline-block;
+    display: block;
     width: 320px;
 }
 
@@ -251,13 +251,6 @@ export default defineComponent({
     height: 100%;
     cursor: pointer;
     color: var(--et-sdk-dark-300);
-    background-color: var(--et-sdk-light-0);
-    border-radius: 8px;
-    box-shadow: var(--et-sdk-shadow-normal);
-}
-
-.et-sdk-input-like--toggle:hover {
-    background-color: var(--et-sdk-dark-50);
 }
 
 .et-sdk-input-like--toggle__xs {

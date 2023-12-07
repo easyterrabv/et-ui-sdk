@@ -53,13 +53,12 @@ export default defineComponent({
 .et-sdk-textarea {
     display: block;
     width: 100%;
-    border-radius: 8px;
+    border-radius: var(--et-sdk-input-border-radius);
     padding: 8px;
-    border: 1px solid var(--et-sdk-dark-200);
-    box-shadow: var(--et-sdk-shadow-normal);
+    border: 1px solid var(--et-sdk-dark-300);
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal);
-    line-height: 20px;
+    line-height: 24px;
     color: var(--et-sdk-dark-800);
 }
 

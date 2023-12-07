@@ -231,7 +231,6 @@ onBeforeUnmount(() => {
     margin-top: 4px;
     line-height: 52px;
     box-shadow: none;
-    background-color: var(--et-sdk-blue-50);
 
     display: flex;
     flex-direction: row;
@@ -256,19 +255,18 @@ onBeforeUnmount(() => {
 
 .et-sdk-data-grid__filters-wrapper {
     z-index: 30;
-    width: calc(var(--data-grid-filter-input-width) * 0.8);
+    width: var(--data-grid-filter-input-width);
 
     border-radius: 8px;
     background-color: var(--et-sdk-light-0);
     box-shadow: var(--et-sdk-shadow-large);
-
-    padding: 30px;
 }
 
 .et-sdk-data-grid__filters-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding: 15px 30px;
 }
 
 .et-sdk-data-grid__filters-search-button {
@@ -278,8 +276,12 @@ onBeforeUnmount(() => {
 }
 
 .et-sdk-data-grid__filters-functionality {
+    padding: 20px 30px;
     margin-top: 15px;
-    float: right;
+    background-color: var(--et-sdk-dark-50);
+
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .et-sdk-data-grid__filter-content__filter-placeholder {

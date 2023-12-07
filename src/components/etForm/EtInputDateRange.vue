@@ -272,7 +272,8 @@ export default defineComponent({
 }
 
 .et-sdk-input-date-range--input-wrapper {
-    width: 160px;
+    flex-grow: 1;
+    min-width: 160px;
     position: relative;
 }
 </style>

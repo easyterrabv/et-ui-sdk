@@ -93,8 +93,7 @@ export default defineComponent({
 
 <style>
 .et-sdk-button {
-    box-shadow: var(--et-sdk-shadow-normal);
-    border-radius: 8px;
+    border-radius: var(--et-sdk-input-border-radius);
     font-weight: var(--et-sdk-font-weight-semibold);
 
     /*Default styling*/
@@ -105,6 +104,10 @@ export default defineComponent({
     padding: 8px 12px;
     font-size: var(--et-sdk-font-size-normal);
     line-height: 20px;
+}
+
+.et-sdk-button__default {
+    border: 1px solid var(--et-sdk-dark-300);
 }
 
 .et-sdk-button:hover:not(.et-sdk-button__readonly):not(
@@ -123,6 +126,7 @@ export default defineComponent({
 }
 
 .et-sdk-button__primary {
+    border: 1px solid var(--et-sdk-blue-600);
     background-color: var(--et-sdk-blue-600);
     color: var(--et-sdk-light-0);
 }
@@ -133,15 +137,18 @@ export default defineComponent({
 .et-sdk-button__active.et-sdk-button__primary:not(.et-sdk-button__readonly):not(
         .et-sdk-button__disabled
     ) {
+    border: 1px solid var(--et-sdk-blue-700);
     background-color: var(--et-sdk-blue-700);
 }
 
 .et-sdk-button__disabled.et-sdk-button__primary,
 .et-sdk-button__disabled.et-sdk-button__primary:hover {
+    border: 1px solid var(--et-sdk-blue-400);
     background-color: var(--et-sdk-blue-400);
 }
 
 .et-sdk-button__success {
+    border: 1px solid var(--et-sdk-success-500);
     background-color: var(--et-sdk-success-500);
     color: var(--et-sdk-light-0);
 }
@@ -152,15 +159,18 @@ export default defineComponent({
 .et-sdk-button__active.et-sdk-button__success:not(.et-sdk-button__readonly):not(
         .et-sdk-button__disabled
     ) {
+    border: 1px solid var(--et-sdk-success-700);
     background-color: var(--et-sdk-success-700);
 }
 
 .et-sdk-button__disabled.et-sdk-button__success,
 .et-sdk-button__disabled.et-sdk-button__success:hover {
+    border: 1px solid var(--et-sdk-success-300);
     background-color: var(--et-sdk-success-300);
 }
 
 .et-sdk-button__danger {
+    border: 1px solid var(--et-sdk-danger-500);
     background-color: var(--et-sdk-danger-500);
     color: var(--et-sdk-light-0);
 }
@@ -171,15 +181,18 @@ export default defineComponent({
 .et-sdk-button__active.et-sdk-button__danger:not(.et-sdk-button__readonly):not(
         .et-sdk-button__disabled
     ) {
+    border: 1px solid var(--et-sdk-danger-700);
     background-color: var(--et-sdk-danger-700);
 }
 
 .et-sdk-button__disabled.et-sdk-button__danger,
 .et-sdk-button__disabled.et-sdk-button__danger:hover {
+    border: 1px solid var(--et-sdk-danger-300);
     background-color: var(--et-sdk-danger-300);
 }
 
 .et-sdk-button__warning {
+    border: 1px solid var(--et-sdk-warning-500);
     background-color: var(--et-sdk-warning-500);
     color: var(--et-sdk-light-0);
 }
@@ -190,11 +203,13 @@ export default defineComponent({
 .et-sdk-button__active.et-sdk-button__warning:not(.et-sdk-button__readonly):not(
         .et-sdk-button__disabled
     ) {
+    border: 1px solid var(--et-sdk-warning-700);
     background-color: var(--et-sdk-warning-700);
 }
 
 .et-sdk-button__disabled.et-sdk-button__warning,
 .et-sdk-button__disabled.et-sdk-button__warning:hover {
+    border: 1px solid var(--et-sdk-warning-300);
     background-color: var(--et-sdk-warning-300);
 }
 

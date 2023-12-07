@@ -56,7 +56,7 @@ async function emitEnter() {
 
 .et-sdk-data-grid-filter__label {
     width: 150px;
-    line-height: 30px;
+    line-height: 42px;
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal-s);
     color: var(--et-sdk-dark-500);

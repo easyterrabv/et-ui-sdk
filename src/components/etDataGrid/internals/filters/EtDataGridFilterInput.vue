@@ -1,7 +1,6 @@
 <template>
     <EtInput
         v-if="filterType === FilterInputType.INPUT"
-        :size="UI_SIZING.S"
         :model-value="filterValue as string"
         @change="(newValue) => setFilterValue(newValue)"
         clear-button
@@ -30,7 +29,6 @@
         "
         :modelValue="optionModelValue"
         class="et-datagrid-filter-input--select"
-        :size="UI_SIZING.S"
         :options="options"
         multiple
     />
@@ -42,7 +40,6 @@
                 setFilterValueFromDateRange(dates as Array<Date | null> | null)
         "
         :modelValue="filterValue as FilterDateValue"
-        :size="UI_SIZING.S"
     />
 </template>
 

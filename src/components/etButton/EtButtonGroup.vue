@@ -40,25 +40,25 @@ export default defineComponent({
 }
 
 .et-sdk-button-group__horizontal > *:first-child {
-    border-top-left-radius: 8px !important;
-    border-bottom-left-radius: 8px !important;
+    border-top-left-radius: var(--et-sdk-input-border-radius) !important;
+    border-bottom-left-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__vertical > *:first-child,
 .et-sdk-button-group__vertical > .et-sdk-popover:first-child .et-sdk-button {
-    border-top-left-radius: 8px !important;
-    border-top-right-radius: 8px !important;
+    border-top-left-radius: var(--et-sdk-input-border-radius) !important;
+    border-top-right-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__horizontal > *:last-child {
-    border-top-right-radius: 8px !important;
-    border-bottom-right-radius: 8px !important;
+    border-top-right-radius: var(--et-sdk-input-border-radius) !important;
+    border-bottom-right-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__vertical > *:last-child,
 .et-sdk-button-group__vertical > .et-sdk-popover:last-child .et-sdk-button {
-    border-bottom-left-radius: 8px !important;
-    border-bottom-right-radius: 8px !important;
+    border-bottom-left-radius: var(--et-sdk-input-border-radius) !important;
+    border-bottom-right-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__vertical > .et-sdk-button-group > * /* In case of nested button groups */ {
@@ -68,25 +68,25 @@ export default defineComponent({
 .et-sdk-button-group__vertical
     > .et-sdk-button-group:first-child
     > *:first-child {
-    border-top-left-radius: 8px !important;
+    border-top-left-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__vertical
     > .et-sdk-button-group:first-child
     > *:last-child {
-    border-top-right-radius: 8px !important;
+    border-top-right-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__vertical
     > .et-sdk-button-group:last-child
     > *:first-child {
-    border-bottom-left-radius: 8px !important;
+    border-bottom-left-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__vertical
     > .et-sdk-button-group:last-child
     > *:last-child {
-    border-bottom-right-radius: 8px !important;
+    border-bottom-right-radius: var(--et-sdk-input-border-radius) !important;
 }
 
 .et-sdk-button-group__horizontal {
@@ -95,5 +95,13 @@ export default defineComponent({
 
 .et-sdk-button-group__horizontal > * {
     flex-grow: 1;
+}
+
+.et-sdk-button-group__horizontal > .et-sdk-button:not(:last-child) {
+    border-right: none;
+}
+
+.et-sdk-button-group__vertical > .et-sdk-button:not(:last-child) {
+    border-bottom: none;
 }
 </style>

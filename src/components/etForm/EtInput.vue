@@ -387,36 +387,35 @@ export default defineComponent({
 .et-sdk-input-wrapper__l .et-sdk-input-pre,
 .et-sdk-input-wrapper__l .et-sdk-input-clear,
 .et-sdk-input-wrapper__l .et-sdk-input-post {
-    padding: 12px;
+    padding: 14px;
 }
 
 .et-sdk-input-wrapper__m .et-sdk-input-pre,
 .et-sdk-input-wrapper__m .et-sdk-input-clear,
 .et-sdk-input-wrapper__m .et-sdk-input-post {
-    padding: 8px;
+    padding: 10px;
 }
 
 .et-sdk-input-wrapper__s .et-sdk-input-pre,
 .et-sdk-input-wrapper__s .et-sdk-input-clear,
 .et-sdk-input-wrapper__s .et-sdk-input-post {
-    padding: 4px;
+    padding: 6px;
 }
 
 .et-sdk-input-wrapper__xs .et-sdk-input-pre,
 .et-sdk-input-wrapper__xs .et-sdk-input-clear,
 .et-sdk-input-wrapper__xs .et-sdk-input-post {
-    padding: 2px;
+    padding: 4px;
 }
 
 .et-sdk-input {
     display: block;
     width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--et-sdk-dark-200);
-    box-shadow: var(--et-sdk-shadow-normal);
+    border-radius: var(--et-sdk-input-border-radius);
+    border: 1px solid var(--et-sdk-dark-300);
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal);
-    line-height: 20px;
+    line-height: 24px;
     color: var(--et-sdk-dark-800);
 }
 
