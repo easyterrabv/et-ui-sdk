@@ -1,6 +1,7 @@
 <template>
     <EtInput
         v-if="filterType === FilterInputType.INPUT"
+        :size="UI_SIZING.S"
         :model-value="filterValue as string"
         @change="(newValue) => setFilterValue(newValue)"
         clear-button
@@ -24,6 +25,7 @@
 
     <EtInputSelect
         v-else-if="filterType === FilterInputType.SELECT"
+        :size="UI_SIZING.S"
         @update:modelValue="
             (newValues) => setFilterValueFromSelect(newValues as OptionModel[])
         "
@@ -35,6 +37,7 @@
 
     <EtInputDateRange
         v-else-if="filterType === FilterInputType.DATERANGE"
+        :size="UI_SIZING.S"
         @update:modelValue="
             (dates) =>
                 setFilterValueFromDateRange(dates as Array<Date | null> | null)
