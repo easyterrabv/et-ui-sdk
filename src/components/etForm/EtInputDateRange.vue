@@ -28,7 +28,10 @@
                             </template>
                         </EtInput>
                     </div>
-                    <EtInputGroupAddon :size="size"> Until </EtInputGroupAddon>
+
+                    <EtInputGroupAddon>
+                        <EtIconArrowRightLong />
+                    </EtInputGroupAddon>
                     <div class="et-sdk-input-date-range--input-wrapper">
                         <EtInput
                             :name="name + '_second'"
@@ -73,6 +76,7 @@ import EtDatePicker from "../etDatePicker/EtDatePicker.vue";
 import { dateToYMD, isSameDates, parseDate } from "../../helpers/date";
 import { wait } from "../../helpers/async";
 import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
+import EtIconArrowRightLong from "../etIcon/EtIconArrowRightLong.vue";
 
 import { UI_SIZING } from "../../helpers/enums";
 import type { FilterDateValue } from "../etDataGrid/interfaces/DataGridMethods";
@@ -97,7 +101,8 @@ export default defineComponent({
         EtPopover,
         EtInput,
         EtDatePicker,
-        EtIconCalendar
+        EtIconCalendar,
+        EtIconArrowRightLong
     },
     data() {
         return {
