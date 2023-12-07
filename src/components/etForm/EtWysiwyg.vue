@@ -690,14 +690,14 @@ export default defineComponent({
     flex-direction: row;
     gap: 8px;
 
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: var(--et-sdk-input-border-radius);
+    border-top-right-radius: var(--et-sdk-input-border-radius);
 
     padding: 8px;
 
-    border: 1px solid var(--et-sdk-dark-200);
-    box-shadow: var(--et-sdk-shadow-normal);
+    border: 1px solid var(--et-sdk-dark-300);
     font-weight: var(--et-sdk-font-weight-normal);
+    border-bottom: none;
     font-size: var(--et-sdk-font-size-normal);
     line-height: 20px;
     color: var(--et-sdk-dark-800);
@@ -738,11 +738,11 @@ export default defineComponent({
 .et-sdk-wysiwyg--editor-textarea {
     max-width: 100%;
     min-height: 300px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: var(--et-sdk-input-border-radius);
+    border-bottom-right-radius: var(--et-sdk-input-border-radius);
     padding: 8px;
-    border: 1px solid var(--et-sdk-dark-200);
-    box-shadow: var(--et-sdk-shadow-normal);
+    border: 1px solid var(--et-sdk-dark-300);
+    border-top: none;
     font-weight: var(--et-sdk-font-weight-normal);
 }
 

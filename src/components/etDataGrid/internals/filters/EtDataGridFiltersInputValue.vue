@@ -105,7 +105,7 @@ function removeFilter() {
 
 <style>
 .et-sdk-data-grid--filter-content--filter-value {
-    background-color: var(--et-sdk-light-0);
+    background-color: var(--et-sdk-blue-50);
     padding: 5px 15px;
     border: 1px solid var(--et-sdk-dark-300);
     border-radius: 999px;
@@ -141,7 +141,7 @@ function removeFilter() {
     margin-left: 2px;
     margin-right: 2px;
     padding: 4px 15px 4px 6px;
-    background-color: var(--et-sdk-dark-100);
+    background-color: var(--et-sdk-blue-100);
     border-radius: 999px;
     font-size: var(--et-sdk-font-size-small);
 }

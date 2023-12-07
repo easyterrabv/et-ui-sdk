@@ -240,6 +240,11 @@
                         @click="(e: Event) => console.log('test', e)">
                         Hello! 3
                     </EtButtonDefault>
+                    <EtButtonDefault
+                        :size="UI_SIZING.S"
+                        @click="(e: Event) => console.log('test', e)">
+                        Hello! 4
+                    </EtButtonDefault>
                 </EtButtonGroup>
             </div>
 
