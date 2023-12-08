@@ -127,7 +127,7 @@ const validFilterValue = computed(() => {
 
 function setFilterValueFromSelect(newValues: OptionModel[]) {
     setFilterValue(
-        (newValues as OptionModel[]).map((item: OptionModel) => {
+        ((newValues || []) as OptionModel[]).map((item: OptionModel) => {
             return {
                 value: item.value,
                 label: item.label
@@ -159,6 +159,12 @@ function setFilterValueFromDateRange(dates: Array<Date | null> | null) {
 function setFilterValue(newValue: FilterValue) {
     const field = props.filterDefinition?.field!;
     dirty.value = true;
+
+    if (newValue && Array.isArray(newValue) && newValue.length <= 0) {
+        filterValueStaging?.setFilter(field, null);
+        return;
+    }
+
     filterValueStaging?.setFilter(field, newValue);
 }
 </script>
