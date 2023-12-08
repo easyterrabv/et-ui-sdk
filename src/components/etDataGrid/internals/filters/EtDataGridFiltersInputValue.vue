@@ -87,11 +87,12 @@ function removeOption(item: OptionFilterValue) {
     }
 
     const currentValues = props.filterDisplay.value || [];
+    const newValues = (currentValues as OptionFilterValue[]).filter(
+        (val) => val.value !== item.value
+    );
     filters?.setFilter(
         props.filterDisplay.field,
-        (currentValues as OptionFilterValue[]).filter(
-            (val) => val.value !== item.value
-        )
+        newValues.length > 0 ? newValues : null
     );
 }
 

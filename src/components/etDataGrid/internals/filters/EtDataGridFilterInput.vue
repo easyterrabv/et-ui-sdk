@@ -141,7 +141,7 @@ function setFilterValueFromDateRange(dates: Array<Date | null> | null) {
 
     if (dates && Array.isArray(dates)) {
         if (dates.length <= 0) {
-            values = [null, null];
+            setFilterValue(null);
         } else if (dates.length === 1) {
             values = [dates[0], dates[0]];
         } else if (dates.length >= 2) {
@@ -149,7 +149,11 @@ function setFilterValueFromDateRange(dates: Array<Date | null> | null) {
         }
     }
 
-    setFilterValue(values);
+    if (!values[0] && !values[1]) {
+        setFilterValue(null);
+    } else {
+        setFilterValue(values);
+    }
 }
 
 function setFilterValue(newValue: FilterValue) {
