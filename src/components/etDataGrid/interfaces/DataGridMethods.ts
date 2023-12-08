@@ -38,6 +38,7 @@ export type BaseFilterDefinition<T = FilterInputType> = {
     label?: string;
     default?: FilterValue;
     validator?: (value: FilterValue) => boolean;
+    formatter?: (value: FilterValue) => any;
     type: T;
 };
 

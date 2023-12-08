@@ -18,7 +18,11 @@ import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/Da
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
 import {wait} from "../../src/helpers/async";
-import type {BulkMethod, SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import type {
+    BulkMethod,
+    FilterDateValue,
+    SortingObject
+} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
 import {type FilterDefinition, FilterInputType} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 import {OptionModel} from "../../src/models/Option";
@@ -182,7 +186,13 @@ export default defineComponent({
                 {
                     field: 'created',
                     label: 'Date Created',
-                    type: FilterInputType.DATERANGE
+                    type: FilterInputType.DATERANGE,
+                    formatter(dates: FilterDateValue) {
+                        return {
+                            'from': dates[0],
+                            'till': dates[0]
+                        }
+                    }
                 },
                 {
                     field: 'attachments',
