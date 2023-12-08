@@ -265,7 +265,7 @@ onBeforeUnmount(() => {
 .et-sdk-data-grid__filters-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 8px;
     padding: 15px 30px;
 }
 
