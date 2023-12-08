@@ -111,7 +111,15 @@ export default defineComponent({
             this.buttonElement as any,
             this.tooltipElement as any,
             {
-                placement: "auto"
+                placement: "bottom",
+                modifiers: [
+                    {
+                        name: "flip",
+                        options: {
+                            fallbackPlacements: ["top"]
+                        }
+                    }
+                ]
             }
         );
 
