@@ -12,7 +12,6 @@
 import EtBadge, { sharedProps } from "./EtBadge.vue";
 import { defineComponent } from "vue";
 import { UI_TYPES } from "../../helpers/enums";
-import EtAlert from "../etAlert/EtAlert.vue";
 
 export default defineComponent({
     computed: {
