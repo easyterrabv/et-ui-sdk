@@ -1,5 +1,5 @@
 <template>
-    <div class="et-sdk-select">
+    <div class="et-sdk-select hide-scrollbar">
         <div
             class="et-sdk-select--option"
             :class="{
@@ -267,6 +267,9 @@ export default defineComponent({
     padding-bottom: 8px;
     border-radius: 4px;
     width: 100%;
+
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .et-sdk-select--option {
