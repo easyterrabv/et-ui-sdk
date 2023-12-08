@@ -268,7 +268,7 @@ export default defineComponent({
     border-radius: 4px;
     width: 100%;
 
-    max-height: 500px;
+    max-height: 350px;
     overflow-y: auto;
 }
 

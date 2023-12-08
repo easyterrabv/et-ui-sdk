@@ -111,7 +111,7 @@ export default defineComponent({
             this.buttonElement as any,
             this.tooltipElement as any,
             {
-                placement: "bottom"
+                placement: "auto"
             }
         );
 
