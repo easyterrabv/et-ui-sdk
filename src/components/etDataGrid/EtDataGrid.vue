@@ -165,6 +165,24 @@ async function __searchData() {
 
     let resultRows: RowObject[] = [];
 
+    const filtersFormattedValues = Object.entries(
+        filters.filtersValues || {}
+    ).reduce((prev, [key, value]) => {
+        const definition = props.filters?.find((def) => def.field === key);
+        if (!definition) {
+            return prev;
+        }
+
+        const formatter = definition.formatter;
+        if (!formatter) {
+            prev[key] = value;
+        } else {
+            prev[key] = formatter(value);
+        }
+
+        return prev;
+    }, {} as FilterObject);
+
     if (props.dataGetter) {
         isLoading.value = true;
 
@@ -172,7 +190,7 @@ async function __searchData() {
 
         dataRequest = cancelable(
             props.dataGetter(
-                filters.filtersValues || {},
+                filtersFormattedValues,
                 sorting.sorting || {},
                 pagination.page || 1,
                 pagination.perPage || 50
@@ -183,7 +201,7 @@ async function __searchData() {
         if (urlData) {
             await urlData.setDataToUrl({
                 sorting: sorting.sorting,
-                filters: filters.filtersValues,
+                filters: filtersFormattedValues,
                 page: pagination.page,
                 perPage: pagination.perPage
             });
