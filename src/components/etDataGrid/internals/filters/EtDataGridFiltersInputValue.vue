@@ -25,14 +25,14 @@
             "
         >
             <span v-if="dates && dates[0]">
-                {{ dateToFormattedString(dates[0]) }}
+                {{ dateToFormattedString(dates[0], "short") }}
             </span>
             <span
                 class="et-sdk-data-grid--filter-content--filter-value--date-divider"
                 ><EtIconArrowRightLong
             /></span>
             <span v-if="dates && dates[1]">
-                {{ dateToFormattedString(dates[1]) }}
+                {{ dateToFormattedString(dates[1], "short") }}
             </span>
         </template>
         <template v-else>
