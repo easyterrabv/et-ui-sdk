@@ -54,10 +54,11 @@
                                     Array.isArray(internalOptionValue)
                                 "
                             >
-                                <EtBadgeDefault
+                                <EtBadge
                                     class="et-sdk-input-select--option-badge"
                                     v-for="option in internalOptionValue"
                                     :key="option.guid"
+                                    :type="option.type || UI_TYPES.DEFAULT"
                                 >
                                     {{ option.label }}
                                     <span
@@ -68,7 +69,7 @@
                                     >
                                         <EtIconTimes />
                                     </span>
-                                </EtBadgeDefault>
+                                </EtBadge>
                             </span>
                         </div>
                         <span
@@ -106,7 +107,7 @@ import { defineComponent, type PropType } from "vue";
 
 import EtPopover from "../EtPopover.vue";
 import EtInput from "./EtInput.vue";
-import EtBadgeDefault from "../etBadge/EtBadgeDefault.vue";
+import EtBadge from "../etBadge/EtBadge.vue";
 import EtSelect from "../etSelect/EtSelect.vue";
 import EtIconTimes from "../etIcon/EtIconTimes.vue";
 import EtIconChevronDown from "../etIcon/EtIconChevronDown.vue";
@@ -115,10 +116,15 @@ import { wait } from "../../helpers/async";
 import { OptionModel } from "../../models/Option";
 
 import { commonInputProps } from "./EtInput.vue";
-import { UI_SIZING } from "../../helpers/enums";
+import { UI_SIZING, UI_TYPES } from "../../helpers/enums";
 import { areArraysWithObjectsEqual, makeArray } from "../../helpers/array";
 
 export default defineComponent({
+    computed: {
+        UI_TYPES() {
+            return UI_TYPES;
+        }
+    },
     props: {
         options: {
             type: Array as PropType<OptionModel[]>,
@@ -140,7 +146,7 @@ export default defineComponent({
         EtPopover,
         EtInput,
         EtSelect,
-        EtBadgeDefault
+        EtBadge
     },
     data() {
         return {
