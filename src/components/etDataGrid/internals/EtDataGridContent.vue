@@ -1,7 +1,7 @@
 <template>
     <div class="et-sdk-data-grid--content-wrapper">
         <div class="et-sdk-data-grid--content">
-            <template v-if="!isLoading">
+            <template v-if="!isLoading && data.length > 0">
                 <EtDataGridContentRow
                     v-for="row in data"
                     :row="row"
@@ -13,6 +13,9 @@
                     </template>
                 </EtDataGridContentRow>
             </template>
+            <EtDataGridNoContentRow
+                v-else-if="!isLoading && data.length <= 0"
+            />
             <EtDataGridContentLoadingRow v-else />
         </div>
     </div>
@@ -30,6 +33,7 @@ import type { DataGridRow } from "../interfaces/DataGridRow";
 import type { RowObject } from "../interfaces/DataGridMethods";
 import { getContentFromKey } from "../services/DataGridCellHelpers";
 import type { RowVersionProvider } from "../interfaces/DataGridMethods";
+import EtDataGridNoContentRow from "./EtDataGridNoContentRow.vue";
 
 const props = defineProps({
     columns: {
