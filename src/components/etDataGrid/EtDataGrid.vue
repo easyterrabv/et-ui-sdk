@@ -201,7 +201,8 @@ async function __searchData() {
         if (urlData) {
             await urlData.setDataToUrl({
                 sorting: sorting.sorting,
-                filters: filtersFormattedValues,
+                // Don't set formatted values as url data
+                filters: filters.filtersValues,
                 page: pagination.page,
                 perPage: pagination.perPage
             });
