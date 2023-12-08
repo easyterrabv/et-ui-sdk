@@ -190,7 +190,7 @@ export default defineComponent({
                     formatter(dates: FilterDateValue) {
                         return {
                             'from': dates[0],
-                            'till': dates[0]
+                            'till': dates[1]
                         }
                     }
                 },
