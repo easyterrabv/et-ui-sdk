@@ -156,32 +156,10 @@ export default defineComponent({
                     field: 'Options',
                     label: 'Has options',
                     type: FilterInputType.SELECT,
-                    options: [
-                        new OptionModel({
-                            label: "option 1",
-                            value: 1
-                        }),
-                        new OptionModel({
-                            label: "option 2",
-                            value: 2
-                        }),
-                        new OptionModel({
-                            label: "option 3",
-                            value: 3
-                        }),
-                        new OptionModel({
-                            label: "option 4",
-                            value: 4
-                        }),
-                        new OptionModel({
-                            label: "option 5",
-                            value: 5
-                        }),
-                        new OptionModel({
-                            label: "option 6",
-                            value: 6
-                        })
-                    ] as OptionModel[]
+                    options: Array(20).fill(null).map((item, index) => new OptionModel({
+                        label: `Option ${index + 1}`,
+                        value: index + 1
+                    }))
                 },
                 {
                     field: 'created',
@@ -305,6 +283,11 @@ export default defineComponent({
         },
     },
     async mounted() {
+        console.log((new Array(20)).map((item, index) => new OptionModel({
+            label: `Option ${index}`,
+            value: index
+        })));
+
         await wait(5000);
         (this.$refs.table as any).patchRow(1,
             {
