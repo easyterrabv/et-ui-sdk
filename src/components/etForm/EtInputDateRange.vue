@@ -207,6 +207,11 @@ export default defineComponent({
             this.currentFocus = "datePicker";
             this.open();
         },
+        async hide() {
+            this.currentFocus = null;
+            this.isOpen = false;
+            (this.$refs.popover as any).hide();
+        },
         async onFirstInputBlur() {
             if (this.currentFocus === "inputOne") {
                 this.currentFocus = null;

@@ -191,9 +191,7 @@ export default defineComponent({
         async onInputClick() {
             const popover = this.$refs.popover as typeof EtPopover;
             if (popover.isOpen()) {
-                popover.hide();
-                this.internalFilterValue = "";
-                this.hasInputFocus = false;
+                this.hide();
                 return;
             }
             this.hasInputFocus = true;
@@ -228,6 +226,12 @@ export default defineComponent({
         },
         deSelectOption(option: OptionModel) {
             (this.$refs.select as typeof EtSelect).deSelectOption(option);
+        },
+        hide() {
+            const popover = this.$refs.popover as typeof EtPopover;
+            popover.hide();
+            this.internalFilterValue = "";
+            this.hasInputFocus = false;
         }
     },
     emits: {

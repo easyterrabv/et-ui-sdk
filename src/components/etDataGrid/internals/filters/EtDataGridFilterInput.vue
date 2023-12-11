@@ -5,6 +5,7 @@
         :model-value="filterValue as string"
         @change="(newValue) => setFilterValue(newValue)"
         clear-button
+        ref="input"
         :error="!validFilterValue"
         @clear="() => setFilterValue(null)"
         @enter="(newValue) => setFilterValue(newValue)"
@@ -17,6 +18,7 @@
     >
         <EtCheckboxWithLabel
             :checked="filterValue as boolean"
+            ref="input"
             @update:checked="(newValue) => setFilterValue(newValue)"
         >
             {{ filterDefinition.label }}
@@ -26,6 +28,7 @@
     <EtInputSelect
         v-else-if="filterType === FilterInputType.SELECT"
         :size="UI_SIZING.S"
+        ref="input"
         @update:modelValue="
             (newValues) => setFilterValueFromSelect(newValues as OptionModel[])
         "
@@ -38,6 +41,7 @@
     <EtInputDateRange
         v-else-if="filterType === FilterInputType.DATERANGE"
         :size="UI_SIZING.S"
+        ref="input"
         @update:modelValue="
             (dates) =>
                 setFilterValueFromDateRange(dates as Array<Date | null> | null)
@@ -65,7 +69,7 @@ import {
     type FiltersStagingProvide,
     type FilterValue
 } from "../../interfaces/DataGridMethods";
-import { computed, inject, ref, watchEffect } from "vue";
+import { computed, inject, type Ref, ref, watch, watchEffect } from "vue";
 import { UI_SIZING } from "../../../../helpers/enums";
 import { OptionModel } from "../../../../models/Option";
 
@@ -77,8 +81,18 @@ const props = defineProps({
 });
 
 const dirty = ref(false);
+const input = ref(null);
 
 const filterValueStaging = inject<FiltersStagingProvide>("filterValueStaging");
+const dropDownVisible = inject<Ref<boolean>>("dropDownVisible");
+watch(
+    () => dropDownVisible?.value,
+    (value) => {
+        if (value === false) {
+            (input?.value as any)?.hide?.();
+        }
+    }
+);
 
 const filterType = computed(
     () => props.filterDefinition?.type ?? FilterInputType.INPUT

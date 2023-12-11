@@ -69,7 +69,8 @@ import {
     onMounted,
     reactive,
     onBeforeUnmount,
-    provide
+    provide,
+    type Ref
 } from "vue";
 import type {
     FilterDefinition,
@@ -120,6 +121,7 @@ provide<FiltersStagingProvide>("filterValueStaging", filterValueStaging);
 const toggle = ref<HTMLElement | null>(null);
 const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
+provide<Ref<boolean>>("dropDownVisible", isVisible);
 let popperInstance: Instance;
 
 async function toggleInput() {
