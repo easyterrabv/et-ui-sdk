@@ -1,6 +1,6 @@
 {
   "name": "et-ui-sdk",
-  "version": "0.0.205",
+  "version": "0.0.206",
   "description": "",
   "scripts": {
     "test": "npx cypress run --component --headless",
