@@ -35,7 +35,7 @@
         :modelValue="optionModelValue"
         class="et-datagrid-filter-input__select"
         :options="options"
-        multiple
+        :multiple="multiple"
     />
 
     <EtInputDateRange
@@ -118,13 +118,29 @@ watchEffect(async () => {
     }
 });
 
+const multiple = computed(() => {
+    if (filterType.value !== FilterInputType.SELECT) {
+        return false;
+    }
+    const definition = props.filterDefinition as SelectFilterDefinition;
+    return definition.multiple ?? false;
+});
+
 const optionModelValue = computed(() => {
     const value: OptionFilterValue[] = (filterValue.value ||
         []) as OptionFilterValue[];
     const flattenedValues = value.map((val) => val.value);
-    return (options.value || []).filter((opt) => {
+    const opts = (options.value || []).filter((opt) => {
         return flattenedValues.includes(opt.value);
     });
+
+    if (multiple.value) {
+        return opts;
+    } else if (opts.length > 0) {
+        return opts[0];
+    } else {
+        return null;
+    }
 });
 
 const validFilterValue = computed(() => {
@@ -139,14 +155,24 @@ const validFilterValue = computed(() => {
     return props.filterDefinition?.validator?.(filterValue.value) ?? true;
 });
 
-function setFilterValueFromSelect(newValues: OptionModel[]) {
+function setFilterValueFromSelect(newValues: OptionModel[] | OptionModel) {
+    let values: OptionModel[];
+
+    if (Array.isArray(newValues)) {
+        values = newValues;
+    } else {
+        values = [newValues];
+    }
+
     setFilterValue(
-        ((newValues || []) as OptionModel[]).map((item: OptionModel) => {
-            return {
-                value: item.value,
-                label: item.label
-            } as OptionFilterValue;
-        })
+        values
+            .filter((val) => !!val)
+            .map((item: OptionModel) => {
+                return {
+                    value: item.value,
+                    label: item.label
+                } as OptionFilterValue;
+            })
     );
 }
 
