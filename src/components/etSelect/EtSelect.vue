@@ -145,11 +145,10 @@ export default defineComponent({
             return !areArraysWithObjectsEqual("guid", currentArray, innerArray);
         },
         isSelected(option: OptionModel) {
-            if (
-                !this.multiple &&
-                this.internalSelected instanceof OptionModel
-            ) {
-                return this.internalSelected?.guid === option.guid;
+            if (!this.multiple) {
+                return (
+                    (this.internalSelected as OptionModel)?.guid === option.guid
+                );
             }
 
             return (
@@ -246,13 +245,7 @@ export default defineComponent({
         // will trigger and usually only update the v-model value
         "update:modelValue": (
             modelValue: OptionModel | OptionModel[] | null
-        ): boolean => {
-            return (
-                modelValue instanceof OptionModel ||
-                Array.isArray(modelValue) ||
-                modelValue === null
-            );
-        },
+        ): boolean => true,
         optionToggled: (opt: OptionModel): boolean => true
     }
 });
