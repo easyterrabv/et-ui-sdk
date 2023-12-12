@@ -1,6 +1,6 @@
 <template>
     <div
-        class="et-sdk-data-grid--content--cell et-sdk-data-grid--cell"
+        class="et-sdk-data-grid__content__cell et-sdk-data-grid__cell"
         :class="[column.content?.class]"
         :style="styling"
     >

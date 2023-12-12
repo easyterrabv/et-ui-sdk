@@ -1,5 +1,5 @@
 <template>
-    <div class="et-sdk-data-grid--container" ref="container">
+    <div class="et-sdk-data-grid__container" ref="container">
         <EtDataGridContentContainer>
             <EtDataGridContentHeader
                 :filterTeleportTarget="filterTeleportTarget"
@@ -305,7 +305,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style>
-.et-sdk-data-grid--container {
+.et-sdk-data-grid__container {
     min-width: 100%;
     width: 100%;
     max-width: 100%;
@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
 }
 
 /* used in different files */
-.et-sdk-data-grid--row {
+.et-sdk-data-grid__row {
     min-width: 100%;
     width: fit-content;
     padding-left: 20px;
@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
 }
 
 /* used in different files */
-.et-sdk-data-grid--cell {
+.et-sdk-data-grid__cell {
     padding: 0 6px;
     line-height: 40px;
     white-space: nowrap;
@@ -343,7 +343,7 @@ onBeforeUnmount(() => {
 }
 
 /* used in different files */
-.et-sdk-data-grid--checkbox-cell {
+.et-sdk-data-grid__checkbox-cell {
     min-width: 15px;
     width: 15px;
     max-width: 15px;
@@ -352,13 +352,13 @@ onBeforeUnmount(() => {
 }
 
 /* used in different files */
-.et-sdk-data-grid--checkbox-cell--checkbox {
+.et-sdk-data-grid__checkbox-cell__checkbox {
     display: inline-block;
     vertical-align: middle;
 }
 
 /* used in different files */
-.et-sdk-data-grid--content-row {
+.et-sdk-data-grid__content-row {
     display: flex;
     flex-direction: row;
 }
@@ -379,7 +379,7 @@ onBeforeUnmount(() => {
 
 /* used in different files */
 .et-sdk-data-grid-icon-button:not(
-        .et-sdk-data-grid-icon-button__disabled
+        .et-sdk-data-grid-icon-button--disabled
     ):hover {
     background-color: var(--et-sdk-dark-100);
 }
@@ -395,7 +395,7 @@ onBeforeUnmount(() => {
 }
 
 /* used in different files */
-.et-sdk-data-grid-icon-button__disabled {
+.et-sdk-data-grid-icon-button--disabled {
     cursor: not-allowed;
     color: var(--et-sdk-dark-300);
 }

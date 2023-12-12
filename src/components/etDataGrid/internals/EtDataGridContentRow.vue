@@ -1,10 +1,10 @@
 <template>
     <div
-        class="et-sdk-data-grid--content-row et-sdk-data-grid--row"
+        class="et-sdk-data-grid__content-row et-sdk-data-grid__row"
         :class="[
             {
-                'et-sdk-data-grid--content-row__clickable': isRowClickable,
-                'et-sdk-data-grid--content-row__checked': isRowChecked
+                'et-sdk-data-grid__content-row--clickable': isRowClickable,
+                'et-sdk-data-grid__content-row--checked': isRowChecked
             },
             ...rowClasses
         ]"
@@ -65,16 +65,16 @@ async function handleClick() {
 </script>
 
 <style>
-.et-sdk-data-grid--content-row__clickable:hover {
+.et-sdk-data-grid__content-row--clickable:hover {
     background-color: var(--et-sdk-dark-100);
     cursor: pointer;
 }
 
-.et-sdk-data-grid--content-row__checked {
+.et-sdk-data-grid__content-row--checked {
     background-color: var(--et-sdk-dark-100);
 }
 
-.et-sdk-data-grid--content-row__checked.et-sdk-data-grid--content-row__clickable:hover {
+.et-sdk-data-grid__content-row--checked.et-sdk-data-grid__content-row--clickable:hover {
     background-color: var(--et-sdk-dark-200);
 }
 </style>

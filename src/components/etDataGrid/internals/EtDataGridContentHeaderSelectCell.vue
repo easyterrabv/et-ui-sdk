@@ -1,9 +1,9 @@
 <template>
     <div
-        class="et-sdk-data-grid--checkbox-cell et-sdk-data-grid--cell"
+        class="et-sdk-data-grid__checkbox-cell et-sdk-data-grid__cell"
         @click.stop="() => checkedRows?.toggleAll()"
     >
-        <div class="et-sdk-data-grid--checkbox-cell--checkbox">
+        <div class="et-sdk-data-grid__checkbox-cell__checkbox">
             <EtCheckbox
                 @click.stop="() => checkedRows?.toggleAll()"
                 :checked="checkedRows?.allSelected()"

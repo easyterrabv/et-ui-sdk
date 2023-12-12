@@ -3,7 +3,7 @@
         v-if="pagination && pagination.totalRows > 0"
         class="et-sdk-data-grid-pagination"
     >
-        <EtPopover class="et-sdk-data-grid-pagination--per-page-popover">
+        <EtPopover class="et-sdk-data-grid-pagination__per-page-popover">
             <template #toggle>
                 <span>
                     {{ start }} - {{ end }} of {{ pagination.totalRows }}
@@ -11,7 +11,7 @@
             </template>
             <EtButtonGroup
                 isVertical
-                class="et-sdk-data-grid-pagination--per-page-popover--options"
+                class="et-sdk-data-grid-pagination__per-page-popover__options"
             >
                 <EtButtonPrimary :size="UI_SIZING.XS" readonly>
                     Per Page
@@ -56,7 +56,7 @@
         <span
             class="et-sdk-data-grid-icon-button"
             :class="{
-                'et-sdk-data-grid-icon-button__disabled': !hasPrevious
+                'et-sdk-data-grid-icon-button--disabled': !hasPrevious
             }"
             @click="() => previousPage()"
         >
@@ -65,7 +65,7 @@
         <span
             class="et-sdk-data-grid-icon-button"
             :class="{
-                'et-sdk-data-grid-icon-button__disabled': !hasNext
+                'et-sdk-data-grid-icon-button--disabled': !hasNext
             }"
             @click="() => nextPage()"
         >
@@ -153,11 +153,11 @@ function setPerPage(perPage: number) {
     font-size: var(--et-sdk-font-size-small);
 }
 
-.et-sdk-data-grid-pagination--per-page-popover {
+.et-sdk-data-grid-pagination__per-page-popover {
     display: inline-block;
 }
 
-.et-sdk-data-grid-pagination--per-page-popover--options {
+.et-sdk-data-grid-pagination__per-page-popover__options {
     font-weight: var(--et-sdk-font-weight-normal);
 }
 </style>

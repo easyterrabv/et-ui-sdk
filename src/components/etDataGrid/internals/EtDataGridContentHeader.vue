@@ -1,7 +1,7 @@
 <template>
-    <div class="et-sdk-data-grid--content-header">
+    <div class="et-sdk-data-grid__content-header">
         <div
-            class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-search-input"
+            class="et-sdk-data-grid__row et-sdk-data-grid__content-header-row et-sdk-data-grid__content-header-search-input"
         >
             <Teleport
                 :to="filterTeleportTarget"
@@ -11,9 +11,9 @@
             </Teleport>
         </div>
         <div
-            class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-functionality"
+            class="et-sdk-data-grid__row et-sdk-data-grid__content-header-row et-sdk-data-grid__content-header-functionality"
         >
-            <div class="et-sdk-data-grid--content-header-functionality__left">
+            <div class="et-sdk-data-grid__content-header-functionality--left">
                 <EtTooltip>
                     <span
                         class="et-sdk-data-grid-icon-button"
@@ -25,7 +25,7 @@
                     <template #tooltip> Reload </template>
                 </EtTooltip>
                 <span
-                    class="et-sdk-data-grid--content-header-functionality__left--bulk-methods"
+                    class="et-sdk-data-grid__content-header-functionality__bulk-methods"
                     v-if="hasBulkMethods && hasAnyChecked"
                 >
                     <EtTooltip v-for="bulkMethod in bulkMethods">
@@ -43,11 +43,11 @@
                     </EtTooltip>
                 </span>
             </div>
-            <div class="et-sdk-data-grid--content-header-functionality__right">
+            <div class="et-sdk-data-grid__content-header-functionality--right">
                 <EtDataGridPagination />
             </div>
         </div>
-        <div class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row">
+        <div class="et-sdk-data-grid__row et-sdk-data-grid__content-header-row">
             <EtDataGridContentHeaderSelectCell
                 v-if="props.rowInfo.isSelectable"
             />
@@ -127,7 +127,7 @@ async function handleBulkMethod(bulkMethod: BulkMethod) {
 </script>
 
 <style>
-.et-sdk-data-grid--content-header-row {
+.et-sdk-data-grid__content-header-row {
     min-width: fit-content;
     width: 100%;
 
@@ -137,17 +137,17 @@ async function handleBulkMethod(bulkMethod: BulkMethod) {
     border-bottom: 1px solid var(--et-sdk-dark-200) !important;
 }
 
-.et-sdk-data-grid--content-header-functionality {
+.et-sdk-data-grid__content-header-functionality {
     border-bottom: none !important;
     justify-content: space-between;
     line-height: 40px;
 }
 
-.et-sdk-data-grid--content-header-search-input {
+.et-sdk-data-grid__content-header-search-input {
     border-bottom: none !important;
 }
 
-.et-sdk-data-grid--content-header-functionality__left--bulk-methods {
+.et-sdk-data-grid__content-header-functionality__bulk-methods {
     border-left: 1px solid var(--et-sdk-dark-300);
     margin-left: 8px;
     padding-left: 8px;

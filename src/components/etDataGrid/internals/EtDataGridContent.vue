@@ -1,6 +1,6 @@
 <template>
-    <div class="et-sdk-data-grid--content-wrapper">
-        <div class="et-sdk-data-grid--content">
+    <div class="et-sdk-data-grid__content-wrapper">
+        <div class="et-sdk-data-grid__content">
             <template v-if="!isLoading && data.length > 0">
                 <EtDataGridContentRow
                     v-for="row in data"
@@ -71,7 +71,7 @@ const isLoading = inject<Ref<boolean>>("isLoading");
 </script>
 
 <style>
-.et-sdk-data-grid--content-wrapper {
+.et-sdk-data-grid__content-wrapper {
     flex-grow: 1;
     overflow-y: auto;
 
@@ -81,12 +81,12 @@ const isLoading = inject<Ref<boolean>>("isLoading");
     height: 100%;
 }
 
-.et-sdk-data-grid--content-wrapper::-webkit-scrollbar {
+.et-sdk-data-grid__content-wrapper::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
 
-.et-sdk-data-grid--content {
+.et-sdk-data-grid__content {
     min-width: fit-content;
     width: 100%;
     min-height: fit-content;

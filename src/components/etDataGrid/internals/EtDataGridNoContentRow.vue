@@ -1,11 +1,11 @@
 <template>
-    <div class="et-sdk-data-grid--row et-sdk-data-grid--no-content-row">
+    <div class="et-sdk-data-grid__row et-sdk-data-grid__no-content-row">
         <span> No Content </span>
     </div>
 </template>
 
 <style>
-.et-sdk-data-grid--no-content-row {
+.et-sdk-data-grid__no-content-row {
     width: 100%;
     max-width: 100vw;
     text-align: center;

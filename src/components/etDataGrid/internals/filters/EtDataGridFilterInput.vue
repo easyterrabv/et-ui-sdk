@@ -14,7 +14,7 @@
     <!-- Span element, otherwise the class prop will fall through -->
     <span
         v-else-if="filterType === FilterInputType.CHECKBOX"
-        class="et-datagrid-filter-input--checkbox"
+        class="et-datagrid-filter-input__checkbox"
     >
         <EtCheckboxWithLabel
             :checked="filterValue as boolean"
@@ -33,7 +33,7 @@
             (newValues) => setFilterValueFromSelect(newValues as OptionModel[])
         "
         :modelValue="optionModelValue"
-        class="et-datagrid-filter-input--select"
+        class="et-datagrid-filter-input__select"
         :options="options"
         multiple
     />
@@ -184,13 +184,13 @@ function setFilterValue(newValue: FilterValue) {
 </script>
 
 <style>
-.et-datagrid-filter-input--checkbox {
+.et-datagrid-filter-input__checkbox {
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal-s);
     color: var(--et-sdk-dark-500);
 }
 
-.et-datagrid-filter-input--select {
+.et-datagrid-filter-input__select {
     width: 100%;
 }
 </style>

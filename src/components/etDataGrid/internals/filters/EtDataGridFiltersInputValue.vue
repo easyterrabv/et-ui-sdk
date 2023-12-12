@@ -1,6 +1,6 @@
 <template>
-    <span class="et-sdk-data-grid--filter-content--filter-value">
-        <span class="et-sdk-data-grid--filter-content--filter-value--label">
+    <span class="et-sdk-data-grid__filter-content__filter-value">
+        <span class="et-sdk-data-grid__filter-content__filter-value--label">
             {{ filterDisplay.definition.label }}
         </span>
         <template
@@ -8,11 +8,11 @@
         >
             <span
                 v-for="item in filterDisplay.value"
-                class="et-sdk-data-grid--filter-content--filter-value--inner-pill"
+                class="et-sdk-data-grid__filter-content__filter-value__inner-pill"
             >
                 {{ (item as OptionFilterValue).label }}
                 <span
-                    class="et-sdk-data-grid--filter-content--filter-value--clear"
+                    class="et-sdk-data-grid__filter-content__filter-value__clear"
                     @click.stop="() => removeOption(item)"
                 >
                     <EtIconTimes />
@@ -28,7 +28,7 @@
                 {{ dateToFormattedString(dates[0], "short") }}
             </span>
             <span
-                class="et-sdk-data-grid--filter-content--filter-value--date-divider"
+                class="et-sdk-data-grid__filter-content__filter-value__date-divider"
                 ><EtIconArrowRightLong
             /></span>
             <span v-if="dates && dates[1]">
@@ -39,7 +39,7 @@
             {{ filterDisplay.value }}
         </template>
         <span
-            class="et-sdk-data-grid--filter-content--filter-value--clear"
+            class="et-sdk-data-grid__filter-content__filter-value__clear"
             @click.stop="removeFilter"
         >
             <EtIconTimes />
@@ -105,7 +105,7 @@ function removeFilter() {
 </script>
 
 <style>
-.et-sdk-data-grid--filter-content--filter-value {
+.et-sdk-data-grid__filter-content__filter-value {
     background-color: var(--et-sdk-blue-50);
     padding: 5px 15px;
     border: 1px solid var(--et-sdk-dark-300);
@@ -114,14 +114,14 @@ function removeFilter() {
     font-weight: var(--et-sdk-font-weight-semibold);
 }
 
-.et-sdk-data-grid--filter-content--filter-value--label {
+.et-sdk-data-grid__filter-content__filter-value--label {
     color: var(--et-sdk-dark-500);
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal-s);
     margin-right: 5px;
 }
 
-.et-sdk-data-grid--filter-content--filter-value--clear {
+.et-sdk-data-grid__filter-content__filter-value__clear {
     color: var(--et-sdk-dark-500);
     font-size: var(--et-sdk-font-size-tiny);
     margin-right: -10px;
@@ -131,14 +131,14 @@ function removeFilter() {
     opacity: 0.3;
 }
 
-.et-sdk-data-grid--filter-content--filter-value:hover
-    > .et-sdk-data-grid--filter-content--filter-value--clear,
-.et-sdk-data-grid--filter-content--filter-value--inner-pill:hover
-    > .et-sdk-data-grid--filter-content--filter-value--clear {
+.et-sdk-data-grid__filter-content__filter-value:hover
+    > .et-sdk-data-grid__filter-content__filter-value__clear,
+.et-sdk-data-grid__filter-content__filter-value__inner-pill:hover
+    > .et-sdk-data-grid__filter-content__filter-value__clear {
     opacity: 1;
 }
 
-.et-sdk-data-grid--filter-content--filter-value--inner-pill {
+.et-sdk-data-grid__filter-content__filter-value__inner-pill {
     margin-left: 2px;
     margin-right: 2px;
     padding: 4px 15px 4px 6px;
@@ -147,7 +147,7 @@ function removeFilter() {
     font-size: var(--et-sdk-font-size-small);
 }
 
-.et-sdk-data-grid--filter-content--filter-value--date-divider {
+.et-sdk-data-grid__filter-content__filter-value__date-divider {
     margin-left: 4px;
     margin-right: 4px;
     font-size: var(--et-sdk-font-size-small);
