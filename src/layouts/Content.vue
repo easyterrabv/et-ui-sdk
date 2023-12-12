@@ -22,6 +22,6 @@
     height: 100%;
     max-height: 100%;
     overflow: auto;
-    padding: 15px;
+    padding: 20px;
 }
 </style>

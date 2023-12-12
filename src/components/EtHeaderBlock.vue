@@ -20,8 +20,6 @@
     font-size: var(--et-sdk-font-size-extra-large);
     line-height: 28px;
 
-    border-bottom: 1px solid var(--et-sdk-dark-100);
-
     height: 64px;
 }
 
