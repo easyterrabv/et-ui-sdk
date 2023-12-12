@@ -3,7 +3,12 @@
         <div
             class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-search-input"
         >
-            <EtDataGridFiltersInput />
+            <Teleport
+                :to="filterTeleportTarget"
+                :disabled="!filterTeleportTarget"
+            >
+                <EtDataGridFiltersInput />
+            </Teleport>
         </div>
         <div
             class="et-sdk-data-grid--row et-sdk-data-grid--content-header-row et-sdk-data-grid--content-header-functionality"
@@ -70,6 +75,11 @@ import type { BulkMethod } from "../interfaces/DataGridMethods";
 import type { CheckedProvide } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
+    filterTeleportTarget: {
+        type: String,
+        required: false,
+        default: null
+    },
     rowInfo: {
         type: Object as PropType<DataGridRow>,
         required: true

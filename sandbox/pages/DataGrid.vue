@@ -1,5 +1,11 @@
 <template>
+    <div style="border: 1px solid blue;">
+        testing box
+        <div id="inputTeleportBox"></div>
+    </div>
+
     <EtDataGrid
+        filterTeleportTarget="#inputTeleportBox"
         name="datagridtest"
         ref="table"
         :rowInfo="rowInfo"

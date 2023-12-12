@@ -2,6 +2,7 @@
     <div class="et-sdk-data-grid--container" ref="container">
         <EtDataGridContentContainer>
             <EtDataGridContentHeader
+                :filterTeleportTarget="filterTeleportTarget"
                 :columns="columns"
                 :rowInfo="rowInfo"
                 :bulk-methods="bulkMethods"
@@ -67,6 +68,11 @@ interface IDataGridCriteria {
 }
 
 const props = defineProps({
+    filterTeleportTarget: {
+        type: String,
+        required: false,
+        default: null
+    },
     name: {
         type: String,
         required: false
