@@ -45,6 +45,7 @@ export type BaseFilterDefinition<T = FilterInputType> = {
 export type SelectFilterDefinition<T = FilterInputType.SELECT> =
     BaseFilterDefinition<T> & {
         options: OptionModel[] | (() => Promise<OptionModel[]>);
+        multiple: boolean;
     };
 
 export type DateFilterDefinition<T = FilterInputType.DATERANGE> = Omit<

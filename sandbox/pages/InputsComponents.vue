@@ -93,7 +93,8 @@
                 Select
             </template>
 
-            <EtInputSelect v-model="multipleSelectedOptions" :options="options"></EtInputSelect>
+            <EtInputSelect v-model="multipleSelectedOptions" :options="options" multiple></EtInputSelect>
+            <EtInputSelect v-model="singleSelectedOption" :options="options"></EtInputSelect>
             <EtButtonSelect v-model="multipleSelectedOptions" :options="options"></EtButtonSelect>
         </EtCard>
 

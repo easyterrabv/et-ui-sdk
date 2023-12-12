@@ -53,7 +53,7 @@ export default defineComponent({
             default: false
         },
         modelValue: {
-            type: Array as PropType<OptionModel | OptionModel[] | null>,
+            type: Object as PropType<OptionModel | OptionModel[] | null>,
             required: false,
             default: null
         }
