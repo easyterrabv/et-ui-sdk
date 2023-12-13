@@ -173,5 +173,6 @@ export interface FilterSavingProvide {
     savedFilters: Ref<SavedFiltersSet[]>;
     setFilters: (name: string) => void;
     saveFilters: (name: string, filters: FilterObject) => void;
+    removeSavedFilters: (name: string) => void;
     getAllFilters: () => Ref<SavedFiltersSet[]>;
 }

@@ -20,6 +20,12 @@ export function useFilterSaving(tableName: string, filters: FiltersProvide) {
         }
     }
 
+    function removeSavedFilters(name: string) {
+        savedFilters.value = (savedFilters.value || []).filter(
+            (savedFilter) => savedFilter.name !== name
+        );
+    }
+
     function saveFilters(name: string, filtersObj: FilterObject) {
         const amountOfFilters = Object.keys(filtersObj).length;
         if (amountOfFilters <= 0) {
@@ -87,6 +93,7 @@ export function useFilterSaving(tableName: string, filters: FiltersProvide) {
 
     return reactive<FilterSavingProvide>({
         savedFilters,
+        removeSavedFilters,
         setFilters,
         saveFilters,
         getAllFilters
