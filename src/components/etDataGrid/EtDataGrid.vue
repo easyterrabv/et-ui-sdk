@@ -41,6 +41,7 @@ import type {
     CheckedProvide,
     FilterDefinition,
     FilterObject,
+    FilterSavingProvide,
     FiltersProvide,
     PaginationProvide,
     RowObject,
@@ -59,6 +60,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useCellWidth } from "./composables/useCellWidth";
 import { useRowVersion } from "./composables/useRowVersion";
 import { assignToPath } from "./services/DataGridCellHelpers";
+import { useFilterSaving } from "./composables/useFilterSaving";
 
 interface IDataGridCriteria {
     sorting: SortingObject;
@@ -70,12 +72,11 @@ interface IDataGridCriteria {
 const props = defineProps({
     filterTeleportTarget: {
         type: String,
-        required: false,
         default: null
     },
     name: {
         type: String,
-        required: false
+        default: null
     },
     rowInfo: {
         type: Object as PropType<DataGridRow>,
@@ -87,7 +88,7 @@ const props = defineProps({
     },
     data: {
         type: Array as PropType<RowObject[]>,
-        required: false
+        default: null
     },
     dataGetter: {
         type: Function as PropType<
@@ -98,31 +99,32 @@ const props = defineProps({
                 perPage: number
             ) => Promise<[RowObject[], number]>
         >,
-        required: false
+        default: null
     },
     bulkMethods: {
         type: Array as PropType<BulkMethod[]>,
-        required: false,
         default() {
             return [];
         }
     },
     filters: {
         type: Array as PropType<FilterDefinition[]>,
-        required: false,
         default() {
             return [];
         }
     },
     isMultiSorting: {
         type: Boolean,
-        required: false,
         default: false
     }
 });
 
 const emit = defineEmits<{
     (e: "checked", rows: RowObject[]): void;
+    (
+        e: "mounted",
+        ctx: { filterSaving: UnwrapNestedRefs<FilterSavingProvide> | null }
+    ): void;
 }>();
 
 const rows = ref<RowObject[]>([]);
@@ -132,6 +134,10 @@ const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
 const filters = useFilters<RowObject>(() => props.filters);
+let filterSaving: UnwrapNestedRefs<FilterSavingProvide> | null = null;
+if (props.name) {
+    filterSaving = useFilterSaving(props.name, filters);
+}
 const cellWidth = useCellWidth();
 const pagination = usePagination();
 const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");
@@ -231,6 +237,12 @@ function searchData() {
 provide<CheckedProvide>("checkedRows", checkedRows);
 provide<SortingProvide>("sorting", sorting);
 provide<FiltersProvide>("filters", filters);
+if (filterSaving) {
+    provide<UnwrapNestedRefs<FilterSavingProvide>>(
+        "filterSaving",
+        filterSaving
+    );
+}
 provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
 provide<() => void>("searchData", searchData);
@@ -279,7 +291,6 @@ function patchRow(rowId: string | number, data: any) {
 defineExpose({
     checked: checkedRows,
     filters: filters,
-
     patchRow,
     searchData
 });
@@ -297,6 +308,10 @@ const container = ref(null);
 onMounted(() => {
     calculateMaxCellWidth();
     window.addEventListener("resize", calculateMaxCellWidth);
+
+    emit("mounted", {
+        filterSaving: filterSaving
+    });
 });
 
 onBeforeUnmount(() => {
