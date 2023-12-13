@@ -46,6 +46,13 @@
                     />
                 </div>
                 <div class="et-sdk-data-grid__filters-functionality">
+                    <EtButtonDefault
+                        v-if="filterSaving"
+                        class="et-sdk-data-grid__filters-search-button"
+                        @click="() => saveFilters()"
+                    >
+                        Save search filter
+                    </EtButtonDefault>
                     <EtButtonPrimary
                         class="et-sdk-data-grid__filters-search-button"
                         @click="() => applyFilters()"
@@ -76,19 +83,24 @@ import type {
     FilterDefinition,
     FilterDisplay,
     FilterObject,
+    FilterSavingProvide,
     FiltersProvide,
     FiltersStagingProvide
 } from "../../interfaces/DataGridMethods";
 import type { Instance } from "@popperjs/core/lib/types";
 import { createPopper } from "@popperjs/core";
-import type { IEtOverlayProvide } from "../../../etProvider/EtOverlayProviderInterfaces";
-import { EtOverlayEvent } from "../../../etProvider/EtOverlayProviderInterfaces";
+import {
+    EtOverlayEvent,
+    type IEtOverlayProvide
+} from "../../../etProvider/EtOverlayProviderInterfaces";
 
 import EtButtonPrimary from "../../../etButton/EtButtonPrimary.vue";
+import EtButtonDefault from "../../../etButton/EtButtonDefault.vue";
 import EtDataGridFilter from "./EtDataGridFilter.vue";
 import EtDataGridFiltersInputValue from "./EtDataGridFiltersInputValue.vue";
 
 const filters = inject<FiltersProvide>("filters");
+const filterSaving = inject<FilterSavingProvide>("filterSaving");
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
 
 const filterDefinitions = computed(() => filters?.getFiltersDefinitions());
@@ -123,6 +135,19 @@ const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
 provide<Ref<boolean>>("dropDownVisible", isVisible);
 let popperInstance: Instance;
+
+function saveFilters() {
+    if (!filterSaving || !filterValueStaging) {
+        return;
+    }
+
+    // Todo, to be replaced with a nice modal
+    const name = prompt("Name");
+
+    if (name) {
+        filterSaving.saveFilters(name, filterValueStaging.filtersValues);
+    }
+}
 
 async function toggleInput() {
     if (isVisible.value) {
@@ -283,7 +308,21 @@ onBeforeUnmount(() => {
     background-color: var(--et-sdk-dark-50);
 
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.et-sdk-data-grid__filters-functionality > * {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.et-sdk-data-grid__filters-functionality > *:first-child {
+    margin-left: 0;
+}
+
+.et-sdk-data-grid__filters-functionality > *:last-child {
+    margin-right: 0;
 }
 
 .et-sdk-data-grid__filter-content__filter-placeholder {

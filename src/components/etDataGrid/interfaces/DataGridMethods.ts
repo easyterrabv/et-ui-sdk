@@ -1,6 +1,7 @@
 import type { DataGridColumn } from "./DataGridColumn";
 import type { Raw } from "@vue/reactivity";
 import { type IOption, OptionModel } from "../../../models/Option";
+import type { Ref } from "vue";
 
 export type RowObject<T extends object = { [key: string]: any }> = T;
 
@@ -161,4 +162,16 @@ export interface RowVersionProvider<T extends RowObject = RowObject> {
     versions: Record<string, number>;
     reset: (rows: T[]) => void;
     increment: (row: T) => void;
+}
+
+export interface SavedFiltersSet {
+    name: string;
+    filters: FilterObject;
+}
+
+export interface FilterSavingProvide {
+    savedFilters: Ref<SavedFiltersSet[]>;
+    setFilters: (name: string) => void;
+    saveFilters: (name: string, filters: FilterObject) => void;
+    getAllFilters: () => Ref<SavedFiltersSet[]>;
 }

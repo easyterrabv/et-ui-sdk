@@ -1,25 +1,36 @@
 <template>
-    <div style="border: 1px solid blue;">
-        testing box
-        <div id="inputTeleportBox"></div>
-    </div>
+    <EtContent>
+        <div style="margin: 15px;">
+            Saved filters:
+            <EtButtonGroup v-if="filterSaving?.savedFilters">
+                <EtButtonDefault
+                    :size="UI_SIZING.S"
+                    v-for="savedFilter in filterSaving.savedFilters"
+                    @click="filterSaving.setFilters(savedFilter.name)"
+                >
+                    {{savedFilter.name}}
+                </EtButtonDefault>
+            </EtButtonGroup>
+        </div>
 
-    <EtDataGrid
-        filterTeleportTarget="#inputTeleportBox"
-        name="datagridtest"
-        ref="table"
-        :rowInfo="rowInfo"
-        :filters="tableFilters"
-        :columns="columns"
-        :bulk-methods="bulkMethods"
-        :data-getter="dataGetter"
-        @checked="onRowsChecked"
-    ></EtDataGrid>
+        <EtDataGrid
+            name="datagridtest"
+            ref="table"
+            :rowInfo="rowInfo"
+            :filters="tableFilters"
+            :columns="columns"
+            :bulk-methods="bulkMethods"
+            :data-getter="dataGetter"
+            @checked="onRowsChecked"
+            @mounted="onDataGridMount"
+        ></EtDataGrid>
+    </EtContent>
 </template>
 
 <script lang="ts">
+import EtContent from "src/layouts/Content.vue";
 import EtDataGrid from "src/components/etDataGrid/EtDataGrid.vue";
-import {defineComponent, markRaw} from "vue";
+import {defineComponent, markRaw, type UnwrapNestedRefs} from "vue";
 import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/DataGridColumn";
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
@@ -29,9 +40,16 @@ import type {
     FilterDateValue,
     SortingObject
 } from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import {
+    type FilterDefinition,
+    FilterInputType,
+    type FilterSavingProvide
+} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
-import {type FilterDefinition, FilterInputType} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
 import {OptionModel} from "../../src/models/Option";
+import EtButtonGroup from "../../src/components/etButton/EtButtonGroup.vue";
+import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
+import {UI_SIZING} from "../../src/helpers/enums";
 
 type ExampleRow = {
     key: number,
@@ -41,7 +59,15 @@ type ExampleRow = {
 }
 
 export default defineComponent({
+    computed: {
+        UI_SIZING() {
+            return UI_SIZING
+        }
+    },
     components: {
+        EtContent,
+        EtButtonDefault,
+        EtButtonGroup,
         EtDataGrid
     },
     data() {
@@ -255,10 +281,24 @@ export default defineComponent({
                 {key: 68, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
                 {key: 69, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
                 {key: 70, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-            ] as ExampleRow[]
+            ] as ExampleRow[],
+
+            filterSaving: null as UnwrapNestedRefs<FilterSavingProvide> | null
+        }
+    },
+    watch: {
+        "filterSaving.savedFilters": {
+            immediate: true,
+            deep: true,
+            handler() {
+                console.log('filterSaving', this.filterSaving?.savedFilters);
+            }
         }
     },
     methods: {
+        onDataGridMount(ctx: {filterSaving: UnwrapNestedRefs<FilterSavingProvide>}) {
+            this.filterSaving = ctx.filterSaving;
+        },
         handleRowClick(row: ExampleRow) {
             console.log('ROW HAS BEEN CLICKED ON!');
             console.log(row);
