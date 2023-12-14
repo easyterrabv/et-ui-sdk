@@ -83,7 +83,7 @@ export default defineComponent({
     width: 12px;
     padding-left: 8px;
     padding-right: 8px;
-    color: var(--et-sdk-blue-600);
+    color: var(--et-sdk-dark-600);
 }
 
 .et-sdk-sidebar-item__active--icon {
