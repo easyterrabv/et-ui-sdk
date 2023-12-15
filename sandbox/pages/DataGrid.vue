@@ -2,11 +2,11 @@
     <EtContent>
         <div style="margin: 15px;">
             Saved filters:
-            <EtButtonGroup v-if="filterSaving?.savedFilters">
+            <EtButtonGroup v-if="filterSetSaving?.savedFilterSets">
                 <EtButtonDefault
                     :size="UI_SIZING.S"
-                    v-for="savedFilter in filterSaving.savedFilters"
-                    @click="filterSaving.setFilters(savedFilter.name)"
+                    v-for="savedFilter in filterSetSaving.savedFilterSets"
+                    @click="setFilters(savedFilter.filters)"
                 >
                     {{savedFilter.name}}
                 </EtButtonDefault>
@@ -14,15 +14,15 @@
         </div>
 
         <EtDataGrid
-            name="datagridtest"
+            :name="tableName"
             ref="table"
             :rowInfo="rowInfo"
             :filters="tableFilters"
             :columns="columns"
             :bulk-methods="bulkMethods"
             :data-getter="dataGetter"
+            :onFilterSave="filterSetSaving.saveFilterSet"
             @checked="onRowsChecked"
-            @mounted="onDataGridMount"
         ></EtDataGrid>
     </EtContent>
 </template>
@@ -30,26 +30,23 @@
 <script lang="ts">
 import EtContent from "src/layouts/Content.vue";
 import EtDataGrid from "src/components/etDataGrid/EtDataGrid.vue";
-import {defineComponent, markRaw, type UnwrapNestedRefs} from "vue";
+import {defineComponent, markRaw} from "vue";
 import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/DataGridColumn";
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
 import {wait} from "../../src/helpers/async";
-import type {
-    BulkMethod,
-    FilterDateValue,
-    SortingObject
-} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import type {FilterDateValue, FilterObject} from "../../src/components/etDataGrid/interfaces/DataGridFilters";
 import {
     type FilterDefinition,
     FilterInputType,
-    type FilterSavingProvide
-} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+} from "../../src/components/etDataGrid/interfaces/DataGridFilters";
 import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
 import {OptionModel} from "../../src/models/Option";
 import EtButtonGroup from "../../src/components/etButton/EtButtonGroup.vue";
 import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
 import {UI_SIZING} from "../../src/helpers/enums";
+import type {BulkMethod, SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import {useFilterSaving} from "../../src/components/etDataGrid/composables/useFilterSaving";
 
 type ExampleRow = {
     key: number,
@@ -72,6 +69,8 @@ export default defineComponent({
     },
     data() {
         return {
+            tableName: "datagridtest",
+            filterSetSaving: useFilterSaving("datagridtest"),
             rowInfo: {
                 idKey: 'key',
                 isSelectable: true,
@@ -282,26 +281,18 @@ export default defineComponent({
                 {key: 69, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
                 {key: 70, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
             ] as ExampleRow[],
-
-            filterSaving: null as UnwrapNestedRefs<FilterSavingProvide> | null
-        }
-    },
-    watch: {
-        "filterSaving.savedFilters": {
-            immediate: true,
-            deep: true,
-            handler() {
-                console.log('filterSaving', this.filterSaving?.savedFilters);
-            }
         }
     },
     methods: {
-        onDataGridMount(ctx: {filterSaving: UnwrapNestedRefs<FilterSavingProvide>}) {
-            this.filterSaving = ctx.filterSaving;
-        },
         handleRowClick(row: ExampleRow) {
             console.log('ROW HAS BEEN CLICKED ON!');
             console.log(row);
+        },
+        setFilters(filters: FilterObject) {
+            const datagrid = this.$refs.table as typeof EtDataGrid;
+            if(datagrid){
+                datagrid?.filters?.setFilters(filters);
+            }
         },
         async dataGetter(
             filters: { [key: string]: string | number | boolean | Array<unknown> },

@@ -53,12 +53,12 @@ import { inject, computed, type PropType } from "vue";
 import type {
     FilterDisplay,
     FiltersProvide
-} from "../../interfaces/DataGridMethods";
-import type { OptionFilterValue } from "../../interfaces/DataGridMethods";
+} from "../../interfaces/DataGridFilters";
+import type { OptionFilterValue } from "../../interfaces/DataGridFilters";
 import {
     type FilterDateValue,
     FilterInputType
-} from "../../interfaces/DataGridMethods";
+} from "../../interfaces/DataGridFilters";
 import { dateToFormattedString } from "../../../../helpers/date";
 import EtIconArrowRightLong from "../../../etIcon/EtIconArrowRightLong.vue";
 
