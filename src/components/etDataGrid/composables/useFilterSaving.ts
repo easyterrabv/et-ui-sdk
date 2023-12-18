@@ -37,6 +37,8 @@ export function useFilterSaving(collectionName: string) {
         savedFilterSets.value = (savedFilterSets.value || []).filter(
             (savedFilter) => savedFilter.name !== name
         );
+
+        saveAllFilters();
     }
 
     function saveAllFilters() {
