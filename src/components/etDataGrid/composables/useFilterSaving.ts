@@ -2,57 +2,48 @@ import { reactive, ref } from "vue";
 import type {
     FilterObject,
     FilterSavingProvide,
-    FiltersProvide,
     SavedFiltersSet
-} from "../interfaces/DataGridMethods";
+} from "../interfaces/DataGridFilters";
 
 const SAVE_FILTERS_STORAGE_KEY = "ET-SDK-DATA-GRID--SAVED-FILTERS";
 
-export function useFilterSaving(tableName: string, filters: FiltersProvide) {
-    const savedFilters = ref<SavedFiltersSet[]>([]);
-    const key = `${SAVE_FILTERS_STORAGE_KEY}+${tableName}`;
+export function useFilterSaving(collectionName: string) {
+    const savedFilterSets = ref<SavedFiltersSet[]>([]);
+    const key = `${SAVE_FILTERS_STORAGE_KEY}+${collectionName}`;
 
-    function setFilters(name: string) {
-        const savedFiltersSet = savedFilters.value.find((f) => f.name === name);
-
-        if (savedFiltersSet) {
-            filters.setFilters(savedFiltersSet.filters);
-        }
-    }
-
-    function removeSavedFilters(name: string) {
-        savedFilters.value = (savedFilters.value || []).filter(
-            (savedFilter) => savedFilter.name !== name
-        );
-    }
-
-    function saveFilters(name: string, filtersObj: FilterObject) {
+    function saveFilterSet(name: string, filtersObj: FilterObject) {
         const amountOfFilters = Object.keys(filtersObj).length;
         if (amountOfFilters <= 0) {
             return;
         }
 
-        const currentIndex = savedFilters.value.findIndex(
+        const currentIndex = savedFilterSets.value.findIndex(
             (f) => f.name === name
         );
 
         if (currentIndex >= 0) {
-            savedFilters.value[currentIndex].filters = filtersObj;
+            savedFilterSets.value[currentIndex].filters = filtersObj;
         } else {
-            savedFilters.value.push({ name, filters: filtersObj });
+            savedFilterSets.value.push({ name, filters: filtersObj });
         }
 
         saveAllFilters();
     }
 
+    function removeFilterSet(name: string) {
+        savedFilterSets.value = (savedFilterSets.value || []).filter(
+            (savedFilter) => savedFilter.name !== name
+        );
+    }
+
     function saveAllFilters() {
         window.localStorage.removeItem(key);
 
-        if (!savedFilters.value) {
+        if (!savedFilterSets.value) {
             return;
         }
 
-        const savedFiltersDataString = JSON.stringify(savedFilters.value);
+        const savedFiltersDataString = JSON.stringify(savedFilterSets.value);
 
         if (!savedFiltersDataString) {
             return;
@@ -70,32 +61,27 @@ export function useFilterSaving(tableName: string, filters: FiltersProvide) {
     function loadAllFilters() {
         const savedFiltersDataBase64 = window.localStorage.getItem(key);
         if (!savedFiltersDataBase64) {
-            savedFilters.value = [];
+            savedFilterSets.value = [];
             return;
         }
 
         const savedFiltersDataString = atob(savedFiltersDataBase64);
         if (!savedFiltersDataString) {
-            savedFilters.value = [];
+            savedFilterSets.value = [];
             return;
         }
 
-        savedFilters.value = JSON.parse(
+        savedFilterSets.value = JSON.parse(
             savedFiltersDataString
         ) as SavedFiltersSet[];
-    }
-
-    function getAllFilters() {
-        return savedFilters;
     }
 
     loadAllFilters();
 
     return reactive<FilterSavingProvide>({
-        savedFilters,
-        removeSavedFilters,
-        setFilters,
-        saveFilters,
-        getAllFilters
+        savedFilterSets,
+
+        saveFilterSet,
+        removeFilterSet
     });
 }

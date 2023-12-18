@@ -1,7 +1,5 @@
 import type { DataGridColumn } from "./DataGridColumn";
 import type { Raw } from "@vue/reactivity";
-import { type IOption, OptionModel } from "../../../models/Option";
-import type { Ref } from "vue";
 
 export type RowObject<T extends object = { [key: string]: any }> = T;
 
@@ -9,69 +7,6 @@ export interface BulkMethod<T extends RowObject = RowObject> {
     method: (rows: T[]) => Promise<void>;
     component?: Raw<object>; // Icon object
     title?: string;
-}
-
-export enum FilterInputType {
-    INPUT,
-    CHECKBOX,
-    SELECT,
-    DATERANGE
-}
-
-export type OptionFilterValue = {
-    value: string | boolean | number | Date;
-    label: string | null;
-};
-
-export type FilterDateValue = [Date | null, Date | null];
-
-export type FilterValue =
-    | string
-    | number
-    | boolean
-    | null
-    | undefined
-    | OptionFilterValue[]
-    | FilterDateValue;
-
-export type BaseFilterDefinition<T = FilterInputType> = {
-    field: string;
-    label?: string;
-    default?: FilterValue;
-    validator?: (value: FilterValue) => boolean;
-    formatter?: (value: FilterValue) => any;
-    type: T;
-};
-
-export type SelectFilterDefinition<T = FilterInputType.SELECT> =
-    BaseFilterDefinition<T> & {
-        options: OptionModel[] | (() => Promise<OptionModel[]>);
-        multiple: boolean;
-    };
-
-export type DateFilterDefinition<T = FilterInputType.DATERANGE> = Omit<
-    BaseFilterDefinition<T>,
-    "default"
-> & {
-    defaultStart?: string | Date;
-    defaultEnd?: string | Date;
-};
-
-export type FilterTypeMapping<T> = {
-    [FilterInputType.SELECT]: SelectFilterDefinition<T>;
-    [FilterInputType.DATERANGE]: DateFilterDefinition<T>;
-};
-
-export type FilterDefinition<T extends FilterInputType = FilterInputType> =
-    T extends keyof FilterTypeMapping<T>
-        ? FilterTypeMapping<T>[T]
-        : BaseFilterDefinition<T>;
-
-export interface FilterDisplay {
-    field: string;
-    value: FilterValue;
-    label: string;
-    definition: FilterDefinition;
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {
@@ -110,30 +45,6 @@ export interface SortingProvide<T extends RowObject = RowObject> {
     getSorting: (column: DataGridColumn<T>) => sortDirections;
 }
 
-export type FilterObject = {
-    [field: string]: FilterValue;
-};
-
-export interface FiltersProvide {
-    filtersValues: FilterObject;
-
-    setFilters: (filters: FilterObject) => void;
-
-    setFilter: (field: string, value: FilterValue) => void;
-    getFilter: (field: string) => FilterValue;
-
-    clearFilters: () => void;
-    reset: () => void;
-
-    getFiltersDefinitions: () => FilterDefinition[];
-    hasFilters: () => boolean;
-}
-
-export type FiltersStagingProvide = Pick<
-    FiltersProvide,
-    "filtersValues" | "setFilter" | "getFilter"
->;
-
 export interface PaginationProvide {
     page: number;
     perPage: number;
@@ -162,17 +73,4 @@ export interface RowVersionProvider<T extends RowObject = RowObject> {
     versions: Record<string, number>;
     reset: (rows: T[]) => void;
     increment: (row: T) => void;
-}
-
-export interface SavedFiltersSet {
-    name: string;
-    filters: FilterObject;
-}
-
-export interface FilterSavingProvide {
-    savedFilters: Ref<SavedFiltersSet[]>;
-    setFilters: (name: string) => void;
-    saveFilters: (name: string, filters: FilterObject) => void;
-    removeSavedFilters: (name: string) => void;
-    getAllFilters: () => Ref<SavedFiltersSet[]>;
 }

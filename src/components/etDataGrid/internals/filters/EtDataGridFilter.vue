@@ -18,11 +18,11 @@
 
 <script lang="ts" setup>
 import type { PropType } from "vue";
-import type { FilterDefinition } from "../../interfaces/DataGridMethods";
+import type { FilterDefinition } from "../../interfaces/DataGridFilters";
 
 import EtDataGridFilter from "./EtDataGridFilterInput.vue";
 import { wait } from "../../../../helpers/async";
-import { FilterInputType } from "../../interfaces/DataGridMethods";
+import { FilterInputType } from "../../interfaces/DataGridFilters";
 import { computed } from "vue";
 
 const props = defineProps({

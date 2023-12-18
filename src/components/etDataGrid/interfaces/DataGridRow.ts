@@ -1,5 +1,4 @@
 import type { RowObject } from "./DataGridMethods";
-import { type FilterDefinition, FilterInputType } from "./DataGridMethods";
 
 export type IClass = string[];
 export type IRowClass<T extends RowObject = RowObject> =

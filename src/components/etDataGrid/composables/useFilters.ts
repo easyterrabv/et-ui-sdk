@@ -1,11 +1,13 @@
 import { reactive } from "vue";
+
 import type {
     BaseFilterDefinition,
     FilterDefinition,
     FilterObject,
-    FiltersProvide,
-    RowObject
-} from "../interfaces/DataGridMethods";
+    FiltersProvide
+} from "../interfaces/DataGridFilters";
+
+import type { RowObject } from "../interfaces/DataGridMethods";
 
 export function useFilters<T extends RowObject = RowObject>(
     filtersDefinitionsGetter: () => FilterDefinition[]

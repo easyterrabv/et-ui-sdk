@@ -62,13 +62,13 @@ import type {
     FilterDefinition,
     OptionFilterValue,
     SelectFilterDefinition
-} from "../../interfaces/DataGridMethods";
+} from "../../interfaces/DataGridFilters";
 
 import {
     FilterInputType,
     type FiltersStagingProvide,
     type FilterValue
-} from "../../interfaces/DataGridMethods";
+} from "../../interfaces/DataGridFilters";
 import { computed, inject, type Ref, ref, watch, watchEffect } from "vue";
 import { UI_SIZING } from "../../../../helpers/enums";
 import { OptionModel } from "../../../../models/Option";

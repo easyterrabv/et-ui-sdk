@@ -79,7 +79,7 @@ import EtIconCalendar from "../etIcon/EtIconCalendar.vue";
 import EtIconArrowRightLong from "../etIcon/EtIconArrowRightLong.vue";
 
 import { UI_SIZING } from "../../helpers/enums";
-import type { FilterDateValue } from "../etDataGrid/interfaces/DataGridMethods";
+import type { FilterDateValue } from "../etDataGrid/interfaces/DataGridFilters";
 
 export default defineComponent({
     props: {

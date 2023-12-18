@@ -47,7 +47,7 @@
                 </div>
                 <div class="et-sdk-data-grid__filters-functionality">
                     <EtButtonDefault
-                        v-if="filterSaving"
+                        v-if="!!onFilterSave"
                         class="et-sdk-data-grid__filters-search-button"
                         @click="() => saveFilters()"
                     >
@@ -77,16 +77,16 @@ import {
     reactive,
     onBeforeUnmount,
     provide,
-    type Ref
+    type Ref,
+    type PropType
 } from "vue";
 import type {
     FilterDefinition,
     FilterDisplay,
     FilterObject,
-    FilterSavingProvide,
     FiltersProvide,
     FiltersStagingProvide
-} from "../../interfaces/DataGridMethods";
+} from "../../interfaces/DataGridFilters";
 import type { Instance } from "@popperjs/core/lib/types";
 import { createPopper } from "@popperjs/core";
 import {
@@ -100,8 +100,16 @@ import EtDataGridFilter from "./EtDataGridFilter.vue";
 import EtDataGridFiltersInputValue from "./EtDataGridFiltersInputValue.vue";
 
 const filters = inject<FiltersProvide>("filters");
-const filterSaving = inject<FilterSavingProvide>("filterSaving");
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
+
+const props = defineProps({
+    onFilterSave: {
+        type: Function as PropType<
+            (name: string, filtersObj: FilterObject) => void | null
+        >,
+        default: null
+    }
+});
 
 const filterDefinitions = computed(() => filters?.getFiltersDefinitions());
 const hasFilterDefinitions = computed(() => !!filters?.hasFilters());
@@ -137,7 +145,7 @@ provide<Ref<boolean>>("dropDownVisible", isVisible);
 let popperInstance: Instance;
 
 function saveFilters() {
-    if (!filterSaving || !filterValueStaging) {
+    if (!props.onFilterSave || !filterValueStaging) {
         return;
     }
 
@@ -145,7 +153,7 @@ function saveFilters() {
     const name = prompt("Name");
 
     if (name) {
-        filterSaving.saveFilters(name, filterValueStaging.filtersValues);
+        props.onFilterSave(name, filterValueStaging.filtersValues);
     }
 }
 

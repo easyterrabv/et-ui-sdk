@@ -7,7 +7,7 @@
                 :to="filterTeleportTarget"
                 :disabled="!filterTeleportTarget"
             >
-                <EtDataGridFiltersInput />
+                <EtDataGridFiltersInput :onFilterSave="onFilterSave" />
             </Teleport>
         </div>
         <div
@@ -73,6 +73,7 @@ import type { DataGridRow } from "../interfaces/DataGridRow";
 import { computed, inject } from "vue";
 import type { BulkMethod } from "../interfaces/DataGridMethods";
 import type { CheckedProvide } from "../interfaces/DataGridMethods";
+import type { FilterObject } from "../interfaces/DataGridFilters";
 
 const props = defineProps({
     filterTeleportTarget: {
@@ -94,6 +95,12 @@ const props = defineProps({
         default() {
             return [];
         }
+    },
+    onFilterSave: {
+        type: Function as PropType<
+            (name: string, filtersObj: FilterObject) => void | null
+        >,
+        default: null
     }
 });
 
