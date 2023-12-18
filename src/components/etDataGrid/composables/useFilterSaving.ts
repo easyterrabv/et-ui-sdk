@@ -4,7 +4,7 @@ import type {
     FilterSavingProvide,
     SavedFiltersSet
 } from "../interfaces/DataGridFilters";
-import { makeSlug } from "src/helpers/misc.ts";
+import { makeSlug } from "../../../helpers/misc";
 
 const SAVE_FILTERS_STORAGE_KEY = "ET-SDK-DATA-GRID--SAVED-FILTERS";
 
