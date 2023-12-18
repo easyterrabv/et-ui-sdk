@@ -132,7 +132,7 @@ export const dateToYMD = (date) => {
 export const dateToFormattedString = (date, monthType = "full") => {
     const parsedDate = parseDate(date);
     if (!parsedDate) {
-        return 'Unknown Date';
+        return "Unknown Date";
     }
     const year = parsedDate.getFullYear();
     let month;

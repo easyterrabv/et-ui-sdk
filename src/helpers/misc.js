@@ -37,3 +37,19 @@ export const addLeadingZero = (input) => {
     }
     return String(inputAsNumber); // Otherwise, return the input as a string
 };
+export const makeSlug = (text) => {
+    if (!text) {
+        return text;
+    }
+    return ((text || "")
+        .toString()
+        .trim()
+        // Use the Unicode normalization method to ensure consistent treatment of accented characters
+        .normalize("NFKD")
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]+/g, "")
+        .replace(/--+/g, "-")
+        .replace(/^-+/, "")
+        .replace(/-+$/, ""));
+};
