@@ -120,7 +120,7 @@ const props = defineProps({
     },
     onFilterSave: {
         type: Function as PropType<
-            (name: string, filtersObj: FilterObject) => void | null
+            (label: string, filtersObj: FilterObject) => void | null
         >,
         default: null
     }

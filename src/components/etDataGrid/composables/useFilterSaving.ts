@@ -4,6 +4,7 @@ import type {
     FilterSavingProvide,
     SavedFiltersSet
 } from "../interfaces/DataGridFilters";
+import { makeSlug } from "../../../helpers/misc";
 
 const SAVE_FILTERS_STORAGE_KEY = "ET-SDK-DATA-GRID--SAVED-FILTERS";
 
@@ -11,11 +12,13 @@ export function useFilterSaving(collectionName: string) {
     const savedFilterSets = ref<SavedFiltersSet[]>([]);
     const key = `${SAVE_FILTERS_STORAGE_KEY}+${collectionName}`;
 
-    function saveFilterSet(name: string, filtersObj: FilterObject) {
+    function saveFilterSet(label: string, filtersObj: FilterObject) {
         const amountOfFilters = Object.keys(filtersObj).length;
         if (amountOfFilters <= 0) {
             return;
         }
+
+        const name = makeSlug(label);
 
         const currentIndex = savedFilterSets.value.findIndex(
             (f) => f.name === name
@@ -24,7 +27,7 @@ export function useFilterSaving(collectionName: string) {
         if (currentIndex >= 0) {
             savedFilterSets.value[currentIndex].filters = filtersObj;
         } else {
-            savedFilterSets.value.push({ name, filters: filtersObj });
+            savedFilterSets.value.push({ label, name, filters: filtersObj });
         }
 
         saveAllFilters();

@@ -105,7 +105,7 @@ const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
 const props = defineProps({
     onFilterSave: {
         type: Function as PropType<
-            (name: string, filtersObj: FilterObject) => void | null
+            (label: string, filtersObj: FilterObject) => void | null
         >,
         default: null
     }
@@ -150,10 +150,10 @@ function saveFilters() {
     }
 
     // Todo, to be replaced with a nice modal
-    const name = prompt("Name");
+    const label = prompt("Label");
 
-    if (name) {
-        props.onFilterSave(name, filterValueStaging.filtersValues);
+    if (label) {
+        props.onFilterSave(label, filterValueStaging.filtersValues);
     }
 }
 

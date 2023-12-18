@@ -90,6 +90,7 @@ export type FiltersStagingProvide = Pick<
 
 export interface SavedFiltersSet {
     name: string;
+    label: string;
     filters: FilterObject;
 }
 
