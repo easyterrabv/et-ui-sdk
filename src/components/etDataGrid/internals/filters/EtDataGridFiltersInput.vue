@@ -24,7 +24,7 @@
             <div
                 class="et-sdk-data-grid__filter-icon et-sdk-data-grid__filter-icon--clear"
                 v-if="filterValuesList?.length > 0"
-                @click.stop="() => clearFilters"
+                @click.stop="clearFilters"
             >
                 <EtIconTimes />
             </div>
