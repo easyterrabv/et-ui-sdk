@@ -7,6 +7,7 @@
                 :rowInfo="rowInfo"
                 :bulk-methods="bulkMethods"
                 :onFilterSave="onFilterSave"
+                @filtersCleared="emit('filtersCleared')"
             />
             <EtDataGridContent
                 :columns="columns"
@@ -128,6 +129,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
     (e: "checked", rows: RowObject[]): void;
+    (e: "filtersCleared"): void;
 }>();
 
 const rows = ref<RowObject[]>([]);

@@ -7,7 +7,10 @@
                 :to="filterTeleportTarget"
                 :disabled="!filterTeleportTarget"
             >
-                <EtDataGridFiltersInput :onFilterSave="onFilterSave" />
+                <EtDataGridFiltersInput
+                    :onFilterSave="onFilterSave"
+                    @filtersCleared="emit('filtersCleared')"
+                />
             </Teleport>
         </div>
         <div
@@ -103,6 +106,10 @@ const props = defineProps({
         default: null
     }
 });
+
+const emit = defineEmits<{
+    (e: "filtersCleared"): void;
+}>();
 
 const searchData = inject<() => void>("searchData");
 const checkedRows = inject<CheckedProvide>("checkedRows");

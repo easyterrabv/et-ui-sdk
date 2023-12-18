@@ -24,7 +24,7 @@
             <div
                 class="et-sdk-data-grid__filter-icon et-sdk-data-grid__filter-icon--clear"
                 v-if="filterValuesList?.length > 0"
-                @click.stop="() => filters?.clearFilters()"
+                @click.stop="() => clearFilters"
             >
                 <EtIconTimes />
             </div>
@@ -144,6 +144,10 @@ const isVisible = ref(false);
 provide<Ref<boolean>>("dropDownVisible", isVisible);
 let popperInstance: Instance;
 
+const emit = defineEmits<{
+    (e: "filtersCleared"): void;
+}>();
+
 function saveFilters() {
     if (!props.onFilterSave || !filterValueStaging) {
         return;
@@ -155,6 +159,15 @@ function saveFilters() {
     if (label) {
         props.onFilterSave(label, filterValueStaging.filtersValues);
     }
+}
+
+function clearFilters() {
+    if (!filters) {
+        return;
+    }
+
+    filters.clearFilters();
+    emit("filtersCleared");
 }
 
 async function toggleInput() {
