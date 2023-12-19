@@ -1,6 +1,6 @@
 :root {
     --et-sdk-light-0: #ffffff;
-    --et-sdk-light-100: #f8fafc;
+    --et-sdk-light-100: #F3F4F6;
 
     --et-sdk-dark-50: var(--et-sdk-light-100);
     --et-sdk-dark-100: #f1f5f9;
@@ -37,6 +37,7 @@
     --et-sdk-warning-500: #f59e0b;
     --et-sdk-warning-700: #b45309;
 
+    --et-sdk-shadow-light: 0 2px 4px 0 rgba(0,0,0,0.05);
     --et-sdk-shadow-normal: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
     --et-sdk-shadow-large: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     --et-sdk-shadow-normal-inset: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);

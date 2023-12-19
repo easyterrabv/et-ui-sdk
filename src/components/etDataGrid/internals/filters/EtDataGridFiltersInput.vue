@@ -278,11 +278,14 @@ onBeforeUnmount(() => {
 .et-sdk-data-grid__filter-input {
     margin-top: 4px;
     line-height: 52px;
-    box-shadow: none;
 
     display: flex;
     flex-direction: row;
     padding: 0;
+
+    background: var(--et-sdk-light-0);
+    box-shadow: var(--et-sdk-shadow-light);
+    border-radius: 8px;
 }
 
 .et-sdk-data-grid__filter-content {
@@ -293,6 +296,7 @@ onBeforeUnmount(() => {
 
 .et-sdk-data-grid__filter-icon {
     width: 52px;
+    font-size: 16px;
     text-align: center;
     color: var(--et-sdk-dark-500);
 }
