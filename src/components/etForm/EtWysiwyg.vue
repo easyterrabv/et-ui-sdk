@@ -111,6 +111,18 @@
                         >
                             <EtIconAlignRight title="Align Text Right" />
                         </EtButton>
+                        <EtButton
+                            :size="UI_SIZING.S"
+                            :type="
+                                editor.isActive({ textAlign: 'justify' })
+                                    ? UI_TYPES.PRIMARY
+                                    : UI_TYPES.DEFAULT
+                            "
+                            :disabled="hasDisabledInput"
+                            @click="runEditorMethod('setTextAlign', 'justify')"
+                        >
+                            <EtIconAlignJustify title="Align Text Justify" />
+                        </EtButton>
                     </EtButtonGroup>
 
                     <EtButtonGroup>
@@ -393,6 +405,7 @@ import EtIconListOl from "../etIcon/EtIconListOl.vue";
 import EtIconAlignLeft from "../etIcon/EtIconAlignLeft.vue";
 import EtIconAlignCenter from "../etIcon/EtIconAlignCenter.vue";
 import EtIconAlignRight from "../etIcon/EtIconAlignRight.vue";
+import EtIconAlignJustify from "../etIcon/EtIconAlignJustify.vue";
 import EtIconQuoteLeft from "../etIcon/EtIconQuoteLeft.vue";
 import EtIconLink from "../etIcon/EtIconLink.vue";
 import EtIconTrash from "../etIcon/EtIconTrash.vue";
@@ -478,6 +491,7 @@ export default defineComponent({
         EtIconAlignLeft,
         EtIconAlignCenter,
         EtIconAlignRight,
+        EtIconAlignJustify,
         EtIconQuoteLeft,
         EtIconLink,
         EtIconTrash,
