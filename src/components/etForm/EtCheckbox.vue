@@ -14,14 +14,24 @@
         @click="handleOnClick"
         :indeterminate="internalIndeterminate"
         @keyup.enter="internalChecked = !internalChecked"
-    />
+    >
+        <EtIconCheck
+            class="et-sdk-checkbox__checked-icon"
+            v-if="internalChecked"
+        />
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { generateId } from "../../helpers/random";
 
+import EtIconCheck from "../etIcon/EtIconCheck.vue";
+
 export default defineComponent({
+    components: {
+        EtIconCheck
+    },
     model: {
         // backwards compatibility with vue2.x
         prop: "checked",
@@ -130,8 +140,11 @@ export default defineComponent({
     top: -8px;
 }
 
-.et-sdk-checkbox--checked:before {
-    content: "\2713";
+.et-sdk-checkbox__checked-icon {
+    position: absolute;
+    left: -3px;
+    top: -1px;
+    font-size: 16px;
 }
 
 .et-sdk-checkbox--indeterminate:before {
