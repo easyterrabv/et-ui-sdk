@@ -98,11 +98,11 @@ export default defineComponent({
 
     /*Default styling*/
     background-color: var(--et-sdk-light-0);
-    color: initial;
+    color: var(--et-sdk-dark-800);
 
     /* size M styling */
     padding: 8px 12px;
-    font-size: var(--et-sdk-font-size-normal);
+    font-size: var(--et-sdk-font-size-normal-s);
     line-height: 20px;
 }
 
