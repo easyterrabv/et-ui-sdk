@@ -1,5 +1,6 @@
 :root {
     --et-sdk-light-0: #ffffff;
+    --et-sdk-light-50: #F9FAFB;
     --et-sdk-light-100: #F3F4F6;
 
     --et-sdk-dark-50: var(--et-sdk-light-100);
