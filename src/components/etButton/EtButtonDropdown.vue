@@ -100,7 +100,12 @@ onBeforeUnmount(() => {
 .et-sdk-button-dropdown {
     display: inline-block;
 }
+
 .et-sdk-button-dropdown__dropdown {
     z-index: 30;
+
+    background-color: var(--et-sdk-light-0);
+    border-radius: 5px;
+    box-shadow: var(--et-sdk-shadow-normal);
 }
 </style>
