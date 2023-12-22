@@ -281,6 +281,43 @@
             </div>
 
             <div style="margin-top: 16px;">
+                <EtButtonDropdown>
+                    Click to toggle dropdown
+                    <template #content>
+                        <EtButtonGroup isVertical>
+                            <EtButtonDefault
+                                :size="UI_SIZING.S"
+                                @click="(e: Event) => console.log('test', e)">
+                                Hello! 1
+                            </EtButtonDefault>
+                            <EtButtonDefault
+                                :size="UI_SIZING.S"
+                                @click="(e: Event) => console.log('test', e)">
+                                Hello! 2
+                            </EtButtonDefault>
+                            <EtButtonDefault
+                                :size="UI_SIZING.S"
+                                @click="(e: Event) => console.log('test', e)">
+                                Hello! 3
+                            </EtButtonDefault>
+                            <EtButtonGroup>
+                                <EtButtonDanger
+                                    :size="UI_SIZING.S"
+                                    @click="(e: Event) => console.log('test', e)">
+                                    Danger!
+                                </EtButtonDanger>
+                                <EtButtonSuccess
+                                    :size="UI_SIZING.S"
+                                    @click="(e: Event) => console.log('test', e)">
+                                    Success!
+                                </EtButtonSuccess>
+                            </EtButtonGroup>
+                        </EtButtonGroup>
+                    </template>
+                </EtButtonDropdown>
+            </div>
+
+            <div style="margin-top: 16px;">
                 <EtInput
                     v-model="inputTest"
                     placeholder="Test"
@@ -583,6 +620,8 @@ import EtButtonSuccess from "src/components/etButton/EtButtonSuccess.vue";
 import EtButtonDanger from "src/components/etButton/EtButtonDanger.vue";
 import EtButtonWarning from "src/components/etButton/EtButtonWarning.vue";
 
+import EtButtonDropdown from "src/components/etButton/EtButtonDropdown.vue";
+
 import EtInput from "src/components/etForm/EtInput.vue";
 import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
@@ -628,6 +667,7 @@ export default defineComponent({
         EtButtonSuccess,
         EtButtonDanger,
         EtButtonWarning,
+        EtButtonDropdown,
 
         EtInput,
         EtInputGroup,
