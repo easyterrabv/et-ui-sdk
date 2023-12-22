@@ -26,16 +26,31 @@
 
 <script setup lang="ts">
 import EtButton from "./EtButton.vue";
-import { inject, onBeforeUnmount, onMounted, reactive, ref } from "vue";
+import {
+    inject,
+    onBeforeUnmount,
+    onMounted,
+    reactive,
+    ref,
+    type PropType
+} from "vue";
 import {
     EtOverlayEvent,
     type IEtOverlayProvide
 } from "../etProvider/EtOverlayProviderInterfaces";
 import { type Instance } from "@popperjs/core/lib/types";
 import { createPopper } from "@popperjs/core";
+import { type Placement } from "@popperjs/core/lib/enums";
 
 defineOptions({
     inheritAttrs: false
+});
+
+const props = defineProps({
+    placement: {
+        type: String as PropType<Placement>,
+        default: "bottom-start"
+    }
 });
 
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
@@ -70,7 +85,7 @@ onMounted(() => {
             toggle.value as HTMLElement,
             content.value as HTMLElement,
             {
-                placement: "bottom-start",
+                placement: props.placement,
                 modifiers: [
                     {
                         name: "offset",
