@@ -10,6 +10,10 @@
                     <template #label>Simple Input</template>
                     <EtInput/>
                 </EtFormGroup>
+                <EtFormGroup>
+                    <template #label>Simple Grey Input</template>
+                    <EtInput theme="grey" placeholder="placeholder text"/>
+                </EtFormGroup>
 
                 <EtFormGroup style="margin-top: 16px;">
                     <template #label>Password Input</template>

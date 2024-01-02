@@ -3,6 +3,7 @@
         class="et-sdk-input-wrapper"
         :class="[
             wrapperClasses,
+            'et-sdk-input-theme-' + theme,
             {
                 'et-sdk-input-wrapper__l': size === UI_SIZING.L,
                 'et-sdk-input-wrapper__m': size === UI_SIZING.M,
@@ -146,6 +147,11 @@ export const commonInputProps = {
         type: Boolean,
         required: false,
         default: false
+    },
+    theme: {
+        type: String as PropType<"normal" | "grey">,
+        required: false,
+        default: "normal"
     }
 };
 
@@ -417,6 +423,11 @@ export default defineComponent({
     font-size: var(--et-sdk-font-size-normal);
     line-height: 24px;
     color: var(--et-sdk-dark-800);
+}
+
+.et-sdk-input-theme-grey .et-sdk-input {
+    border: none;
+    background-color: var(--et-sdk-light-100);
 }
 
 .et-sdk-input::placeholder {
