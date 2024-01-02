@@ -98,7 +98,7 @@
             <EtButtonSelect v-model="multipleSelectedOptions" :options="options"></EtButtonSelect>
         </EtCard>
 
-        <EtCard style="margin-top: 16px; height: 800px;">
+        <EtCard style="margin-top: 16px;">
             <template #header>
                 Date pickers
             </template>
@@ -115,6 +115,14 @@
             <div style="margin-top: 16px;">
                 <EtInputTime :size="UI_SIZING.S" v-model="selectedTime"></EtInputTime>
             </div>
+        </EtCard>
+
+        <EtCard style="margin-top: 16px;">
+            <template #header>
+                Dynamic Select
+            </template>
+
+            <EtSelectDynamic />
         </EtCard>
     </EtContent>
 </template>
@@ -147,6 +155,8 @@ import EtAlertDanger from "src/components/etAlert/EtAlertDanger.vue";
 
 import EtCheckboxWithLabel from "src/components/etForm/EtCheckboxWithLabel.vue";
 
+import EtSelectDynamic from "src/components/etSelect/EtSelectDynamic.vue";
+
 import {OptionModel} from "../../src/models/Option";
 
 export default defineComponent({
@@ -173,7 +183,8 @@ export default defineComponent({
         EtInputFileDrop,
 
         EtInputTime,
-        EtAlertDanger
+        EtAlertDanger,
+        EtSelectDynamic
     },
     data() {
         return {
