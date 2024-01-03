@@ -126,7 +126,9 @@
                 Dynamic Select
             </template>
 
-            <EtSelectDynamic />
+            <EtDynamicSelect>
+                Select Items
+            </EtDynamicSelect>
         </EtCard>
     </EtContent>
 </template>
@@ -159,7 +161,7 @@ import EtAlertDanger from "src/components/etAlert/EtAlertDanger.vue";
 
 import EtCheckboxWithLabel from "src/components/etForm/EtCheckboxWithLabel.vue";
 
-import EtSelectDynamic from "src/components/etSelect/EtSelectDynamic.vue";
+import EtDynamicSelect from "src/components/etForm/EtDynamicSelect.vue";
 
 import {OptionModel} from "../../src/models/Option";
 
@@ -188,7 +190,7 @@ export default defineComponent({
 
         EtInputTime,
         EtAlertDanger,
-        EtSelectDynamic
+        EtDynamicSelect
     },
     data() {
         return {

@@ -1,0 +1,100 @@
+<template>
+    <div class="et-sdk-et-dynamic-select">
+        <div
+            class="et-sdk-et-dynamic-select__toggle"
+            ref="toggle"
+            @click="toggleInput"
+        >
+            <slot name="toggle">
+                <EtButtonDefault>
+                    <slot />
+                </EtButtonDefault>
+            </slot>
+        </div>
+        <Teleport to="body">
+            <div
+                ref="content"
+                class="et-sdk-et-dynamic-select__options"
+                v-show="isVisible"
+                @click.stop=""
+                @keyup.esc="hideToolTip"
+            >
+                <EtSelectDynamic>
+                    <template #default="scope">
+                        <slot name="option" :option="scope.option" />
+                    </template>
+                </EtSelectDynamic>
+            </div>
+        </Teleport>
+    </div>
+</template>
+
+<script setup lang="ts">
+import EtButtonDefault from "../etButton/EtButtonDefault.vue";
+import EtSelectDynamic from "../etSelect/EtSelectDynamic.vue";
+import { inject, onBeforeUnmount, onMounted, reactive, ref } from "vue";
+import {
+    EtOverlayEvent,
+    type IEtOverlayProvide
+} from "../etProvider/EtOverlayProviderInterfaces";
+import type { Instance } from "@popperjs/core/lib/types";
+import { createPopper } from "@popperjs/core";
+
+const toggle = ref<HTMLElement | null>(null);
+const content = ref<HTMLElement | null>(null);
+const isVisible = ref(false);
+const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
+let popperInstance: Instance;
+
+async function showToolTip() {
+    isVisible.value = true;
+    sdkOverlay?.setTransparency(true);
+    sdkOverlay?.setVisibility(true);
+    await popperInstance?.update();
+}
+
+async function hideToolTip() {
+    isVisible.value = false;
+    sdkOverlay?.setVisibility(false);
+}
+
+async function toggleInput() {
+    if (isVisible.value) {
+        await hideToolTip();
+    } else {
+        await showToolTip();
+    }
+}
+
+onMounted(() => {
+    popperInstance = reactive(
+        createPopper(
+            toggle.value as HTMLElement,
+            content.value as HTMLElement,
+            {
+                placement: "bottom-start",
+                modifiers: [
+                    {
+                        name: "offset",
+                        options: {
+                            offset: [0, 6]
+                        }
+                    }
+                ]
+            }
+        )
+    );
+
+    sdkOverlay?.addEvent(EtOverlayEvent.onClick, hideToolTip);
+});
+
+onBeforeUnmount(() => {
+    sdkOverlay?.removeEvent(EtOverlayEvent.onClick, hideToolTip);
+});
+</script>
+
+<style>
+.et-sdk-et-dynamic-select__options {
+    z-index: 30;
+}
+</style>
