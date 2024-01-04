@@ -10,6 +10,7 @@ export interface IOption {
     label?: string | null;
     tags?: string[];
     type?: UI_TYPES;
+    meta?: { [key: string]: any };
 }
 export class OptionModel extends EtModel {
     constructor(option: IOption) {
@@ -18,6 +19,7 @@ export class OptionModel extends EtModel {
         this.value = option.value;
         this.tags = option.tags || [];
         this.type = option.type;
+        this.meta = option.meta || {};
         this.score = 0;
         this.defaultSortOrder = OPTION_COUNT;
 

@@ -10,6 +10,10 @@
                     <template #label>Simple Input</template>
                     <EtInput/>
                 </EtFormGroup>
+                <EtFormGroup>
+                    <template #label>Simple Grey Input</template>
+                    <EtInput theme="grey" placeholder="placeholder text"/>
+                </EtFormGroup>
 
                 <EtFormGroup style="margin-top: 16px;">
                     <template #label>Password Input</template>
@@ -98,7 +102,7 @@
             <EtButtonSelect v-model="multipleSelectedOptions" :options="options"></EtButtonSelect>
         </EtCard>
 
-        <EtCard style="margin-top: 16px; height: 800px;">
+        <EtCard style="margin-top: 16px;">
             <template #header>
                 Date pickers
             </template>
@@ -115,6 +119,19 @@
             <div style="margin-top: 16px;">
                 <EtInputTime :size="UI_SIZING.S" v-model="selectedTime"></EtInputTime>
             </div>
+        </EtCard>
+
+        <EtCard style="margin-top: 16px;">
+            <template #header>
+                Dynamic Select
+            </template>
+
+            <EtDynamicSelect
+                :dataGetter="dataGetter"
+                :onOptionSelect="onOptionSelect"
+            >
+                Select Items
+            </EtDynamicSelect>
         </EtCard>
     </EtContent>
 </template>
@@ -147,7 +164,10 @@ import EtAlertDanger from "src/components/etAlert/EtAlertDanger.vue";
 
 import EtCheckboxWithLabel from "src/components/etForm/EtCheckboxWithLabel.vue";
 
+import EtDynamicSelect from "src/components/etForm/EtDynamicSelect.vue";
+
 import {OptionModel} from "../../src/models/Option";
+import {wait} from "../../src/helpers/async";
 
 export default defineComponent({
     components: {
@@ -173,7 +193,8 @@ export default defineComponent({
         EtInputFileDrop,
 
         EtInputTime,
-        EtAlertDanger
+        EtAlertDanger,
+        EtDynamicSelect
     },
     data() {
         return {
@@ -233,6 +254,49 @@ export default defineComponent({
     methods: {
         doSubmit() {
             alert('do Submit');
+        },
+        onOptionSelect(selectedOption: OptionModel) {
+            console.log('selected Option', selectedOption);
+        },
+        async dataGetter(searchValue: string) {
+            console.log("Handling search 2222!", searchValue);
+
+            await wait(1500);
+
+            return [
+                new OptionModel({
+                    value: 1,
+                    label: "Item one"
+                }),
+                new OptionModel({
+                    value: 2,
+                    label: "Item two"
+                }),
+                new OptionModel({
+                    value: 3,
+                    label: "Item three"
+                }),
+                new OptionModel({
+                    value: 4,
+                    label: "Item four"
+                }),
+                new OptionModel({
+                    value: 5,
+                    label: "Item five"
+                }),
+                new OptionModel({
+                    value: 6,
+                    label: "Item six"
+                }),
+                new OptionModel({
+                    value: 7,
+                    label: "Item seven"
+                }),
+                new OptionModel({
+                    value: 8,
+                    label: "Item eight"
+                })
+            ];
         }
     },
     mounted() {
