@@ -12,13 +12,28 @@
             </template>
         </EtInput>
         <div class="et-sdk-select-dynamic__options">
-            <div v-for="option in options" :key="option.value">
-                <slot :option="option">
-                    <div class="et-sdk-select-dynamic__option">
-                        {{ option.label }}
-                    </div>
-                </slot>
-            </div>
+            <template v-if="loading">
+                <div class="et-sdk-select-dynamic__loading">
+                    <EtIconSpinner pulse />
+                    Searching
+                </div>
+            </template>
+            <template v-else-if="options.length > 0">
+                <div
+                    v-for="option in options"
+                    :key="option.value"
+                    @click="(e) => handleOnClick(option)"
+                >
+                    <slot :option="option">
+                        <div class="et-sdk-select-dynamic__option">
+                            {{ (option as OptionModel).label }}
+                        </div>
+                    </slot>
+                </div>
+            </template>
+            <template v-else-if="options.length <= 0">
+                <div class="et-sdk-select-dynamic__empty">No options</div>
+            </template>
         </div>
     </div>
 </template>
@@ -27,81 +42,49 @@
 import EtInput from "../etForm/EtInput.vue";
 import EtIconSearch from "../etIcon/EtIconSearch.vue";
 import type { PropType } from "vue";
-import { onMounted, ref } from "vue";
+import { ref, watch } from "vue";
 import { OptionModel } from "../../models/Option";
+import { Debounce } from "../../helpers/debounce";
+import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
 
 const props = defineProps({
-    preload: {
-        type: Boolean,
-        default: true
-    },
     dataGetter: {
         type: Function as PropType<
             (searchInput: string) => Promise<OptionModel[]>
-        >
-        // required: true
+        >,
+        required: true
     },
     placeholder: {
         type: String,
         default: "Filter Options"
     },
     onOptionSelect: {
-        type: Function as PropType<(selectedOption: OptionModel) => void>
-        // required: true
+        type: Function as PropType<(selectedOption: OptionModel) => void>,
+        required: true
     }
 });
 
-const searchInput = ref<string>("");
+const loading = ref(false);
+const searchInput = ref("");
 const options = ref<OptionModel[]>([]);
+const searchDebounce = new Debounce(handleSearch, 250);
+watch(
+    () => searchInput.value,
+    () => searchDebounce.debounce()
+);
 
 async function handleSearch() {
-    // TEMP
-    options.value = [
-        new OptionModel({
-            value: 1,
-            label: "Item one"
-        }),
-        new OptionModel({
-            value: 2,
-            label: "Item two"
-        }),
-        new OptionModel({
-            value: 3,
-            label: "Item three"
-        }),
-        new OptionModel({
-            value: 4,
-            label: "Item four"
-        }),
-        new OptionModel({
-            value: 5,
-            label: "Item five"
-        }),
-        new OptionModel({
-            value: 6,
-            label: "Item six"
-        }),
-        new OptionModel({
-            value: 7,
-            label: "Item seven"
-        }),
-        new OptionModel({
-            value: 8,
-            label: "Item eight"
-        })
-    ];
-
-    // const result = props.dataGetter(searchInput.value);
-    // if (Array.isArray(result)) {
-    //     options.value = result;
-    // }
+    loading.value = true;
+    const result = await props.dataGetter(searchInput.value);
+    if (Array.isArray(result)) {
+        options.value = result;
+    }
+    loading.value = false;
 }
 
-onMounted(() => {
-    if (props.preload) {
-        handleSearch();
-    }
-});
+function handleOnClick(selectedOption: OptionModel) {
+    props.onOptionSelect?.(selectedOption);
+}
 </script>
 
 <style>
@@ -117,10 +100,17 @@ onMounted(() => {
     margin-bottom: 12px;
 }
 
-.et-sdk-select-dynamic__option {
+.et-sdk-select-dynamic__loading,
+.et-sdk-select-dynamic__option,
+.et-sdk-select-dynamic__empty {
     line-height: 25px;
     padding: 5px;
     margin-bottom: 2px;
+}
+
+.et-sdk-select-dynamic__loading,
+.et-sdk-select-dynamic__empty {
+    text-align: center;
 }
 
 .et-sdk-select-dynamic__option:hover {
