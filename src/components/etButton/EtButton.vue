@@ -104,6 +104,8 @@ export default defineComponent({
     padding: 8px 12px;
     font-size: var(--et-sdk-font-size-normal-s);
     line-height: 20px;
+
+    transition: background-color 150ms ease-in-out;
 }
 
 .et-sdk-button__default {
