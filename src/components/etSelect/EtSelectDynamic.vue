@@ -14,7 +14,7 @@
             @enter="handleInputEnterPressed"
         >
             <template #preIcon>
-                <EtIconSearch />
+                <EtIconSearch class="et-sdk-select-dynamic__search__icon" />
             </template>
         </EtInput>
         <div
@@ -207,8 +207,12 @@ defineExpose({
     margin-bottom: 12px;
 }
 
+.et-sdk-select-dynamic__search__icon {
+    color: var(--et-sdk-dark-500);
+}
+
 .et-sdk-select-dynamic__options {
-    max-height: 350px;
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -216,7 +220,7 @@ defineExpose({
 .et-sdk-select-dynamic__option,
 .et-sdk-select-dynamic__empty {
     line-height: 25px;
-    padding: 5px;
+    padding: 9px 5px;
     margin-bottom: 2px;
 }
 
