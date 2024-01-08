@@ -1,17 +1,22 @@
 <template>
-    <div class="et-sdk-select-dynamic">
+    <div
+        class="et-sdk-select-dynamic"
+        @keyup.down="handleKeyDownPressed"
+        @keyup.up="handleKeyUpPressed"
+    >
         <EtInput
             :placeholder="placeholder"
             theme="grey"
+            ref="input"
             class="et-sdk-select-dynamic__search"
             v-model="searchInput"
-            @enter="handleSearch"
+            @enter="handleInputEnterPressed"
         >
             <template #preIcon>
                 <EtIconSearch />
             </template>
         </EtInput>
-        <div class="et-sdk-select-dynamic__options">
+        <div class="et-sdk-select-dynamic__options hide-scrollbar">
             <template v-if="loading">
                 <div class="et-sdk-select-dynamic__loading">
                     <EtIconSpinner pulse />
@@ -20,15 +25,21 @@
             </template>
             <template v-else-if="options.length > 0">
                 <div
-                    v-for="option in options"
+                    v-for="(option, index) in options"
                     :key="option.value"
                     @click="(e) => handleOnClick(option)"
                 >
-                    <slot :option="option">
-                        <div class="et-sdk-select-dynamic__option">
+                    <div
+                        class="et-sdk-select-dynamic__option"
+                        :class="{
+                            'et-sdk-select-dynamic__option--focused':
+                                index === focusedIndex
+                        }"
+                    >
+                        <slot :option="option">
                             {{ (option as OptionModel).label }}
-                        </div>
-                    </slot>
+                        </slot>
+                    </div>
                 </div>
             </template>
             <template v-else-if="options.length <= 0">
@@ -42,7 +53,7 @@
 import EtInput from "../etForm/EtInput.vue";
 import EtIconSearch from "../etIcon/EtIconSearch.vue";
 import type { PropType } from "vue";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { OptionModel } from "../../models/Option";
 import { Debounce } from "../../helpers/debounce";
 import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
@@ -64,8 +75,13 @@ const props = defineProps({
     }
 });
 
+const input = ref(null);
+const focusedIndex = ref(-1);
 const loading = ref(false);
+
 const searchInput = ref("");
+const resultSearchInput = ref("");
+
 const options = ref<OptionModel[]>([]);
 const searchDebounce = new Debounce(handleSearch, 250);
 watch(
@@ -75,16 +91,63 @@ watch(
 
 async function handleSearch() {
     loading.value = true;
+    focusedIndex.value = -1;
     const result = await props.dataGetter(searchInput.value);
     if (Array.isArray(result)) {
         options.value = result;
     }
     loading.value = false;
+    resultSearchInput.value = searchInput.value;
+}
+
+async function handleInputEnterPressed() {
+    if (
+        resultSearchInput.value === searchInput.value &&
+        focusedIndex.value > -1
+    ) {
+        handleOptionSelectByIndex(focusedIndex.value);
+        return;
+    }
+
+    await handleSearch();
+}
+
+function handleOptionSelectByIndex(index: number) {
+    if (index < 0 || index >= options.value.length) {
+        return;
+    }
+
+    const option = options.value[index];
+    handleOnClick(option);
+}
+
+function handleKeyDownPressed() {
+    focusedIndex.value += 1;
+    if (focusedIndex.value >= options.value.length) {
+        focusedIndex.value = 0;
+    }
+}
+
+function handleKeyUpPressed() {
+    focusedIndex.value -= 1;
+    if (focusedIndex.value < 0) {
+        focusedIndex.value = options.value.length - 1;
+    }
 }
 
 function handleOnClick(selectedOption: OptionModel) {
+    focusedIndex.value = -1;
     props.onOptionSelect?.(selectedOption);
 }
+
+function focusInput() {
+    focusedIndex.value = -1;
+    (input?.value as any).focus?.();
+}
+
+defineExpose({
+    focusInput
+});
 </script>
 
 <style>
@@ -100,6 +163,11 @@ function handleOnClick(selectedOption: OptionModel) {
     margin-bottom: 12px;
 }
 
+.et-sdk-select-dynamic__options {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
 .et-sdk-select-dynamic__loading,
 .et-sdk-select-dynamic__option,
 .et-sdk-select-dynamic__empty {
@@ -113,9 +181,16 @@ function handleOnClick(selectedOption: OptionModel) {
     text-align: center;
 }
 
-.et-sdk-select-dynamic__option:hover {
+.et-sdk-select-dynamic__option {
     cursor: pointer;
-    background-color: var(--et-sdk-light-50);
     border-radius: var(--et-sdk-input-border-radius);
+}
+
+.et-sdk-select-dynamic__option--focused {
+    background-color: var(--et-sdk-blue-400);
+}
+
+.et-sdk-select-dynamic__option:hover {
+    background-color: var(--et-sdk-light-50);
 }
 </style>

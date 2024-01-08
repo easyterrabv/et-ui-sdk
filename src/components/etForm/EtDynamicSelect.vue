@@ -21,6 +21,7 @@
             >
                 <!-- can't use v-bind="props" because onOptionSelect will be turned into an Array -->
                 <EtSelectDynamic
+                    ref="selectDynamic"
                     :data-getter="props.dataGetter"
                     :placeholder="props.placeholder"
                     :onOptionSelect="handleOptionSelect"
@@ -53,6 +54,7 @@ import type { Instance } from "@popperjs/core/lib/types";
 import { createPopper } from "@popperjs/core";
 import { OptionModel } from "../../models/Option";
 
+const selectDynamic = ref<typeof EtSelectDynamic>();
 const toggle = ref<HTMLElement | null>(null);
 const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
@@ -81,6 +83,7 @@ async function showToolTip() {
     sdkOverlay?.setTransparency(true);
     sdkOverlay?.setVisibility(true);
     await popperInstance?.update();
+    (selectDynamic?.value as typeof EtSelectDynamic).focusInput();
 }
 
 function hideToolTip() {
