@@ -153,7 +153,7 @@ defineExpose({
 
 <style>
 .et-sdk-select-dynamic {
-    width: 320px;
+    width: 360px;
     padding: 12px;
     box-shadow: var(--et-sdk-shadow-normal);
     border-radius: var(--et-sdk-input-border-radius);
@@ -165,7 +165,7 @@ defineExpose({
 }
 
 .et-sdk-select-dynamic__options {
-    max-height: 200px;
+    max-height: 350px;
     overflow-y: auto;
 }
 
