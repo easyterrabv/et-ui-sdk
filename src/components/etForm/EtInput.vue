@@ -456,15 +456,15 @@ export default defineComponent({
 }
 
 .et-sdk-input__with-pre-icon {
-    padding-left: 30px !important;
+    padding-left: 34px !important;
 }
 
 .et-sdk-input__with-post-icon {
-    padding-right: 30px !important;
+    padding-right: 34px !important;
 }
 
 .et-sdk-input__with-post-icon-and_clear {
-    padding-right: 60px !important;
+    padding-right: 68px !important;
 }
 
 .et-sdk-input__success {
