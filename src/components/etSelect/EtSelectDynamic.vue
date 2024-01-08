@@ -8,6 +8,7 @@
             :placeholder="placeholder"
             theme="grey"
             ref="input"
+            clear-button
             class="et-sdk-select-dynamic__search"
             v-model="searchInput"
             @enter="handleInputEnterPressed"
