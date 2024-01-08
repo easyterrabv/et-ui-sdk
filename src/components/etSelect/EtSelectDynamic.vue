@@ -190,7 +190,7 @@ defineExpose({
 }
 
 .et-sdk-select-dynamic__option:hover {
-    background-color: var(--et-sdk-light-50);
+    background-color: var(--et-sdk-light-100);
 }
 
 .et-sdk-select-dynamic__option--focused {
