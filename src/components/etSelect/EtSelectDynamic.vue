@@ -184,6 +184,8 @@ defineExpose({
 .et-sdk-select-dynamic__option {
     cursor: pointer;
     border-radius: var(--et-sdk-input-border-radius);
+    background-color: var(--et-sdk-light-0);
+    transition: background-color 150ms ease-in-out;
 }
 
 .et-sdk-select-dynamic__option:hover {
