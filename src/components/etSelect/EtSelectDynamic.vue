@@ -17,7 +17,10 @@
                 <EtIconSearch />
             </template>
         </EtInput>
-        <div class="et-sdk-select-dynamic__options hide-scrollbar">
+        <div
+            class="et-sdk-select-dynamic__options hide-scrollbar"
+            ref="optionsContainer"
+        >
             <template v-if="loading">
                 <div class="et-sdk-select-dynamic__loading">
                     <EtIconSpinner pulse />
@@ -54,7 +57,7 @@
 import EtInput from "../etForm/EtInput.vue";
 import EtIconSearch from "../etIcon/EtIconSearch.vue";
 import type { PropType } from "vue";
-import { onMounted, ref, watch } from "vue";
+import { nextTick, ref, watch } from "vue";
 import { OptionModel } from "../../models/Option";
 import { Debounce } from "../../helpers/debounce";
 import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
@@ -77,6 +80,7 @@ const props = defineProps({
 });
 
 const input = ref(null);
+const optionsContainer = ref<HTMLElement | null>(null);
 const focusedIndex = ref(-1);
 const loading = ref(false);
 
@@ -85,9 +89,48 @@ const resultSearchInput = ref("");
 
 const options = ref<OptionModel[]>([]);
 const searchDebounce = new Debounce(handleSearch, 250);
+
 watch(
     () => searchInput.value,
     () => searchDebounce.debounce()
+);
+
+watch(
+    () => focusedIndex.value,
+    async (value) => {
+        const parentContainer = optionsContainer.value as HTMLElement;
+        if (!parentContainer) {
+            return;
+        }
+
+        if (value <= -1) {
+            parentContainer.scrollTop = 0;
+            return;
+        }
+
+        await nextTick();
+
+        const focussedItems = parentContainer.getElementsByClassName(
+            "et-sdk-select-dynamic__option--focused"
+        );
+        if (focussedItems.length <= 0) {
+            return;
+        }
+
+        const firstItem = focussedItems[0] as HTMLElement;
+        if (!firstItem) {
+            return;
+        }
+
+        const parentOffset = parentContainer.offsetTop;
+        const firstItemOffset = firstItem.offsetTop;
+        const offsetTop = firstItemOffset - parentOffset;
+        const nextPos = offsetTop - firstItem.getBoundingClientRect().height;
+        parentContainer.scrollTo({
+            top: nextPos < 0 ? 0 : nextPos,
+            behavior: "smooth"
+        });
+    }
 );
 
 async function handleSearch() {
