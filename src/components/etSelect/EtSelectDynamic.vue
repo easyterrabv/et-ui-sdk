@@ -186,11 +186,15 @@ defineExpose({
     border-radius: var(--et-sdk-input-border-radius);
 }
 
-.et-sdk-select-dynamic__option--focused {
-    background-color: var(--et-sdk-blue-400);
-}
-
 .et-sdk-select-dynamic__option:hover {
     background-color: var(--et-sdk-light-50);
+}
+
+.et-sdk-select-dynamic__option--focused {
+    background-color: var(--et-sdk-blue-300);
+}
+
+.et-sdk-select-dynamic__option--focused:hover {
+    background-color: var(--et-sdk-blue-400);
 }
 </style>
