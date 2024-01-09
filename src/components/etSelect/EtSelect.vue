@@ -7,7 +7,7 @@
                     !multiple && isSelected(option)
             }"
             v-for="option in sortedOptions"
-            @mouseup.left.stop="(e) => selectDebounce.debounce(option)"
+            @click.left.stop="(e) => selectDebounce.debounce(option)"
             :key="option.guid"
         >
             <div v-if="multiple" class="et-sdk-select--option--checkbox">

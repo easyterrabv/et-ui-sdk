@@ -4,7 +4,7 @@
         :class="{
             'et-sdk-tab__active': isActive
         }"
-        @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
+        @click.left.stop="(e) => clickDebounce.debounce(e)"
     >
         <slot></slot>
     </div>

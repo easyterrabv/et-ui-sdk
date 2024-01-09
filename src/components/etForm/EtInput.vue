@@ -55,7 +55,7 @@
                 'et-sdk-input-clear__with-post-icon': $slots.postIcon
             }"
             v-if="clearButton && !disabled && !readonly && internalData"
-            @mouseup.left.stop="clear"
+            @click.left.stop="clear"
         >
             <EtIconTimes />
         </span>

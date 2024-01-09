@@ -7,7 +7,7 @@
     >
         <EtPopover ref="popover" manual fitToggle>
             <template #toggle>
-                <div @mouseup.left.stop="(e) => onInputClick()">
+                <div @click.left.stop="(e) => onInputClick()">
                     <EtInput
                         ref="input"
                         :size="size"
@@ -63,7 +63,7 @@
                                     {{ option.label }}
                                     <span
                                         class="cursor-pointer"
-                                        @mouseup.left.stop="
+                                        @click.left.stop="
                                             (e) => deSelectOption(option)
                                         "
                                     >

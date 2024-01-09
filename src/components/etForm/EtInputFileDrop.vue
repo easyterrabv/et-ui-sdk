@@ -3,7 +3,7 @@
         @dragover="handleDragOver"
         @dragleave="handleDragLeave"
         @drop="handleDrop"
-        @mouseup.left="handleClick"
+        @click.left="handleClick"
         class="et-sdk-input-file-drop"
         :class="{
             'et-sdk-input-file-drop__processing': isProcessing

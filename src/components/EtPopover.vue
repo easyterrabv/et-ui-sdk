@@ -4,7 +4,7 @@
             :tabindex="-1"
             class="et-sdk-popover--toggle"
             ref="toggle"
-            @mouseup.left.stop="(e) => !manual && setPopoverFocus(true)"
+            @click.left.stop="(e) => !manual && setPopoverFocus(true)"
             @blur="(e) => !manual && setPopoverFocus(false)"
         >
             <slot name="toggle" :togglePopover="togglePopover"></slot>

@@ -12,7 +12,7 @@
             'et-sdk-button__' + type,
             'et-sdk-button__' + size
         ]"
-        @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
+        @click.left.stop="(e) => clickDebounce.debounce(e)"
         @keyup.enter="(e) => clickDebounce.debounce(e)"
         @focus="$emit('focus')"
         @blur="$emit('blur')"

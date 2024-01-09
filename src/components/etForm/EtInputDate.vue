@@ -14,7 +14,7 @@
             <template #toggle>
                 <div
                     class="et-sdk-input-date--input-toggle-wrapper"
-                    @mouseup.left.stop="(e) => onInputClick()"
+                    @click.left.stop="(e) => onInputClick()"
                 >
                     <EtInput
                         ref="input"

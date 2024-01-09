@@ -10,7 +10,7 @@
     >
         <button
             type="button"
-            @mouseup.left.stop="(e) => clickDebounce.debounce(e)"
+            @click.left.stop="(e) => clickDebounce.debounce(e)"
             @keyup.enter="(e) => clickDebounce.debounce(e)"
             class="et-sdk-toggle--button"
             :class="{

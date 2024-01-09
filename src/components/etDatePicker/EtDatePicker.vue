@@ -9,13 +9,13 @@
         <div class="et-sdk-datepicker--period">
             <div
                 class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
-                @mouseup.left.stop="(e) => prevPageDebounce.debounce(e)"
+                @click.left.stop="(e) => prevPageDebounce.debounce(e)"
             >
                 <EtIconChevronLeft />
             </div>
             <div
                 class="grow et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
-                @mouseup.left.stop="(e) => modeUpDebounce.debounce(e)"
+                @click.left.stop="(e) => modeUpDebounce.debounce(e)"
             >
                 <span v-if="viewMode === VIEW_MODES.DECADE">
                     <span v-if="viewingPeriod[0]">
@@ -38,7 +38,7 @@
             </div>
             <div
                 class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
-                @mouseup.left.stop="(e) => nextPageDebounce.debounce(e)"
+                @click.left.stop="(e) => nextPageDebounce.debounce(e)"
             >
                 <EtIconChevronRight />
             </div>
@@ -64,9 +64,7 @@
             </template>
             <div
                 v-for="option in viewingOptions"
-                @mouseup.left.stop="
-                    (e) => pickOptionDebounce.debounce(e, option)
-                "
+                @click.left.stop="(e) => pickOptionDebounce.debounce(e, option)"
                 class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
                 :class="{
                     'et-sdk-datepicker--section__active':
