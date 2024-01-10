@@ -342,6 +342,8 @@
                             </EtLayer>
                         </EtButton>
                     </EtButtonGroup>
+
+                    <slot />
                 </div>
             </div>
 
@@ -715,6 +717,8 @@ export default defineComponent({
     font-size: var(--et-sdk-font-size-normal);
     line-height: 20px;
     color: var(--et-sdk-dark-800);
+
+    background-color: var(--et-sdk-dark-100);
 }
 
 .et-sdk-wysiwyg--toolbar--tools {
