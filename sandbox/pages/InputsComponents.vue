@@ -41,7 +41,15 @@
 
             <EtFormGroup style="margin-top: 16px;">
                 <template #label>WYSIWYG</template>
-                <EtWysiwyg v-model="wysiwygContent"></EtWysiwyg>
+                <EtWysiwyg v-model="wysiwygContent">
+                    <template #inner>
+                        <EtButtonDefault
+                            :size="UI_SIZING.XS"
+                        >
+                            Random button for test
+                        </EtButtonDefault>
+                    </template>
+                </EtWysiwyg>
             </EtFormGroup>
 
             <EtFormGroup style="margin-top: 16px;">
@@ -168,9 +176,13 @@ import EtDynamicSelect from "src/components/etForm/EtDynamicSelect.vue";
 
 import {OptionModel} from "../../src/models/Option";
 import {wait} from "../../src/helpers/async";
+import EtButton from "../../src/components/etButton/EtButton.vue";
+import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
 
 export default defineComponent({
     components: {
+        EtButtonDefault,
+        EtButton,
         EtContent,
         EtCard,
         EtForm,

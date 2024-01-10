@@ -371,6 +371,9 @@
         <div class="et-sdk-wysiwyg-content">
             <EditorContent
                 class="et-sdk-wysiwyg-editor"
+                :class="{
+                    'et-sdk-wysiwyg-editor--with-inner': $slots.inner
+                }"
                 :editor="editor"
                 v-if="editMode === EDIT_MODES.WYSIWYG"
             />
@@ -379,6 +382,9 @@
                 rows="12"
                 v-model="innerData"
             />
+            <div class="et-sdk-wysiwyg-content__inner-bottom-content">
+                <slot name="inner"></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -790,5 +796,19 @@ export default defineComponent({
 .et-sdk-wysiwyg--editor-textarea td {
     border: 1px solid var(--et-sdk-dark-200);
     padding: 4px 4px 0;
+}
+
+.et-sdk-wysiwyg-content {
+    position: relative;
+}
+
+.et-sdk-wysiwyg-editor--with-inner > .et-sdk-wysiwyg--editor-textarea {
+    padding-bottom: 34px;
+}
+
+.et-sdk-wysiwyg-content__inner-bottom-content {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
 }
 </style>
