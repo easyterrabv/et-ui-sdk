@@ -10,7 +10,7 @@
                 <div class="et-sdk-wysiwyg--toolbar--tools">
                     <EtButtonGroup>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive('bold')
                                     ? UI_TYPES.PRIMARY
@@ -22,7 +22,7 @@
                             <EtIconBold title="Make Bold" />
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive('italic')
                                     ? UI_TYPES.PRIMARY
@@ -34,7 +34,7 @@
                             <EtIconItalic title="Make Italic" />
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive('underline')
                                     ? UI_TYPES.PRIMARY
@@ -49,7 +49,7 @@
 
                     <EtButtonGroup>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive('bulletList')
                                     ? UI_TYPES.PRIMARY
@@ -61,7 +61,7 @@
                             <EtIconListUl title="Make Unordered List" />
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive('orderedList')
                                     ? UI_TYPES.PRIMARY
@@ -76,7 +76,7 @@
 
                     <EtButtonGroup>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive({ textAlign: 'left' })
                                     ? UI_TYPES.PRIMARY
@@ -88,7 +88,7 @@
                             <EtIconAlignLeft title="Align Text Left" />
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive({ textAlign: 'center' })
                                     ? UI_TYPES.PRIMARY
@@ -100,7 +100,7 @@
                             <EtIconAlignCenter title="Align Text Center" />
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive({ textAlign: 'right' })
                                     ? UI_TYPES.PRIMARY
@@ -112,7 +112,7 @@
                             <EtIconAlignRight title="Align Text Right" />
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive({ textAlign: 'justify' })
                                     ? UI_TYPES.PRIMARY
@@ -127,7 +127,7 @@
 
                     <EtButtonGroup>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive('blockquote')
                                     ? UI_TYPES.PRIMARY
@@ -141,7 +141,7 @@
                         <EtPopover ref="anchorPopover" manual>
                             <template #toggle>
                                 <EtButton
-                                    :size="UI_SIZING.S"
+                                    :size="UI_SIZING.XS"
                                     @click="toggleAnchorPopover"
                                     :type="
                                         editor.isActive('link')
@@ -160,7 +160,7 @@
                                     </EtInputGroupAddon>
                                     <EtInput
                                         v-model="urlHref"
-                                        :size="UI_SIZING.S"
+                                        :size="UI_SIZING.XS"
                                         ref="urlHrefInput"
                                         @enter="() => addLink()"
                                         @focus="() => onInputFocus()"
@@ -172,7 +172,7 @@
                                         class="et-sdk-wysiwyg--toolbar--tools--anchor-select"
                                         :options="urlTargetOptions"
                                         v-model="urlTarget"
-                                        :size="UI_SIZING.S"
+                                        :size="UI_SIZING.XS"
                                         :disabled="hasDisabledInput"
                                         @focus="() => onSelectFocus()"
                                         @blur="() => onSelectBlur()"
@@ -181,7 +181,7 @@
                                 <EtButtonGroup>
                                     <EtButtonDanger
                                         class="no-grow"
-                                        :size="UI_SIZING.S"
+                                        :size="UI_SIZING.XS"
                                         @click="
                                             () => {
                                                 urlHref = undefined;
@@ -194,14 +194,14 @@
                                     </EtButtonDanger>
                                     <EtButtonDefault
                                         @click="() => cancelLink()"
-                                        :size="UI_SIZING.S"
+                                        :size="UI_SIZING.XS"
                                         :disabled="hasDisabledInput"
                                     >
                                         cancel
                                     </EtButtonDefault>
                                     <EtButtonSuccess
                                         @click="() => addLink()"
-                                        :size="UI_SIZING.S"
+                                        :size="UI_SIZING.XS"
                                         :disabled="hasDisabledInput"
                                     >
                                         Save
@@ -215,7 +215,7 @@
                         <EtButton
                             v-for="heading in [1, 2, 3, 4, 5, 6]"
                             :key="heading"
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="
                                 editor.isActive('heading', { level: heading })
                                     ? UI_TYPES.PRIMARY
@@ -234,7 +234,7 @@
 
                     <EtButtonGroup>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="
@@ -257,7 +257,7 @@
                             </EtLayer>
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('deleteTable')"
@@ -274,7 +274,7 @@
                             </EtLayer>
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('addColumnAfter')"
@@ -291,7 +291,7 @@
                             </EtLayer>
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('deleteColumn')"
@@ -308,7 +308,7 @@
                             </EtLayer>
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('addRowAfter')"
@@ -325,7 +325,7 @@
                             </EtLayer>
                         </EtButton>
                         <EtButton
-                            :size="UI_SIZING.S"
+                            :size="UI_SIZING.XS"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('deleteRow')"
@@ -348,7 +348,7 @@
             <div>
                 <EtButtonGroup>
                     <EtButton
-                        :size="UI_SIZING.S"
+                        :size="UI_SIZING.XS"
                         :type="UI_TYPES.DEFAULT"
                         @click="toggleEditMode"
                     >
