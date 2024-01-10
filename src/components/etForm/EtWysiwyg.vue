@@ -368,7 +368,7 @@
                 </EtButtonGroup>
             </div>
         </div>
-        <div class="et-sdk-wysiwyg-content">
+        <div class="et-sdk-wysiwyg-content" ref="editor">
             <EditorContent
                 class="et-sdk-wysiwyg-editor"
                 :class="{
@@ -673,6 +673,20 @@ export default defineComponent({
         },
         setEditable() {
             this.editor?.setEditable(!this.hasDisabledInput);
+        },
+        focus() {
+            const editor = this.$refs.editor as HTMLElement;
+            const input = editor.querySelector(
+                ".et-sdk-wysiwyg--editor-textarea"
+            ) as HTMLElement;
+            input?.focus();
+        },
+        blur() {
+            const editor = this.$refs.editor as HTMLElement;
+            const input = editor.querySelector(
+                ".et-sdk-wysiwyg--editor-textarea"
+            ) as HTMLElement;
+            input?.blur();
         }
     },
     mounted() {

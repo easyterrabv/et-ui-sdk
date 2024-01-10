@@ -41,7 +41,7 @@
 
             <EtFormGroup style="margin-top: 16px;">
                 <template #label>WYSIWYG</template>
-                <EtWysiwyg v-model="wysiwygContent">
+                <EtWysiwyg v-model="wysiwygContent" ref="wysiwyg">
                     <template #inner>
                         <EtButtonDefault
                             :size="UI_SIZING.XS"
@@ -312,6 +312,11 @@ export default defineComponent({
         }
     },
     mounted() {
+
+        // setTimeout(() => {
+        //     (this.$refs.wysiwyg as any).focus();
+        // }, 2000);
+
         // this.multipleSelectedOptions = [
         //     this.options.find(opt => opt.value === 'test 2'),
         //     this.options.find(opt => opt.value === 'test 3'),
