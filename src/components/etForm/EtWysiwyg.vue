@@ -8,7 +8,7 @@
         >
             <div class="grow">
                 <div class="et-sdk-wysiwyg--toolbar--tools">
-                    <EtButtonGroup>
+                    <EtButtonGroup v-if="enabledInputGroups.includes('style')">
                         <EtButton
                             :size="UI_SIZING.XS"
                             :type="
@@ -47,7 +47,7 @@
                         </EtButton>
                     </EtButtonGroup>
 
-                    <EtButtonGroup>
+                    <EtButtonGroup v-if="enabledInputGroups.includes('list')">
                         <EtButton
                             :size="UI_SIZING.XS"
                             :type="
@@ -74,7 +74,7 @@
                         </EtButton>
                     </EtButtonGroup>
 
-                    <EtButtonGroup>
+                    <EtButtonGroup v-if="enabledInputGroups.includes('align')">
                         <EtButton
                             :size="UI_SIZING.XS"
                             :type="
@@ -125,7 +125,7 @@
                         </EtButton>
                     </EtButtonGroup>
 
-                    <EtButtonGroup>
+                    <EtButtonGroup v-if="enabledInputGroups.includes('misc')">
                         <EtButton
                             :size="UI_SIZING.XS"
                             :type="
@@ -211,7 +211,9 @@
                         </EtPopover>
                     </EtButtonGroup>
 
-                    <EtButtonGroup>
+                    <EtButtonGroup
+                        v-if="enabledInputGroups.includes('heading')"
+                    >
                         <EtButton
                             v-for="heading in [1, 2, 3, 4, 5, 6]"
                             :key="heading"
@@ -232,7 +234,7 @@
                         </EtButton>
                     </EtButtonGroup>
 
-                    <EtButtonGroup>
+                    <EtButtonGroup v-if="enabledInputGroups.includes('table')">
                         <EtButton
                             :size="UI_SIZING.XS"
                             :type="UI_TYPES.DEFAULT"
@@ -348,7 +350,7 @@
             </div>
 
             <div>
-                <EtButtonGroup>
+                <EtButtonGroup v-if="enabledInputGroups.includes('html')">
                     <EtButton
                         :size="UI_SIZING.XS"
                         :type="UI_TYPES.DEFAULT"
@@ -464,6 +466,21 @@ export default defineComponent({
             type: [String, Number],
             required: false,
             default: null
+        },
+        enabledInputGroups: {
+            type: Array,
+            required: false,
+            default() {
+                return [
+                    "style",
+                    "list",
+                    "align",
+                    "misc",
+                    "heading",
+                    "table",
+                    "html"
+                ];
+            }
         }
     },
     components: {
