@@ -55,12 +55,11 @@ export type OptionFilterValue = {
 
 export type FilterDateValue = [Date | null, Date | null];
 
+export type FilterPrimitives = string | number | boolean | null | undefined;
+
 export type FilterValue =
-    | string
-    | number
-    | boolean
-    | null
-    | undefined
+    | FilterPrimitives
+    | FilterPrimitives[]
     | OptionFilterValue[]
     | FilterDateValue;
 
