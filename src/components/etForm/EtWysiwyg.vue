@@ -398,7 +398,6 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 import { Table } from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
-import { HardBreak } from "@tiptap/extension-hard-break";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { Link } from "@tiptap/extension-link";
@@ -708,7 +707,6 @@ export default defineComponent({
                 TableCell,
                 TableHeader,
                 TableRow,
-                HardBreak,
                 Link.configure({
                     openOnClick: false,
                     HTMLAttributes: {
