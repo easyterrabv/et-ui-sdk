@@ -6,7 +6,7 @@
             @click="toggleInput"
         >
             <slot name="toggle">
-                <EtButtonDefault>
+                <EtButtonDefault @click.stop="toggleInput">
                     <slot />
                 </EtButtonDefault>
             </slot>
