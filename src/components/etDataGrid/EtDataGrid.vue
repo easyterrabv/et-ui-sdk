@@ -245,20 +245,16 @@ provide<CellWidthProvide>("cellWidth", cellWidth);
 provide<RowVersionProvider>("rowVersion", rowVersion);
 
 watch(
-    () => ({
-        sorting: sorting.sorting,
-        filters: filters.filtersValues,
-        page: pagination.page,
-        perPage: pagination.perPage
-    }),
+    () => filters.filtersValues,
     () => {
+        pagination.page = 1;
         searchData();
     },
-    {
-        deep: true,
-        immediate: true
-    }
+    { deep: true, immediate: true }
 );
+watch(() => sorting.sorting, searchData, { deep: true });
+watch(() => pagination.page, searchData);
+watch(() => pagination.perPage, searchData);
 
 watch(
     () => checkedRows.rows,
