@@ -6,7 +6,12 @@
         }"
         @click="handleOnClick"
     >
-        <EtCheckBox v-bind="$attrs" ref="checkbox" :disabled="disabled" />
+        <EtCheckBox
+            @click.stop=""
+            v-bind="$attrs"
+            ref="checkbox"
+            :disabled="disabled"
+        />
         <slot />
     </label>
 </template>
