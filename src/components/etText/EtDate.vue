@@ -135,7 +135,7 @@ export default defineComponent({
             );
 
             if (parts.length <= 0) {
-                return null;
+                return "Now";
             }
 
             if (inFuture) {
