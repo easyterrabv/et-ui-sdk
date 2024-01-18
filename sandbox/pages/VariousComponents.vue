@@ -73,6 +73,12 @@
                     @click="(e: Event) => console.log('test', e)">
                     Warning!
                 </EtButtonWarning>
+
+                <EtButtonText
+                    style="margin-left: 16px;"
+                    @click="(e: Event) => console.log('test', e)">
+                    Text!
+                </EtButtonText>
             </div>
 
             <div style="margin-top: 16px;">
@@ -109,6 +115,13 @@
                     @click="(e: Event) => console.log('test', e)">
                     Warning Disabled!
                 </EtButtonWarning>
+
+                <EtButtonText
+                    disabled
+                    style="margin-left: 16px;"
+                    @click="(e: Event) => console.log('test', e)">
+                    Text Disabled!
+                </EtButtonText>
             </div>
 
             <div style="margin-top: 16px;">
@@ -145,6 +158,13 @@
                     @click="(e: Event) => console.log('test', e)">
                     Warning active!
                 </EtButtonWarning>
+
+                <EtButtonText
+                    active
+                    style="margin-left: 16px;"
+                    @click="(e: Event) => console.log('test', e)">
+                    Text active!
+                </EtButtonText>
             </div>
 
             <div style="margin-top: 16px;">
@@ -185,42 +205,14 @@
                     @click="(e: Event) => console.log('test', e)">
                     Warning readonly L
                 </EtButtonWarning>
-            </div>
 
-            <div style="margin-top: 16px;">
-                <EtButtonDefault
-                    :size="UI_SIZING.S"
-                    @click="(e: Event) => console.log('test', e)">
-                    Hello!
-                </EtButtonDefault>
-
-                <EtButtonPrimary
-                    :size="UI_SIZING.S"
+                <EtButtonText
+                    readonly
                     style="margin-left: 16px;"
+                    :size="UI_SIZING.L"
                     @click="(e: Event) => console.log('test', e)">
-                    Primary!
-                </EtButtonPrimary>
-
-                <EtButtonSuccess
-                    :size="UI_SIZING.S"
-                    style="margin-left: 16px;"
-                    @click="(e: Event) => console.log('test', e)">
-                    Success!
-                </EtButtonSuccess>
-
-                <EtButtonDanger
-                    :size="UI_SIZING.S"
-                    style="margin-left: 16px;"
-                    @click="(e: Event) => console.log('test', e)">
-                    Danger!
-                </EtButtonDanger>
-
-                <EtButtonWarning
-                    :size="UI_SIZING.S"
-                    style="margin-left: 16px;"
-                    @click="(e: Event) => console.log('test', e)">
-                    Warning!
-                </EtButtonWarning>
+                    Text readonly L
+                </EtButtonText>
             </div>
 
             <div style="margin-top: 16px;">
@@ -619,6 +611,7 @@ import EtButtonPrimary from "src/components/etButton/EtButtonPrimary.vue";
 import EtButtonSuccess from "src/components/etButton/EtButtonSuccess.vue";
 import EtButtonDanger from "src/components/etButton/EtButtonDanger.vue";
 import EtButtonWarning from "src/components/etButton/EtButtonWarning.vue";
+import EtButtonText from "src/components/etButton/EtButtonText.vue";
 
 import EtButtonDropdown from "src/components/etButton/EtButtonDropdown.vue";
 
@@ -667,6 +660,8 @@ export default defineComponent({
         EtButtonSuccess,
         EtButtonDanger,
         EtButtonWarning,
+        EtButtonText,
+
         EtButtonDropdown,
 
         EtInput,

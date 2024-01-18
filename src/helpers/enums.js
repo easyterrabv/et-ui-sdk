@@ -12,4 +12,5 @@ export var UI_TYPES;
     UI_TYPES["SUCCESS"] = "success";
     UI_TYPES["DANGER"] = "danger";
     UI_TYPES["WARNING"] = "warning";
+    UI_TYPES["TEXT"] = "text";
 })(UI_TYPES || (UI_TYPES = {}));

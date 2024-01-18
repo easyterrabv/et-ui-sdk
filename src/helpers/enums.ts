@@ -9,5 +9,6 @@ export enum UI_TYPES {
     PRIMARY = "primary",
     SUCCESS = "success",
     DANGER = "danger",
-    WARNING = "warning"
+    WARNING = "warning",
+    TEXT = "text"
 }

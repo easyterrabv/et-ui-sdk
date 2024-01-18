@@ -215,6 +215,28 @@ export default defineComponent({
     background-color: var(--et-sdk-warning-300);
 }
 
+.et-sdk-button__text {
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+.et-sdk-button__text:hover:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ),
+.et-sdk-button__active.et-sdk-button__text:not(.et-sdk-button__readonly):not(
+        .et-sdk-button__disabled
+    ) {
+    border: 1px solid transparent;
+    background-color: var(--et-sdk-dark-50);
+}
+
+.et-sdk-button__disabled.et-sdk-button__text,
+.et-sdk-button__disabled.et-sdk-button__text:hover {
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: var(--et-sdk-dark-500);
+}
+
 .et-sdk-button__readonly {
     cursor: default;
 }
