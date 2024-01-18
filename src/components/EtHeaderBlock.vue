@@ -21,6 +21,8 @@
     line-height: 28px;
 
     height: 64px;
+
+    border-bottom: 1px solid var(--et-sdk-dark-200);
 }
 
 .et-sdk-header-block--content {
