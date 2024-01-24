@@ -9,7 +9,7 @@ import {
     faTabletButton,
     faChevronLeft,
     faChevronDown
-} from "@fortawesome/pro-solid-svg-icons";
+} from "@fortawesome/pro-regular-svg-icons";
 
 const icons = [
     faHouse,
