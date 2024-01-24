@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
 library.add(faEllipsisVertical);
 
 import EtIcon from "./EtIcon.vue";

@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
+import { faArrowTurnUp } from "@fortawesome/pro-regular-svg-icons";
 library.add(faArrowTurnUp);
 
 import EtIcon from "./EtIcon.vue";

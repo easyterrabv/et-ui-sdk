@@ -18,7 +18,7 @@ export default defineComponent({
         prefix: {
             required: false,
             type: String as PropType<IconPrefix>,
-            default: "fas"
+            default: "far"
         },
         icon: {
             required: true,

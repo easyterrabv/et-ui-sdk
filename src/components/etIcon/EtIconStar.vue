@@ -1,11 +1,11 @@
 <template>
-    <EtIcon prefix="far" icon="circle-right" />
+    <EtIcon icon="star" />
 </template>
 
 <script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCircleRight } from "@fortawesome/free-regular-svg-icons";
-library.add(faCircleRight);
+import { faStar } from "@fortawesome/pro-regular-svg-icons";
+library.add(faStar);
 
 import EtIcon from "./EtIcon.vue";
 </script>

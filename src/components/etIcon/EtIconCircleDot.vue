@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
+import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
 library.add(faCircleDot);
 
 import EtIcon from "./EtIcon.vue";

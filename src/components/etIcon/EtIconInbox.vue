@@ -1,11 +1,11 @@
 <template>
-    <EtIcon icon="inbox" />
+    <EtIcon icon="inbox-in" />
 </template>
 
 <script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faInbox } from "@fortawesome/free-solid-svg-icons";
-library.add(faInbox);
+import { faInboxIn } from "@fortawesome/pro-regular-svg-icons";
+library.add(faInboxIn);
 
 import EtIcon from "./EtIcon.vue";
 </script>

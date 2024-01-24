@@ -1,11 +1,11 @@
 <template>
-    <EtIcon prefix="far" icon="comment-dots" />
+    <EtIcon icon="user-xmark" />
 </template>
 
 <script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCommentDots } from "@fortawesome/free-regular-svg-icons";
-library.add(faCommentDots);
+import { faUserXmark } from "@fortawesome/pro-regular-svg-icons";
+library.add(faUserXmark);
 
 import EtIcon from "./EtIcon.vue";
 </script>

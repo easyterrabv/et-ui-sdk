@@ -1,11 +1,11 @@
 <template>
-    <EtIcon prefix="far" icon="circle-play" />
+    <EtIcon icon="comment-dots" />
 </template>
 
 <script setup lang="ts">
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
-library.add(faCirclePlay);
+import { faCommentDots } from "@fortawesome/pro-regular-svg-icons";
+library.add(faCommentDots);
 
 import EtIcon from "./EtIcon.vue";
 </script>
