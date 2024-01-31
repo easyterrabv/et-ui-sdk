@@ -10,6 +10,7 @@ export class OptionModel extends EtModel {
         this.value = option.value;
         this.tags = option.tags || [];
         this.type = option.type;
+        this.meta = option.meta || {};
         this.score = 0;
         this.defaultSortOrder = OPTION_COUNT;
         OPTION_COUNT += 1;

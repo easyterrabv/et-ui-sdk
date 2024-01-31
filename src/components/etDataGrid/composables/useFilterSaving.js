@@ -1,5 +1,5 @@
 import { reactive, ref } from "vue";
-import { makeSlug } from "src/helpers/misc.ts";
+import { makeSlug } from "../../../helpers/misc";
 const SAVE_FILTERS_STORAGE_KEY = "ET-SDK-DATA-GRID--SAVED-FILTERS";
 export function useFilterSaving(collectionName) {
     const savedFilterSets = ref([]);
@@ -21,6 +21,7 @@ export function useFilterSaving(collectionName) {
     }
     function removeFilterSet(name) {
         savedFilterSets.value = (savedFilterSets.value || []).filter((savedFilter) => savedFilter.name !== name);
+        saveAllFilters();
     }
     function saveAllFilters() {
         window.localStorage.removeItem(key);
