@@ -20,6 +20,8 @@
     font-size: var(--et-sdk-font-size-extra-large);
     line-height: 28px;
 
+    /* force height to be at least 64px. Needed in flex environments */
+    min-height: 64px;
     height: 64px;
 
     border-bottom: 1px solid var(--et-sdk-dark-200);
