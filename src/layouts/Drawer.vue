@@ -6,7 +6,8 @@
         <div
             class="et-sdk-layout-drawer--drawer"
             :class="{
-                'et-sdk-layout-drawer--drawer-open': !drawerOpen
+                'et-sdk-layout-drawer--drawer-open': drawerOpen,
+                'et-sdk-layout-drawer--drawer-closed': !drawerOpen
             }"
             v-if="$slots.drawer"
         >
@@ -57,7 +58,7 @@ export default defineComponent({
     box-shadow: var(--et-sdk-shadow-normal);
 }
 
-.et-sdk-layout-drawer--drawer-open {
-    width: 0px;
+.et-sdk-layout-drawer--drawer-closed {
+    width: 0;
 }
 </style>
