@@ -48,6 +48,36 @@ const monthMap = {
         short: "Dec"
     }
 };
+const weekDayMap = {
+    "0": {
+        full: "Sunday",
+        short: "Sun"
+    },
+    "1": {
+        full: "Monday",
+        short: "Mon"
+    },
+    "2": {
+        full: "Tuesday",
+        short: "Tue"
+    },
+    "3": {
+        full: "Wednesday",
+        short: "Wed"
+    },
+    "4": {
+        full: "Thursday",
+        short: "Thu"
+    },
+    "5": {
+        full: "Friday",
+        short: "Fri"
+    },
+    "6": {
+        full: "Saturday",
+        short: "Sat"
+    },
+};
 export const monthToNameFull = (month) => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
     return _month in monthMap ? monthMap[_month].full : "Unknown";
@@ -55,6 +85,14 @@ export const monthToNameFull = (month) => {
 export const monthToNameShort = (month) => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
     return _month in monthMap ? monthMap[_month].short : "Unknown";
+};
+export const weekDayToNameFull = (weekDay) => {
+    const _weekday = weekDay instanceof Date ? weekDay.getDay() : String(weekDay);
+    return _weekday in weekDayMap ? weekDayMap[_weekday].full : "Unknown";
+};
+export const weekDayToNameShort = (weekDay) => {
+    const _weekday = weekDay instanceof Date ? weekDay.getDay() : String(weekDay);
+    return _weekday in weekDayMap ? weekDayMap[_weekday].short : "Unknown";
 };
 export const isToday = (date) => {
     const today = new Date();
@@ -175,5 +213,4 @@ export const timeSince = (date) => {
         inFuture
     };
 };
-export const getNextDayOfWeek = (date, dayOfWeek) => new Date((new Date(date.getTime()))
-    .setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7));
+export const getNextDayOfWeek = (date, dayOfWeek) => new Date(new Date(date.getTime()).setDate(date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7)));

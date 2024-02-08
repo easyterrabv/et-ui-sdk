@@ -49,6 +49,37 @@ const monthMap: { [key: string]: { full: string; short: string } } = {
     }
 };
 
+const weekDayMap: { [key: string]: { full: string; short: string } } = {
+    "0": {
+        full: "Sunday",
+        short: "Sun"
+    },
+    "1": {
+        full: "Monday",
+        short: "Mon"
+    },
+    "2": {
+        full: "Tuesday",
+        short: "Tue"
+    },
+    "3": {
+        full: "Wednesday",
+        short: "Wed"
+    },
+    "4": {
+        full: "Thursday",
+        short: "Thu"
+    },
+    "5": {
+        full: "Friday",
+        short: "Fri"
+    },
+    "6": {
+        full: "Saturday",
+        short: "Sat"
+    }
+};
+
 export const monthToNameFull = (month: string | number | Date): string => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
     return _month in monthMap ? monthMap[_month].full : "Unknown";
@@ -57,6 +88,22 @@ export const monthToNameFull = (month: string | number | Date): string => {
 export const monthToNameShort = (month: string | number | Date): string => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
     return _month in monthMap ? monthMap[_month].short : "Unknown";
+};
+
+export const weekDayToNameFull = (
+    weekDay: 0 | 1 | 2 | 3 | 4 | 5 | 6 | Date
+): string => {
+    const _weekday =
+        weekDay instanceof Date ? weekDay.getDay() : String(weekDay);
+    return _weekday in weekDayMap ? weekDayMap[_weekday].full : "Unknown";
+};
+
+export const weekDayToNameShort = (
+    weekDay: 0 | 1 | 2 | 3 | 4 | 5 | 6 | Date
+): string => {
+    const _weekday =
+        weekDay instanceof Date ? weekDay.getDay() : String(weekDay);
+    return _weekday in weekDayMap ? weekDayMap[_weekday].short : "Unknown";
 };
 
 export const isToday = (date: string | Date): boolean => {
