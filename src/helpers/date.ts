@@ -90,19 +90,37 @@ export const monthToNameShort = (month: string | number | Date): string => {
     return _month in monthMap ? monthMap[_month].short : "Unknown";
 };
 
-export const weekDayToNameFull = (
-    weekDay: 0 | 1 | 2 | 3 | 4 | 5 | 6 | Date
-): string => {
-    const _weekday =
-        weekDay instanceof Date ? weekDay.getDay() : String(weekDay);
+export const weekDayToNameFull = (weekDay: number | Date): string => {
+    if (weekDay instanceof Date) {
+        weekDay = weekDay.getDay();
+    }
+
+    if (weekDay < 0) {
+        weekDay = 0;
+    }
+
+    if (weekDay > 6) {
+        weekDay %= 7;
+    }
+
+    const _weekday = String(weekDay);
     return _weekday in weekDayMap ? weekDayMap[_weekday].full : "Unknown";
 };
 
-export const weekDayToNameShort = (
-    weekDay: 0 | 1 | 2 | 3 | 4 | 5 | 6 | Date
-): string => {
-    const _weekday =
-        weekDay instanceof Date ? weekDay.getDay() : String(weekDay);
+export const weekDayToNameShort = (weekDay: number | Date): string => {
+    if (weekDay instanceof Date) {
+        weekDay = weekDay.getDay();
+    }
+
+    if (weekDay < 0) {
+        weekDay = 0;
+    }
+
+    if (weekDay > 6) {
+        weekDay %= 7;
+    }
+
+    const _weekday = String(weekDay);
     return _weekday in weekDayMap ? weekDayMap[_weekday].short : "Unknown";
 };
 
@@ -304,12 +322,18 @@ export const timeSince = (
     };
 };
 
-export const getNextDayOfWeek = (
-    date: Date,
-    dayOfWeek: 0 | 1 | 2 | 3 | 4 | 5 | 6
-) =>
-    new Date(
+export const getNextDayOfWeek = (date: Date, dayOfWeek: number) => {
+    if (dayOfWeek < 0) {
+        dayOfWeek = 0;
+    }
+
+    if (dayOfWeek > 6) {
+        dayOfWeek %= 7;
+    }
+
+    return new Date(
         new Date(date.getTime()).setDate(
             date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7)
         )
     );
+};
