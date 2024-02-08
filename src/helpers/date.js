@@ -175,3 +175,5 @@ export const timeSince = (date) => {
         inFuture
     };
 };
+export const getNextDayOfWeek = (date, dayOfWeek) => new Date((new Date(date.getTime()))
+    .setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7));
