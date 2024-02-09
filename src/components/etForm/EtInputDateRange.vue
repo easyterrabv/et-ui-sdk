@@ -1,11 +1,6 @@
 <template>
     <div class="et-sdk-input-date-range" ref="wrapper" :tabindex="-1">
-        <EtPopover
-            ref="popover"
-            manual
-            fitToggle
-            class="et-sdk-input-date-range--popover"
-        >
+        <EtPopover ref="popover" class="et-sdk-input-date-range--popover">
             <template #toggle>
                 <EtInputGroup>
                     <div class="et-sdk-input-date-range--input-wrapper">
@@ -32,6 +27,7 @@
                     <EtInputGroupAddon>
                         <EtIconArrowRightLong />
                     </EtInputGroupAddon>
+
                     <div class="et-sdk-input-date-range--input-wrapper">
                         <EtInput
                             :name="name + '_second'"
@@ -193,7 +189,7 @@ export default defineComponent({
             }
 
             this.isOpen = true;
-            (this.$refs.popover as any).open();
+            (this.$refs.popover as any).showDropDown();
         },
         onFirstInputFocus() {
             this.currentFocus = "inputOne";
@@ -210,7 +206,7 @@ export default defineComponent({
         async hide() {
             this.currentFocus = null;
             this.isOpen = false;
-            (this.$refs.popover as any).hide();
+            (this.$refs.popover as any).hideDropDown();
         },
         async onFirstInputBlur() {
             if (this.currentFocus === "inputOne") {
@@ -237,7 +233,7 @@ export default defineComponent({
             await wait(150);
             if (!this.currentFocus) {
                 this.isOpen = false;
-                (this.$refs.popover as any).hide();
+                (this.$refs.popover as any).hideDropDown();
             }
         },
         onInputChange(

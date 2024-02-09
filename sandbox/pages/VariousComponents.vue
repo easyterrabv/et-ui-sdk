@@ -376,9 +376,12 @@
             </div>
 
             <div style="margin-top: 16px;">
-                <EtPopover style="width: 160px;" fitToggle>
-                    <template #toggle="props">
-                        <EtButtonDefault style="width: 160px;" :size="UI_SIZING.S" @click="props.togglePopover()">
+                <EtPopover manual>
+                    <template #toggle="{togglePopover}" >
+                        <EtButtonDefault
+                            style="width: 160px;"
+                            :size="UI_SIZING.S" @click="togglePopover"
+                        >
                             Toggle PopOver
                         </EtButtonDefault>
                     </template>

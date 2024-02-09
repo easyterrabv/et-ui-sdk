@@ -5,17 +5,9 @@
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
     >
-        <EtPopover
-            ref="popover"
-            manual
-            fitToggle
-            class="et-sdk-input-date--popover"
-        >
+        <EtPopover ref="popover" class="et-sdk-input-date--popover">
             <template #toggle>
-                <div
-                    class="et-sdk-input-date--input-toggle-wrapper"
-                    @click.left.stop="(e) => onInputClick()"
-                >
+                <div class="et-sdk-input-date--input-toggle-wrapper">
                     <EtInput
                         ref="input"
                         :disabled="disabled"
@@ -44,7 +36,6 @@
             </template>
             <EtDatePicker
                 @escape="(e) => onEscape()"
-                @interaction="onInteraction"
                 @blur="(e) => onInputBlur()"
                 @dateSelect="() => onDateSelect()"
                 v-model="internalDateValue"
@@ -89,9 +80,7 @@ export default defineComponent({
         return {
             UI_SIZING,
             internalInputValue: undefined as string | undefined,
-            internalDateValue: undefined as Date | undefined,
-
-            hasInteraction: false as boolean
+            internalDateValue: undefined as Date | undefined
         };
     },
     watch: {
@@ -116,16 +105,7 @@ export default defineComponent({
         }
     },
     methods: {
-        async onInputClick() {
-            const popoverElement = this.$refs.popover as any;
-            if (popoverElement.isOpen()) {
-                popoverElement.hide();
-                return;
-            }
-            popoverElement.open();
-        },
         onEscape() {
-            this.hasInteraction = false;
             this.onInputBlur();
         },
         async onInputBlur() {
@@ -133,27 +113,16 @@ export default defineComponent({
             await this.$nextTick();
             await wait(150);
 
-            if (this.hasInteraction) {
-                this.hasInteraction = false;
-                return;
-            }
-
             const popoverElement = this.$refs.popover as any;
             if (popoverElement.isOpen()) {
-                popoverElement.hide();
+                popoverElement.hideDropDown();
                 return;
             }
         },
-
         onDateSelect() {
             if (this.closeOnSelect) {
-                this.hasInteraction = false;
                 this.onInputBlur();
             }
-        },
-
-        onInteraction() {
-            this.hasInteraction = true;
         },
         onInputClear() {
             this.internalInputValue = undefined;

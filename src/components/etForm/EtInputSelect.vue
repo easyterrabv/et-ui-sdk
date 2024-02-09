@@ -5,9 +5,14 @@
         :tabindex="-1"
         @keyup.esc="(e) => onEscape()"
     >
-        <EtPopover ref="popover" manual fitToggle>
+        <EtPopover
+            ref="popover"
+            class="et-sdk-input-select--popover"
+            fitToggle
+            @open="onInputClick"
+        >
             <template #toggle>
-                <div @click.left.stop="(e) => onInputClick()">
+                <div>
                     <EtInput
                         ref="input"
                         :size="size"
@@ -175,6 +180,11 @@ export default defineComponent({
                 if (this.isDifferent()) {
                     this.$emit("update:modelValue", this.internalOptionValue);
                 }
+
+                if (!this.multiple) {
+                    this.hide();
+                    return;
+                }
             }
         }
     },
@@ -189,19 +199,11 @@ export default defineComponent({
             return !areArraysWithObjectsEqual("guid", currentArray, innerArray);
         },
         async onInputClick() {
-            const popover = this.$refs.popover as typeof EtPopover;
-            if (popover.isOpen()) {
-                this.hide();
-                return;
-            }
             this.hasInputFocus = true;
-            popover.open();
             this.$emit("focus");
-            await this.$nextTick();
-            (this.$refs.input as typeof EtInput).focus();
         },
         onEscape() {
-            (this.$refs.popover as typeof EtPopover).hide();
+            (this.$refs.popover as typeof EtPopover).hideDropDown();
             this.onInputBlur();
         },
         onOptionToggle() {
@@ -218,7 +220,6 @@ export default defineComponent({
                 return;
             }
 
-            await this.onInputClick();
             this.$emit("blur");
         },
         onInputClear() {
@@ -229,7 +230,7 @@ export default defineComponent({
         },
         hide() {
             const popover = this.$refs.popover as typeof EtPopover;
-            popover.hide();
+            popover.hideDropDown();
             this.internalFilterValue = "";
             this.hasInputFocus = false;
         }
@@ -248,6 +249,10 @@ export default defineComponent({
 .et-sdk-input-select {
     display: block;
     width: 320px;
+}
+
+.et-sdk-input-select--popover {
+    display: block;
 }
 
 .et-sdk-input-select--option-badge {

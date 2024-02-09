@@ -2,22 +2,21 @@
     <div class="et-sdk-popover">
         <div
             :tabindex="-1"
-            class="et-sdk-popover--toggle"
             ref="toggle"
-            @click.left.stop="(e) => !manual && setPopoverFocus(true)"
-            @blur="(e) => !manual && setPopoverFocus(false)"
+            @click="(e) => !manual && toggleDropdown()"
         >
-            <slot name="toggle" :togglePopover="togglePopover"></slot>
+            <slot
+                name="toggle"
+                :togglePopover="() => manual && toggleDropdown()"
+            ></slot>
         </div>
         <Teleport to="body">
             <div
                 ref="content"
-                class="et-sdk-popover--content"
-                :class="{
-                    'et-sdk-popover--content__fit_toggle': !fitToggle
-                }"
-                :style="styles"
-                v-show="hasFocus"
+                class="et-sdk-popover__popover"
+                v-show="isVisible"
+                @click="(e) => !manual && hideDropDown()"
+                @keyup.esc="hideDropDown"
             >
                 <slot></slot>
             </div>
@@ -25,94 +24,125 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { wait } from "../helpers/async";
+<script setup lang="ts">
+import {
+    inject,
+    onBeforeUnmount,
+    onMounted,
+    reactive,
+    ref,
+    type PropType,
+    watch
+} from "vue";
+import {
+    EtOverlayEvent,
+    type IEtOverlayProvide
+} from "./etProvider/EtOverlayProviderInterfaces";
+import { type Instance } from "@popperjs/core/lib/types";
 import { createPopper } from "@popperjs/core";
-import type { Instance } from "@popperjs/core/lib/types";
+import { type Placement } from "@popperjs/core/lib/enums";
 
-export default defineComponent({
-    props: {
-        fitToggle: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        manual: {
-            type: Boolean,
-            required: false,
-            default: false
-        }
+const props = defineProps({
+    placement: {
+        type: String as PropType<Placement>,
+        default: "bottom-start"
     },
-    data() {
+    manual: {
+        type: Boolean,
+        default: false
+    },
+    fitToggle: {
+        type: Boolean,
+        default: false
+    }
+});
+
+const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
+
+const toggle = ref<HTMLElement | null>(null);
+const content = ref<HTMLElement | null>(null);
+const isVisible = ref(false);
+let popperInstance: Instance;
+async function toggleDropdown() {
+    if (isVisible.value) {
+        hideDropDown();
+    } else {
+        await showDropDown();
+    }
+}
+
+async function showDropDown() {
+    isVisible.value = true;
+    sdkOverlay?.setTransparency(true);
+    sdkOverlay?.setVisibility(true);
+    await popperInstance.update();
+}
+
+async function isOpen() {
+    return isVisible.value;
+}
+
+function hideDropDown() {
+    isVisible.value = false;
+    sdkOverlay?.setVisibility(false);
+}
+
+function hideDropDownEvent() {
+    if (props.manual) {
+        return;
+    }
+
+    hideDropDown();
+}
+
+function calculateToggleWidth() {
+    if (toggle.value) {
+        return toggle.value.offsetWidth;
+    }
+    return 0;
+}
+watch(
+    () => {
         return {
-            hasFocus: false as Boolean,
-            toggleWidth: 0 as Number,
-            buttonElement: undefined as HTMLElement | undefined,
-            tooltipElement: undefined as HTMLElement | undefined,
-            popperInstance: undefined as Instance | undefined
+            toggle: props.fitToggle,
+            isVisible: isVisible.value
         };
     },
-    computed: {
-        styles() {
-            if (this.fitToggle) {
-                return {
-                    width: this.toggleWidth + "px"
-                };
-            }
-            return {};
+    () => {
+        if (props.fitToggle && content.value) {
+            (
+                content.value as HTMLElement
+            ).style.width = `${calculateToggleWidth()}px`;
         }
     },
-    methods: {
-        async togglePopover(): Promise<void> {
-            if (this.hasFocus) {
-                return await this.setPopoverFocus(false);
-            }
+    { immediate: true }
+);
 
-            await this.setPopoverFocus(true);
-        },
-        async setPopoverFocus(focus: boolean): Promise<void> {
-            if (focus) {
-                await this.open();
-                this.buttonElement?.focus();
-            } else {
-                await this.hide();
-                this.buttonElement?.blur();
-            }
-        },
-        async open() {
-            this.calculateToggleWidth();
-            this.hasFocus = true;
-            this.$emit("focus");
-            await this.popperInstance?.update();
-        },
-        async hide() {
-            await wait(150);
-            this.hasFocus = false;
-            this.$emit("blur");
-            await this.popperInstance?.update();
-        },
-        calculateToggleWidth() {
-            const bounds = this.buttonElement?.getBoundingClientRect();
-            this.toggleWidth = bounds?.width || 300;
-        },
-        isOpen() {
-            return this.hasFocus;
+watch(
+    () => isVisible.value,
+    (newValue) => {
+        if (newValue) {
+            emits("open");
+        } else {
+            emits("hide");
         }
-    },
-    emits: {
-        focus: () => true,
-        blur: () => true
-    },
-    mounted() {
-        this.buttonElement = this.$refs.toggle as any;
-        this.tooltipElement = this.$refs.content as any;
-        this.popperInstance = createPopper(
-            this.buttonElement as any,
-            this.tooltipElement as any,
+    }
+);
+
+onMounted(() => {
+    popperInstance = reactive(
+        createPopper(
+            toggle.value as HTMLElement,
+            content.value as HTMLElement,
             {
-                placement: "bottom",
+                placement: props.placement,
                 modifiers: [
+                    {
+                        name: "offset",
+                        options: {
+                            offset: [0, 6]
+                        }
+                    },
                     {
                         name: "flip",
                         options: {
@@ -121,24 +151,35 @@ export default defineComponent({
                     }
                 ]
             }
-        );
-
-        this.calculateToggleWidth();
-    }
+        )
+    );
+    sdkOverlay?.addEvent(EtOverlayEvent.onClick, hideDropDownEvent);
 });
+
+onBeforeUnmount(() => {
+    sdkOverlay?.removeEvent(EtOverlayEvent.onClick, hideDropDownEvent);
+});
+
+defineExpose({
+    showDropDown,
+    hideDropDown,
+    toggleDropdown,
+    isOpen
+});
+
+const emits = defineEmits(["open", "hide"]);
 </script>
 
 <style>
-.et-sdk-popover--toggle {
-    width: 100%;
+.et-sdk-popover {
+    display: inline-block;
 }
 
-.et-sdk-popover--content {
-    z-index: 20000;
-}
+.et-sdk-popover__popover {
+    z-index: 30;
 
-.et-sdk-popover--content__fit_toggle {
-    width: fit-content;
-    block-size: fit-content;
+    background-color: var(--et-sdk-light-0);
+    border-radius: 5px;
+    box-shadow: var(--et-sdk-shadow-normal);
 }
 </style>

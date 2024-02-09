@@ -647,14 +647,14 @@ export default defineComponent({
                 );
             }
 
-            await (this.$refs.anchorPopover as any)?.togglePopover();
+            await (this.$refs.anchorPopover as any)?.toggleDropdown();
             await wait(50);
             (this.$refs.urlHrefInput as any).focus();
         },
         cancelLink() {
             this.urlHref = undefined;
             this.urlTarget = undefined;
-            (this.$refs.anchorPopover as any)?.hide();
+            (this.$refs.anchorPopover as any)?.hideDropDown();
         },
         addLink() {
             let chain = this.editor?.chain().focus().extendMarkRange("link");
