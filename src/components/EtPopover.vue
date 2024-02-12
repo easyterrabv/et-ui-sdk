@@ -5,10 +5,7 @@
             ref="toggle"
             @click="(e) => !manual && toggleDropdown()"
         >
-            <slot
-                name="toggle"
-                :togglePopover="() => manual && toggleDropdown()"
-            ></slot>
+            <slot name="toggle" :togglePopover="() => toggleDropdown()"></slot>
         </div>
         <Teleport to="body">
             <div
