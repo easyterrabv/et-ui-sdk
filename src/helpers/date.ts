@@ -1,3 +1,5 @@
+import { addLeadingZero } from "./misc";
+
 const monthMap: { [key: string]: { full: string; short: string } } = {
     "0": {
         full: "January",
@@ -336,4 +338,14 @@ export const getNextDayOfWeek = (date: Date, dayOfWeek: number) => {
             date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7)
         )
     );
+};
+
+export const dateToCSEFormat = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = addLeadingZero(date.getMonth() + 1);
+    const day = addLeadingZero(date.getDate());
+    const hours = addLeadingZero(date.getHours());
+    const minutes = addLeadingZero(date.getMinutes());
+    const seconds = addLeadingZero(date.getSeconds());
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
