@@ -29,8 +29,9 @@
             </span>
             <span
                 class="et-sdk-data-grid__filter-content__filter-value__date-divider"
-                ><EtIconArrowRightLong
-            /></span>
+            >
+                <EtIconArrowRightLong />
+            </span>
             <span v-if="dates && dates[1]">
                 {{ dateToFormattedString(dates[1], "short") }}
             </span>

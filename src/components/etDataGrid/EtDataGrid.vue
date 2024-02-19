@@ -244,11 +244,21 @@ provide<() => void>("searchData", searchData);
 provide<CellWidthProvide>("cellWidth", cellWidth);
 provide<RowVersionProvider>("rowVersion", rowVersion);
 
+const prevFilterValues = ref<FilterObject>({});
+
 watch(
     () => filters.filtersValues,
-    () => {
+    (newValue) => {
+        if (
+            Object.keys(prevFilterValues.value).length > 0 &&
+            Object.keys(newValue).length === 0
+        ) {
+            emit("filtersCleared");
+        }
+
         pagination.page = 1;
         searchData();
+        prevFilterValues.value = newValue;
     },
     { deep: true, immediate: true }
 );

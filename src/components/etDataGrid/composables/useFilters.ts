@@ -27,11 +27,15 @@ export function useFilters<T extends RowObject = RowObject>(
             );
         },
         setFilter(field, value) {
+            const filters = JSON.parse(JSON.stringify(this.filtersValues));
+
             if (value === null || value === undefined) {
-                delete this.filtersValues[field];
+                delete filters[field];
             } else {
-                this.filtersValues[field] = value;
+                filters[field] = value;
             }
+
+            this.setFilters(filters);
         },
         getFilter(field) {
             return this.filtersValues[field] ?? null;
