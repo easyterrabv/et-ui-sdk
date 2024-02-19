@@ -34,6 +34,11 @@
                     <EtTooltip v-for="bulkMethod in bulkMethods">
                         <span
                             class="et-sdk-data-grid-icon-button"
+                            v-if="
+                                checkedRows &&
+                                (!bulkMethod.isVisible ||
+                                    bulkMethod.isVisible(checkedRows.rows))
+                            "
                             @click="() => handleBulkMethod(bulkMethod)"
                         >
                             <component

@@ -152,7 +152,10 @@ export default defineComponent({
                     method(rows) {
                         console.log('bulk method rows', rows);
                     },
-                    title: 'testing bulk methods'
+                    title: 'testing bulk methods, if more than 2 rows are selected',
+                    isVisible(rows){
+                        return rows.length > 2;
+                    }
                 },
                 {
                     method(rows) {

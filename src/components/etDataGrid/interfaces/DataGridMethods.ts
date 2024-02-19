@@ -7,6 +7,7 @@ export interface BulkMethod<T extends RowObject = RowObject> {
     method: (rows: T[]) => Promise<void>;
     component?: Raw<object>; // Icon object
     title?: string;
+    isVisible?: (rows: T[]) => boolean;
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {
