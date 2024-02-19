@@ -161,8 +161,17 @@ export default defineComponent({
                     method(rows) {
                         console.log('bulk method rows 2', rows);
                     },
-                    title: 'testing bulk methods 2',
+                    title(rows) {
+                        return `testing bulk methods 2, ${rows.length} rows selected`;
+                    },
                     component: markRaw(EtIconPaperclip)
+                },
+                {
+                    method(rows) {
+                        console.log('bulk method rows 3', rows);
+                    },
+                    title: 'testing bulk methods 3, this one should never show',
+                    isVisible: false
                 }
             ]  as BulkMethod[],
 

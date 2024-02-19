@@ -5,9 +5,10 @@ export type RowObject<T extends object = { [key: string]: any }> = T;
 
 export interface BulkMethod<T extends RowObject = RowObject> {
     method: (rows: T[]) => Promise<void>;
-    component?: Raw<object>; // Icon object
-    title?: string;
-    isVisible?: (rows: T[]) => boolean;
+    component?: Raw<object>; // object
+    title?: string | ((rows: T[]) => string);
+    isVisible?: boolean | ((rows: T[]) => boolean);
+    meta?: { [key: string]: any };
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {

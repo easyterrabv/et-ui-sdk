@@ -31,24 +31,10 @@
                     class="et-sdk-data-grid__content-header-functionality__bulk-methods"
                     v-if="hasBulkMethods && hasAnyChecked"
                 >
-                    <EtTooltip v-for="bulkMethod in bulkMethods">
-                        <span
-                            class="et-sdk-data-grid-icon-button"
-                            v-if="
-                                checkedRows &&
-                                (!bulkMethod.isVisible ||
-                                    bulkMethod.isVisible(checkedRows.rows))
-                            "
-                            @click="() => handleBulkMethod(bulkMethod)"
-                        >
-                            <component
-                                :is="bulkMethod.component || EtIconSquare"
-                            />
-                        </span>
-                        <template #tooltip v-if="bulkMethod.title">
-                            {{ bulkMethod.title }}
-                        </template>
-                    </EtTooltip>
+                    <EtDataGridContentHeaderBulkMethod
+                        v-for="bulkMethod in bulkMethods"
+                        :bulk-method="bulkMethod"
+                    />
                 </span>
             </div>
             <div class="et-sdk-data-grid__content-header-functionality--right">
@@ -68,11 +54,11 @@
 
 <script setup lang="ts">
 import EtDataGridContentHeaderCell from "./EtDataGridContentHeaderCell.vue";
+import EtDataGridContentHeaderBulkMethod from "./EtDataGridContentHeaderBulkMethod.vue";
 import EtDataGridContentHeaderSelectCell from "./EtDataGridContentHeaderSelectCell.vue";
 import EtDataGridFiltersInput from "./filters/EtDataGridFiltersInput.vue";
 import EtDataGridPagination from "./EtDataGridPagination.vue";
 import EtIconArrowRotateRight from "../../etIcon/EtIconArrowRotateRight.vue";
-import EtIconSquare from "../../etIcon/EtIconSquare.vue";
 import EtTooltip from "../../EtToolTip.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
@@ -121,28 +107,6 @@ const checkedRows = inject<CheckedProvide>("checkedRows");
 
 const hasBulkMethods = computed(() => (props.bulkMethods || []).length > 0);
 const hasAnyChecked = computed(() => checkedRows && checkedRows.anySelected());
-
-async function handleBulkMethod(bulkMethod: BulkMethod) {
-    if (!bulkMethod) {
-        return;
-    }
-
-    if (!hasAnyChecked) {
-        return;
-    }
-
-    const method = bulkMethod.method;
-    if (!method) {
-        return;
-    }
-
-    const rows = checkedRows?.rows || [];
-    if (!rows || rows.length <= 0) {
-        return;
-    }
-
-    await method(rows);
-}
 </script>
 
 <style>
