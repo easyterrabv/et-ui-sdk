@@ -38,6 +38,7 @@ import {
 import { type Instance } from "@popperjs/core/lib/types";
 import { createPopper } from "@popperjs/core";
 import { type Placement } from "@popperjs/core/lib/enums";
+import { isElementOrParentEqualTo } from "../helpers/random";
 
 const props = defineProps({
     placement: {
@@ -59,6 +60,7 @@ const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
 const toggle = ref<HTMLElement | null>(null);
 const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
+const hasEvent = ref(false);
 let popperInstance: Instance;
 async function toggleDropdown() {
     if (isVisible.value) {
@@ -73,6 +75,11 @@ async function showDropDown() {
     sdkOverlay?.setTransparency(true);
     sdkOverlay?.setVisibility(true);
     await popperInstance.update();
+
+    if (!hasEvent.value) {
+        window.addEventListener("mouseup", handleClickOutside);
+        hasEvent.value = true;
+    }
 }
 
 async function isOpen() {
@@ -82,6 +89,11 @@ async function isOpen() {
 function hideDropDown() {
     isVisible.value = false;
     sdkOverlay?.setVisibility(false);
+
+    try {
+        window.addEventListener("mouseup", handleClickOutside);
+        hasEvent.value = false;
+    } catch (e) {}
 }
 
 function hideDropDownEvent() {
@@ -90,6 +102,16 @@ function hideDropDownEvent() {
     }
 
     hideDropDown();
+}
+
+function handleClickOutside(e: MouseEvent) {
+    const isSelf = isElementOrParentEqualTo(
+        e.target as HTMLElement,
+        content.value
+    );
+    if (!isSelf && isVisible.value) {
+        hideDropDownEvent();
+    }
 }
 
 function calculateToggleWidth() {
@@ -155,6 +177,9 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
     sdkOverlay?.removeEvent(EtOverlayEvent.onClick, hideDropDownEvent);
+    try {
+        window.removeEventListener("mouseup", handleClickOutside);
+    } catch (e) {}
 });
 
 defineExpose({

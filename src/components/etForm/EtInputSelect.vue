@@ -10,6 +10,7 @@
             class="et-sdk-input-select--popover"
             fitToggle
             @open="onInputClick"
+            @hide="handleHideEvent"
         >
             <template #toggle>
                 <div>
@@ -231,6 +232,9 @@ export default defineComponent({
         hide() {
             const popover = this.$refs.popover as typeof EtPopover;
             popover.hideDropDown();
+            this.handleHideEvent();
+        },
+        handleHideEvent() {
             this.internalFilterValue = "";
             this.hasInputFocus = false;
         }

@@ -198,6 +198,7 @@ export default defineComponent({
                 {
                     field: 'Options',
                     label: 'Has options',
+                    multiple: true,
                     type: FilterInputType.SELECT,
                     options: Array(20).fill(null).map((item, index) => new OptionModel({
                         label: `Option ${index + 1}`,
