@@ -30,4 +30,14 @@ export default defineComponent({
 .et-sdk-form-group--input-group {
     width: 100%;
 }
+
+.et-sdk-form-group {
+    /* if there is a alert in the "after" section */
+    .et-sdk-alert {
+        width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        margin-top: -5px;
+    }
+}
 </style>
