@@ -15,6 +15,7 @@
         </template>
     </EtTooltip>
 </template>
+
 <script setup lang="ts">
 import EtIconSquare from "../../etIcon/EtIconSquare.vue";
 import EtTooltip from "../../EtToolTip.vue";

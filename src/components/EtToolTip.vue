@@ -3,7 +3,7 @@
         <span class="et-sdk-tooltip--toggle" ref="toggle">
             <slot></slot>
         </span>
-        <Teleport to="body">
+        <Teleport to="body" v-if="$slots.tooltip">
             <div
                 ref="content"
                 v-show="isVisible"
