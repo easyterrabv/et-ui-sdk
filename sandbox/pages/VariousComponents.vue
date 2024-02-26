@@ -426,6 +426,88 @@
 
             <div style="margin-top: 16px;">
                 <EtBadge
+                    :size="UI_SIZING.XL"
+                    :type="UI_TYPES.DEFAULT"
+                >
+                    Default
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.XL"
+                    :type="UI_TYPES.PRIMARY"
+                >
+                    Primary
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.XL"
+                    :type="UI_TYPES.SUCCESS"
+                >
+                    Success
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.XL"
+                    :type="UI_TYPES.DANGER"
+                >
+                    Danger
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.XL"
+                    :type="UI_TYPES.WARNING"
+                >
+                    Warning
+                </EtBadge>
+            </div>
+
+            <div style="margin-top: 16px;">
+                <EtBadge
+                    :size="UI_SIZING.L"
+                    :type="UI_TYPES.DEFAULT"
+                >
+                    Default
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.L"
+                    :type="UI_TYPES.PRIMARY"
+                >
+                    Primary
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.L"
+                    :type="UI_TYPES.SUCCESS"
+                >
+                    Success
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.L"
+                    :type="UI_TYPES.DANGER"
+                >
+                    Danger
+                </EtBadge>
+
+                <EtBadge
+                    style="margin-left: 16px;"
+                    :size="UI_SIZING.L"
+                    :type="UI_TYPES.WARNING"
+                >
+                    Warning
+                </EtBadge>
+            </div>
+
+            <div style="margin-top: 16px;">
+                <EtBadge
                     :size="UI_SIZING.M"
                     :type="UI_TYPES.DEFAULT"
                 >

@@ -84,4 +84,10 @@ export default defineComponent({
     line-height: 16px;
     padding: 6px 16px;
 }
+
+.et-sdk-badge__xl {
+    font-size: var(--et-sdk-font-size-small);
+    line-height: 23px;
+    padding: 6px 16px;
+}
 </style>

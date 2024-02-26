@@ -4,6 +4,7 @@ export var UI_SIZING;
     UI_SIZING["S"] = "s";
     UI_SIZING["M"] = "m";
     UI_SIZING["L"] = "l";
+    UI_SIZING["XL"] = "xl";
 })(UI_SIZING || (UI_SIZING = {}));
 export var UI_TYPES;
 (function (UI_TYPES) {

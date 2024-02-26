@@ -2,7 +2,8 @@ export enum UI_SIZING {
     XS = "xs",
     S = "s",
     M = "m",
-    L = "l"
+    L = "l",
+    XL = "xl"
 }
 export enum UI_TYPES {
     DEFAULT = "default",
