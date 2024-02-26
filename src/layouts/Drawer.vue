@@ -49,7 +49,9 @@ export default defineComponent({
 
     display: flex;
     flex-direction: column;
+
     container-name: content;
+    container-type: inline-size;
 }
 
 .et-sdk-layout-drawer--drawer {
