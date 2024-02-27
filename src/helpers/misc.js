@@ -53,3 +53,9 @@ export const makeSlug = (text) => {
         .replace(/^-+/, "")
         .replace(/-+$/, ""));
 };
+export function formatCurrency(amount, currencyCode) {
+    return new Intl.NumberFormat([...navigator.languages, "en-US"], {
+        style: "currency",
+        currency: currencyCode || "EUR"
+    }).format(amount);
+}

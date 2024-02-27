@@ -349,3 +349,10 @@ export const dateToCSEFormat = (date: Date): string => {
     const seconds = addLeadingZero(date.getSeconds());
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
+
+export function formatDateTime(date: number | string | Date) {
+    return new Intl.DateTimeFormat([...navigator.languages, "en-US"], {
+        dateStyle: "medium",
+        timeStyle: "short"
+    }).format(new Date(date));
+}
