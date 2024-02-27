@@ -5,7 +5,6 @@
 html {
     font-family: 'Inter', sans-serif;
     font-size: var(--et-sdk-font-size-normal);
-    line-height: 20px;
     font-weight: var(--et-sdk-font-weight-normal);
     color: var(--et-sdk-dark-800);
 }
