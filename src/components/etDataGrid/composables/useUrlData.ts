@@ -26,6 +26,8 @@ export function useUrlData<T extends object = urlDataObject>(
         async setDataToUrl(data: urlDataObject) {
             const base64 = makeUrlString(data);
 
+            const usePush = !!this.currentJsonString;
+
             if (base64 === this.currentJsonString) {
                 return;
             }
@@ -40,7 +42,11 @@ export function useUrlData<T extends object = urlDataObject>(
                 newQuery[key] = base64;
             }
 
-            await router.push({ query: newQuery });
+            if (usePush) {
+                await router.push({ query: newQuery });
+            } else {
+                await router.replace({ query: newQuery });
+            }
         },
         getDataFromUrl(): T | null {
             const base64 = route.query[key] as string;
