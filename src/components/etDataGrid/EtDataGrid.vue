@@ -145,7 +145,7 @@ const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");
 const route = useRoute();
 const router = useRouter();
 
-let urlData: UnwrapNestedRefs<IUseUrlData<IDataGridCriteria>>;
+let urlData: UnwrapNestedRefs<IUseUrlData<IDataGridCriteria>> | undefined;
 
 function setDataFromUrl() {
     if (!urlData) {
@@ -176,7 +176,7 @@ if (props.name && route && router) {
     watch(
         () => route.query[props.name],
         () => {
-            if (urlData.currentJsonString !== route.query[props.name]) {
+            if (urlData?.currentJsonString !== route.query[props.name]) {
                 // Should only be triggered if the url data is changed from outside
                 setDataFromUrl();
             }
@@ -310,6 +310,7 @@ function patchRow(rowId: string | number, data: any) {
 defineExpose({
     checked: checkedRows,
     filters: filters,
+    urlData: urlData ? urlData : null,
     patchRow,
     searchData
 });
