@@ -5,9 +5,15 @@ export type urlDataObject = { [key: string]: unknown };
 
 export interface IUseUrlData<T extends object = urlDataObject> {
     currentJsonString: string;
+    makeUrlString: (data: urlDataObject) => string;
     setDataToUrl: (data: urlDataObject) => Promise<void>;
     getDataFromUrl: () => T | null;
 }
+
+const makeUrlString = (data: urlDataObject) => {
+    const jsonString = JSON.stringify(data);
+    return btoa(jsonString);
+};
 
 export function useUrlData<T extends object = urlDataObject>(
     key: string,
@@ -16,9 +22,9 @@ export function useUrlData<T extends object = urlDataObject>(
 ) {
     return reactive<IUseUrlData<T>>({
         currentJsonString: "",
+        makeUrlString,
         async setDataToUrl(data: urlDataObject) {
-            const jsonString = JSON.stringify(data);
-            const base64 = btoa(jsonString);
+            const base64 = makeUrlString(data);
 
             if (base64 === this.currentJsonString) {
                 return;

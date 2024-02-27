@@ -146,8 +146,11 @@ const route = useRoute();
 const router = useRouter();
 
 let urlData: UnwrapNestedRefs<IUseUrlData<IDataGridCriteria>>;
-if (props.name && route && router) {
-    urlData = useUrlData<IDataGridCriteria>(props.name, route, router);
+
+function setDataFromUrl() {
+    if (!urlData) {
+        return;
+    }
 
     const savedUrlData = urlData.getDataFromUrl();
     if (savedUrlData?.sorting) {
@@ -165,6 +168,21 @@ if (props.name && route && router) {
     if (savedUrlData?.perPage) {
         pagination.perPage = savedUrlData.perPage;
     }
+}
+
+if (props.name && route && router) {
+    urlData = useUrlData<IDataGridCriteria>(props.name, route, router);
+    setDataFromUrl();
+    watch(
+        () => route.query[props.name],
+        () => {
+            if (urlData.currentJsonString !== route.query[props.name]) {
+                // Should only be triggered if the url data is changed from outside
+                setDataFromUrl();
+            }
+        },
+        { deep: true }
+    );
 }
 
 let dataRequest: CancelablePromise<[RowObject[], number]>;
