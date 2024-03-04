@@ -15,7 +15,7 @@
 
             <template #footer>
                 <EtButtonPrimary @click="modalProvide?.openModal('TestModal')">Show me more!</EtButtonPrimary>
-                <EtButtonDefault>Close</EtButtonDefault>
+                <EtButtonDefault @click="areYouSure">Close</EtButtonDefault>
             </template>
         </EtModal>
     </EtContent>
@@ -41,5 +41,24 @@ modalProvide?.registerModal(
         focus: true
     }
 );
+
+function areYouSure() {
+    modalProvide?.openModal("SDKAreYouSure",  {
+        onYes: () => {
+            modalProvide?.openModal("SDKAreYouSure",  {
+                content: "Are you really really sure!?",
+                onYes: () => {
+                    console.log("Yes");
+                },
+                onNo: () => {
+                    console.log("No");
+                }
+            });
+        },
+        onNo: () => {
+            console.log("No");
+        }
+    });
+}
 
 </script>

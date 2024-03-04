@@ -5,7 +5,11 @@
         tabindex="-1"
         ref="modalRoot"
     >
-        <span class="et-sdk-modal__close-button" @click="close">
+        <span
+            class="et-sdk-modal__close-button"
+            @click="close"
+            v-if="modalOptions.showX"
+        >
             <EtIconTimes />
         </span>
 
@@ -14,7 +18,7 @@
                 <slot name="header" />
             </div>
         </div>
-        <div class="et-sdk-modal__main">
+        <div class="et-sdk-modal__main" v-if="$slots.default">
             <div class="et-sdk-modal__content">
                 <slot />
             </div>

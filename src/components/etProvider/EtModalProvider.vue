@@ -12,14 +12,31 @@
                         openModal.modal.options.backdrop === 'static')
                 "
                 class="et-sdk-modals__backdrop"
+                :style="{
+                    'z-index':
+                        10000 +
+                        index +
+                        (openModal.modal.options.alwaysOnTop ? 1000 : 0) -
+                        1
+                }"
                 @click="() => onBackDropClick(openModal)"
             />
-            <div class="et-sdk-modals__wrapper">
+            <div
+                class="et-sdk-modals__wrapper"
+                :style="{
+                    'z-index':
+                        10000 +
+                        index +
+                        (openModal.modal.options.alwaysOnTop ? 1000 : 0)
+                }"
+            >
                 <component
                     :is="openModal.modal.component"
                     @close="() => closeModal(openModal.guid)"
+                    :guid="openModal.guid"
                     v-bind="{
-                        modalOptions: openModal.modal.options
+                        modalOptions: openModal.modal.options,
+                        ...(openModal.props || {})
                     }"
                 />
             </div>
@@ -28,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, provide, ref } from "vue";
+import { computed, markRaw, provide, ref } from "vue";
 import type {
     IEtModalProvide,
     IModal,
@@ -38,6 +55,7 @@ import type {
 import type { Raw } from "@vue/reactivity";
 import { generateId } from "../../helpers/random";
 import { modalOptionsDefaults } from "./EtModalProviderInterfaces";
+import EtModalAreYouSure from "../etModal/EtModalAreYouSure.vue";
 
 const registeredModals = new Map<string, IModal>();
 const openModalsMap = ref<Map<string, IOpenModal>>(new Map());
@@ -73,6 +91,15 @@ function registerModal(
     });
 }
 
+// Default modals
+registerModal("SDKAreYouSure", markRaw(EtModalAreYouSure), {
+    keyboard: false,
+    backdrop: "static",
+    focus: true,
+    showX: false,
+    alwaysOnTop: true
+});
+
 function unregisterModal(name: string) {
     if (!registeredModals.has(name)) {
         return;
@@ -81,7 +108,7 @@ function unregisterModal(name: string) {
     registeredModals.delete(name);
 }
 
-function openModal(name: string) {
+function openModal(name: string, props?: Record<string, any>) {
     if (!registeredModals.has(name)) {
         return null;
     }
@@ -96,7 +123,8 @@ function openModal(name: string) {
 
     openModalsMap.value.set(guid, {
         guid: guid,
-        modal: modalInfo as IModal
+        modal: modalInfo as IModal,
+        props: props || {}
     });
 
     return guid;
@@ -126,7 +154,6 @@ provide<IEtModalProvide>("SDKModalProvide", {
 <style>
 .et-sdk-modals__wrapper {
     position: absolute;
-    z-index: 1000;
     top: 150px;
     left: 50%;
     transform: translateX(-50%);
@@ -134,7 +161,6 @@ provide<IEtModalProvide>("SDKModalProvide", {
 
 .et-sdk-modals__backdrop {
     position: absolute;
-    z-index: 999;
     top: 0;
     left: 0;
     width: 100vw;
