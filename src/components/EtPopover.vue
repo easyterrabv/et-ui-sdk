@@ -129,9 +129,8 @@ watch(
     },
     () => {
         if (props.fitToggle && content.value) {
-            (
-                content.value as HTMLElement
-            ).style.width = `${calculateToggleWidth()}px`;
+            (content.value as HTMLElement).style.width =
+                `${calculateToggleWidth()}px`;
         }
     },
     { immediate: true }

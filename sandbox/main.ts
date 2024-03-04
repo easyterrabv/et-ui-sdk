@@ -8,6 +8,7 @@ import DataGrid from "sandbox/pages/DataGrid.vue";
 
 // @ts-ignore
 import App from "./App.vue";
+import ModalComponents from "./pages/ModalComponents.vue";
 
 const app = createApp(App);
 app.use(createRouter({
@@ -17,6 +18,7 @@ app.use(createRouter({
         {path: '/various', component: VariousComponents},
         {path: '/inputs', component: InputComponents},
         {path: '/data-grid', component: DataGrid},
+        {path: '/modals', component: ModalComponents},
     ]
 }));
 app.mount("#app");

@@ -98,8 +98,8 @@ const filterType = computed(
     () => props.filterDefinition?.type ?? FilterInputType.INPUT
 );
 
-const filterValue = computed(
-    () => filterValueStaging?.getFilter(props.filterDefinition?.field!)
+const filterValue = computed(() =>
+    filterValueStaging?.getFilter(props.filterDefinition?.field!)
 );
 
 const options = ref<Array<OptionModel>>([]);
