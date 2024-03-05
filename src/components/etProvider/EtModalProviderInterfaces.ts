@@ -21,6 +21,7 @@ export interface IModalOptions {
     // New options
     showX?: boolean;
     alwaysOnTop?: boolean;
+    onlyOpenOne?: boolean;
 }
 
 export const modalOptionsDefaults: Required<IModalOptions> = {
@@ -28,7 +29,8 @@ export const modalOptionsDefaults: Required<IModalOptions> = {
     focus: true,
     keyboard: true,
     showX: true,
-    alwaysOnTop: false
+    alwaysOnTop: false,
+    onlyOpenOne: false
 };
 
 export interface IModal {

@@ -121,6 +121,19 @@ function openModal(name: string, props?: Record<string, any>) {
         return null;
     }
 
+    const modalOptions = modalInfo.options;
+    const onlyOpenOne = modalOptions.onlyOpenOne;
+
+    if (onlyOpenOne) {
+        const isAlreadyOpen = openModals.value.find(
+            (openModal) => openModal.modal.name === name
+        );
+
+        if (isAlreadyOpen) {
+            return null;
+        }
+    }
+
     openModalsMap.value.set(guid, {
         guid: guid,
         modal: modalInfo as IModal,
