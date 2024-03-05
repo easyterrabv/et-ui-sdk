@@ -137,6 +137,9 @@ function openModal(
     withGuid?: string
 ) {
     if (!registeredModals.has(name)) {
+        console.warn(
+            `'${name}' modal is not available, did you forget to register it?`
+        );
         return null;
     }
 
