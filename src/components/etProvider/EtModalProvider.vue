@@ -45,17 +45,26 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, markRaw, provide, ref } from "vue";
+import { computed, markRaw, nextTick, onMounted, provide, ref } from "vue";
 import type {
     IEtModalProvide,
     IModal,
     IModalOptions,
-    IOpenModal
+    IOpenModal,
+    SavedUrlModalProps,
+    SavedUrlModals
 } from "./EtModalProviderInterfaces";
 import type { Raw } from "@vue/reactivity";
 import { generateId } from "../../helpers/random";
 import { modalOptionsDefaults } from "./EtModalProviderInterfaces";
 import EtModalAreYouSure from "../etModal/EtModalAreYouSure.vue";
+import { useRoute, useRouter } from "vue-router";
+import { useUrlData } from "../etDataGrid/composables/useUrlData";
+import { wait } from "../../helpers/async";
+
+const route = useRoute();
+const router = useRouter();
+const urlData = useUrlData<SavedUrlModals>("__modals", route, router);
 
 const registeredModals = new Map<string, IModal>();
 const openModalsMap = ref<Map<string, IOpenModal>>(new Map());
@@ -121,12 +130,17 @@ function unregisterModal(name: string) {
     registeredModals.delete(name);
 }
 
-function openModal(name: string, props?: Record<string, any>) {
+function openModal(
+    name: string,
+    props?: Record<string, any>,
+    savedProps?: string[] | boolean,
+    withGuid?: string
+) {
     if (!registeredModals.has(name)) {
         return null;
     }
 
-    const guid = generateId(25, "SDK_MODAL");
+    const guid = withGuid || generateId(5, "SDK_MODAL");
 
     const modalInfo: IModal | undefined = registeredModals.get(name);
 
@@ -147,13 +161,73 @@ function openModal(name: string, props?: Record<string, any>) {
         }
     }
 
-    openModalsMap.value.set(guid, {
+    const openModal: IOpenModal = {
         guid: guid,
         modal: modalInfo as IModal,
-        props: props || {}
-    });
+        props: props || {},
+        savedProps: savedProps || false
+    };
+
+    openModalsMap.value.set(guid, openModal);
+
+    saveModalsToUrl();
 
     return guid;
+}
+
+function saveModalsToUrl() {
+    if (!route && router) {
+        return;
+    }
+
+    const urlData = useUrlData<SavedUrlModals>("__modals", route, router);
+    const saveDate: SavedUrlModalProps[] = [];
+
+    sortedModals.value.forEach((openModal) => {
+        if (
+            (typeof openModal.savedProps === "boolean" &&
+                !openModal.savedProps) ||
+            (Array.isArray(openModal.savedProps) &&
+                openModal.savedProps.length === 0)
+        ) {
+            return;
+        }
+
+        let state: SavedUrlModalProps = {
+            __guid: openModal.guid,
+            __name: openModal.modal.name
+        };
+
+        if (Array.isArray(openModal.savedProps)) {
+            state = Object.entries(openModal.props || {}).reduce(
+                (acc, [key, value]) => {
+                    if ((openModal.savedProps as String[]).includes(key)) {
+                        if (
+                            !["string", "number", "boolean"].includes(
+                                typeof value
+                            )
+                        ) {
+                            return acc;
+                        }
+
+                        acc[key] = value;
+                    }
+
+                    return acc;
+                },
+                state
+            );
+        }
+
+        saveDate.push(state);
+    });
+
+    if (!saveDate.length) {
+        urlData.setDataToUrl({});
+        return;
+    }
+
+    urlData.setDataToUrl({ data: saveDate });
 }
 
 function closeModalByName(name: string) {
@@ -166,7 +240,40 @@ function closeModalByName(name: string) {
 
 function closeModal(guid: string) {
     openModalsMap.value.delete(guid);
+    saveModalsToUrl();
 }
+
+async function openModalsFromUrl() {
+    await wait(50);
+    const savedModalData = urlData.getDataFromUrl();
+
+    if (!savedModalData) {
+        return;
+    }
+
+    savedModalData.data.forEach((data) => {
+        const props = Object.keys(data).reduce(
+            (acc, key) => {
+                if (key === "__guid" || key === "__name") {
+                    return acc;
+                }
+
+                acc[key] = data[key];
+                return acc;
+            },
+            {} as Record<string, any>
+        );
+
+        const name = data.__name;
+        const guid = data.__guid;
+
+        openModal(name, props, Object.keys(props), guid);
+    });
+}
+
+onMounted(() => {
+    openModalsFromUrl();
+});
 
 provide<IEtModalProvide>("SDKModalProvide", {
     registerModal,

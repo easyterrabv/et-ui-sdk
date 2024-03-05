@@ -12,6 +12,10 @@
             Just a header, some text and two close buttons, one in the footer and one in the top right corner
         </p>
 
+        <p v-if="testData">
+            {{testData}}
+        </p>
+
         <template #footer="{close}">
             <EtButtonDefault @click="close">Close</EtButtonDefault>
             <EtButtonDanger @click="handleDelete">Delete</EtButtonDanger>
@@ -32,6 +36,10 @@ const props = defineProps({
     guid: {
         type: String,
         required: true
+    },
+    testData: {
+        type: String,
+        default: ''
     }
 });
 

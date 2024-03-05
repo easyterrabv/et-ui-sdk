@@ -1,25 +1,28 @@
 import { reactive } from "vue";
 const makeUrlString = (data) => {
     const jsonString = JSON.stringify(data);
+    if (!jsonString || jsonString === "{}") {
+        return "";
+    }
     return btoa(jsonString);
 };
 export function useUrlData(key, route, router) {
     return reactive({
-        currentJsonString: "",
+        currentBase64String: (route.query[key] || ''),
         makeUrlString,
         async setDataToUrl(data) {
             const base64 = makeUrlString(data);
-            const usePush = !!this.currentJsonString;
-            if (base64 === this.currentJsonString) {
+            const usePush = !!this.currentBase64String;
+            if (base64 === this.currentBase64String) {
                 return;
             }
             const newQuery = { ...route.query };
             if (!base64 || base64 === "{}") {
-                this.currentJsonString = "";
+                this.currentBase64String = "";
                 delete newQuery[key];
             }
             else {
-                this.currentJsonString = base64;
+                this.currentBase64String = base64;
                 newQuery[key] = base64;
             }
             if (usePush) {

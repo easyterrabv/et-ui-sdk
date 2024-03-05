@@ -176,7 +176,7 @@ if (props.name && route && router) {
     watch(
         () => route.query[props.name],
         () => {
-            if (urlData?.currentJsonString !== route.query[props.name]) {
+            if (urlData?.currentBase64String !== route.query[props.name]) {
                 // Should only be triggered if the url data is changed from outside
                 setDataFromUrl();
             }

@@ -4,7 +4,7 @@ import type { RouteLocationNormalizedLoaded, Router } from "vue-router";
 export type urlDataObject = { [key: string]: unknown };
 
 export interface IUseUrlData<T extends object = urlDataObject> {
-    currentJsonString: string;
+    currentBase64String: string;
     makeUrlString: (data: urlDataObject) => string;
     setDataToUrl: (data: urlDataObject) => Promise<void>;
     getDataFromUrl: () => T | null;
@@ -12,6 +12,9 @@ export interface IUseUrlData<T extends object = urlDataObject> {
 
 const makeUrlString = (data: urlDataObject) => {
     const jsonString = JSON.stringify(data);
+    if (!jsonString || jsonString === "{}") {
+        return "";
+    }
     return btoa(jsonString);
 };
 
@@ -21,24 +24,24 @@ export function useUrlData<T extends object = urlDataObject>(
     router: Router
 ) {
     return reactive<IUseUrlData<T>>({
-        currentJsonString: "",
+        currentBase64String: (route.query[key] || "") as string,
         makeUrlString,
         async setDataToUrl(data: urlDataObject) {
             const base64 = makeUrlString(data);
 
-            const usePush = !!this.currentJsonString;
+            const usePush = !!this.currentBase64String;
 
-            if (base64 === this.currentJsonString) {
+            if (base64 === this.currentBase64String) {
                 return;
             }
 
             const newQuery = { ...route.query };
 
             if (!base64 || base64 === "{}") {
-                this.currentJsonString = "";
+                this.currentBase64String = "";
                 delete newQuery[key];
             } else {
-                this.currentJsonString = base64;
+                this.currentBase64String = base64;
                 newQuery[key] = base64;
             }
 

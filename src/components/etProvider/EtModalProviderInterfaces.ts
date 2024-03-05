@@ -7,7 +7,11 @@ export interface IEtModalProvide {
         options?: IModalOptions
     ) => void;
     unregisterModal: (name: string) => void;
-    openModal(name: string, props?: Record<string, any>): string | null;
+    openModal(
+        name: string,
+        props?: Record<string, any>,
+        savedProps?: string[]
+    ): string | null;
     closeModalByName(name: string): void;
     closeModal(guid: string): void;
 }
@@ -43,4 +47,14 @@ export interface IOpenModal {
     guid: string;
     modal: IModal;
     props: Record<string, any>;
+    savedProps: string[] | boolean;
+}
+
+export interface SavedUrlModalProps {
+    __guid: string;
+    __name: string;
+    [key: string]: string | number | boolean;
+}
+export interface SavedUrlModals {
+    data: SavedUrlModalProps[];
 }

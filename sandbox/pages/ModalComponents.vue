@@ -13,8 +13,16 @@
                 This modal is obviously not a regular modal, because it's rendered into the page itself. Normal modals are opened and hover on top of everything
             </p>
 
-            <EtButtonDefault @click="open2AndSure">
+            <EtButtonDefault @click="open2AndSure" style="margin-top: 15px;">
                 Open two tests and one "Are you sure" modal
+            </EtButtonDefault>
+
+            <EtButtonDefault @click="openWithSavedState" style="margin-top: 15px;">
+                Open one test modal and save state to url
+            </EtButtonDefault>
+
+            <EtButtonDefault @click="open5WithSavedState" style="margin-top: 15px;">
+                Open five test modal and save state to url
             </EtButtonDefault>
 
             <template #footer>
@@ -50,8 +58,36 @@ function open2AndSure() {
     modalProvide?.openModal("SDKAreYouSure",  {
         content: "I should be on top! Even though I am opened as first modal",
     });
-    modalProvide?.openModal("TestModal");
-    modalProvide?.openModal("TestModal");
+    modalProvide?.openModal("TestModal", {
+        testData: "I should be behind the AreYouSure modal, test modal 1"
+    });
+    modalProvide?.openModal("TestModal", {
+        testData: "Test modal 2"
+    });
+}
+
+function openWithSavedState() {
+    modalProvide?.openModal("TestModal", {
+        testData: "Some test data! that is saved in url and when you refresh the page, I am still here!"
+    }, ['testData']);
+}
+
+function open5WithSavedState() {
+    modalProvide?.openModal("TestModal", {
+        testData: "Some test data! that is saved in url and when you refresh the page, 1"
+    }, ['testData']);
+    modalProvide?.openModal("TestModal", {
+        testData: "Some test data! that is saved in url and when you refresh the page, 2"
+    }, ['testData']);
+    modalProvide?.openModal("TestModal", {
+        testData: "Some test data! that is saved in url and when you refresh the page, 3"
+    }, ['testData']);
+    modalProvide?.openModal("TestModal", {
+        testData: "Some test data! that is saved in url and when you refresh the page, 4"
+    }, ['testData']);
+    modalProvide?.openModal("TestModal", {
+        testData: "Some test data! that is saved in url and when you refresh the page, 5"
+    }, ['testData']);
 }
 
 function areYouSure() {
