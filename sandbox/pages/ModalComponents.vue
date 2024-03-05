@@ -13,6 +13,10 @@
                 This modal is obviously not a regular modal, because it's rendered into the page itself. Normal modals are opened and hover on top of everything
             </p>
 
+            <EtButtonDefault @click="open2AndSure">
+                Open two tests and one "Are you sure" modal
+            </EtButtonDefault>
+
             <template #footer>
                 <EtButtonPrimary @click="modalProvide?.openModal('TestModal')">Show me more!</EtButtonPrimary>
                 <EtButtonDefault @click="areYouSure">Close</EtButtonDefault>
@@ -41,6 +45,14 @@ modalProvide?.registerModal(
         focus: true
     }
 );
+
+function open2AndSure() {
+    modalProvide?.openModal("SDKAreYouSure",  {
+        content: "I should be on top! Even though I am opened as first modal",
+    });
+    modalProvide?.openModal("TestModal");
+    modalProvide?.openModal("TestModal");
+}
 
 function areYouSure() {
     modalProvide?.openModal("SDKAreYouSure",  {

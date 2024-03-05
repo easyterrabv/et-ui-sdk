@@ -2,12 +2,12 @@
     <slot />
     <div class="et-sdk-modals__container">
         <template
-            v-for="(openModal, index) in openModals"
+            v-for="(openModal, index) in sortedModals"
             :key="openModal.guid"
         >
             <div
                 v-if="
-                    index === openModals.length - 1 &&
+                    index === sortedModals.length - 1 &&
                     (openModal.modal.options.backdrop === true ||
                         openModal.modal.options.backdrop === 'static')
                 "
@@ -60,6 +60,19 @@ import EtModalAreYouSure from "../etModal/EtModalAreYouSure.vue";
 const registeredModals = new Map<string, IModal>();
 const openModalsMap = ref<Map<string, IOpenModal>>(new Map());
 const openModals = computed(() => Array.from(openModalsMap.value.values()));
+const sortedModals = computed(() => {
+    return openModals.value.sort((a, b) => {
+        if (a.modal.options.alwaysOnTop && !b.modal.options.alwaysOnTop) {
+            return 1;
+        }
+
+        if (!a.modal.options.alwaysOnTop && b.modal.options.alwaysOnTop) {
+            return -1;
+        }
+
+        return 0;
+    });
+});
 
 function onBackDropClick(openModal: IOpenModal) {
     if (
