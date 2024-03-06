@@ -1,9 +1,7 @@
 import { reactive } from "vue";
-import type {
-    RowObject,
-    RowVersionProvider
-} from "../interfaces/DataGridMethods";
+import type { RowVersionProvider } from "../interfaces/DataGridMethods";
 import { getContentFromKey } from "../services/DataGridCellHelpers";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 export function useRowVersion<T extends RowObject = RowObject>(
     rowKeyIdentifier: string = "guid"

@@ -1,7 +1,8 @@
 import { reactive } from "vue";
-import type { CheckedProvide, RowObject } from "../interfaces/DataGridMethods";
+import type { CheckedProvide } from "../interfaces/DataGridMethods";
 import type { DataGridRow } from "../interfaces/DataGridRow";
 import { getContentFromKey } from "../services/DataGridCellHelpers";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 function getRows<T extends RowObject = RowObject>(rows: T[] | (() => T[])) {
     if (typeof rows === "function") {

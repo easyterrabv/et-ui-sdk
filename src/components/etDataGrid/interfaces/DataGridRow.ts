@@ -1,4 +1,4 @@
-import type { RowObject } from "./DataGridMethods";
+import type { RowObject } from "./DataRowObject";
 
 export type IClass = string[];
 export type IRowClass<T extends RowObject = RowObject> =

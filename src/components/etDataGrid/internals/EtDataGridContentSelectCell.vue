@@ -16,7 +16,8 @@
 <script lang="ts" setup>
 import EtCheckbox from "../../etForm/EtCheckbox.vue";
 import { type PropType, inject } from "vue";
-import type { CheckedProvide, RowObject } from "../interfaces/DataGridMethods";
+import type { CheckedProvide } from "../interfaces/DataGridMethods";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 const props = defineProps({
     row: {

@@ -6,8 +6,7 @@ import type {
     FilterObject,
     FiltersProvide
 } from "../interfaces/DataGridFilters";
-
-import type { RowObject } from "../interfaces/DataGridMethods";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 export function useFilters<T extends RowObject = RowObject>(
     filtersDefinitionsGetter: () => FilterDefinition[]

@@ -24,8 +24,8 @@ import { type DataGridRow } from "../interfaces/DataGridRow";
 
 import EtDataGridContentSelectCell from "./EtDataGridContentSelectCell.vue";
 import type { CheckedProvide } from "../interfaces/DataGridMethods";
-import type { RowObject } from "../interfaces/DataGridMethods";
 import { getRowClass } from "../services/DataGridRowHelpers";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 const props = defineProps({
     rowInfo: {

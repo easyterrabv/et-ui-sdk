@@ -30,10 +30,10 @@ import type { DataGridColumn } from "../interfaces/DataGridColumn";
 import type { PropType, Ref } from "vue";
 import { ref, inject, computed } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
-import type { RowObject } from "../interfaces/DataGridMethods";
 import { getContentFromKey } from "../services/DataGridCellHelpers";
 import type { RowVersionProvider } from "../interfaces/DataGridMethods";
 import EtDataGridNoContentRow from "./EtDataGridNoContentRow.vue";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 const props = defineProps({
     columns: {

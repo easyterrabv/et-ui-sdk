@@ -1,9 +1,9 @@
 import { reactive } from "vue";
 import type {
-    RowObject,
     sortDirections,
     SortingProvide
 } from "../interfaces/DataGridMethods";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 export function useSorting<T extends RowObject = RowObject>(
     isMultiSorting = false

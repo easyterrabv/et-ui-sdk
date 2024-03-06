@@ -1,6 +1,6 @@
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
-import type { RowObject } from "../interfaces/DataGridMethods";
 import type { CellWidthProvide } from "../interfaces/DataGridMethods";
+import type { RowObject } from "../interfaces/DataRowObject";
 
 export function getCellStyling<T extends RowObject = RowObject>(
     column: DataGridColumn<T>,

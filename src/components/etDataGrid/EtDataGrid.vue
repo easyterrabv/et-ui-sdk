@@ -42,7 +42,6 @@ import type {
     CellWidthProvide,
     CheckedProvide,
     PaginationProvide,
-    RowObject,
     RowVersionProvider,
     SortingObject,
     SortingProvide
@@ -63,6 +62,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useCellWidth } from "./composables/useCellWidth";
 import { useRowVersion } from "./composables/useRowVersion";
 import { assignToPath } from "./services/DataGridCellHelpers";
+import type { RowObject } from "./interfaces/DataRowObject";
 
 interface IDataGridCriteria {
     sorting: SortingObject;

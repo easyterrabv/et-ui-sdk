@@ -1,7 +1,6 @@
 import type { DataGridColumn } from "./DataGridColumn";
 import type { Raw } from "@vue/reactivity";
-
-export type RowObject<T extends object = { [key: string]: any }> = T;
+import type { RowObject } from "./DataRowObject";
 
 export interface BulkMethod<T extends RowObject = RowObject> {
     method: (rows: T[]) => Promise<void>;
