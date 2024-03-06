@@ -78,7 +78,8 @@ import {
     onBeforeUnmount,
     provide,
     type Ref,
-    type PropType
+    type PropType,
+    markRaw
 } from "vue";
 import type {
     FilterDefinition,
@@ -98,9 +99,19 @@ import EtButtonPrimary from "../../../etButton/EtButtonPrimary.vue";
 import EtButtonDefault from "../../../etButton/EtButtonDefault.vue";
 import EtDataGridFilter from "./EtDataGridFilter.vue";
 import EtDataGridFiltersInputValue from "./EtDataGridFiltersInputValue.vue";
+import EtDataGridFilterSaveModal from "./EtDataGridFilterSaveModal.vue";
+import type { IEtModalProvide } from "../../../etProvider/EtModalProviderInterfaces";
 
 const filters = inject<FiltersProvide>("filters");
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
+const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
+
+if (modalProvide) {
+    modalProvide.registerModal(
+        "SDKDataGridPickSavedName",
+        markRaw(EtDataGridFilterSaveModal)
+    );
+}
 
 const props = defineProps({
     onFilterSave: {
@@ -153,11 +164,20 @@ function saveFilters() {
         return;
     }
 
-    // Todo, to be replaced with a nice modal
-    const label = prompt("Label");
+    if (modalProvide) {
+        modalProvide.openModal("SDKDataGridPickSavedName", {
+            callback(label: string) {
+                if (label) {
+                    props.onFilterSave(label, filterValueStaging.filtersValues);
+                }
+            }
+        });
+    } else {
+        const label = prompt("Label");
 
-    if (label) {
-        props.onFilterSave(label, filterValueStaging.filtersValues);
+        if (label) {
+            props.onFilterSave(label, filterValueStaging.filtersValues);
+        }
     }
 }
 

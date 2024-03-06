@@ -8,7 +8,7 @@
                     v-for="savedFilter in filterSetSaving.savedFilterSets"
                     @click="setFilters(savedFilter.filters)"
                 >
-                    {{savedFilter.name}}
+                    {{savedFilter.label}}
                 </EtButtonDefault>
             </EtButtonGroup>
         </div>
