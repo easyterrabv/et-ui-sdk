@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, markRaw, nextTick, onMounted, provide, ref } from "vue";
+import { computed, markRaw, onMounted, provide, ref } from "vue";
 import type {
     IEtModalProvide,
     IModal,
