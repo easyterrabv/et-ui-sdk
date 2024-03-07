@@ -59,6 +59,7 @@ import { generateId } from "../../helpers/random";
 import { modalOptionsDefaults } from "./EtModalProviderInterfaces";
 import EtModalAreYouSure from "../etModal/EtModalAreYouSure.vue";
 import EtModalDateTimePicker from "../etModal/EtModalDateTimePicker.vue";
+import EtModalPleaseWait from "../etModal/EtModalPleaseWait.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useUrlData } from "../etDataGrid/composables/useUrlData";
 import { wait } from "../../helpers/async";
@@ -116,6 +117,13 @@ function registerModal(
 
 // Default modals
 registerModal("SDKAreYouSure", markRaw(EtModalAreYouSure), {
+    keyboard: false,
+    backdrop: "static",
+    showX: false,
+    alwaysOnTop: true
+});
+
+registerModal("SDKPleaseWait", markRaw(EtModalPleaseWait), {
     keyboard: false,
     backdrop: "static",
     showX: false,
@@ -243,8 +251,11 @@ function closeModalByName(name: string) {
     });
 }
 
-function closeModal(guid: string) {
-    openModalsMap.value.delete(guid);
+function closeModal(guid: string | null) {
+    if (guid) {
+        openModalsMap.value.delete(guid);
+    }
+
     saveModalsToUrl();
 }
 

@@ -29,6 +29,10 @@
                 Open datepicker modal
             </EtButtonDefault>
 
+            <EtButtonDefault @click="openPleaseWait(5)" style="margin-top: 15px; display: block;">
+                Open please wait modal for 5 seconds
+            </EtButtonDefault>
+
             <template #footer>
                 <EtButtonPrimary @click="modalProvide?.openModal('TestModal')">Show me more!</EtButtonPrimary>
                 <EtButtonDefault @click="areYouSure">Close</EtButtonDefault>
@@ -45,6 +49,7 @@ import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
 import {inject, markRaw} from "vue";
 import type {IEtModalProvide} from "../../src/components/etProvider/EtModalProviderInterfaces";
 import EtBasicTestModal from "../modals/EtBasicTestModal.vue";
+import {wait} from "../../src/helpers/async";
 
 const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
 
@@ -111,6 +116,12 @@ function areYouSure() {
             console.log("No");
         }
     });
+}
+
+async function openPleaseWait(seconds: number) {
+    const guid = modalProvide?.openModal("SDKPleaseWait");
+    await wait(seconds * 1000);
+    guid && modalProvide?.closeModal(guid);
 }
 
 </script>
