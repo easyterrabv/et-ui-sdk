@@ -58,6 +58,7 @@ import type { Raw } from "@vue/reactivity";
 import { generateId } from "../../helpers/random";
 import { modalOptionsDefaults } from "./EtModalProviderInterfaces";
 import EtModalAreYouSure from "../etModal/EtModalAreYouSure.vue";
+import EtModalDateTimePicker from "../etModal/EtModalDateTimePicker.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useUrlData } from "../etDataGrid/composables/useUrlData";
 import { wait } from "../../helpers/async";
@@ -117,10 +118,11 @@ function registerModal(
 registerModal("SDKAreYouSure", markRaw(EtModalAreYouSure), {
     keyboard: false,
     backdrop: "static",
-    focus: true,
     showX: false,
     alwaysOnTop: true
 });
+
+registerModal("SDKDateTimePicker", markRaw(EtModalDateTimePicker));
 
 function unregisterModal(name: string) {
     if (!registeredModals.has(name)) {

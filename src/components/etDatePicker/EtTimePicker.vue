@@ -121,6 +121,16 @@ export default defineComponent({
         },
         onBlur() {
             this.$emit("blur");
+        },
+        fixScrollPositions() {
+            // Magic number. Could be dynamic in the future.
+            const optionHeight = 20;
+            (this.$refs.hourOptions as any).scrollTo(
+                (this.hour || 0) * optionHeight
+            );
+            (this.$refs.minuteOptions as any).scrollTo(
+                (this.minute || 0) * optionHeight
+            );
         }
     },
     created() {
@@ -131,14 +141,7 @@ export default defineComponent({
         }
     },
     mounted() {
-        // Magic number. Should be dynamic in the future.
-        const optionHeight = 24;
-        (this.$refs.hourOptions as any).scrollTo(
-            (this.hour || 0) * optionHeight
-        );
-        (this.$refs.minuteOptions as any).scrollTo(
-            (this.minute || 0) * optionHeight
-        );
+        this.fixScrollPositions();
     },
     emits: ["update:modelValue", "interaction", "escape", "focus", "blur"]
 });

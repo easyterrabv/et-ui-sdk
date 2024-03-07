@@ -13,16 +13,20 @@
                 This modal is obviously not a regular modal, because it's rendered into the page itself. Normal modals are opened and hover on top of everything
             </p>
 
-            <EtButtonDefault @click="open2AndSure" style="margin-top: 15px;">
+            <EtButtonDefault @click="open2AndSure" style="margin-top: 15px; display: block;">
                 Open two tests and one "Are you sure" modal
             </EtButtonDefault>
 
-            <EtButtonDefault @click="openWithSavedState" style="margin-top: 15px;">
+            <EtButtonDefault @click="openWithSavedState" style="margin-top: 15px; display: block;">
                 Open one test modal and save state to url
             </EtButtonDefault>
 
-            <EtButtonDefault @click="open5WithSavedState" style="margin-top: 15px;">
+            <EtButtonDefault @click="open5WithSavedState" style="margin-top: 15px; display: block;">
                 Open five test modal and save state to url
+            </EtButtonDefault>
+
+            <EtButtonDefault  @click="modalProvide?.openModal('SDKDateTimePicker')" style="margin-top: 15px;  display: block;">
+                Open datepicker modal
             </EtButtonDefault>
 
             <template #footer>
