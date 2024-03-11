@@ -39,6 +39,11 @@ export default defineComponent({
         };
     },
     watch: {
+        modelValue: {
+            handler(value) {
+                this.internalData = value;
+            }
+        },
         internalData: {
             immediate: true,
             handler(value) {
