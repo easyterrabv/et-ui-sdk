@@ -7,15 +7,16 @@
         }
     },
     "include": [
-        "env.d.ts",
         "src/**/*.ts",
-        "src/**/*.vue",
-        "sandbox/**/*.ts",
-        "sandbox/**/*.vue"
+        "src/helpers/**/*.ts",
+        "src/**/*.vue"
     ],
     "exclude": [
         "node_modules",
         "**/__tests__/*",
-        "**/*.cy.ts"
+        "**/*.cy.ts",
+        "**/*.d.ts",
+        "sandbox/**/*.ts",
+        "sandbox/**/*.vue"
     ]
 }

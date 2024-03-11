@@ -4,6 +4,7 @@
   "type": "module",
   "description": "",
   "scripts": {
+    "tsc": "tsc --project tsconfig.json",
     "test": "npx cypress run --component --headless",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{ts,vue}\"",

@@ -1,13 +1,17 @@
-import { computed, ref } from "vue";
-export function getRowClass(rowInfo, row) {
-    const rowClass = rowInfo.class;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getRowClass = void 0;
+var vue_1 = require("vue");
+function getRowClass(rowInfo, row) {
+    var rowClass = rowInfo.class;
     if (!rowClass) {
-        return ref([]);
+        return (0, vue_1.ref)([]);
     }
     if (typeof rowClass === "function") {
-        return computed(() => {
+        return (0, vue_1.computed)(function () {
             return rowClass(row);
         });
     }
-    return ref(rowClass);
+    return (0, vue_1.ref)(rowClass);
 }
+exports.getRowClass = getRowClass;

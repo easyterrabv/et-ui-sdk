@@ -1,40 +1,43 @@
-import { reactive } from "vue";
-import { getContentFromKey } from "../services/DataGridCellHelpers";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useChecked = void 0;
+var vue_1 = require("vue");
+var DataGridCellHelpers_1 = require("../services/DataGridCellHelpers");
 function getRows(rows) {
     if (typeof rows === "function") {
         return rows();
     }
     return rows;
 }
-export function useChecked(rowInfo, tableRows) {
-    return reactive({
+function useChecked(rowInfo, tableRows) {
+    return (0, vue_1.reactive)({
         rows: [],
-        select(row) {
+        select: function (row) {
             if (!rowInfo.isSelectable) {
                 return;
             }
-            const checkedRows = this.rows || [];
+            var checkedRows = this.rows || [];
             checkedRows.push(row);
             this.rows = checkedRows;
         },
-        unSelect(needle) {
-            const key = rowInfo.idKey || "guid";
-            const needleKey = getContentFromKey(needle, key);
-            this.rows = (this.rows || []).filter((hay) => {
-                const hayKey = getContentFromKey(hay, key);
+        unSelect: function (needle) {
+            var key = rowInfo.idKey || "guid";
+            var needleKey = (0, DataGridCellHelpers_1.getContentFromKey)(needle, key);
+            this.rows = (this.rows || []).filter(function (hay) {
+                var hayKey = (0, DataGridCellHelpers_1.getContentFromKey)(hay, key);
                 return needleKey !== hayKey;
             });
         },
-        isSelected(needle) {
-            const key = rowInfo.idKey || "guid";
-            const needleKey = getContentFromKey(needle, key);
-            return ((this.rows || []).findIndex((hay) => {
-                const hayKey = getContentFromKey(hay, key);
+        isSelected: function (needle) {
+            var key = rowInfo.idKey || "guid";
+            var needleKey = (0, DataGridCellHelpers_1.getContentFromKey)(needle, key);
+            return ((this.rows || []).findIndex(function (hay) {
+                var hayKey = (0, DataGridCellHelpers_1.getContentFromKey)(hay, key);
                 return needleKey === hayKey;
             }) > -1);
         },
-        toggle(row) {
-            const isSelected = this.isSelected(row);
+        toggle: function (row) {
+            var isSelected = this.isSelected(row);
             if (isSelected) {
                 this.unSelect(row);
             }
@@ -42,44 +45,44 @@ export function useChecked(rowInfo, tableRows) {
                 this.select(row);
             }
         },
-        selectAll() {
+        selectAll: function () {
             if (!rowInfo.isSelectable) {
                 return;
             }
             this.rows = getRows(tableRows);
         },
-        unSelectAll() {
+        unSelectAll: function () {
             if (this.rows.length <= 0) {
                 // to prevent extra update
                 return;
             }
             this.rows = [];
         },
-        reset() {
+        reset: function () {
             this.unSelectAll();
         },
-        allSelected() {
+        allSelected: function () {
             // all means all.
-            const selectedRowsCount = (this.rows || []).length;
-            const totalRows = (getRows(tableRows) || []).length;
+            var selectedRowsCount = (this.rows || []).length;
+            var totalRows = (getRows(tableRows) || []).length;
             if (totalRows === 0) {
                 return false;
             }
             return selectedRowsCount >= totalRows;
         },
-        anySelected() {
+        anySelected: function () {
             // any selected means: At least one, but could also be all of them;
-            const selectedRowsCount = (this.rows || []).length;
+            var selectedRowsCount = (this.rows || []).length;
             return selectedRowsCount > 0;
         },
-        someSelected() {
+        someSelected: function () {
             // SOME !== all. so only return true if there is at least one selected but not all
             if (this.allSelected()) {
                 return false;
             }
             return this.anySelected();
         },
-        toggleAll() {
+        toggleAll: function () {
             if (this.allSelected()) {
                 this.unSelectAll();
             }
@@ -89,3 +92,4 @@ export function useChecked(rowInfo, tableRows) {
         }
     });
 }
+exports.useChecked = useChecked;

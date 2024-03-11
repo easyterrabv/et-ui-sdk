@@ -1,26 +1,29 @@
-import { reactive, ref } from "vue";
-import { makeSlug } from "../../../helpers/misc";
-const SAVE_FILTERS_STORAGE_KEY = "ET-SDK-DATA-GRID--SAVED-FILTERS";
-export function useFilterSaving(collectionName) {
-    const savedFilterSets = ref([]);
-    const key = `${SAVE_FILTERS_STORAGE_KEY}+${collectionName}`;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useFilterSaving = void 0;
+var vue_1 = require("vue");
+var misc_1 = require("../../../helpers/misc");
+var SAVE_FILTERS_STORAGE_KEY = "ET-SDK-DATA-GRID--SAVED-FILTERS";
+function useFilterSaving(collectionName) {
+    var savedFilterSets = (0, vue_1.ref)([]);
+    var key = "".concat(SAVE_FILTERS_STORAGE_KEY, "+").concat(collectionName);
     function saveFilterSet(label, filtersObj) {
-        const amountOfFilters = Object.keys(filtersObj).length;
+        var amountOfFilters = Object.keys(filtersObj).length;
         if (amountOfFilters <= 0) {
             return;
         }
-        const name = makeSlug(label);
-        const currentIndex = savedFilterSets.value.findIndex((f) => f.name === name);
+        var name = (0, misc_1.makeSlug)(label);
+        var currentIndex = savedFilterSets.value.findIndex(function (f) { return f.name === name; });
         if (currentIndex >= 0) {
             savedFilterSets.value[currentIndex].filters = filtersObj;
         }
         else {
-            savedFilterSets.value.push({ label, name, filters: filtersObj });
+            savedFilterSets.value.push({ label: label, name: name, filters: filtersObj });
         }
         saveAllFilters();
     }
     function removeFilterSet(name) {
-        savedFilterSets.value = (savedFilterSets.value || []).filter((savedFilter) => savedFilter.name !== name);
+        savedFilterSets.value = (savedFilterSets.value || []).filter(function (savedFilter) { return savedFilter.name !== name; });
         saveAllFilters();
     }
     function saveAllFilters() {
@@ -28,23 +31,23 @@ export function useFilterSaving(collectionName) {
         if (!savedFilterSets.value) {
             return;
         }
-        const savedFiltersDataString = JSON.stringify(savedFilterSets.value);
+        var savedFiltersDataString = JSON.stringify(savedFilterSets.value);
         if (!savedFiltersDataString) {
             return;
         }
-        const savedFiltersDataBase64 = btoa(savedFiltersDataString);
+        var savedFiltersDataBase64 = btoa(savedFiltersDataString);
         if (!savedFiltersDataBase64) {
             return;
         }
         window.localStorage.setItem(key, savedFiltersDataBase64);
     }
     function loadAllFilters() {
-        const savedFiltersDataBase64 = window.localStorage.getItem(key);
+        var savedFiltersDataBase64 = window.localStorage.getItem(key);
         if (!savedFiltersDataBase64) {
             savedFilterSets.value = [];
             return;
         }
-        const savedFiltersDataString = atob(savedFiltersDataBase64);
+        var savedFiltersDataString = atob(savedFiltersDataBase64);
         if (!savedFiltersDataString) {
             savedFilterSets.value = [];
             return;
@@ -52,9 +55,10 @@ export function useFilterSaving(collectionName) {
         savedFilterSets.value = JSON.parse(savedFiltersDataString);
     }
     loadAllFilters();
-    return reactive({
-        savedFilterSets,
-        saveFilterSet,
-        removeFilterSet
+    return (0, vue_1.reactive)({
+        savedFilterSets: savedFilterSets,
+        saveFilterSet: saveFilterSet,
+        removeFilterSet: removeFilterSet
     });
 }
+exports.useFilterSaving = useFilterSaving;

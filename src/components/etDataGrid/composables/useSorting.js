@@ -1,21 +1,25 @@
-import { reactive } from "vue";
-export function useSorting(isMultiSorting = false) {
-    return reactive({
-        isMultiSorting,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useSorting = void 0;
+var vue_1 = require("vue");
+function useSorting(isMultiSorting) {
+    if (isMultiSorting === void 0) { isMultiSorting = false; }
+    return (0, vue_1.reactive)({
+        isMultiSorting: isMultiSorting,
         sorting: {},
-        getField(column) {
+        getField: function (column) {
             if (!this.isSortable(column)) {
                 return null;
             }
-            const header = column.header || undefined;
-            const sorting = header?.sorting || undefined;
+            var header = column.header || undefined;
+            var sorting = (header === null || header === void 0 ? void 0 : header.sorting) || undefined;
             if (!sorting) {
                 return null;
             }
             return sorting.field;
         },
-        setSorting(column, direction) {
-            const field = this.getField(column);
+        setSorting: function (column, direction) {
+            var field = this.getField(column);
             if (!field) {
                 return;
             }
@@ -29,31 +33,32 @@ export function useSorting(isMultiSorting = false) {
                 this.sorting[field] = direction;
             }
         },
-        toggleSorting(column) {
-            const field = this.getField(column);
+        toggleSorting: function (column) {
+            var field = this.getField(column);
             if (!field) {
                 return;
             }
-            const sortOrder = ["ASC", "DESC", null];
-            const currentSort = this.sorting[field] || null;
-            const currentSortIndex = sortOrder.indexOf(currentSort);
-            let nextSortIndex = currentSortIndex + 1;
+            var sortOrder = ["ASC", "DESC", null];
+            var currentSort = this.sorting[field] || null;
+            var currentSortIndex = sortOrder.indexOf(currentSort);
+            var nextSortIndex = currentSortIndex + 1;
             if (nextSortIndex >= sortOrder.length || nextSortIndex < 0)
                 nextSortIndex = 0;
             this.setSorting(column, sortOrder[nextSortIndex] || null);
         },
-        clearSorting() {
+        clearSorting: function () {
             this.sorting = {};
         },
-        reset(columns) {
-            const newSorting = {};
-            columns.forEach((column) => {
-                if (!this.isSortable(column)) {
+        reset: function (columns) {
+            var _this = this;
+            var newSorting = {};
+            columns.forEach(function (column) {
+                if (!_this.isSortable(column)) {
                     return;
                 }
-                const header = column.header || undefined;
-                const sorting = header?.sorting || undefined;
-                const defaultDirection = sorting?.default || undefined;
+                var header = column.header || undefined;
+                var sorting = (header === null || header === void 0 ? void 0 : header.sorting) || undefined;
+                var defaultDirection = (sorting === null || sorting === void 0 ? void 0 : sorting.default) || undefined;
                 if (!defaultDirection || !sorting) {
                     return;
                 }
@@ -61,12 +66,12 @@ export function useSorting(isMultiSorting = false) {
             });
             this.sorting = newSorting;
         },
-        isSortable(column) {
-            const header = column.header || undefined;
-            return !!header?.sorting;
+        isSortable: function (column) {
+            var header = column.header || undefined;
+            return !!(header === null || header === void 0 ? void 0 : header.sorting);
         },
-        getSorting(column) {
-            const field = this.getField(column);
+        getSorting: function (column) {
+            var field = this.getField(column);
             if (!field) {
                 return null;
             }
@@ -74,3 +79,4 @@ export function useSorting(isMultiSorting = false) {
         }
     });
 }
+exports.useSorting = useSorting;

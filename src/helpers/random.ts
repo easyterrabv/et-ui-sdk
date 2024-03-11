@@ -6,9 +6,9 @@ export const randomString = (len: number = 10): string => {
 
     let str = "";
     try {
-        function dec2hex(dec: number): string {
+        const dec2hex = (dec: number): string => {
             return dec.toString(16).padStart(2, "0");
-        }
+        };
 
         const arr = new Uint8Array((len || 40) / 2);
         window.crypto.getRandomValues(arr);

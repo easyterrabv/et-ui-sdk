@@ -1,4 +1,7 @@
-export var TableColumnStyling;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TableColumnStyling = void 0;
+var TableColumnStyling;
 (function (TableColumnStyling) {
     TableColumnStyling["AUTOEUROPE"] = "AUTOEUROPE";
     TableColumnStyling["RENTALCARS"] = "RENTALCARS";
@@ -6,4 +9,4 @@ export var TableColumnStyling;
     TableColumnStyling["OFFUGO"] = "OFFUGO";
     TableColumnStyling["EDITABLE"] = "EDITABLE";
     TableColumnStyling["DEFAULT"] = "DEFAULT";
-})(TableColumnStyling || (TableColumnStyling = {}));
+})(TableColumnStyling || (exports.TableColumnStyling = TableColumnStyling = {}));

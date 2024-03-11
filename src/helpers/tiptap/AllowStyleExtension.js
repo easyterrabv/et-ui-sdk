@@ -1,7 +1,10 @@
-import { Extension } from "@tiptap/core";
-export const AllowStyleExtension = Extension.create({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AllowStyleExtension = void 0;
+var core_1 = require("@tiptap/core");
+exports.AllowStyleExtension = core_1.Extension.create({
     name: "AllowStyle",
-    addGlobalAttributes() {
+    addGlobalAttributes: function () {
         return [
             {
                 types: [

@@ -1,3 +1,6 @@
+import { inject } from "vue";
+import type { IEtModalProvide } from "../components/etProvider/EtModalProviderInterfaces";
+
 export const needleFixer = (
     val: bigint | number | boolean | string | Date | null
 ): string => {
@@ -69,4 +72,18 @@ export function formatCurrency(
         style: "currency",
         currency: currencyCode || "EUR"
     }).format(amount);
+}
+
+export async function pleaseWait<T>(
+    callback: (modalGuid: string | null | undefined) => Promise<T>
+) {
+    const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
+    const guid = modalProvide?.openModal("SDKPleaseWait");
+    const result = await callback(guid);
+
+    if (guid) {
+        modalProvide?.closeModal(guid);
+    }
+
+    return result;
 }

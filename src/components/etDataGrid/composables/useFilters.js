@@ -1,17 +1,21 @@
-import { reactive } from "vue";
-export function useFilters(filtersDefinitionsGetter) {
-    return reactive({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useFilters = void 0;
+var vue_1 = require("vue");
+function useFilters(filtersDefinitionsGetter) {
+    return (0, vue_1.reactive)({
         filtersValues: {},
-        setFilters(newFilters) {
-            this.filtersValues = Object.entries(newFilters).reduce((prev, [key, value]) => {
+        setFilters: function (newFilters) {
+            this.filtersValues = Object.entries(newFilters).reduce(function (prev, _a) {
+                var key = _a[0], value = _a[1];
                 if (value !== null && value !== undefined) {
                     prev[key] = value;
                 }
                 return prev;
             }, {});
         },
-        setFilter(field, value) {
-            const filters = JSON.parse(JSON.stringify(this.filtersValues));
+        setFilter: function (field, value) {
+            var filters = JSON.parse(JSON.stringify(this.filtersValues));
             if (value === null || value === undefined) {
                 delete filters[field];
             }
@@ -20,32 +24,34 @@ export function useFilters(filtersDefinitionsGetter) {
             }
             this.setFilters(filters);
         },
-        getFilter(field) {
-            return this.filtersValues[field] ?? null;
+        getFilter: function (field) {
+            var _a;
+            return (_a = this.filtersValues[field]) !== null && _a !== void 0 ? _a : null;
         },
-        clearFilters() {
+        clearFilters: function () {
             this.setFilters({});
         },
-        reset() {
-            const newFilters = {};
-            const filterDefinitions = this.getFiltersDefinitions();
-            filterDefinitions.forEach((filterDefinition) => {
+        reset: function () {
+            var newFilters = {};
+            var filterDefinitions = this.getFiltersDefinitions();
+            filterDefinitions.forEach(function (filterDefinition) {
                 if (!filterDefinition) {
                     return;
                 }
-                const { field, default: defaultValue } = filterDefinition;
+                var _a = filterDefinition, field = _a.field, defaultValue = _a.default;
                 if (defaultValue) {
                     newFilters[field] = defaultValue;
                 }
             });
             this.setFilters(newFilters);
         },
-        getFiltersDefinitions() {
+        getFiltersDefinitions: function () {
             return filtersDefinitionsGetter();
         },
-        hasFilters() {
-            const filterDefinitions = this.getFiltersDefinitions();
+        hasFilters: function () {
+            var filterDefinitions = this.getFiltersDefinitions();
             return filterDefinitions.length > 0;
         }
     });
 }
+exports.useFilters = useFilters;

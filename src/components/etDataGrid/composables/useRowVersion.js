@@ -1,25 +1,31 @@
-import { reactive } from "vue";
-import { getContentFromKey } from "../services/DataGridCellHelpers";
-export function useRowVersion(rowKeyIdentifier = "guid") {
-    return reactive({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useRowVersion = void 0;
+var vue_1 = require("vue");
+var DataGridCellHelpers_1 = require("../services/DataGridCellHelpers");
+function useRowVersion(rowKeyIdentifier) {
+    if (rowKeyIdentifier === void 0) { rowKeyIdentifier = "guid"; }
+    return (0, vue_1.reactive)({
         versions: {},
-        reset(rows) {
+        reset: function (rows) {
+            var _this = this;
             this.versions = {};
-            rows.forEach((row) => {
-                const key = getContentFromKey(row, rowKeyIdentifier);
+            rows.forEach(function (row) {
+                var key = (0, DataGridCellHelpers_1.getContentFromKey)(row, rowKeyIdentifier);
                 if (!key) {
                     return;
                 }
-                this.versions[key] = 0;
+                _this.versions[key] = 0;
             });
         },
-        increment(row) {
-            const key = getContentFromKey(row, rowKeyIdentifier);
+        increment: function (row) {
+            var key = (0, DataGridCellHelpers_1.getContentFromKey)(row, rowKeyIdentifier);
             if (!key) {
                 return;
             }
-            let value = this.versions[key] || 0;
+            var value = this.versions[key] || 0;
             this.versions[key] = value += 1;
         }
     });
 }
+exports.useRowVersion = useRowVersion;

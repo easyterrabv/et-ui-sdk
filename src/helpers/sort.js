@@ -1,7 +1,10 @@
-export const sortByProperties = (array, sortConfig) => {
-    const compare = (a, b, prop, order) => {
-        const aValue = a[prop];
-        const bValue = b[prop];
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sortByProperties = void 0;
+var sortByProperties = function (array, sortConfig) {
+    var compare = function (a, b, prop, order) {
+        var aValue = a[prop];
+        var bValue = b[prop];
         if (aValue < bValue) {
             return order === "ASC" ? -1 : 1;
         }
@@ -10,14 +13,14 @@ export const sortByProperties = (array, sortConfig) => {
         }
         return 0;
     };
-    return array.sort((a, b) => {
-        for (const prop in sortConfig) {
+    return array.sort(function (a, b) {
+        for (var prop in sortConfig) {
             if (!sortConfig.hasOwnProperty(prop)) {
                 continue;
             }
-            const order = sortConfig[prop];
+            var order = sortConfig[prop];
             if (order !== null) {
-                const result = compare(a, b, prop, order);
+                var result = compare(a, b, prop, order);
                 if (result !== 0) {
                     return result;
                 }
@@ -26,3 +29,4 @@ export const sortByProperties = (array, sortConfig) => {
         return 0;
     });
 };
+exports.sortByProperties = sortByProperties;

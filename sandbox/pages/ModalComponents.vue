@@ -50,6 +50,7 @@ import {inject, markRaw} from "vue";
 import type {IEtModalProvide} from "../../src/components/etProvider/EtModalProviderInterfaces";
 import EtBasicTestModal from "../modals/EtBasicTestModal.vue";
 import {wait} from "../../src/helpers/async";
+import {pleaseWait} from "../../src/helpers/misc";
 
 const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
 
@@ -118,10 +119,10 @@ function areYouSure() {
     });
 }
 
-async function openPleaseWait(seconds: number) {
-    const guid = modalProvide?.openModal("SDKPleaseWait");
-    await wait(seconds * 1000);
-    guid && modalProvide?.closeModal(guid);
+function openPleaseWait(seconds: number) {
+    pleaseWait(async () => {
+        await wait(seconds * 1000);
+    });
 }
 
 </script>
