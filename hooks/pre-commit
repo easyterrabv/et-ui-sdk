@@ -15,8 +15,6 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-tsc
-
 # Store the edited files in an array
 edited_files=()
 
