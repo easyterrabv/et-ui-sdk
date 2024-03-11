@@ -8,13 +8,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import { defineComponent } from "vue";
 import { UI_SIZING, UI_TYPES } from "../../helpers/enums";
 
 export const sharedProps = {
     size: {
         required: false,
-        type: String as PropType<UI_SIZING>,
+        type: String,
         default: UI_SIZING.S
     }
 };
@@ -24,7 +24,7 @@ export default defineComponent({
         ...sharedProps,
         type: {
             required: false,
-            type: String as PropType<UI_TYPES>,
+            type: String,
             default: UI_TYPES.DEFAULT
         }
     }

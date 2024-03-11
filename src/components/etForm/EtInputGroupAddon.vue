@@ -13,14 +13,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import { defineComponent } from "vue";
 import { UI_SIZING } from "../../helpers/enums";
 
 export default defineComponent({
     props: {
         size: {
             required: false,
-            type: String as PropType<UI_SIZING>,
+            type: String,
             default: UI_SIZING.M
         }
     },

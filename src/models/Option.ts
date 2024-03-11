@@ -1,7 +1,5 @@
 import { EtModel } from "./Model";
 import { needleFixer } from "../helpers/misc";
-import { reactive } from "vue";
-import { UI_TYPES } from "../helpers/enums";
 
 let OPTION_COUNT = 0;
 
@@ -9,7 +7,7 @@ export interface IOption {
     value: string | boolean | number | Date;
     label?: string | null;
     tags?: string[];
-    type?: UI_TYPES;
+    type?: string;
     meta?: { [key: string]: any };
 }
 export class OptionModel extends EtModel {

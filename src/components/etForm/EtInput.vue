@@ -107,7 +107,7 @@ export const commonInputProps = {
     },
     size: {
         required: false,
-        type: String as PropType<UI_SIZING>,
+        type: String,
         default: UI_SIZING.M
     },
     type: {

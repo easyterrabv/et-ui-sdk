@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import { defineComponent } from "vue";
 import { UI_TYPES } from "../../helpers/enums";
 
 export default defineComponent({
     props: {
         type: {
             required: false,
-            type: String as PropType<UI_TYPES>,
+            type: String,
             default: UI_TYPES.DEFAULT
         }
     }

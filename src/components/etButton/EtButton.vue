@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import { defineComponent } from "vue";
 import { UI_SIZING, UI_TYPES } from "../../helpers/enums";
 import { Debounce } from "../../helpers/debounce";
 
@@ -39,7 +39,7 @@ export const sharedButtonProps = {
     active: { required: false, type: Boolean, default: false },
     size: {
         required: false,
-        type: String as PropType<UI_SIZING>,
+        type: String,
         default: UI_SIZING.M
     }
 };
@@ -49,7 +49,7 @@ export default defineComponent({
         ...sharedButtonProps,
         type: {
             required: false,
-            type: String as PropType<UI_TYPES>,
+            type: String,
             default: UI_TYPES.DEFAULT
         }
     },

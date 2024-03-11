@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import { defineComponent } from "vue";
 import { UI_TYPES, UI_SIZING } from "../../helpers/enums";
 import EtButton from "../etButton/EtButton.vue";
 
@@ -52,7 +52,7 @@ export default defineComponent({
         readonly: { required: false, type: Boolean, default: false },
         type: {
             required: false,
-            type: String as PropType<UI_TYPES>,
+            type: String,
             default: UI_TYPES.DEFAULT
         }
     },
