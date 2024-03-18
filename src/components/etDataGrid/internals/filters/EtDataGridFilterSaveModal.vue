@@ -1,6 +1,6 @@
 <template>
     <EtModal class="et-sdk-data-grid-filter-save-modal">
-        <template #header> Filter name </template>
+        <template #header> Filter Set name </template>
 
         <EtForm @submit="handleSaveFilters">
             <EtFormGroup>
