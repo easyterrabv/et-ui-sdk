@@ -209,6 +209,35 @@
                                 </EtButtonGroup>
                             </EtBox>
                         </EtPopover>
+                        <EtButton
+                            v-if="hasAttachments"
+                            :size="UI_SIZING.S"
+                            :type="UI_TYPES.DEFAULT"
+                            :disabled="hasDisabledInput"
+                            @click="handleAttachment"
+                        >
+                            <EtIconPaperclip title="Add attachment" />
+                        </EtButton>
+                    </EtButtonGroup>
+
+                    <!--
+                        Normally falls under the misc group. But also should be able to have
+                        attachments without the other items in the group
+                     -->
+                    <EtButtonGroup
+                        v-else-if="
+                            !enabledInputGroups.includes('misc') &&
+                            hasAttachments
+                        "
+                    >
+                        <EtButton
+                            :size="UI_SIZING.S"
+                            :type="UI_TYPES.DEFAULT"
+                            :disabled="hasDisabledInput"
+                            @click="handleAttachment"
+                        >
+                            <EtIconPaperclip title="Add attachment" />
+                        </EtButton>
                     </EtButtonGroup>
 
                     <EtButtonGroup
@@ -386,6 +415,14 @@
                 <slot name="inner"></slot>
             </div>
         </div>
+        <input
+            v-if="hasAttachments"
+            type="file"
+            ref="fileInput"
+            v-bind="attachmentInputArgs"
+            style="display: none"
+            @change="onFileInputChange"
+        />
     </div>
 </template>
 
@@ -438,6 +475,7 @@ import EtTextarea from "./EtTextarea.vue";
 import { AllowStyleExtension } from "../../helpers/tiptap/AllowStyleExtension";
 import EtIconCirclePlus from "../etIcon/EtIconCirclePlus.vue";
 import EtIconCircleMinus from "../etIcon/EtIconCircleMinus.vue";
+import EtIconPaperclip from "../etIcon/EtIconPaperclip.vue";
 
 export const EDIT_MODES = {
     WYSIWYG: "WYSIWYG",
@@ -487,9 +525,20 @@ export default defineComponent({
                     "html"
                 ];
             }
+        },
+        hasAttachments: {
+            type: Boolean,
+            default: false
+        },
+        attachmentInputArgs: {
+            type: Object,
+            default() {
+                return {};
+            }
         }
     },
     components: {
+        EtIconPaperclip,
         EtTextarea,
         EtPopover,
         EtBox,
@@ -687,6 +736,20 @@ export default defineComponent({
                 ".et-sdk-wysiwyg--editor-textarea"
             ) as HTMLElement;
             input?.blur();
+        },
+        handleAttachment() {
+            (this.$refs.fileInput as any)?.click?.();
+        },
+        onFileInputChange(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const files = target.files || [];
+
+            if (!files || files.length < 0) {
+                return;
+            }
+
+            this.$emit("attachments", files);
+            target.value = "";
         }
     },
     mounted() {
@@ -728,7 +791,7 @@ export default defineComponent({
     beforeUnmount() {
         this.editor?.destroy();
     },
-    emits: ["update:modelValue"]
+    emits: ["update:modelValue", "attachments"]
 });
 </script>
 

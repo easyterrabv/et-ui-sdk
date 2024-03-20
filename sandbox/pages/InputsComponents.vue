@@ -41,7 +41,12 @@
 
             <EtFormGroup style="margin-top: 16px;">
                 <template #label>WYSIWYG</template>
-                <EtWysiwyg v-model="wysiwygContent" ref="wysiwyg">
+                <EtWysiwyg
+                    v-model="wysiwygContent"
+                    ref="wysiwyg"
+                    hasAttachments
+                    @attachments="handleAttachments"
+                >
                     <template #inner>
                         <EtButtonDefault
                             :size="UI_SIZING.XS"
@@ -309,6 +314,9 @@ export default defineComponent({
                     label: "Item eight"
                 })
             ];
+        },
+        handleAttachments(files: FileList) {
+            console.log(files);
         }
     },
     mounted() {
