@@ -26,7 +26,7 @@
 import { defineComponent } from "vue";
 import { generateId } from "../../helpers/random";
 
-import EtIconCheck from "../etIcon/EtIconCheck.vue";
+import EtIconCheck from "../etIcon/EtIconCheckSolid.vue";
 
 export default defineComponent({
     components: {
