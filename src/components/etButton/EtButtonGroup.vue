@@ -50,7 +50,8 @@ export default defineComponent({
     border-top-right-radius: var(--et-sdk-input-border-radius) !important;
 }
 
-.et-sdk-button-group__horizontal > *:last-child {
+.et-sdk-button-group__horizontal > *:last-child,
+.et-sdk-button-group__horizontal > .et-sdk-popover:last-child .et-sdk-button {
     border-top-right-radius: var(--et-sdk-input-border-radius) !important;
     border-bottom-right-radius: var(--et-sdk-input-border-radius) !important;
 }
@@ -97,7 +98,10 @@ export default defineComponent({
     flex-grow: 1;
 }
 
-.et-sdk-button-group__horizontal > .et-sdk-button:not(:last-child) {
+.et-sdk-button-group__horizontal > .et-sdk-button:not(:last-child),
+.et-sdk-button-group__horizontal
+    > .et-sdk-popover:not(:last-child)
+    .et-sdk-button {
     border-right: none;
 }
 
