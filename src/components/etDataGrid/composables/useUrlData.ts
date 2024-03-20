@@ -15,7 +15,7 @@ const makeUrlString = (data: urlDataObject) => {
     if (!jsonString || jsonString === "{}") {
         return "";
     }
-    return btoa(jsonString);
+    return btoa(encodeURI(jsonString));
 };
 
 export function useUrlData<T extends object = urlDataObject>(
@@ -57,7 +57,7 @@ export function useUrlData<T extends object = urlDataObject>(
                 return null;
             }
 
-            const jsonString = atob(base64);
+            const jsonString = decodeURI(atob(base64));
             if (!jsonString) {
                 return null;
             }
