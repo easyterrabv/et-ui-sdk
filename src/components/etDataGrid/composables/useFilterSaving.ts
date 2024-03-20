@@ -54,7 +54,9 @@ export function useFilterSaving(collectionName: string) {
             return;
         }
 
-        const savedFiltersDataBase64 = btoa(encodeURI(savedFiltersDataString));
+        const savedFiltersDataBase64 = btoa(
+            encodeURIComponent(savedFiltersDataString)
+        );
 
         if (!savedFiltersDataBase64) {
             return;
@@ -70,7 +72,9 @@ export function useFilterSaving(collectionName: string) {
             return;
         }
 
-        const savedFiltersDataString = decodeURI(atob(savedFiltersDataBase64));
+        const savedFiltersDataString = decodeURIComponent(
+            atob(savedFiltersDataBase64)
+        );
         if (!savedFiltersDataString) {
             savedFilterSets.value = [];
             return;
