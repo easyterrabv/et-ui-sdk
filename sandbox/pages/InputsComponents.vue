@@ -46,6 +46,7 @@
                     ref="wysiwyg"
                     hasAttachments
                     @attachments="handleAttachments"
+                    :inlineImageUploadCallback="handleInlineImageUpload"
                 >
                     <template #inner>
                         <EtButtonDefault
@@ -317,6 +318,16 @@ export default defineComponent({
         },
         handleAttachments(files: FileList) {
             console.log(files);
+        },
+        async handleInlineImageUpload(file: File) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            return await new Promise((resolve, reject) => {
+                reader.onload = function () {
+                    resolve(reader.result);
+                };
+            });
         }
     },
     mounted() {

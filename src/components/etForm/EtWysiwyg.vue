@@ -210,6 +210,15 @@
                             </EtBox>
                         </EtPopover>
                         <EtButton
+                            v-if="inlineImageUploadCallback"
+                            :size="UI_SIZING.S"
+                            :type="UI_TYPES.DEFAULT"
+                            :disabled="hasDisabledInput"
+                            @click="handleInlineImage"
+                        >
+                            <EtIconImage title="Add image" />
+                        </EtButton>
+                        <EtButton
                             v-if="hasAttachments"
                             :size="UI_SIZING.S"
                             :type="UI_TYPES.DEFAULT"
@@ -418,16 +427,24 @@
         <input
             v-if="hasAttachments"
             type="file"
-            ref="fileInput"
+            ref="attachmentFileInput"
             v-bind="attachmentInputArgs"
             style="display: none"
-            @change="onFileInputChange"
+            @change="onAttachmentFileInputChange"
+        />
+        <input
+            v-if="enabledInputGroups.includes('misc')"
+            type="file"
+            ref="inlineImageInput"
+            accept="image/*"
+            style="display: none"
+            @change="onInlineImageFileInputChange"
         />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { Underline } from "@tiptap/extension-underline";
@@ -461,6 +478,10 @@ import EtIconFont from "../etIcon/EtIconFont.vue";
 import EtIconTable from "../etIcon/EtIconTable.vue";
 import EtIconTableColumns from "../etIcon/EtIconTableColumns.vue";
 import EtIconTableCells from "../etIcon/EtIconTableCells.vue";
+import EtIconCirclePlus from "../etIcon/EtIconCirclePlus.vue";
+import EtIconCircleMinus from "../etIcon/EtIconCircleMinus.vue";
+import EtIconPaperclip from "../etIcon/EtIconPaperclip.vue";
+import EtIconImage from "../etIcon/EtIconImage.vue";
 import EtPopover from "../EtPopover.vue";
 import EtBox from "../EtBox.vue";
 import EtInputGroup from "./EtInputGroup.vue";
@@ -473,9 +494,7 @@ import { wait } from "../../helpers/async";
 import { generateId } from "../../helpers/random";
 import EtTextarea from "./EtTextarea.vue";
 import { AllowStyleExtension } from "../../helpers/tiptap/AllowStyleExtension";
-import EtIconCirclePlus from "../etIcon/EtIconCirclePlus.vue";
-import EtIconCircleMinus from "../etIcon/EtIconCircleMinus.vue";
-import EtIconPaperclip from "../etIcon/EtIconPaperclip.vue";
+import { Image } from "@tiptap/extension-image";
 
 export const EDIT_MODES = {
     WYSIWYG: "WYSIWYG",
@@ -535,6 +554,13 @@ export default defineComponent({
             default() {
                 return {};
             }
+        },
+        inlineImageUploadCallback: {
+            type: Function as PropType<
+                (file: File) => Promise<string> | undefined
+            >,
+            required: false,
+            default: undefined
         }
     },
     components: {
@@ -575,7 +601,8 @@ export default defineComponent({
         EtIconTableColumns,
         EtIconTableCells,
         EtIconCirclePlus,
-        EtIconCircleMinus
+        EtIconCircleMinus,
+        EtIconImage
     },
     data() {
         return {
@@ -738,9 +765,9 @@ export default defineComponent({
             input?.blur();
         },
         handleAttachment() {
-            (this.$refs.fileInput as any)?.click?.();
+            (this.$refs.attachmentFileInput as any)?.click?.();
         },
-        onFileInputChange(event: Event) {
+        onAttachmentFileInputChange(event: Event) {
             const target = event.target as HTMLInputElement;
             const files = target.files || [];
 
@@ -749,6 +776,33 @@ export default defineComponent({
             }
 
             this.$emit("attachments", files);
+            target.value = "";
+        },
+        handleInlineImage() {
+            (this.$refs.inlineImageInput as any)?.click?.();
+        },
+        async onInlineImageFileInputChange(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const files = target.files || [];
+
+            if (!files || files.length < 0) {
+                return;
+            }
+
+            if (!this.inlineImageUploadCallback) {
+                console.error(
+                    "Can't add image without inlineImageUploadCallback function"
+                );
+                return;
+            }
+
+            const url = await this.inlineImageUploadCallback(files[0]);
+            if (url) {
+                this.runEditorMethod("setImage", {
+                    src: url
+                });
+            }
+
             target.value = "";
         }
     },
@@ -780,6 +834,10 @@ export default defineComponent({
                 TextAlign.configure({
                     types: ["paragraph"],
                     alignments: ["left", "center", "right"]
+                }),
+                Image.configure({
+                    inline: false,
+                    allowBase64: true
                 }),
                 AllowStyleExtension
             ],
