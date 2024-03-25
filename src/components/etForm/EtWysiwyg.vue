@@ -622,7 +622,9 @@ export default defineComponent({
             ],
             urlFocusPoint: null as "input" | "select" | null,
 
-            editMode: EDIT_MODES.WYSIWYG
+            editMode: EDIT_MODES.WYSIWYG,
+
+            hasDropEventListener: false
         };
     },
     computed: {
@@ -664,9 +666,43 @@ export default defineComponent({
         },
         disabled: "setEditable",
         readonly: "setEditable",
-        editMode: "setEditable"
+        editMode: "setEditable",
+        inlineImageUploadCallback: "inlineImageUploadCallbackChangeHandler"
     },
     methods: {
+        inlineImageUploadCallbackChangeHandler() {
+            const editor = this.$refs.editor as HTMLElement;
+
+            if (!this.inlineImageUploadCallback && this.hasDropEventListener) {
+                this.hasDropEventListener = false;
+                editor.removeEventListener("drop", this.onDropHandler);
+            } else if (
+                this.inlineImageUploadCallback &&
+                !this.hasDropEventListener
+            ) {
+                this.hasDropEventListener = true;
+                editor.addEventListener("drop", this.onDropHandler);
+            }
+        },
+        async onDropHandler(event: DragEvent) {
+            if (this.editMode === EDIT_MODES.CODE) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const files = event.dataTransfer?.files || [];
+            if (!files || files.length < 0) {
+                return;
+            }
+
+            const promises = [];
+            for (const file of files) {
+                promises.push(this.handleInlineImageFile(file));
+            }
+            await Promise.all(promises);
+        },
         toggleEditMode() {
             if (this.editMode === EDIT_MODES.WYSIWYG) {
                 this.editMode = EDIT_MODES.CODE;
@@ -789,6 +825,10 @@ export default defineComponent({
                 return;
             }
 
+            await this.handleInlineImageFile(files[0]);
+            target.value = "";
+        },
+        async handleInlineImageFile(file: File) {
             if (!this.inlineImageUploadCallback) {
                 console.error(
                     "Can't add image without inlineImageUploadCallback function"
@@ -796,14 +836,12 @@ export default defineComponent({
                 return;
             }
 
-            const url = await this.inlineImageUploadCallback(files[0]);
+            const url = await this.inlineImageUploadCallback(file);
             if (url) {
                 this.runEditorMethod("setImage", {
                     src: url
                 });
             }
-
-            target.value = "";
         }
     },
     mounted() {
@@ -845,9 +883,16 @@ export default defineComponent({
                 this.innerData = this.editor?.getHTML();
             }
         });
+
+        this.$nextTick(this.inlineImageUploadCallbackChangeHandler);
     },
     beforeUnmount() {
         this.editor?.destroy();
+
+        const editor = this.$refs.editor as HTMLElement;
+        try {
+            editor?.removeEventListener("drop", this.onDropHandler);
+        } catch (e) {}
     },
     emits: ["update:modelValue", "attachments"]
 });

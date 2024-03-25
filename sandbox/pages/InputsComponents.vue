@@ -319,12 +319,13 @@ export default defineComponent({
         handleAttachments(files: FileList) {
             console.log(files);
         },
-        async handleInlineImageUpload(file: File) {
+        handleInlineImageUpload(file: File) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
 
-            return await new Promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 reader.onload = function () {
+                    console.log(reader.result);
                     resolve(reader.result);
                 };
             });
