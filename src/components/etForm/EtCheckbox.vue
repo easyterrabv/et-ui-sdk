@@ -15,10 +15,23 @@
         :indeterminate="internalIndeterminate"
         @keyup.enter="internalChecked = !internalChecked"
     >
-        <EtIconCheck
-            class="et-sdk-checkbox__checked-icon"
+        <!--        <EtIconCheck-->
+        <!--            class="et-sdk-checkbox__checked-icon"-->
+        <!--            v-if="internalChecked"-->
+        <!--        />-->
+
+        <svg
             v-if="internalChecked"
-        />
+            class="et-sdk-checkbox__checked-icon"
+            width="12"
+            height="10"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="m11.477 1.776-.88-.887a.469.469 0 0 0-.664-.003L4.412 6.363 2.076 4.01a.469.469 0 0 0-.663-.003l-.887.88a.469.469 0 0 0-.003.663L4.07 9.124c.183.184.48.185.663.003l6.742-6.688a.469.469 0 0 0 .003-.663Z"
+                fill-rule="nonzero"
+            />
+        </svg>
     </div>
 </template>
 
@@ -121,7 +134,7 @@ export default defineComponent({
     cursor: pointer;
     background-color: var(--et-sdk-light-0);
     border-radius: 4px;
-    border: 1.5px solid var(--et-sdk-dark-400);
+    border: 1px solid var(--et-sdk-dark-400);
     position: relative;
     color: var(--et-sdk-blue-600);
     fill: var(--et-sdk-blue-600);
@@ -130,26 +143,16 @@ export default defineComponent({
     line-height: 28px;
     font-weight: var(--et-sdk-font-weight-bold);
 
-    width: 15px;
-    height: 15px;
-}
+    width: 17px;
+    height: 17px;
 
-.et-sdk-checkbox:before {
-    position: absolute;
-    left: -2px;
-    top: -8px;
-}
-
-.et-sdk-checkbox__checked-icon {
-    position: absolute;
-    left: -3px;
-    top: -1px;
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .et-sdk-checkbox--indeterminate:before {
     content: "\2013";
-    left: 1px;
 }
 
 .et-sdk-checkbox--disabled {

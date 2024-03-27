@@ -380,6 +380,7 @@ onBeforeUnmount(() => {
     max-width: 15px;
 
     box-sizing: content-box;
+    text-overflow: initial;
 }
 
 /* used in different files */
