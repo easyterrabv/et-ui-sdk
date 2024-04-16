@@ -58,7 +58,7 @@ const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
 const toggle = ref<HTMLElement | null>(null);
 const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
-let popperInstance: Instance;
+let popperInstance: Instance | null = null;
 async function toggleDropdown() {
     if (isVisible.value) {
         hideDropDown();
@@ -71,7 +71,7 @@ async function showDropDown() {
     isVisible.value = true;
     sdkOverlay?.setTransparency(true);
     sdkOverlay?.setVisibility(true);
-    await popperInstance.update();
+    await popperInstance?.update();
 }
 
 function hideDropDown() {
@@ -80,33 +80,33 @@ function hideDropDown() {
 }
 
 onMounted(() => {
-    popperInstance = reactive(
-        createPopper(
-            toggle.value as HTMLElement,
-            content.value as HTMLElement,
-            {
-                placement: props.placement,
-                modifiers: [
-                    {
-                        name: "offset",
-                        options: {
-                            offset: [0, 6]
-                        }
-                    },
-                    {
-                        name: "flip",
-                        options: {
-                            fallbackPlacements: ["top"]
-                        }
+    popperInstance = createPopper(
+        toggle.value as HTMLElement,
+        content.value as HTMLElement,
+        {
+            placement: props.placement,
+            modifiers: [
+                {
+                    name: "offset",
+                    options: {
+                        offset: [0, 6]
                     }
-                ]
-            }
-        )
+                },
+                {
+                    name: "flip",
+                    options: {
+                        fallbackPlacements: ["top"]
+                    }
+                }
+            ]
+        }
     );
     sdkOverlay?.addEvent(EtOverlayEvent.onClick, hideDropDown);
 });
 
 onBeforeUnmount(() => {
+    popperInstance?.destroy();
+    popperInstance = null;
     sdkOverlay?.removeEvent(EtOverlayEvent.onClick, hideDropDown);
 });
 </script>

@@ -71,6 +71,16 @@
                                         Modals
                                     </EtSideBarItem>
                                 </router-link>
+                                <router-link to="/test">
+                                    <EtSideBarItem
+                                        :isActive="$route.matched.some(({path}) => path === '/test')"
+                                        :isCollapsed="scope.isCollapsed">
+                                        <template #icon>
+                                            <EtIconGarageOpen />
+                                        </template>
+                                        Test
+                                    </EtSideBarItem>
+                                </router-link>
                             </EtSideBarSection>
 
                             <EtSideBarSection :isCollapsed="scope.isCollapsed">

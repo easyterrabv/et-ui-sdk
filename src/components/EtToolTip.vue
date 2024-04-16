@@ -62,7 +62,7 @@ const isOnElement = ref(false);
 
 let hasKeepAliveEvents = false;
 
-let popperInstance: Instance;
+let popperInstance: Instance | null = null;
 
 async function showToolTip() {
     isOnElement.value = true;
@@ -102,19 +102,17 @@ watch(
 );
 
 onMounted(() => {
-    popperInstance = reactive(
-        createPopper(toggle.value as any, content.value as any, {
-            placement: props.direction,
-            modifiers: [
-                {
-                    name: "offset",
-                    options: {
-                        offset: [0, props.offset]
-                    }
+    popperInstance = createPopper(toggle.value as any, content.value as any, {
+        placement: props.direction,
+        modifiers: [
+            {
+                name: "offset",
+                options: {
+                    offset: [0, props.offset]
                 }
-            ]
-        })
-    );
+            }
+        ]
+    });
 
     (toggle.value as any).addEventListener("mouseenter", showToolTip);
     (toggle.value as any).addEventListener("mouseleave", hideToolTip);
@@ -127,6 +125,9 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+    popperInstance?.destroy();
+    popperInstance = null;
+
     (toggle.value as any).removeEventListener("mouseenter", showToolTip);
     (toggle.value as any).removeEventListener("mouseleave", hideToolTip);
 

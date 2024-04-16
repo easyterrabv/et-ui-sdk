@@ -59,7 +59,7 @@ const toggle = ref<HTMLElement | null>(null);
 const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
-let popperInstance: Instance;
+let popperInstance: Instance | null = null;
 
 const props = defineProps({
     dataGetter: {
@@ -105,28 +105,28 @@ async function handleOptionSelect(option: OptionModel) {
 }
 
 onMounted(() => {
-    popperInstance = reactive(
-        createPopper(
-            toggle.value as HTMLElement,
-            content.value as HTMLElement,
-            {
-                placement: "bottom-start",
-                modifiers: [
-                    {
-                        name: "offset",
-                        options: {
-                            offset: [0, 6]
-                        }
+    popperInstance = createPopper(
+        toggle.value as HTMLElement,
+        content.value as HTMLElement,
+        {
+            placement: "bottom-start",
+            modifiers: [
+                {
+                    name: "offset",
+                    options: {
+                        offset: [0, 6]
                     }
-                ]
-            }
-        )
+                }
+            ]
+        }
     );
 
     sdkOverlay?.addEvent(EtOverlayEvent.onClick, hideToolTip);
 });
 
 onBeforeUnmount(() => {
+    popperInstance?.destroy();
+    popperInstance = null;
     sdkOverlay?.removeEvent(EtOverlayEvent.onClick, hideToolTip);
 });
 </script>
