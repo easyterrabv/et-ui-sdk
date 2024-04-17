@@ -238,11 +238,30 @@ export const dateToBase = (date: Date): Date => {
     );
 };
 
-export const dateToYMD = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
-    return `${year}-${month + 1}-${day}`;
+export const dateToYMD = (
+    date: Date | string | number,
+    pad: boolean = false
+): string => {
+    let _date: Date;
+    if (typeof date === "string" || typeof date === "number") {
+        _date = new Date(date);
+    } else {
+        _date = date;
+    }
+
+    const year = _date.getFullYear();
+
+    let month: string | number = _date.getMonth() + 1;
+    if (pad && month < 10) {
+        month = `0${month}`;
+    }
+
+    let day: string | number = _date.getDate();
+    if (pad && day < 10) {
+        day = `0${day}`;
+    }
+
+    return `${year}-${month}-${day}`;
 };
 
 export const dateToFormattedString = (
