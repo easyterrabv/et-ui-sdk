@@ -45,7 +45,15 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, markRaw, nextTick, onMounted, provide, ref } from "vue";
+import {
+    computed,
+    markRaw,
+    nextTick,
+    onMounted,
+    provide,
+    ref,
+    watch
+} from "vue";
 import type {
     IEtModalProvide,
     IModal,
@@ -289,7 +297,16 @@ function openModalsFromUrl() {
 onMounted(async () => {
     await nextTick();
     await wait(150);
-    openModalsFromUrl();
+    watch(
+        () => route.query,
+        () => {
+            openModalsFromUrl();
+        },
+        {
+            deep: true,
+            once: true
+        }
+    );
 });
 
 provide<IEtModalProvide>("SDKModalProvide", {
