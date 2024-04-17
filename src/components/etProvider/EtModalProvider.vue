@@ -297,16 +297,24 @@ function openModalsFromUrl() {
 onMounted(async () => {
     await nextTick();
     await wait(150);
-    watch(
-        () => route.query,
-        () => {
-            openModalsFromUrl();
-        },
-        {
-            deep: true,
-            once: true
-        }
-    );
+
+    if (route.query && Object.keys(route.query).length > 0) {
+        openModalsFromUrl();
+    } else {
+        // In some cases, the route.query is not available yet
+        // immediate:true doesn't work, because that conflicts with the once:true
+        // So only adding a watcher if it isn't available yet.
+        watch(
+            () => route.query,
+            () => {
+                openModalsFromUrl();
+            },
+            {
+                deep: true,
+                once: true
+            }
+        );
+    }
 });
 
 provide<IEtModalProvide>("SDKModalProvide", {
