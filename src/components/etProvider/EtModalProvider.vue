@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, markRaw, onMounted, provide, ref } from "vue";
+import { computed, markRaw, nextTick, onMounted, provide, ref } from "vue";
 import type {
     IEtModalProvide,
     IModal,
@@ -259,8 +259,7 @@ function closeModal(guid: string | null) {
     saveModalsToUrl();
 }
 
-async function openModalsFromUrl() {
-    await wait(50);
+function openModalsFromUrl() {
     const savedModalData = urlData.getDataFromUrl();
 
     if (!savedModalData) {
@@ -287,7 +286,9 @@ async function openModalsFromUrl() {
     });
 }
 
-onMounted(() => {
+onMounted(async () => {
+    await nextTick();
+    await wait(150);
     openModalsFromUrl();
 });
 
