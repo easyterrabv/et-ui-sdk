@@ -197,7 +197,7 @@ const emits = defineEmits(["open", "hide"]);
 }
 
 .et-sdk-popover__popover {
-    z-index: 30;
+    z-index: 13000;
 
     background-color: var(--et-sdk-light-0);
     border-radius: 5px;

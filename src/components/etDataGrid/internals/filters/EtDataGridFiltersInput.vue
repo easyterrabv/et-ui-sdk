@@ -326,7 +326,7 @@ onBeforeUnmount(() => {
 }
 
 .et-sdk-data-grid__filters-wrapper {
-    z-index: 30;
+    z-index: 13000;
     width: var(--data-grid-filter-input-width);
 
     border-radius: 8px;

@@ -106,7 +106,7 @@ export default defineComponent({
 <style>
 .et-sdk-side-bar {
     padding-top: 24px;
-    z-index: 10;
+    z-index: 11000;
     height: 100%;
     max-height: 100%;
     background-color: var(--et-sdk-dark-50);

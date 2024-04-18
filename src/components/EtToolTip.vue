@@ -146,6 +146,6 @@ onBeforeUnmount(() => {
     font-size: var(--et-sdk-font-size-tiny);
     box-shadow: var(--et-sdk-shadow-normal);
 
-    z-index: 1000;
+    z-index: 14000;
 }
 </style>

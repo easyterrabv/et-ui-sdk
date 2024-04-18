@@ -133,6 +133,6 @@ onBeforeUnmount(() => {
 
 <style>
 .et-sdk-et-dynamic-select__options {
-    z-index: 30;
+    z-index: 13000;
 }
 </style>
