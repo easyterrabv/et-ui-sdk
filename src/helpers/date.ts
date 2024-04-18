@@ -375,3 +375,28 @@ export function formatDateTime(date: number | string | Date) {
         timeStyle: "short"
     }).format(new Date(date));
 }
+
+export function calculateAge(
+    birthdate: Date,
+    calculateAt: Date = new Date()
+): number {
+    const birthYear = birthdate.getFullYear();
+    const birthMonth = birthdate.getMonth();
+    const birthDay = birthdate.getDate();
+    const calculateYear = calculateAt.getFullYear();
+    const calculateMonth = calculateAt.getMonth();
+    const calculateDay = calculateAt.getDate();
+
+    let age = calculateYear - birthYear;
+
+    // If the current month is before the birth month or if it's the same month but the day is before the birth day,
+    // then the person hasn't had their birthday yet this year.
+    if (
+        calculateMonth < birthMonth ||
+        (calculateMonth === birthMonth && calculateDay < birthDay)
+    ) {
+        age--;
+    }
+
+    return age;
+}
