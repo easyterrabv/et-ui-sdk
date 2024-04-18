@@ -377,15 +377,30 @@ export function formatDateTime(date: number | string | Date) {
 }
 
 export function calculateAge(
-    birthdate: Date,
-    calculateAt: Date = new Date()
+    birthdate: Date | string | number,
+    calculateAt: Date | string | number = new Date()
 ): number {
-    const birthYear = birthdate.getFullYear();
-    const birthMonth = birthdate.getMonth();
-    const birthDay = birthdate.getDate();
-    const calculateYear = calculateAt.getFullYear();
-    const calculateMonth = calculateAt.getMonth();
-    const calculateDay = calculateAt.getDate();
+    let _birthdate: Date;
+    if (typeof birthdate === "string" || typeof birthdate === "number") {
+        _birthdate = new Date(birthdate);
+    } else {
+        _birthdate = birthdate;
+    }
+
+    let _calculateAt: Date;
+    if (typeof calculateAt === "string" || typeof calculateAt === "number") {
+        _calculateAt = new Date(calculateAt);
+    } else {
+        _calculateAt = calculateAt;
+    }
+
+    const birthYear = _birthdate.getFullYear();
+    const birthMonth = _birthdate.getMonth();
+    const birthDay = _birthdate.getDate();
+
+    const calculateYear = _calculateAt.getFullYear();
+    const calculateMonth = _calculateAt.getMonth();
+    const calculateDay = _calculateAt.getDate();
 
     let age = calculateYear - birthYear;
 
