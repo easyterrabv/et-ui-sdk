@@ -79,7 +79,7 @@ onMounted(() => {
 .et-sdk-modal {
     background-color: var(--et-sdk-light-0);
     border-radius: 14px;
-    box-shadow: var(--et-sdk-shadow-light);
+    box-shadow: 0 2px 15px 0 rgba(17, 24, 39, 0.15);
     max-width: 636px;
     width: 100%;
 

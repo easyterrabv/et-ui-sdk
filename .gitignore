@@ -15,3 +15,6 @@ node_modules
 /.npmrc
 .idea/workspace.xml
 /dist/
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
+/.idea/inspectionProfiles/Project_Default.xml
