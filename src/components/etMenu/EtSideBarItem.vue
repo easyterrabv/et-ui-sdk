@@ -43,8 +43,8 @@ export default defineComponent({
 
 <style>
 .et-sdk-sidebar-item {
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     cursor: pointer;
     font-size: var(--et-sdk-font-size-normal);
     line-height: 20px;
@@ -66,24 +66,29 @@ export default defineComponent({
 }
 
 .et-sdk-sidebar-item__sidebar-open {
-    margin-right: 24px;
-    border-top-right-radius: 17px;
-    border-bottom-right-radius: 17px;
-    padding-left: 24px;
-}
-
-.et-sdk-sidebar-item__sidebar-closed {
-    margin-left: 8px;
-    margin-right: 8px;
-    border-radius: 99999px;
-    text-align: center;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .et-sdk-sidebar-item--icon {
     width: 12px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-right: 5px;
     color: var(--et-sdk-dark-600);
+}
+
+.et-sdk-sidebar-item__sidebar-closed {
+    margin-left: 6px;
+    margin-right: 6px;
+    border-radius: 6px;
+    text-align: center;
+
+    .et-sdk-sidebar-item--icon {
+        padding: 0;
+        text-align: center;
+    }
 }
 
 .et-sdk-sidebar-item__active--icon {
