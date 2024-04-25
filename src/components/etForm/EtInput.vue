@@ -1,18 +1,25 @@
 <template>
     <div
         class="et-sdk-input-wrapper"
+        :tabindex="disabled ? 'none' : -1"
         :class="[
             wrapperClasses,
-            'et-sdk-input-theme-' + theme,
             {
                 'et-sdk-input-wrapper__l': size === UI_SIZING.L,
                 'et-sdk-input-wrapper__m': size === UI_SIZING.M,
                 'et-sdk-input-wrapper__s': size === UI_SIZING.S,
-                'et-sdk-input-wrapper__xs': size === UI_SIZING.XS
+                'et-sdk-input-wrapper__xs': size === UI_SIZING.XS,
+                'et-sdk-input-wrapper__theme-normal': theme === 'normal',
+                'et-sdk-input-wrapper__theme-grey': theme === 'grey',
+                'et-sdk-input-wrapper__theme-gmail': theme === 'gmail'
             }
         ]"
     >
-        <span v-if="$slots.preIcon" class="et-sdk-input-pre">
+        <span
+            v-if="$slots.preIcon"
+            class="et-sdk-input-pre et-sdk-input-peripheral"
+            @click="focus"
+        >
             <slot name="preIcon"></slot>
         </span>
         <input
@@ -40,8 +47,6 @@
                 'et-sdk-input__with-post-icon':
                     (clearButton && !$slots.postIcon) ||
                     (!clearButton && $slots.postIcon),
-                'et-sdk-input__with-post-icon-and_clear':
-                    clearButton && $slots.postIcon,
                 'et-sdk-input__disabled': disabled,
                 'et-sdk-input__success': success,
                 'et-sdk-input__warning': warning,
@@ -50,7 +55,7 @@
             class="et-sdk-input"
         />
         <span
-            class="et-sdk-input-clear"
+            class="et-sdk-input-clear et-sdk-input-peripheral"
             :class="{
                 'et-sdk-input-clear__with-post-icon': $slots.postIcon
             }"
@@ -59,7 +64,11 @@
         >
             <EtIconTimes />
         </span>
-        <span v-if="$slots.postIcon" class="et-sdk-input-post">
+        <span
+            v-if="$slots.postIcon"
+            class="et-sdk-input-post et-sdk-input-peripheral"
+            @click="focus"
+        >
             <slot name="postIcon"></slot>
         </span>
     </div>
@@ -149,7 +158,7 @@ export const commonInputProps = {
         default: false
     },
     theme: {
-        type: String as PropType<"normal" | "grey">,
+        type: String as PropType<"normal" | "grey" | "gmail">,
         required: false,
         default: "normal"
     }
@@ -376,18 +385,23 @@ export default defineComponent({
 
 <style>
 .et-sdk-input-wrapper {
-    position: relative;
     min-width: 100px;
     max-width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    border-radius: var(--et-sdk-input-border-radius);
+    border: 1px solid var(--et-sdk-dark-300);
+
+    &:focus-within {
+        outline: -webkit-focus-ring-color auto 1px;
+    }
 }
 
-.et-sdk-input-pre {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: max-content;
-    width: max-content;
+.et-sdk-input-peripheral {
     color: var(--et-sdk-dark-300);
+    white-space: nowrap;
 }
 
 .et-sdk-input-wrapper__l .et-sdk-input-pre,
@@ -417,17 +431,43 @@ export default defineComponent({
 .et-sdk-input {
     display: block;
     width: 100%;
-    border-radius: var(--et-sdk-input-border-radius);
-    border: 1px solid var(--et-sdk-dark-300);
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal);
     line-height: 24px;
     color: var(--et-sdk-dark-800);
+    border-radius: var(--et-sdk-input-border-radius);
+
+    outline: none;
 }
 
-.et-sdk-input-theme-grey .et-sdk-input {
+.et-sdk-input-wrapper__theme-grey .et-sdk-input {
     border: none;
     background-color: var(--et-sdk-light-100);
+}
+
+.et-sdk-input-wrapper__theme-gmail {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--et-sdk-dark-200);
+}
+
+.et-sdk-input-wrapper__theme-gmail .et-sdk-input-pre {
+    color: var(--et-sdk-dark-700);
+}
+
+.et-sdk-input-wrapper__theme-gmail .et-sdk-input {
+    &::placeholder {
+        color: var(--et-sdk-dark-300);
+    }
+
+    &.et-sdk-input__disabled {
+        background-color: transparent;
+        color: var(--et-sdk-dark-500);
+
+        &::placeholder {
+            color: var(--et-sdk-dark-200);
+        }
+    }
 }
 
 .et-sdk-input::placeholder {
@@ -456,15 +496,11 @@ export default defineComponent({
 }
 
 .et-sdk-input__with-pre-icon {
-    padding-left: 34px !important;
+    padding-left: 0 !important;
 }
 
 .et-sdk-input__with-post-icon {
-    padding-right: 34px !important;
-}
-
-.et-sdk-input__with-post-icon-and_clear {
-    padding-right: 68px !important;
+    padding-right: 0 !important;
 }
 
 .et-sdk-input__success {
@@ -477,28 +513,5 @@ export default defineComponent({
 
 .et-sdk-input__error {
     border-color: var(--et-sdk-danger-300);
-}
-
-.et-sdk-input-clear {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: max-content;
-    height: max-content;
-    cursor: pointer;
-    color: var(--et-sdk-dark-300);
-}
-
-.et-sdk-input-clear__with-post-icon {
-    right: 24px;
-}
-
-.et-sdk-input-post {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: max-content;
-    width: max-content;
-    color: var(--et-sdk-dark-300);
 }
 </style>

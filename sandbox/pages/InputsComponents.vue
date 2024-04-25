@@ -10,9 +10,41 @@
                     <template #label>Simple Input</template>
                     <EtInput/>
                 </EtFormGroup>
+
+                <EtFormGroup>
+                    <template #label>Simple Input</template>
+                    <EtInput>
+                        <template #preIcon>With Pre</template>
+                    </EtInput>
+                </EtFormGroup>
+                <EtFormGroup>
+                    <template #label>Simple Input</template>
+                    <EtInput>
+                        <template #postIcon>With Post</template>
+                    </EtInput>
+                </EtFormGroup>
+
                 <EtFormGroup>
                     <template #label>Simple Grey Input</template>
                     <EtInput theme="grey" placeholder="placeholder text"/>
+                </EtFormGroup>
+
+                <EtFormGroup>
+                    <template #label>Simple Gmail Style Input</template>
+                    <EtInput theme="gmail" placeholder="placeholder text"/>
+                </EtFormGroup>
+
+                <EtFormGroup>
+                    <template #label>Disabled Simple Gmail Style Input</template>
+                    <EtInput theme="gmail" placeholder="placeholder text" disabled />
+                </EtFormGroup>
+
+                <EtFormGroup>
+                    <EtInput theme="gmail" placeholder="placeholder text">
+                        <template #preIcon>
+                            VoucherId
+                        </template>
+                    </EtInput>
                 </EtFormGroup>
 
                 <EtFormGroup style="margin-top: 16px;">
