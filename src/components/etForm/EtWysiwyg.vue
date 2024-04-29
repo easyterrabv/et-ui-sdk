@@ -455,6 +455,8 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { Link } from "@tiptap/extension-link";
+import ImageResize from "tiptap-extension-resize-image";
+
 import EtButtonGroup from "../etButton/EtButtonGroup.vue";
 import EtButton from "../etButton/EtButton.vue";
 import EtButtonDanger from "../etButton/EtButtonDanger.vue";
@@ -494,7 +496,6 @@ import { wait } from "../../helpers/async";
 import { generateId } from "../../helpers/random";
 import EtTextarea from "./EtTextarea.vue";
 import { AllowStyleExtension } from "../../helpers/tiptap/AllowStyleExtension";
-import { Image } from "@tiptap/extension-image";
 
 export const EDIT_MODES = {
     WYSIWYG: "WYSIWYG",
@@ -862,6 +863,10 @@ export default defineComponent({
                 TableCell,
                 TableHeader,
                 TableRow,
+                ImageResize.configure({
+                    inline: false,
+                    allowBase64: true
+                }),
                 Link.configure({
                     openOnClick: false,
                     HTMLAttributes: {
@@ -872,10 +877,6 @@ export default defineComponent({
                 TextAlign.configure({
                     types: ["paragraph"],
                     alignments: ["left", "center", "right"]
-                }),
-                Image.configure({
-                    inline: false,
-                    allowBase64: true
                 }),
                 AllowStyleExtension
             ],
