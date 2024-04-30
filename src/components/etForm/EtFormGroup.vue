@@ -1,9 +1,12 @@
 <template>
     <div class="et-sdk-form-group">
-        <EtLabel>
+        <EtLabel v-if="$slots.label">
             <slot name="label"></slot>
         </EtLabel>
-        <EtInputGroup class="et-sdk-form-group--input-group">
+        <EtInputGroup
+            class="et-sdk-form-group--input-group"
+            v-if="$slots.default"
+        >
             <slot></slot>
         </EtInputGroup>
         <div v-if="$slots.after" class="mt-2">
