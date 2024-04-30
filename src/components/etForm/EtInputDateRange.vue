@@ -18,7 +18,7 @@
                             @enter="(value) => onInputChange(value, 'first')"
                             @change="(value) => onInputChange(value, 'first')"
                         >
-                            <template #preIcon>
+                            <template #pre>
                                 <EtIconCalendar />
                             </template>
                         </EtInput>
@@ -42,7 +42,7 @@
                             @enter="(value) => onInputChange(value, 'second')"
                             @change="(value) => onInputChange(value, 'second')"
                         >
-                            <template #preIcon>
+                            <template #pre>
                                 <EtIconCalendar />
                             </template>
                         </EtInput>

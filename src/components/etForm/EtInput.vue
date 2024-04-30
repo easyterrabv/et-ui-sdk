@@ -16,11 +16,11 @@
         ]"
     >
         <span
-            v-if="$slots.preIcon"
+            v-if="$slots.pre"
             class="et-sdk-input-pre et-sdk-input-peripheral"
             @click="focus"
         >
-            <slot name="preIcon"></slot>
+            <slot name="pre"></slot>
         </span>
         <input
             v-bind="$attrs"
@@ -43,10 +43,10 @@
             @focus="handleFocusEmit"
             @blur="handleBlurEmit"
             :class="{
-                'et-sdk-input__with-pre-icon': $slots.preIcon,
+                'et-sdk-input__with-pre-icon': $slots.pre,
                 'et-sdk-input__with-post-icon':
-                    (clearButton && !$slots.postIcon) ||
-                    (!clearButton && $slots.postIcon),
+                    (clearButton && !$slots.post) ||
+                    (!clearButton && $slots.post),
                 'et-sdk-input__disabled': disabled,
                 'et-sdk-input__success': success,
                 'et-sdk-input__warning': warning,
@@ -57,7 +57,7 @@
         <span
             class="et-sdk-input-clear et-sdk-input-peripheral"
             :class="{
-                'et-sdk-input-clear__with-post-icon': $slots.postIcon
+                'et-sdk-input-clear__with-post-icon': $slots.post
             }"
             v-if="clearButton && !disabled && !readonly && internalData"
             @click.left.stop="clear"
@@ -65,11 +65,11 @@
             <EtIconTimes />
         </span>
         <span
-            v-if="$slots.postIcon"
+            v-if="$slots.post"
             class="et-sdk-input-post et-sdk-input-peripheral"
             @click="focus"
         >
-            <slot name="postIcon"></slot>
+            <slot name="post"></slot>
         </span>
     </div>
 </template>

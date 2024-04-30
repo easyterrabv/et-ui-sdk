@@ -28,7 +28,7 @@
                         @blur="onInputBlur"
                         clearButton
                     >
-                        <template #preIcon>
+                        <template #pre>
                             <EtIconCalendar />
                         </template>
                     </EtInput>

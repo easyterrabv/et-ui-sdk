@@ -14,13 +14,13 @@
                 <EtFormGroup>
                     <template #label>Simple Input</template>
                     <EtInput>
-                        <template #preIcon>With Pre</template>
+                        <template #pre>With Pre</template>
                     </EtInput>
                 </EtFormGroup>
                 <EtFormGroup>
                     <template #label>Simple Input</template>
                     <EtInput>
-                        <template #postIcon>With Post</template>
+                        <template #post>With Post</template>
                     </EtInput>
                 </EtFormGroup>
 
@@ -41,7 +41,7 @@
 
                 <EtFormGroup>
                     <EtInput theme="gmail" placeholder="placeholder text">
-                        <template #preIcon>
+                        <template #pre>
                             VoucherId
                         </template>
                     </EtInput>

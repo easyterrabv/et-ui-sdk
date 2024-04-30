@@ -13,7 +13,7 @@
             v-model="searchInput"
             @enter="handleInputEnterPressed"
         >
-            <template #preIcon>
+            <template #pre>
                 <EtIconSearch class="et-sdk-select-dynamic__search__icon" />
             </template>
         </EtInput>
