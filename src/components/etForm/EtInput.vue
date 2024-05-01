@@ -22,38 +22,56 @@
         >
             <slot name="pre"></slot>
         </span>
-        <input
-            v-bind="$attrs"
-            v-model="internalData"
-            ref="et-sdk-input"
-            :type="type"
-            :name="name"
-            :autocomplete="autocomplete ? 'off' : 'on'"
-            autocapitalize="off"
-            autocorrect="off"
-            spellcheck="false"
-            :placeholder="placeholder"
-            :disabled="disabled"
-            :readonly="readonly"
-            :required="required"
-            :[minAttr]="min"
-            :[maxAttr]="max"
-            @keyup="emitKeyup"
-            @keyup.enter="enterEmit"
-            @focus="handleFocusEmit"
-            @blur="handleBlurEmit"
-            :class="{
-                'et-sdk-input__with-pre-icon': $slots.pre,
-                'et-sdk-input__with-post-icon':
-                    (clearButton && !$slots.post) ||
-                    (!clearButton && $slots.post),
-                'et-sdk-input__disabled': disabled,
-                'et-sdk-input__success': success,
-                'et-sdk-input__warning': warning,
-                'et-sdk-input__error': error
-            }"
-            class="et-sdk-input"
-        />
+        <div class="et-sdk-input--input-wrapper">
+            <input
+                v-bind="$attrs"
+                v-model="internalData"
+                ref="et-sdk-input"
+                :type="type"
+                :name="name"
+                :autocomplete="autocomplete ? 'off' : 'on'"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+                :placeholder="placeholder"
+                :disabled="disabled"
+                :readonly="readonly"
+                :required="required"
+                :[minAttr]="min"
+                :[maxAttr]="max"
+                @keyup="emitKeyup"
+                @keyup.enter="enterEmit"
+                @focus="handleFocusEmit"
+                @blur="handleBlurEmit"
+                :class="{
+                    'et-sdk-input__with-pre-icon': $slots.pre,
+                    'et-sdk-input__with-post-icon':
+                        (clearButton && !$slots.post) ||
+                        (!clearButton && $slots.post),
+                    'et-sdk-input__disabled': disabled,
+                    'et-sdk-input__success': success,
+                    'et-sdk-input__warning': warning,
+                    'et-sdk-input__error': error
+                }"
+                class="et-sdk-input"
+            />
+            <div
+                v-if="$slots.overlay"
+                class="et-sdk-input--overlay-content"
+                :class="{
+                    'et-sdk-input__with-pre-icon': $slots.pre,
+                    'et-sdk-input__with-post-icon':
+                        (clearButton && !$slots.post) ||
+                        (!clearButton && $slots.post),
+                    'et-sdk-input__disabled': disabled,
+                    'et-sdk-input__success': success,
+                    'et-sdk-input__warning': warning,
+                    'et-sdk-input__error': error
+                }"
+            >
+                <slot name="overlay" />
+            </div>
+        </div>
         <span
             class="et-sdk-input-clear et-sdk-input-peripheral"
             :class="{
@@ -395,37 +413,42 @@ export default defineComponent({
     border: 1px solid var(--et-sdk-dark-300);
 
     &:focus-within {
-        outline: -webkit-focus-ring-color auto 1px;
+        outline: none;
+        box-shadow: 0 0 0 1px black;
     }
 }
 
 .et-sdk-input-peripheral {
     color: var(--et-sdk-dark-300);
     white-space: nowrap;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .et-sdk-input-wrapper__l .et-sdk-input-pre,
 .et-sdk-input-wrapper__l .et-sdk-input-clear,
 .et-sdk-input-wrapper__l .et-sdk-input-post {
-    padding: 14px;
+    padding: 12px;
 }
 
 .et-sdk-input-wrapper__m .et-sdk-input-pre,
 .et-sdk-input-wrapper__m .et-sdk-input-clear,
 .et-sdk-input-wrapper__m .et-sdk-input-post {
-    padding: 10px;
+    padding: 8px;
 }
 
 .et-sdk-input-wrapper__s .et-sdk-input-pre,
 .et-sdk-input-wrapper__s .et-sdk-input-clear,
 .et-sdk-input-wrapper__s .et-sdk-input-post {
-    padding: 6px;
+    padding: 4px;
 }
 
 .et-sdk-input-wrapper__xs .et-sdk-input-pre,
 .et-sdk-input-wrapper__xs .et-sdk-input-clear,
 .et-sdk-input-wrapper__xs .et-sdk-input-post {
-    padding: 4px;
+    padding: 2px;
 }
 
 .et-sdk-input {
@@ -433,11 +456,24 @@ export default defineComponent({
     width: 100%;
     font-weight: var(--et-sdk-font-weight-normal);
     font-size: var(--et-sdk-font-size-normal);
-    line-height: 24px;
     color: var(--et-sdk-dark-800);
     border-radius: var(--et-sdk-input-border-radius);
-
     outline: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.et-sdk-input--input-wrapper {
+    flex-grow: 1;
+    position: relative;
+    background: none;
+    outline: none;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .et-sdk-input-wrapper__theme-grey {
@@ -478,19 +514,23 @@ export default defineComponent({
     color: var(--et-sdk-dark-300);
 }
 
-.et-sdk-input-wrapper__xs .et-sdk-input {
+.et-sdk-input-wrapper__xs .et-sdk-input,
+.et-sdk-input-wrapper__xs .et-sdk-input--overlay-content {
     padding: 2px 6px;
 }
 
-.et-sdk-input-wrapper__s .et-sdk-input {
+.et-sdk-input-wrapper__s .et-sdk-input,
+.et-sdk-input-wrapper__s .et-sdk-input--overlay-content {
     padding: 4px 10px;
 }
 
-.et-sdk-input-wrapper__m .et-sdk-input {
+.et-sdk-input-wrapper__m .et-sdk-input,
+.et-sdk-input-wrapper__m .et-sdk-input--overlay-content {
     padding: 8px 14px;
 }
 
-.et-sdk-input-wrapper__l .et-sdk-input {
+.et-sdk-input-wrapper__l .et-sdk-input,
+.et-sdk-input-wrapper__l .et-sdk-input--overlay-content {
     padding: 12px 18px;
 }
 
@@ -517,5 +557,16 @@ export default defineComponent({
 
 .et-sdk-input__error {
     border-color: var(--et-sdk-danger-300);
+}
+
+.et-sdk-input--overlay-content {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: transparent;
+
+    &:focus {
+        outline: none;
+    }
 }
 </style>

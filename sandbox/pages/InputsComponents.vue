@@ -12,15 +12,33 @@
                 </EtFormGroup>
 
                 <EtFormGroup>
-                    <template #label>Simple Input</template>
+                    <template #label>Simple Input with pre</template>
                     <EtInput>
                         <template #pre>With Pre</template>
                     </EtInput>
                 </EtFormGroup>
                 <EtFormGroup>
-                    <template #label>Simple Input</template>
+                    <template #label>Simple Input with Post</template>
                     <EtInput>
                         <template #post>With Post</template>
+                    </EtInput>
+                </EtFormGroup>
+
+                <EtFormGroup>
+                    <template #label>Simple Readonly Input with overlay</template>
+                    <EtInput readonly>
+                        <template #post>With Post</template>
+                        <template #overlay>
+                            <EtBadgePrimary>
+                                One Primary badge
+                            </EtBadgePrimary>
+                            <EtBadgePrimary>
+                                Two Primary badge
+                            </EtBadgePrimary>
+                            <EtBadgePrimary>
+                                Three Primary badge
+                            </EtBadgePrimary>
+                        </template>
                     </EtInput>
                 </EtFormGroup>
 
@@ -216,9 +234,13 @@ import {OptionModel} from "../../src/models/Option";
 import {wait} from "../../src/helpers/async";
 import EtButton from "../../src/components/etButton/EtButton.vue";
 import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
+import EtBadge from "src/components/etBadge/EtBadge.vue";
+import EtBadgePrimary from "src/components/etBadge/EtBadgePrimary.vue";
 
 export default defineComponent({
     components: {
+        EtBadgePrimary,
+        EtBadge,
         EtButtonDefault,
         EtButton,
         EtContent,
