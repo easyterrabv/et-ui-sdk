@@ -440,9 +440,13 @@ export default defineComponent({
     outline: none;
 }
 
-.et-sdk-input-wrapper__theme-grey .et-sdk-input {
-    border: none;
+.et-sdk-input-wrapper__theme-grey {
     background-color: var(--et-sdk-light-100);
+
+    .et-sdk-input {
+        border: none;
+        background-color: var(--et-sdk-light-100);
+    }
 }
 
 .et-sdk-input-wrapper__theme-gmail {
