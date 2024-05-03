@@ -65,6 +65,14 @@
                     </EtInput>
                 </EtFormGroup>
 
+                <EtFormGroup>
+                    <EtInput theme="gmail" placeholder="placeholder text" disabled>
+                        <template #pre>
+                            VoucherId
+                        </template>
+                    </EtInput>
+                </EtFormGroup>
+
                 <EtFormGroup style="margin-top: 16px;">
                     <template #label>Password Input</template>
                     <EtInput type="password"/>

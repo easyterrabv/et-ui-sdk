@@ -11,7 +11,11 @@
                 'et-sdk-input-wrapper__xs': size === UI_SIZING.XS,
                 'et-sdk-input-wrapper__theme-normal': theme === 'normal',
                 'et-sdk-input-wrapper__theme-grey': theme === 'grey',
-                'et-sdk-input-wrapper__theme-gmail': theme === 'gmail'
+                'et-sdk-input-wrapper__theme-gmail': theme === 'gmail',
+                'et-sdk-input-wrapper__disabled': disabled,
+                'et-sdk-input-wrapper__success': success,
+                'et-sdk-input-wrapper__warning': warning,
+                'et-sdk-input-wrapper__error': error
             }
         ]"
     >
@@ -500,12 +504,27 @@ export default defineComponent({
         color: var(--et-sdk-dark-300);
     }
 
+    border-radius: 0;
+
     &.et-sdk-input__disabled {
         color: var(--et-sdk-dark-500);
 
         &::placeholder {
             color: var(--et-sdk-dark-200);
         }
+    }
+}
+
+.et-sdk-input-wrapper__disabled {
+    color: var(--et-sdk-dark-500);
+
+    &::placeholder {
+        color: var(--et-sdk-dark-200);
+    }
+
+    .et-sdk-input-peripheral {
+        background-color: var(--et-sdk-dark-50);
+        cursor: not-allowed;
     }
 }
 
