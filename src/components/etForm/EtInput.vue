@@ -501,7 +501,6 @@ export default defineComponent({
     }
 
     &.et-sdk-input__disabled {
-        background-color: transparent;
         color: var(--et-sdk-dark-500);
 
         &::placeholder {
