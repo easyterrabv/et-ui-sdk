@@ -75,10 +75,18 @@ const props = defineProps({
     onOptionSelect: {
         type: Function as PropType<(selectedOption: OptionModel) => void>,
         required: true
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     }
 });
 
 async function showToolTip() {
+    if (props.disabled) {
+        return;
+    }
+
     isVisible.value = true;
     sdkOverlay?.setTransparency(true);
     sdkOverlay?.setVisibility(true);
