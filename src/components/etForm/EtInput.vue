@@ -518,10 +518,6 @@ export default defineComponent({
 .et-sdk-input-wrapper__disabled {
     color: var(--et-sdk-dark-500);
 
-    &::placeholder {
-        color: var(--et-sdk-dark-200);
-    }
-
     .et-sdk-input-peripheral {
         background-color: var(--et-sdk-dark-50);
         cursor: not-allowed;
