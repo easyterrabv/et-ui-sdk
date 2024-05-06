@@ -327,6 +327,15 @@ provide<IEtModalProvide>("SDKModalProvide", {
 </script>
 
 <style>
+.et-sdk-modals__container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+}
+
 .et-sdk-modals__wrapper {
     position: absolute;
     top: 150px;
@@ -335,7 +344,7 @@ provide<IEtModalProvide>("SDKModalProvide", {
 }
 
 .et-sdk-modals__backdrop {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
