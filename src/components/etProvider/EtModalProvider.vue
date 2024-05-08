@@ -334,6 +334,7 @@ provide<IEtModalProvide>("SDKModalProvide", {
     width: 100vw;
     height: 100vh;
     overflow: auto;
+    pointer-events: none;
 }
 
 .et-sdk-modals__wrapper {
