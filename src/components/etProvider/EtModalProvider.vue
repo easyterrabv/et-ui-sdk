@@ -342,6 +342,7 @@ provide<IEtModalProvide>("SDKModalProvide", {
     top: 150px;
     left: 50%;
     transform: translateX(-50%);
+    pointer-events: all;
 }
 
 .et-sdk-modals__backdrop {
@@ -352,5 +353,6 @@ provide<IEtModalProvide>("SDKModalProvide", {
     height: 100vh;
     background-color: var(--et-sdk-dark-900);
     opacity: 0.2;
+    pointer-events: all;
 }
 </style>
