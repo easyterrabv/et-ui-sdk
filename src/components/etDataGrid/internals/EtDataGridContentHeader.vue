@@ -9,7 +9,11 @@
             >
                 <EtDataGridFiltersInput
                     :onFilterSave="onFilterSave"
+                    :filterDefinitions="filters"
                     @filtersCleared="emit('filtersCleared')"
+                    @filtersChanged="
+                        (_filters) => emit('filtersChanged', _filters)
+                    "
                 />
             </Teleport>
         </div>
@@ -67,7 +71,10 @@ import type { DataGridRow } from "../interfaces/DataGridRow";
 import { computed, inject } from "vue";
 import type { BulkMethod } from "../interfaces/DataGridMethods";
 import type { CheckedProvide } from "../interfaces/DataGridMethods";
-import type { FilterObject } from "../interfaces/DataGridFilters";
+import type {
+    FilterDefinition,
+    FilterObject
+} from "../interfaces/DataGridFilters";
 
 const props = defineProps({
     filterTeleportTarget: {
@@ -95,11 +102,18 @@ const props = defineProps({
             (label: string, filtersObj: FilterObject) => void | null
         >,
         default: null
+    },
+    filters: {
+        type: Array as PropType<FilterDefinition[]>,
+        default() {
+            return [];
+        }
     }
 });
 
 const emit = defineEmits<{
     (e: "filtersCleared"): void;
+    (e: "filtersChanged", filters: FilterObject): void;
 }>();
 
 const searchData = inject<() => void>("searchData");

@@ -6,8 +6,10 @@
                 :columns="columns"
                 :rowInfo="rowInfo"
                 :bulk-methods="bulkMethods"
+                :filters="filters"
                 :onFilterSave="onFilterSave"
                 @filtersCleared="emit('filtersCleared')"
+                @filtersChanged="(_filters) => (filtersValues = _filters)"
             />
             <EtDataGridContent
                 :columns="columns"
@@ -48,12 +50,10 @@ import type {
 } from "./interfaces/DataGridMethods";
 import type {
     FilterDefinition,
-    FilterObject,
-    FiltersProvide
+    FilterObject
 } from "./interfaces/DataGridFilters";
 import { useChecked } from "./composables/useChecked";
 import { useSorting } from "./composables/useSorting";
-import { useFilters } from "./composables/useFilters";
 import { usePagination } from "./composables/usePagination";
 
 import { Debounce } from "../../helpers/debounce";
@@ -134,11 +134,11 @@ const emit = defineEmits<{
 
 const rows = ref<RowObject[]>([]);
 const isLoading = ref<boolean>(false);
+const filtersValues = ref<FilterObject>({});
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
 sorting.reset(props.columns);
-const filters = useFilters<RowObject>(() => props.filters);
 const cellWidth = useCellWidth();
 const pagination = usePagination();
 const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");
@@ -158,7 +158,7 @@ function setDataFromUrl() {
     }
 
     if (savedUrlData?.filters) {
-        filters.filtersValues = savedUrlData.filters;
+        filtersValues.value = savedUrlData.filters;
     }
 
     if (savedUrlData?.page) {
@@ -197,7 +197,7 @@ async function __searchData() {
     let resultRows: RowObject[] = [];
 
     const filtersFormattedValues = Object.entries(
-        filters.filtersValues || {}
+        filtersValues.value || {}
     ).reduce((prev, [key, value]) => {
         const definition = props.filters?.find((def) => def.field === key);
         if (!definition) {
@@ -233,7 +233,7 @@ async function __searchData() {
             await urlData.setDataToUrl({
                 sorting: sorting.sorting,
                 // Don't set formatted values as url data
-                filters: filters.filtersValues,
+                filters: filtersValues.value,
                 page: pagination.page,
                 perPage: pagination.perPage
             });
@@ -255,7 +255,6 @@ function searchData() {
 
 provide<CheckedProvide>("checkedRows", checkedRows);
 provide<SortingProvide>("sorting", sorting);
-provide<FiltersProvide>("filters", filters);
 provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
 provide<() => void>("searchData", searchData);
@@ -265,7 +264,7 @@ provide<RowVersionProvider>("rowVersion", rowVersion);
 const prevFilterValues = ref<FilterObject>({});
 
 watch(
-    () => filters.filtersValues,
+    () => filtersValues.value,
     (newValue) => {
         if (
             Object.keys(prevFilterValues.value).length > 0 &&
@@ -309,7 +308,20 @@ function patchRow(rowId: string | number, data: any) {
 
 defineExpose({
     checked: checkedRows,
-    filters: filters,
+    filters: {
+        values: filtersValues,
+        setFilters(newFilters: FilterObject) {
+            filtersValues.value = Object.entries(newFilters).reduce(
+                (prev: FilterObject, [key, value]) => {
+                    if (value !== null && value !== undefined) {
+                        prev[key] = value;
+                    }
+                    return prev;
+                },
+                {}
+            );
+        }
+    },
     urlData: urlData ? urlData : null,
     patchRow,
     searchData

@@ -40,7 +40,7 @@
             >
                 <div class="et-sdk-data-grid__filters-container">
                     <EtDataGridFilter
-                        v-for="filterDefinition in filterDefinitions"
+                        v-for="filterDefinition in internalFilterDefinitions"
                         :filterDefinition="filterDefinition"
                         @on-enter="() => applyFilters()"
                     />
@@ -101,8 +101,9 @@ import EtDataGridFilter from "./EtDataGridFilter.vue";
 import EtDataGridFiltersInputValue from "./EtDataGridFiltersInputValue.vue";
 import EtDataGridFilterSaveModal from "./EtDataGridFilterSaveModal.vue";
 import type { IEtModalProvide } from "../../../etProvider/EtModalProviderInterfaces";
+import { useFilters } from "../../composables/useFilters";
+import type { RowObject } from "../../interfaces/DataRowObject";
 
-const filters = inject<FiltersProvide>("filters");
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
 const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
 
@@ -119,10 +120,20 @@ const props = defineProps({
             (label: string, filtersObj: FilterObject) => void | null
         >,
         default: null
+    },
+    filterDefinitions: {
+        type: Array as PropType<FilterDefinition[]>,
+        default() {
+            return [];
+        }
     }
 });
 
-const filterDefinitions = computed(() => filters?.getFiltersDefinitions());
+const filters = useFilters<RowObject>(() => props.filterDefinitions);
+
+const internalFilterDefinitions = computed(() => {
+    return filters?.getFiltersDefinitions() || [];
+});
 const hasFilterDefinitions = computed(() => !!filters?.hasFilters());
 const filterValuesList = computed(() => {
     const filterValuesObject = filters?.filtersValues || {};
@@ -132,8 +143,8 @@ const filterValuesList = computed(() => {
         .map(([key, value]) => ({
             field: key,
             value,
-            definition: (filterDefinitions?.value || []).find(
-                (definition) => definition.field == key
+            definition: (internalFilterDefinitions?.value || []).find(
+                (definition: FilterDefinition) => definition.field == key
             )
         })) as FilterDisplay[];
 });
@@ -148,6 +159,7 @@ const filterValueStaging = reactive<FiltersStagingProvide>({
     }
 });
 provide<FiltersStagingProvide>("filterValueStaging", filterValueStaging);
+provide<FiltersProvide>("filters", filters);
 
 const toggle = ref<HTMLElement | null>(null);
 const content = ref<HTMLElement | null>(null);
@@ -157,6 +169,7 @@ let popperInstance: Instance | null = null;
 
 const emit = defineEmits<{
     (e: "filtersCleared"): void;
+    (e: "filtersChanged", filters: FilterObject): void;
 }>();
 
 function saveFilters() {
@@ -223,7 +236,7 @@ async function applyFilters() {
         filterValueStaging.filtersValues || {}
     ).reduce((prev, [key, value]) => {
         const definition: FilterDefinition | undefined =
-            filterDefinitions.value?.find((def) => def.field === key);
+            internalFilterDefinitions.value?.find((def) => def.field === key);
         if (!definition) {
             return prev;
         }
@@ -256,6 +269,7 @@ async function applyFilters() {
     }, {} as FilterObject);
 
     filters?.setFilters(JSON.parse(JSON.stringify(validFilters)));
+    emit("filtersChanged", validFilters);
     await hideToolTip();
 }
 
