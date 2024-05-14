@@ -1,7 +1,7 @@
 <template>
     <div class="et-sdk-data-grid__content-header">
         <div
-            v-if="hideFilters"
+            v-if="!hideFilters"
             class="et-sdk-data-grid__row et-sdk-data-grid__content-header-row et-sdk-data-grid__content-header-search-input"
         >
             <Teleport
