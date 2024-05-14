@@ -1,6 +1,7 @@
 <template>
     <div class="et-sdk-data-grid__content-header">
         <div
+            v-if="hideFilters"
             class="et-sdk-data-grid__row et-sdk-data-grid__content-header-row et-sdk-data-grid__content-header-search-input"
         >
             <Teleport
@@ -115,6 +116,10 @@ const props = defineProps({
         default() {
             return {};
         }
+    },
+    hideFilters: {
+        type: Boolean,
+        default: false
     }
 });
 

@@ -9,6 +9,7 @@
                 :filters="filters"
                 :onFilterSave="onFilterSave"
                 :filtersValues="filtersValues"
+                :hideFilters="hideFilters"
                 @filtersCleared="emit('filtersCleared')"
                 @filtersChanged="(_filters) => (filtersValues = _filters)"
             />
@@ -125,6 +126,10 @@ const props = defineProps({
             (label: string, filtersObj: FilterObject) => void | null
         >,
         default: null
+    },
+    hideFilters: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -201,15 +206,11 @@ async function __searchData() {
         filtersValues.value || {}
     ).reduce((prev, [key, value]) => {
         const definition = props.filters?.find((def) => def.field === key);
-        if (!definition) {
-            return prev;
-        }
 
-        const formatter = definition.formatter;
-        if (!formatter) {
+        if (!definition || !definition.formatter) {
             prev[key] = value;
         } else {
-            prev[key] = formatter(value);
+            prev[key] = definition.formatter(value);
         }
 
         return prev;
