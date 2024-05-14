@@ -8,6 +8,7 @@
                 :bulk-methods="bulkMethods"
                 :filters="filters"
                 :onFilterSave="onFilterSave"
+                :filtersValues="filtersValues"
                 @filtersCleared="emit('filtersCleared')"
                 @filtersChanged="(_filters) => (filtersValues = _filters)"
             />

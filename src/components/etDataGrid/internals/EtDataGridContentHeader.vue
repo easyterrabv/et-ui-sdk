@@ -10,6 +10,7 @@
                 <EtDataGridFiltersInput
                     :onFilterSave="onFilterSave"
                     :filterDefinitions="filters"
+                    :filtersValues="filtersValues"
                     @filtersCleared="emit('filtersCleared')"
                     @filtersChanged="
                         (_filters) => emit('filtersChanged', _filters)
@@ -107,6 +108,12 @@ const props = defineProps({
         type: Array as PropType<FilterDefinition[]>,
         default() {
             return [];
+        }
+    },
+    filtersValues: {
+        type: Object as PropType<FilterObject>,
+        default() {
+            return {};
         }
     }
 });

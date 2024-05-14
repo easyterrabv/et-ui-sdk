@@ -79,7 +79,8 @@ import {
     provide,
     type Ref,
     type PropType,
-    markRaw
+    markRaw,
+    watch
 } from "vue";
 import type {
     FilterDefinition,
@@ -126,10 +127,24 @@ const props = defineProps({
         default() {
             return [];
         }
+    },
+    filtersValues: {
+        type: Object as PropType<FilterObject>,
+        default() {
+            return {};
+        }
     }
 });
 
 const filters = useFilters<RowObject>(() => props.filterDefinitions);
+
+watch(
+    () => props.filtersValues,
+    (newFiltersValues) => {
+        filters.setFilters(newFiltersValues);
+    },
+    { deep: true, immediate: true }
+);
 
 const internalFilterDefinitions = computed(() => {
     return filters?.getFiltersDefinitions() || [];
