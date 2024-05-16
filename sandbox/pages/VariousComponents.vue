@@ -677,6 +677,10 @@
                     Test 4
                 </li>
             </EtListGroup>
+
+            Some icon
+            <EtIconArrowTurnLeft />
+            <EtIconArrowTurnRight />
         </EtContent>
     </EtDrawer>
 </template>
@@ -722,7 +726,10 @@ import EtResizable from "src/components/etUtilities/EtResizable.vue"
 
 import EtListGroup from "src/components/etUtilities/EtListGroup.vue";
 
-import EtDate from "src/components/etText/EtDate.vue";
+import EtDate from "src/components/etText/EtDate.vue"
+
+import EtIconArrowTurnLeft from "src/components/etIcon/EtIconArrowTurnLeft.vue";
+import EtIconArrowTurnRight from "src/components/etIcon/EtIconArrowTurnRight.vue";
 
 export default defineComponent({
     computed: {
@@ -769,7 +776,9 @@ export default defineComponent({
         EtResizable,
         EtDate,
 
-        EtListGroup
+        EtListGroup,
+        EtIconArrowTurnLeft,
+        EtIconArrowTurnRight
     },
     data() {
         return {
