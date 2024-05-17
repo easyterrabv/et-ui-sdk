@@ -69,7 +69,7 @@ provide<IEtOverlayProvide>("SDKOverlayProvide", {
     background-color: var(--et-sdk-dark-900);
     opacity: 0.2;
 
-    z-index: 8000;
+    z-index: 10000;
 }
 
 .et-sdk-overlay-provider__is-transparent {
