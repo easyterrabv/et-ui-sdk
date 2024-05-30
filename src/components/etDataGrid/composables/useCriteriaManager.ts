@@ -73,7 +73,9 @@ export function useCriteriaManager(
             ? urlCriteria
             : startingCriteria
               ? startingCriteria
-              : defaultCriteria,
+              : defaultCriteria
+                ? defaultCriteria
+                : _defaultCriteria,
         totalRows: 0,
         async setCriteria(criteria) {
             this.criteria = criteria;
