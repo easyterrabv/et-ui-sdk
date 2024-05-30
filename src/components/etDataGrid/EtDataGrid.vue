@@ -45,15 +45,13 @@ import type {
     CheckedProvide,
     PaginationProvide,
     RowVersionProvider,
-    SortingObject,
-    SortingProvide
+    SortingObject
 } from "./interfaces/DataGridMethods";
 import type {
     FilterDefinition,
     FilterObject
 } from "./interfaces/DataGridFilters";
 import { useChecked } from "./composables/useChecked";
-import { useSorting } from "./composables/useSorting";
 import { usePagination } from "./composables/usePagination";
 
 import { Debounce } from "../../helpers/debounce";
@@ -147,8 +145,6 @@ const rows = ref<RowObject[]>([]);
 const isLoading = ref<boolean>(false);
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
-const sorting = useSorting<RowObject>(props.isMultiSorting);
-sorting.reset(props.columns);
 const cellWidth = useCellWidth();
 const pagination = usePagination();
 const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");
@@ -164,11 +160,22 @@ let criteriaManager: UnwrapNestedRefs<ICriteriaManager> | undefined;
 if (props.criteriaManager) {
     criteriaManager = props.criteriaManager;
 } else {
-    criteriaManager = useCriteriaManager(
-        urlData || undefined,
-        props.saveToUrl,
-        props.saveToUrl
-    );
+    criteriaManager = useCriteriaManager({
+        useUrlData: urlData || undefined,
+        // They use the same prop for now
+        saveToUrl: props.saveToUrl,
+        loadFromUrl: props.saveToUrl,
+        isMultiSorting: props.isMultiSorting
+    });
+}
+
+const urlDataValues = urlData?.getDataFromUrl();
+if (
+    !urlDataValues ||
+    !urlDataValues.sorting ||
+    Object.keys(urlDataValues.sorting).length === 0
+) {
+    criteriaManager.resetSorting(props.columns);
 }
 
 let dataRequest: CancelablePromise<[RowObject[], number]>;
@@ -182,19 +189,19 @@ async function __searchData() {
 
     let resultRows: RowObject[] = [];
 
-    const filtersFormattedValues = Object.entries(
-        (criteriaManager?.criteria.filters || {}) as unknown as FilterObject
-    ).reduce((prev, [key, value]) => {
-        const definition = props.filters?.find((def) => def.field === key);
-
-        if (!definition || !definition.formatter) {
-            prev[key] = value;
-        } else {
-            prev[key] = definition.formatter(value);
-        }
-
-        return prev;
-    }, {} as FilterObject);
+    // const filtersFormattedValues = Object.entries(
+    //     (criteriaManager?.criteria.filters || {}) as unknown as FilterObject
+    // ).reduce((prev, [key, value]) => {
+    //     const definition = props.filters?.find((def) => def.field === key);
+    //
+    //     if (!definition || !definition.formatter) {
+    //         prev[key] = value;
+    //     } else {
+    //         prev[key] = definition.formatter(value);
+    //     }
+    //
+    //     return prev;
+    // }, {} as FilterObject);
 
     if (props.dataGetter) {
         isLoading.value = true;
@@ -203,8 +210,8 @@ async function __searchData() {
 
         dataRequest = cancelable(
             props.dataGetter(
-                filtersFormattedValues,
-                sorting.sorting || {},
+                criteriaManager?.criteria.filters || {},
+                criteriaManager?.criteria.sorting || {},
                 pagination.page || 1,
                 pagination.perPage || 50
             )
@@ -227,7 +234,6 @@ function searchData() {
 }
 
 provide<CheckedProvide>("checkedRows", checkedRows);
-provide<SortingProvide>("sorting", sorting);
 provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
 provide<() => void>("searchData", searchData);
@@ -238,7 +244,7 @@ const prevFilterValues = ref<FilterObject>({});
 
 watch(
     () => criteriaManager?.criteria.filters,
-    (newValue) => {
+    () => {
         if (
             Object.keys(prevFilterValues.value).length > 0 &&
             Object.keys(criteriaManager?.criteria.filters || {}).length === 0
@@ -248,11 +254,11 @@ watch(
 
         pagination.page = 1;
         searchData();
-        prevFilterValues.value = newValue;
+        prevFilterValues.value = criteriaManager?.criteria.filters || {};
     },
     { deep: true, immediate: true }
 );
-watch(() => sorting.sorting, searchData, { deep: true });
+watch(() => criteriaManager?.criteria.sorting, searchData, { deep: true });
 watch(() => pagination.page, searchData);
 watch(() => pagination.perPage, searchData);
 

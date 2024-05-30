@@ -48,7 +48,10 @@
                 v-if="props.rowInfo.isSelectable"
             />
             <template v-for="column in columns" :key="column.guid">
-                <EtDataGridContentHeaderCell :column="column" />
+                <EtDataGridContentHeaderCell
+                    :column="column"
+                    :criteriaManager="criteriaManager"
+                />
             </template>
         </div>
     </div>

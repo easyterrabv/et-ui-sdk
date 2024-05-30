@@ -5,7 +5,7 @@
             column.header?.class,
             {
                 'et-sdk-data-grid__content-header__cell--sortable':
-                    sorting?.isSortable(column)
+                    criteriaManager.isColumnSortable(column)
             }
         ]"
         @click="() => handleClick()"
@@ -13,7 +13,7 @@
     >
         <template v-if="column.header">
             <span
-                v-if="sorting && sorting.isSortable(column)"
+                v-if="criteriaManager.isColumnSortable(column)"
                 class="et-sdk-data-grid__content-header__sorting"
             >
                 <EtIconSort
@@ -21,11 +21,16 @@
                 ></EtIconSort>
                 <EtIconSortUp
                     class="et-sdk-data-grid__content-header__sorting__icon--direction"
-                    v-if="sorting.getSorting(column) === 'ASC'"
+                    v-if="
+                        criteriaManager.getColumnSortDirection(column) === 'ASC'
+                    "
                 ></EtIconSortUp>
                 <EtIconSortDown
                     class="et-sdk-data-grid__content-header__sorting__icon--direction"
-                    v-else-if="sorting.getSorting(column) === 'DESC'"
+                    v-else-if="
+                        criteriaManager.getColumnSortDirection(column) ===
+                        'DESC'
+                    "
                 ></EtIconSortDown>
             </span>
             <template v-if="!customComponent">
@@ -40,31 +45,32 @@
 
 <script setup lang="ts">
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
-import type { PropType } from "vue";
+import type { PropType, UnwrapNestedRefs } from "vue";
 import { computed, ref, inject } from "vue";
 import { getCellStyling } from "../services/DataGridCellHelpers";
-import type {
-    CellWidthProvide,
-    SortingProvide
-} from "../interfaces/DataGridMethods";
+import type { CellWidthProvide } from "../interfaces/DataGridMethods";
 
 import EtIconSort from "../../etIcon/EtIconSort.vue";
 import EtIconSortUp from "../../etIcon/EtIconSortUp.vue";
 import EtIconSortDown from "../../etIcon/EtIconSortDown.vue";
+import type { ICriteriaManager } from "../composables/useCriteriaManager";
 
 const props = defineProps({
     column: {
         type: Object as PropType<DataGridColumn>,
         required: true
+    },
+    criteriaManager: {
+        type: Object as PropType<UnwrapNestedRefs<ICriteriaManager>>,
+        required: true
     }
 });
 
 const customComponent = ref<object | undefined>(props.column.header?.component);
-const sorting = inject<SortingProvide>("sorting");
 const cellWidth = inject<CellWidthProvide>("cellWidth");
 
 function handleClick() {
-    sorting?.toggleSorting(props.column);
+    props.criteriaManager?.toggleSorting(props.column);
 }
 
 const styling = computed(() => {
