@@ -7,6 +7,7 @@ import type { DataGridColumn } from "../interfaces/DataGridColumn";
 
 export interface ICriteriaManager {
     criteria: IDataGridCriteria;
+    totalRows: number;
     setCriteria: (criteria: IDataGridCriteria) => Promise<void>;
     setSorting: (sorting: IDataGridCriteria["sorting"]) => Promise<void>;
     setSortingByColumn: (
@@ -73,6 +74,7 @@ export function useCriteriaManager(
             : startingCriteria
               ? startingCriteria
               : defaultCriteria,
+        totalRows: 0,
         async setCriteria(criteria) {
             this.criteria = criteria;
 

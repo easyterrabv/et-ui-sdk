@@ -40,7 +40,7 @@
                 </span>
             </div>
             <div class="et-sdk-data-grid__content-header-functionality--right">
-                <EtDataGridPagination />
+                <EtDataGridPagination :criteriaManager="criteriaManager" />
             </div>
         </div>
         <div class="et-sdk-data-grid__row et-sdk-data-grid__content-header-row">

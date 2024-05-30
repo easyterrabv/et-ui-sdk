@@ -43,7 +43,6 @@ import type {
     BulkMethod,
     CellWidthProvide,
     CheckedProvide,
-    PaginationProvide,
     RowVersionProvider,
     SortingObject
 } from "./interfaces/DataGridMethods";
@@ -52,7 +51,6 @@ import type {
     FilterObject
 } from "./interfaces/DataGridFilters";
 import { useChecked } from "./composables/useChecked";
-import { usePagination } from "./composables/usePagination";
 
 import { Debounce } from "../../helpers/debounce";
 import { type IUseUrlData, useUrlData } from "./composables/useUrlData";
@@ -146,7 +144,6 @@ const isLoading = ref<boolean>(false);
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const cellWidth = useCellWidth();
-const pagination = usePagination();
 const rowVersion = useRowVersion<RowObject>(props.rowInfo?.idKey || "guid");
 const route = useRoute();
 const router = useRouter();
@@ -156,7 +153,7 @@ if (props.name && props.saveToUrl && route && router) {
     urlData = useUrlData<IDataGridCriteria>(props.name, route, router);
 }
 
-let criteriaManager: UnwrapNestedRefs<ICriteriaManager> | undefined;
+let criteriaManager: UnwrapNestedRefs<ICriteriaManager>;
 if (props.criteriaManager) {
     criteriaManager = props.criteriaManager;
 } else {
@@ -190,7 +187,7 @@ async function __searchData() {
     let resultRows: RowObject[] = [];
 
     // const filtersFormattedValues = Object.entries(
-    //     (criteriaManager?.criteria.filters || {}) as unknown as FilterObject
+    //     (criteriaManager.criteria.filters || {}) as unknown as FilterObject
     // ).reduce((prev, [key, value]) => {
     //     const definition = props.filters?.find((def) => def.field === key);
     //
@@ -210,14 +207,14 @@ async function __searchData() {
 
         dataRequest = cancelable(
             props.dataGetter(
-                criteriaManager?.criteria.filters || {},
-                criteriaManager?.criteria.sorting || {},
-                pagination.page || 1,
-                pagination.perPage || 50
+                criteriaManager.criteria.filters || {},
+                criteriaManager.criteria.sorting || {},
+                criteriaManager.criteria.page || 1,
+                criteriaManager.criteria.perPage || 50
             )
         );
 
-        [resultRows, pagination.totalRows] = await dataRequest;
+        [resultRows, criteriaManager.totalRows] = await dataRequest;
         isLoading.value = false;
     }
 
@@ -234,7 +231,6 @@ function searchData() {
 }
 
 provide<CheckedProvide>("checkedRows", checkedRows);
-provide<PaginationProvide>("pagination", pagination);
 provide<Ref<boolean>>("isLoading", isLoading);
 provide<() => void>("searchData", searchData);
 provide<CellWidthProvide>("cellWidth", cellWidth);
@@ -243,24 +239,24 @@ provide<RowVersionProvider>("rowVersion", rowVersion);
 const prevFilterValues = ref<FilterObject>({});
 
 watch(
-    () => criteriaManager?.criteria.filters,
+    () => criteriaManager.criteria.filters,
     () => {
         if (
             Object.keys(prevFilterValues.value).length > 0 &&
-            Object.keys(criteriaManager?.criteria.filters || {}).length === 0
+            Object.keys(criteriaManager.criteria.filters || {}).length === 0
         ) {
             emit("filtersCleared");
         }
 
-        pagination.page = 1;
+        criteriaManager.criteria.page = 1;
         searchData();
-        prevFilterValues.value = criteriaManager?.criteria.filters || {};
+        prevFilterValues.value = criteriaManager.criteria.filters || {};
     },
     { deep: true, immediate: true }
 );
-watch(() => criteriaManager?.criteria.sorting, searchData, { deep: true });
-watch(() => pagination.page, searchData);
-watch(() => pagination.perPage, searchData);
+watch(() => criteriaManager.criteria.sorting, searchData, { deep: true });
+watch(() => criteriaManager.criteria.page, searchData);
+watch(() => criteriaManager.criteria.perPage, searchData);
 
 watch(
     () => checkedRows.rows,
@@ -288,10 +284,10 @@ function patchRow(rowId: string | number, data: any) {
 defineExpose({
     checked: checkedRows,
     filters: {
-        values: (criteriaManager?.criteria.filters ||
+        values: (criteriaManager.criteria.filters ||
             {}) as unknown as FilterObject,
         setFilters(newFilters: FilterObject) {
-            criteriaManager?.setFilters(newFilters);
+            criteriaManager.setFilters(newFilters);
         }
     },
     urlData: urlData ? urlData : null,
