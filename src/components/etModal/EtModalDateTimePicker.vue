@@ -124,6 +124,7 @@ function setTimeFromTimePicker(newTime: [number, number]) {
     const _date = new Date(date.value);
     _date.setHours(newTime[0]);
     _date.setMinutes(newTime[1]);
+    _date.setSeconds(0);
 
     date.value = _date;
 }
@@ -157,6 +158,7 @@ async function handleFormattedStringChange(value: string | number | null) {
     _date.setDate(newDate.getDate());
     _date.setHours(newDate.getHours());
     _date.setMinutes(newDate.getMinutes());
+    _date.setSeconds(0);
 
     date.value = _date;
 
