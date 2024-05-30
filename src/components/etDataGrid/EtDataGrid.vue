@@ -186,19 +186,19 @@ async function __searchData() {
 
     let resultRows: RowObject[] = [];
 
-    // const filtersFormattedValues = Object.entries(
-    //     (criteriaManager.criteria.filters || {}) as unknown as FilterObject
-    // ).reduce((prev, [key, value]) => {
-    //     const definition = props.filters?.find((def) => def.field === key);
-    //
-    //     if (!definition || !definition.formatter) {
-    //         prev[key] = value;
-    //     } else {
-    //         prev[key] = definition.formatter(value);
-    //     }
-    //
-    //     return prev;
-    // }, {} as FilterObject);
+    const filtersFormattedValues = Object.entries(
+        (criteriaManager.criteria.filters || {}) as unknown as FilterObject
+    ).reduce((prev, [key, value]) => {
+        const definition = props.filters?.find((def) => def.field === key);
+
+        if (!definition || !definition.formatter) {
+            prev[key] = value;
+        } else {
+            prev[key] = definition.formatter(value);
+        }
+
+        return prev;
+    }, {} as FilterObject);
 
     if (props.dataGetter) {
         isLoading.value = true;
@@ -207,7 +207,7 @@ async function __searchData() {
 
         dataRequest = cancelable(
             props.dataGetter(
-                criteriaManager.criteria.filters || {},
+                filtersFormattedValues || {},
                 criteriaManager.criteria.sorting || {},
                 criteriaManager.criteria.page || 1,
                 criteriaManager.criteria.perPage || 50
