@@ -8,10 +8,8 @@
                 :bulk-methods="bulkMethods"
                 :filters="filters"
                 :onFilterSave="onFilterSave"
-                :filtersValues="filtersValues"
                 :hideFilters="hideFilters"
-                @filtersCleared="emit('filtersCleared')"
-                @filtersChanged="(_filters) => (filtersValues = _filters)"
+                :criteriaManager="criteriaManager"
             />
             <EtDataGridContent
                 :columns="columns"
@@ -65,13 +63,11 @@ import { useCellWidth } from "./composables/useCellWidth";
 import { useRowVersion } from "./composables/useRowVersion";
 import { assignToPath } from "./services/DataGridCellHelpers";
 import type { RowObject } from "./interfaces/DataRowObject";
-
-interface IDataGridCriteria {
-    sorting: SortingObject;
-    filters: FilterObject;
-    page: number;
-    perPage: number;
-}
+import type { IDataGridCriteria } from "./interfaces/DataGridCriteria";
+import {
+    type ICriteriaManager,
+    useCriteriaManager
+} from "./composables/useCriteriaManager";
 
 const props = defineProps({
     filterTeleportTarget: {
@@ -130,6 +126,15 @@ const props = defineProps({
     hideFilters: {
         type: Boolean,
         default: false
+    },
+    criteriaManager: {
+        type: Object as PropType<UnwrapNestedRefs<ICriteriaManager>>,
+        default: null,
+        required: false
+    },
+    saveToUrl: {
+        type: Boolean,
+        default: true
     }
 });
 
@@ -140,7 +145,6 @@ const emit = defineEmits<{
 
 const rows = ref<RowObject[]>([]);
 const isLoading = ref<boolean>(false);
-const filtersValues = ref<FilterObject>({});
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
 const sorting = useSorting<RowObject>(props.isMultiSorting);
@@ -152,42 +156,18 @@ const route = useRoute();
 const router = useRouter();
 
 let urlData: UnwrapNestedRefs<IUseUrlData<IDataGridCriteria>> | undefined;
-
-function setDataFromUrl() {
-    if (!urlData) {
-        return;
-    }
-
-    const savedUrlData = urlData.getDataFromUrl();
-    if (savedUrlData?.sorting) {
-        sorting.sorting = savedUrlData.sorting;
-    }
-
-    if (savedUrlData?.filters) {
-        filtersValues.value = savedUrlData.filters;
-    }
-
-    if (savedUrlData?.page) {
-        pagination.page = savedUrlData.page;
-    }
-
-    if (savedUrlData?.perPage) {
-        pagination.perPage = savedUrlData.perPage;
-    }
+if (props.name && props.saveToUrl && route && router) {
+    urlData = useUrlData<IDataGridCriteria>(props.name, route, router);
 }
 
-if (props.name && route && router) {
-    urlData = useUrlData<IDataGridCriteria>(props.name, route, router);
-    setDataFromUrl();
-    watch(
-        () => route.query[props.name],
-        () => {
-            if (urlData?.currentBase64String !== route.query[props.name]) {
-                // Should only be triggered if the url data is changed from outside
-                setDataFromUrl();
-            }
-        },
-        { deep: true }
+let criteriaManager: UnwrapNestedRefs<ICriteriaManager> | undefined;
+if (props.criteriaManager) {
+    criteriaManager = props.criteriaManager;
+} else {
+    criteriaManager = useCriteriaManager(
+        urlData || undefined,
+        props.saveToUrl,
+        props.saveToUrl
     );
 }
 
@@ -203,7 +183,7 @@ async function __searchData() {
     let resultRows: RowObject[] = [];
 
     const filtersFormattedValues = Object.entries(
-        filtersValues.value || {}
+        (criteriaManager?.criteria.filters || {}) as unknown as FilterObject
     ).reduce((prev, [key, value]) => {
         const definition = props.filters?.find((def) => def.field === key);
 
@@ -231,15 +211,6 @@ async function __searchData() {
         );
 
         [resultRows, pagination.totalRows] = await dataRequest;
-        if (urlData) {
-            await urlData.setDataToUrl({
-                sorting: sorting.sorting,
-                // Don't set formatted values as url data
-                filters: filtersValues.value,
-                page: pagination.page,
-                perPage: pagination.perPage
-            });
-        }
         isLoading.value = false;
     }
 
@@ -266,11 +237,11 @@ provide<RowVersionProvider>("rowVersion", rowVersion);
 const prevFilterValues = ref<FilterObject>({});
 
 watch(
-    () => filtersValues.value,
+    () => criteriaManager?.criteria.filters,
     (newValue) => {
         if (
             Object.keys(prevFilterValues.value).length > 0 &&
-            Object.keys(newValue).length === 0
+            Object.keys(criteriaManager?.criteria.filters || {}).length === 0
         ) {
             emit("filtersCleared");
         }
@@ -311,17 +282,10 @@ function patchRow(rowId: string | number, data: any) {
 defineExpose({
     checked: checkedRows,
     filters: {
-        values: filtersValues,
+        values: (criteriaManager?.criteria.filters ||
+            {}) as unknown as FilterObject,
         setFilters(newFilters: FilterObject) {
-            filtersValues.value = Object.entries(newFilters).reduce(
-                (prev: FilterObject, [key, value]) => {
-                    if (value !== null && value !== undefined) {
-                        prev[key] = value;
-                    }
-                    return prev;
-                },
-                {}
-            );
+            criteriaManager?.setFilters(newFilters);
         }
     },
     urlData: urlData ? urlData : null,

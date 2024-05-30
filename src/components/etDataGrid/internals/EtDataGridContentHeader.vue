@@ -11,11 +11,7 @@
                 <EtDataGridFiltersInput
                     :onFilterSave="onFilterSave"
                     :filterDefinitions="filters"
-                    :filtersValues="filtersValues"
-                    @filtersCleared="emit('filtersCleared')"
-                    @filtersChanged="
-                        (_filters) => emit('filtersChanged', _filters)
-                    "
+                    :criteriaManager="criteriaManager"
                 />
             </Teleport>
         </div>
@@ -68,7 +64,7 @@ import EtIconArrowRotateRight from "../../etIcon/EtIconArrowRotateRight.vue";
 import EtTooltip from "../../EtToolTip.vue";
 
 import type { DataGridColumn } from "../interfaces/DataGridColumn";
-import type { PropType } from "vue";
+import type { PropType, UnwrapNestedRefs } from "vue";
 import type { DataGridRow } from "../interfaces/DataGridRow";
 import { computed, inject } from "vue";
 import type { BulkMethod } from "../interfaces/DataGridMethods";
@@ -77,6 +73,7 @@ import type {
     FilterDefinition,
     FilterObject
 } from "../interfaces/DataGridFilters";
+import type { ICriteriaManager } from "../composables/useCriteriaManager";
 
 const props = defineProps({
     filterTeleportTarget: {
@@ -111,22 +108,15 @@ const props = defineProps({
             return [];
         }
     },
-    filtersValues: {
-        type: Object as PropType<FilterObject>,
-        default() {
-            return {};
-        }
-    },
     hideFilters: {
         type: Boolean,
         default: false
+    },
+    criteriaManager: {
+        type: Object as PropType<UnwrapNestedRefs<ICriteriaManager>>,
+        required: true
     }
 });
-
-const emit = defineEmits<{
-    (e: "filtersCleared"): void;
-    (e: "filtersChanged", filters: FilterObject): void;
-}>();
 
 const searchData = inject<() => void>("searchData");
 const checkedRows = inject<CheckedProvide>("checkedRows");

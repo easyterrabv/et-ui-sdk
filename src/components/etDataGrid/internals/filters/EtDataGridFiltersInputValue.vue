@@ -51,10 +51,7 @@
 <script setup lang="ts">
 import EtIconTimes from "../../../etIcon/EtIconTimes.vue";
 import { inject, computed, type PropType } from "vue";
-import type {
-    FilterDisplay,
-    FiltersProvide
-} from "../../interfaces/DataGridFilters";
+import type { FilterDisplay } from "../../interfaces/DataGridFilters";
 import type { OptionFilterValue } from "../../interfaces/DataGridFilters";
 import {
     type FilterDateValue,
@@ -62,6 +59,7 @@ import {
 } from "../../interfaces/DataGridFilters";
 import { dateToFormattedString } from "../../../../helpers/date";
 import EtIconArrowRightLong from "../../../etIcon/EtIconArrowRightLong.vue";
+import type { ICriteriaManager } from "../../composables/useCriteriaManager";
 
 const props = defineProps({
     filterDisplay: {
@@ -72,7 +70,7 @@ const props = defineProps({
 
 const displayValue = computed(() => props.filterDisplay?.value);
 const isArray = computed(() => Array.isArray(displayValue.value));
-const filters = inject<FiltersProvide>("filters");
+const criteriaManager = inject<ICriteriaManager>("SDKGridCriteriaManager");
 
 const dates = computed(() => {
     if (props.filterDisplay.definition.type !== FilterInputType.DATERANGE) {
@@ -84,24 +82,24 @@ const dates = computed(() => {
 
 function removeOption(item: OptionFilterValue) {
     if (!isArray.value) {
-        filters?.setFilter(props.filterDisplay.field, []);
+        criteriaManager?.setFilter(props.filterDisplay.field, []);
     }
 
     const currentValues = props.filterDisplay.value || [];
     const newValues = (currentValues as OptionFilterValue[]).filter(
         (val) => val.value !== item.value
     );
-    filters?.setFilter(
+    criteriaManager?.setFilter(
         props.filterDisplay.field,
         newValues.length > 0 ? newValues : null
     );
 }
 
 function removeFilter() {
-    if (!filters) {
+    if (!criteriaManager) {
         return;
     }
-    filters.setFilter(props.filterDisplay.field, null);
+    criteriaManager.setFilter(props.filterDisplay.field, null);
 }
 </script>
 

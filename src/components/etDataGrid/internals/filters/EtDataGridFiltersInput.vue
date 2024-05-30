@@ -40,7 +40,7 @@
             >
                 <div class="et-sdk-data-grid__filters-container">
                     <EtDataGridFilter
-                        v-for="filterDefinition in internalFilterDefinitions"
+                        v-for="filterDefinition in props.filterDefinitions"
                         :filterDefinition="filterDefinition"
                         @on-enter="() => applyFilters()"
                     />
@@ -80,13 +80,12 @@ import {
     type Ref,
     type PropType,
     markRaw,
-    watch
+    type UnwrapNestedRefs
 } from "vue";
 import type {
     FilterDefinition,
     FilterDisplay,
     FilterObject,
-    FiltersProvide,
     FiltersStagingProvide
 } from "../../interfaces/DataGridFilters";
 import type { Instance } from "@popperjs/core/lib/types";
@@ -102,8 +101,7 @@ import EtDataGridFilter from "./EtDataGridFilter.vue";
 import EtDataGridFiltersInputValue from "./EtDataGridFiltersInputValue.vue";
 import EtDataGridFilterSaveModal from "./EtDataGridFilterSaveModal.vue";
 import type { IEtModalProvide } from "../../../etProvider/EtModalProviderInterfaces";
-import { useFilters } from "../../composables/useFilters";
-import type { RowObject } from "../../interfaces/DataRowObject";
+import type { ICriteriaManager } from "../../composables/useCriteriaManager";
 
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
 const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
@@ -128,37 +126,24 @@ const props = defineProps({
             return [];
         }
     },
-    filtersValues: {
-        type: Object as PropType<FilterObject>,
-        default() {
-            return {};
-        }
+    criteriaManager: {
+        type: Object as PropType<UnwrapNestedRefs<ICriteriaManager>>,
+        required: true
     }
 });
 
-const filters = useFilters<RowObject>(() => props.filterDefinitions);
+provide<ICriteriaManager>("SDKGridCriteriaManager", props.criteriaManager);
 
-watch(
-    () => props.filtersValues,
-    (newFiltersValues) => {
-        filters.setFilters(newFiltersValues);
-    },
-    { deep: true, immediate: true }
-);
+const filters = computed(() => props.criteriaManager?.criteria.filters || {});
 
-const internalFilterDefinitions = computed(() => {
-    return filters?.getFiltersDefinitions() || [];
-});
-const hasFilterDefinitions = computed(() => !!filters?.hasFilters());
+const hasFilterDefinitions = computed(() => props.filterDefinitions.length > 0);
 const filterValuesList = computed(() => {
-    const filterValuesObject = filters?.filtersValues || {};
-
-    return Object.entries(filterValuesObject)
+    return Object.entries(filters.value)
         .filter(([key, value]) => !!value)
         .map(([key, value]) => ({
             field: key,
             value,
-            definition: (internalFilterDefinitions?.value || []).find(
+            definition: props.filterDefinitions.find(
                 (definition: FilterDefinition) => definition.field == key
             )
         })) as FilterDisplay[];
@@ -174,18 +159,12 @@ const filterValueStaging = reactive<FiltersStagingProvide>({
     }
 });
 provide<FiltersStagingProvide>("filterValueStaging", filterValueStaging);
-provide<FiltersProvide>("filters", filters);
 
 const toggle = ref<HTMLElement | null>(null);
 const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
 provide<Ref<boolean>>("dropDownVisible", isVisible);
 let popperInstance: Instance | null = null;
-
-const emit = defineEmits<{
-    (e: "filtersCleared"): void;
-    (e: "filtersChanged", filters: FilterObject): void;
-}>();
 
 function saveFilters() {
     if (!props.onFilterSave || !filterValueStaging) {
@@ -210,12 +189,11 @@ function saveFilters() {
 }
 
 function clearFilters() {
-    if (!filters) {
+    if (!props.criteriaManager) {
         return;
     }
 
-    filters.clearFilters();
-    emit("filtersCleared");
+    props.criteriaManager?.setFilters({});
 }
 
 async function toggleInput() {
@@ -228,7 +206,7 @@ async function toggleInput() {
 
 async function showToolTip() {
     filterValueStaging.filtersValues = JSON.parse(
-        JSON.stringify(filters?.filtersValues || {})
+        JSON.stringify(filters.value)
     );
     isVisible.value = true;
     sdkOverlay?.setTransparency(true);
@@ -251,7 +229,7 @@ async function applyFilters() {
         filterValueStaging.filtersValues || {}
     ).reduce((prev, [key, value]) => {
         const definition: FilterDefinition | undefined =
-            internalFilterDefinitions.value?.find((def) => def.field === key);
+            props.filterDefinitions.find((def) => def.field === key);
         if (!definition) {
             return prev;
         }
@@ -283,8 +261,7 @@ async function applyFilters() {
         return prev;
     }, {} as FilterObject);
 
-    filters?.setFilters(JSON.parse(JSON.stringify(validFilters)));
-    emit("filtersChanged", validFilters);
+    props.criteriaManager?.setFilters(JSON.parse(JSON.stringify(validFilters)));
     await hideToolTip();
 }
 
