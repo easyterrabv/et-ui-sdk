@@ -46,6 +46,12 @@
                     />
                 </div>
                 <div class="et-sdk-data-grid__filters-functionality">
+                    <div
+                        class="et-sdk-data-grid__filters-pre-buttons"
+                        v-if="$slots.footer"
+                    >
+                        <slot name="footer" />
+                    </div>
                     <EtButtonDefault
                         v-if="!!onFilterSave"
                         class="et-sdk-data-grid__filters-search-button"
@@ -345,6 +351,11 @@ onBeforeUnmount(() => {
     flex-direction: column;
     gap: 8px;
     padding: 15px 30px;
+}
+
+.et-sdk-data-grid__filters-pre-buttons {
+    flex-grow: 1;
+    background-color: red;
 }
 
 .et-sdk-data-grid__filters-search-button {
