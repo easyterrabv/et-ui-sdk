@@ -355,7 +355,6 @@ onBeforeUnmount(() => {
 
 .et-sdk-data-grid__filters-pre-buttons {
     flex-grow: 1;
-    background-color: red;
 }
 
 .et-sdk-data-grid__filters-search-button {
