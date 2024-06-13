@@ -147,13 +147,16 @@ function openPleaseWait(seconds: number) {
 
 type toastPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
 const positions: toastPosition[] = ["top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"];
+type toastStyles = "default" | "success" | "warning" | "error";
+const styles: toastStyles[] = ["default", "success", "warning", "error"];
 
-async function openToast(textComp: string, position: toastPosition = "top-center") {
+async function openToast(textComp: string, position: toastPosition = "top-center", toastStyles: toastStyles = "default") {
     const [vertical, horizontal] = position.split("-");
 
     toastProvide.showToast({
         content: {
-            text: textComp
+            text: textComp,
+            style: toastStyles
         },
         position: {
             // @ts-ignore
@@ -172,7 +175,11 @@ function openBasicToasts() {
 
 async function openRandomToast(count=1) {
     for (let i = 0; i < count; i++) {
-        await openToast(`This is toast number ${i + 1}`, positions[Math.floor(Math.random() * positions.length)]);
+        await openToast(
+            `This is toast number ${i + 1}`,
+            positions[Math.floor(Math.random() * positions.length)],
+            styles[Math.floor(Math.random() * styles.length)]
+        );
     }
 }
 

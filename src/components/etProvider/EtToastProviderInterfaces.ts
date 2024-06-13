@@ -10,6 +10,7 @@ export interface IEtToastProvider {
 export interface IEtToastContent {
     iconComponent?: Raw<object>;
     text?: string;
+    style?: "default" | "success" | "warning" | "error";
     dismissible?: boolean;
 }
 
@@ -33,6 +34,7 @@ export const IEtToastOptionsDefaults: IEtToastOptions = {
     content: {
         iconComponent: markRaw(EtIconCheckSolid),
         text: "",
+        style: "default",
         dismissible: true
     },
     duration: 5000,
