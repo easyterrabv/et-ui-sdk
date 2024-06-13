@@ -69,7 +69,7 @@
                                             <template #icon>
                                                 <EtIconGarageOpen />
                                             </template>
-                                            Modals
+                                            Modals / Toasts
                                         </EtSideBarItem>
                                     </router-link>
                                     <router-link to="/test">

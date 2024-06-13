@@ -126,7 +126,7 @@ const hideToast = (guid: string) => {
     toasts.value = toasts.value.filter((toast) => toast.guid !== guid);
 };
 
-provide<IEtToastProvider>("SDKModalProvide", {
+provide<IEtToastProvider>("SDKToastProvide", {
     showToast,
     hideToast
 });

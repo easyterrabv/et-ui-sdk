@@ -38,6 +38,24 @@
                 <EtButtonDefault @click="areYouSure">Close</EtButtonDefault>
             </template>
         </EtModal>
+
+        <EtModal style="margin-top: 50px;">
+            <template #header>
+                Toasts
+            </template>
+
+            <EtButtonDefault @click="openBasicToasts" style="margin-top: 15px; display: block;">
+                Show one basic toast
+            </EtButtonDefault>
+
+            <EtButtonDefault @click="openRandomToast(1)" style="margin-top: 15px; display: block;">
+                Show one random toast
+            </EtButtonDefault>
+
+            <EtButtonDefault @click="openRandomToast(10)" style="margin-top: 15px; display: block;">
+                Show 10 random toast
+            </EtButtonDefault>
+        </EtModal>
     </EtContent>
 </template>
 
@@ -51,8 +69,10 @@ import type {IEtModalProvide} from "../../src/components/etProvider/EtModalProvi
 import EtBasicTestModal from "../modals/EtBasicTestModal.vue";
 import {wait} from "../../src/helpers/async";
 import {pleaseWait} from "../../src/helpers/misc";
+import type { IEtToastProvider } from "../../src/components/etProvider/EtToastProviderInterfaces";
 
 const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
+const toastProvide = inject<IEtToastProvider>("SDKToastProvide");
 
 modalProvide?.registerModal(
     "TestModal",
@@ -106,15 +126,15 @@ function areYouSure() {
             modalProvide?.openModal("SDKAreYouSure",  {
                 content: "Are you really really sure!?",
                 onYes: () => {
-                    console.log("Yes");
+                    openToast('Alright then!');
                 },
                 onNo: () => {
-                    console.log("No");
+                    openToast('Okay, then not...');
                 }
             });
         },
         onNo: () => {
-            console.log("No");
+            openToast('Okay, then not...');
         }
     });
 }
@@ -123,6 +143,37 @@ function openPleaseWait(seconds: number) {
     pleaseWait(async () => {
         await wait(seconds * 1000);
     });
+}
+
+type toastPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
+const positions: toastPosition[] = ["top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"];
+
+async function openToast(textComp: string, position: toastPosition = "top-center") {
+    const [vertical, horizontal] = position.split("-");
+
+    toastProvide.showToast({
+        content: {
+            text: textComp
+        },
+        position: {
+            // @ts-ignore
+            vertical,
+            // @ts-ignore
+            horizontal
+        }
+    });
+
+    await wait(250);
+}
+
+function openBasicToasts() {
+    openToast("This is a basic toast");
+}
+
+async function openRandomToast(count=1) {
+    for (let i = 0; i < count; i++) {
+        await openToast(`This is toast number ${i + 1}`, positions[Math.floor(Math.random() * positions.length)]);
+    }
 }
 
 </script>
