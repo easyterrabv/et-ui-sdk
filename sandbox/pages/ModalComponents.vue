@@ -55,6 +55,10 @@
             <EtButtonDefault @click="openRandomToast(10)" style="margin-top: 15px; display: block;">
                 Show 10 random toast
             </EtButtonDefault>
+
+            <EtButtonDefault @click="openCustomToast" style="margin-top: 15px; display: block;">
+                Show me a custom toast
+            </EtButtonDefault>
         </EtModal>
     </EtContent>
 </template>
@@ -70,6 +74,7 @@ import EtBasicTestModal from "../modals/EtBasicTestModal.vue";
 import {wait} from "../../src/helpers/async";
 import {pleaseWait} from "../../src/helpers/misc";
 import type { IEtToastProvider } from "../../src/components/etProvider/EtToastProviderInterfaces";
+import EtBasicTestCustomToast from "sandbox/modals/EtBasicTestCustomToast.vue";
 
 const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
 const toastProvide = inject<IEtToastProvider>("SDKToastProvide");
@@ -181,6 +186,12 @@ async function openRandomToast(count=1) {
             styles[Math.floor(Math.random() * styles.length)]
         );
     }
+}
+
+function openCustomToast() {
+    toastProvide.showToast({
+        component: markRaw(EtBasicTestCustomToast)
+    });
 }
 
 </script>

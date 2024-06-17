@@ -11,6 +11,7 @@
         <component
             v-if="toast.options.component"
             :is="toast.options.component"
+            :toast="toast"
         />
         <template v-else-if="toast.options.content?.text">
             <div class="et-sdk-toast__content">
