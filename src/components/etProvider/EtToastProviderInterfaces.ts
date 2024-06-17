@@ -1,6 +1,6 @@
 import type { Raw } from "@vue/reactivity";
 import { markRaw } from "vue";
-import EtIconCheckSolid from "../etIcon/EtIconCheckSolid.vue";
+import EtIconCircleInfoSolid from "../etIcon/EtIconCircleInfo.vue";
 
 export interface IEtToastProvider {
     showToast: (options: IEtToastOptions) => IEtActiveToast;
@@ -32,7 +32,7 @@ export interface IEtActiveToast {
 
 export const IEtToastOptionsDefaults: IEtToastOptions = {
     content: {
-        iconComponent: markRaw(EtIconCheckSolid),
+        iconComponent: markRaw(EtIconCircleInfoSolid),
         text: "",
         style: "default",
         dismissible: true

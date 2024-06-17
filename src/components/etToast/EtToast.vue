@@ -13,7 +13,20 @@
             :is="toast.options.component"
         />
         <template v-else-if="toast.options.content?.text">
-            {{ toast.options.content.text }}
+            <div class="et-sdk-toast__content">
+                <component
+                    v-if="toast.options.content?.iconComponent"
+                    :is="toast.options.content.iconComponent"
+                />
+                <div class="et-sdk-toast__content__text">
+                    {{ toast.options.content.text }}
+                </div>
+                <EtIconTimes
+                    class="et-sdk-toast__content__dismiss"
+                    v-if="toast.options.content.dismissible"
+                    @click="toast.remove"
+                />
+            </div>
         </template>
     </div>
 </template>
@@ -21,6 +34,8 @@
 <script lang="ts" setup>
 import type { IEtActiveToast } from "../etProvider/EtToastProviderInterfaces";
 import type { PropType } from "vue";
+
+import EtIconTimes from "../etIcon/EtIconTimes.vue";
 
 defineProps({
     toast: {
@@ -36,6 +51,7 @@ defineProps({
     border-radius: 3px;
     padding: 12px;
     box-shadow: var(--et-sdk-shadow-normal);
+    pointer-events: all;
 }
 
 .et-sdk-toast--default {
@@ -56,5 +72,19 @@ defineProps({
 .et-sdk-toast--error {
     background-color: var(--et-sdk-danger-500);
     color: var(--et-sdk-light-0);
+}
+
+.et-sdk-toast__content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .et-sdk-toast__content__dismiss {
+        cursor: pointer;
+    }
+
+    .et-sdk-toast__content__text {
+        flex-grow: 1;
+    }
 }
 </style>
