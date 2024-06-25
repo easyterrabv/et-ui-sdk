@@ -10,6 +10,7 @@
                 <div class="et-sdk-wysiwyg--toolbar--tools">
                     <EtButtonGroup v-if="enabledInputGroups.includes('style')">
                         <EtButton
+                            :tabindex="9999"
                             :size="UI_SIZING.S"
                             :type="
                                 editor.isActive('bold')
@@ -23,6 +24,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive('italic')
                                     ? UI_TYPES.PRIMARY
@@ -35,6 +37,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive('underline')
                                     ? UI_TYPES.PRIMARY
@@ -50,6 +53,7 @@
                     <EtButtonGroup v-if="enabledInputGroups.includes('list')">
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive('bulletList')
                                     ? UI_TYPES.PRIMARY
@@ -62,6 +66,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive('orderedList')
                                     ? UI_TYPES.PRIMARY
@@ -77,6 +82,7 @@
                     <EtButtonGroup v-if="enabledInputGroups.includes('align')">
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive({ textAlign: 'left' })
                                     ? UI_TYPES.PRIMARY
@@ -89,6 +95,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive({ textAlign: 'center' })
                                     ? UI_TYPES.PRIMARY
@@ -101,6 +108,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive({ textAlign: 'right' })
                                     ? UI_TYPES.PRIMARY
@@ -113,6 +121,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive({ textAlign: 'justify' })
                                     ? UI_TYPES.PRIMARY
@@ -128,6 +137,7 @@
                     <EtButtonGroup v-if="enabledInputGroups.includes('misc')">
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive('blockquote')
                                     ? UI_TYPES.PRIMARY
@@ -142,6 +152,7 @@
                             <template #toggle>
                                 <EtButton
                                     :size="UI_SIZING.S"
+                                    :tabindex="9999"
                                     @click="toggleAnchorPopover"
                                     :type="
                                         editor.isActive('link')
@@ -182,6 +193,7 @@
                                     <EtButtonDanger
                                         class="no-grow"
                                         :size="UI_SIZING.S"
+                                        :tabindex="9999"
                                         @click="
                                             () => {
                                                 urlHref = undefined;
@@ -195,6 +207,7 @@
                                     <EtButtonDefault
                                         @click="() => cancelLink()"
                                         :size="UI_SIZING.S"
+                                        :tabindex="9999"
                                         :disabled="hasDisabledInput"
                                     >
                                         cancel
@@ -212,6 +225,7 @@
                         <EtButton
                             v-if="inlineImageUploadCallback"
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="handleInlineImage"
@@ -221,6 +235,7 @@
                         <EtButton
                             v-if="hasAttachments"
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="handleAttachment"
@@ -241,6 +256,7 @@
                     >
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="handleAttachment"
@@ -256,6 +272,7 @@
                             v-for="heading in [1, 2, 3, 4, 5, 6]"
                             :key="heading"
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="
                                 editor.isActive('heading', { level: heading })
                                     ? UI_TYPES.PRIMARY
@@ -275,6 +292,7 @@
                     <EtButtonGroup v-if="enabledInputGroups.includes('table')">
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="
@@ -298,6 +316,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('deleteTable')"
@@ -315,6 +334,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('addColumnAfter')"
@@ -332,6 +352,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('deleteColumn')"
@@ -349,6 +370,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('addRowAfter')"
@@ -366,6 +388,7 @@
                         </EtButton>
                         <EtButton
                             :size="UI_SIZING.S"
+                            :tabindex="9999"
                             :type="UI_TYPES.DEFAULT"
                             :disabled="hasDisabledInput"
                             @click="runEditorMethod('deleteRow')"
@@ -391,6 +414,7 @@
                 <EtButtonGroup v-if="enabledInputGroups.includes('html')">
                     <EtButton
                         :size="UI_SIZING.S"
+                        :tabindex="9999"
                         :type="UI_TYPES.DEFAULT"
                         @click="toggleEditMode"
                     >
