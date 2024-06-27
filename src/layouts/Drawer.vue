@@ -74,6 +74,9 @@ export default defineComponent({
     padding-top: 70px;
     max-width: 69px;
 
+    padding-left: 5px;
+    padding-right: 5px;
+
     background-color: var(--et-sdk-dark-100);
     box-shadow: var(--et-sdk-shadow-normal);
 }
