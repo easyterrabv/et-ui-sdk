@@ -72,12 +72,12 @@ export default defineComponent({
     flex-direction: column;
     gap: 20px;
     padding-top: 70px;
-    max-width: 69px;
+    width: 70px;
 
     padding-left: 5px;
     padding-right: 5px;
 
     background-color: var(--et-sdk-dark-100);
-    box-shadow: var(--et-sdk-shadow-normal);
+    border-left: 1px solid var(--et-sdk-dark-200);
 }
 </style>
