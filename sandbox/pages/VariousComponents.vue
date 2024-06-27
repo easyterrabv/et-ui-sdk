@@ -1,5 +1,26 @@
 <template>
     <EtDrawer :drawerOpen="drawerOpen">
+        <template #menu>
+            <EtDrawerMenuItem>
+                Test
+            </EtDrawerMenuItem>
+            <EtDrawerMenuItem>
+                A longer name
+            </EtDrawerMenuItem>
+            <EtDrawerMenuItem>
+                <template #icon>
+                    <EtIconTimes />
+                </template>
+                Custom Icon
+            </EtDrawerMenuItem>
+            <EtDrawerMenuItem active>
+                <template #icon>
+                    <EtDrawerMenuItem />
+                </template>
+                Active
+            </EtDrawerMenuItem>
+        </template>
+
         <template #drawer>
             <EtHeaderBlock>
                 Hi, this is drawer content!
@@ -730,6 +751,9 @@ import EtDate from "src/components/etText/EtDate.vue"
 
 import EtIconArrowTurnLeft from "src/components/etIcon/EtIconArrowTurnLeft.vue";
 import EtIconArrowTurnRight from "src/components/etIcon/EtIconArrowTurnRight.vue";
+import EtDrawerMenuItem from "src/components/etMenu/EtDrawerMenuItem.vue";
+
+import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
 
 export default defineComponent({
     computed: {
@@ -741,6 +765,7 @@ export default defineComponent({
         }
     },
     components: {
+        EtDrawerMenuItem,
         EtDrawer,
         EtContent,
 
@@ -778,7 +803,8 @@ export default defineComponent({
 
         EtListGroup,
         EtIconArrowTurnLeft,
-        EtIconArrowTurnRight
+        EtIconArrowTurnRight,
+        EtIconTimes
     },
     data() {
         return {

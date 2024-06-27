@@ -11,7 +11,10 @@
             }"
             v-if="$slots.drawer"
         >
-            <slot v-if="drawerOpen" name="drawer"></slot>
+            <slot v-if="drawerOpen" name="drawer" />
+        </div>
+        <div class="et-sdk-layout-drawer--drawer-menu" v-if="$slots.menu">
+            <slot name="menu" />
         </div>
     </div>
 </template>
@@ -56,12 +59,22 @@ export default defineComponent({
 
 .et-sdk-layout-drawer--drawer {
     width: var(--et-sdk-drawer-width);
-    transition: width 150ms ease-in-out;
     background-color: var(--et-sdk-light-0);
     box-shadow: var(--et-sdk-shadow-normal);
 }
 
 .et-sdk-layout-drawer--drawer-closed {
     width: 0;
+}
+
+.et-sdk-layout-drawer--drawer-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 70px;
+    max-width: 69px;
+
+    background-color: var(--et-sdk-dark-100);
+    box-shadow: var(--et-sdk-shadow-normal);
 }
 </style>
