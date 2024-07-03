@@ -23,6 +23,7 @@
             :data-getter="dataGetter"
             :onFilterSave="filterSetSaving.saveFilterSet"
             @checked="onRowsChecked"
+            :auto-refresh="60"
         ></EtDataGrid>
     </EtContent>
 </template>

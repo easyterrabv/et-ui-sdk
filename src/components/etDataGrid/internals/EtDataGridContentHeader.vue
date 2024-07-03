@@ -25,7 +25,7 @@
                         v-if="searchData"
                         @click="() => searchData?.()"
                     >
-                        <EtIconArrowRotateRight />
+                        <EtIconArrowRotateRight :pulse="isRefreshing" />
                     </span>
                     <template #tooltip> Reload </template>
                 </EtTooltip>
@@ -123,6 +123,7 @@ const props = defineProps({
 
 const searchData = inject<() => void>("searchData");
 const checkedRows = inject<CheckedProvide>("checkedRows");
+const isRefreshing = inject<Boolean>("isRefreshing");
 
 const hasBulkMethods = computed(() => (props.bulkMethods || []).length > 0);
 const hasAnyChecked = computed(() => checkedRows && checkedRows.anySelected());

@@ -131,6 +131,10 @@ const props = defineProps({
     saveToUrl: {
         type: Boolean,
         default: true
+    },
+    autoRefresh: {
+        type: Number,
+        default: 0 // Time in SECONDS
     }
 });
 
@@ -140,6 +144,11 @@ const emit = defineEmits<{
 }>();
 
 const rows = ref<RowObject[]>([]);
+
+// They don't have the same function.
+// isRefreshing will always show true/false if the data is being refreshed
+// isLoading will show true/false if the refresh isn't silent. And then the table will show a loading spinner
+const isRefreshing = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
 
 const checkedRows = useChecked<RowObject>(props.rowInfo, () => rows.value);
@@ -177,7 +186,7 @@ if (
 
 let dataRequest: CancelablePromise<[RowObject[], number]>;
 
-async function __searchData() {
+async function __searchData(silent = false) {
     if (!props.dataGetter && !props.data) {
         throw new Error("No Data or DataGetter provided");
     }
@@ -201,7 +210,8 @@ async function __searchData() {
     }, {} as FilterObject);
 
     if (props.dataGetter) {
-        isLoading.value = true;
+        isLoading.value = !silent;
+        isRefreshing.value = true;
 
         dataRequest?.cancel();
 
@@ -216,6 +226,7 @@ async function __searchData() {
 
         [resultRows, criteriaManager.totalRows] = await dataRequest;
         isLoading.value = false;
+        isRefreshing.value = false;
     }
 
     if (props.data) {
@@ -223,15 +234,17 @@ async function __searchData() {
     }
 
     rows.value = resultRows;
+    setRefreshTimeout();
 }
 const searchDataDebounce = new Debounce(__searchData, 100);
 
-function searchData() {
-    searchDataDebounce.debounce();
+function searchData(silent = false) {
+    searchDataDebounce.debounce(silent);
 }
 
 provide<CheckedProvide>("checkedRows", checkedRows);
 provide<Ref<boolean>>("isLoading", isLoading);
+provide<Ref<boolean>>("isRefreshing", isRefreshing);
 provide<() => void>("searchData", searchData);
 provide<CellWidthProvide>("cellWidth", cellWidth);
 provide<RowVersionProvider>("rowVersion", rowVersion);
@@ -254,9 +267,19 @@ watch(
     },
     { deep: true, immediate: true }
 );
-watch(() => criteriaManager.criteria.sorting, searchData, { deep: true });
-watch(() => criteriaManager.criteria.page, searchData);
-watch(() => criteriaManager.criteria.perPage, searchData);
+watch(
+    () => criteriaManager.criteria.sorting,
+    () => searchData(),
+    { deep: true }
+);
+watch(
+    () => criteriaManager.criteria.page,
+    () => searchData()
+);
+watch(
+    () => criteriaManager.criteria.perPage,
+    () => searchData()
+);
 
 watch(
     () => checkedRows.rows,
@@ -267,6 +290,34 @@ watch(
         deep: true
     }
 );
+
+function intervalSearchData() {
+    if (checkedRows.anySelected()) {
+        // Don't refresh if there are selected rows
+        return;
+    }
+
+    searchData(true);
+}
+
+let refreshTimeout: number | undefined = undefined;
+
+function setRefreshTimeout() {
+    if (refreshTimeout) {
+        clearTimeout(refreshTimeout);
+    }
+
+    if (props.autoRefresh > 0) {
+        // The reason we use a timeout instead of a refresh is that
+        // After each search we want to set the timeout again, so that if the user
+        // Manually refreshed and the timeout triggers like 100ms after that, you won't get double search
+        // This way it will always be the expected time interval between searches
+        refreshTimeout = setTimeout(
+            intervalSearchData,
+            props.autoRefresh * 1000
+        );
+    }
+}
 
 function patchRow(rowId: string | number, data: any) {
     const dataValues = Object.entries<any>(data);
