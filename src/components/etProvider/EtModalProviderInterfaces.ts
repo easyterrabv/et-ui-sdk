@@ -10,7 +10,9 @@ export interface IEtModalProvide {
     openModal(
         name: string,
         props?: Record<string, any>,
-        savedProps?: string[]
+        savedProps?: string[],
+        withGuid?: string,
+        zAdjustment?: number
     ): string | null;
     closeModalByName(name: string): void;
     closeModal(guid: string): void;
@@ -48,6 +50,7 @@ export interface IOpenModal {
     modal: IModal;
     props: Record<string, any>;
     savedProps: string[] | boolean;
+    zAdjustment: number;
 }
 
 export interface SavedUrlModalProps {

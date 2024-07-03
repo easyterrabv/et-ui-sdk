@@ -16,7 +16,8 @@
                     'z-index':
                         10000 +
                         index +
-                        (openModal.modal.options.alwaysOnTop ? 1000 : 0) -
+                        (openModal.modal.options.alwaysOnTop ? 1000 : 0) +
+                        (openModal.zAdjustment || 0) -
                         1
                 }"
                 @click="() => onBackDropClick(openModal)"
@@ -27,7 +28,8 @@
                     'z-index':
                         10000 +
                         index +
-                        (openModal.modal.options.alwaysOnTop ? 1000 : 0)
+                        (openModal.modal.options.alwaysOnTop ? 1000 : 0) +
+                        (openModal.zAdjustment || 0)
                 }"
             >
                 <component
@@ -152,7 +154,8 @@ function openModal(
     name: string,
     props?: Record<string, any>,
     savedProps?: string[] | boolean,
-    withGuid?: string
+    withGuid?: string,
+    zAdjustment?: number
 ) {
     if (!registeredModals.has(name)) {
         console.warn(
@@ -186,7 +189,8 @@ function openModal(
         guid: guid,
         modal: modalInfo as IModal,
         props: props || {},
-        savedProps: savedProps || false
+        savedProps: savedProps || false,
+        zAdjustment: zAdjustment || 0
     };
 
     openModalsMap.value.set(guid, openModal);

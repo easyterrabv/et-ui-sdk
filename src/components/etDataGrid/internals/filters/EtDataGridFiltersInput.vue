@@ -178,13 +178,22 @@ function saveFilters() {
     }
 
     if (modalProvide) {
-        modalProvide.openModal("SDKDataGridPickSavedName", {
-            callback(label: string) {
-                if (label) {
-                    props.onFilterSave(label, filterValueStaging.filtersValues);
+        modalProvide.openModal(
+            "SDKDataGridPickSavedName",
+            {
+                callback(label: string) {
+                    if (label) {
+                        props.onFilterSave(
+                            label,
+                            filterValueStaging.filtersValues
+                        );
+                    }
                 }
-            }
-        });
+            },
+            undefined,
+            undefined,
+            10000
+        );
     } else {
         const label = prompt("Label");
 
