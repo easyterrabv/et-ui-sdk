@@ -64,6 +64,15 @@ export const makeSlug = (text: string) => {
     );
 };
 
+export const makeCode = (text: string) => {
+    if (!text) {
+        return text;
+    }
+
+    const slug = makeSlug(text);
+    return slug.replace(/-/g, "_").toUpperCase();
+};
+
 export function formatCurrency(
     amount: number,
     currencyCode: string | undefined | null
