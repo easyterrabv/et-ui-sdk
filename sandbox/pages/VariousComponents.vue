@@ -754,6 +754,7 @@ import EtIconArrowTurnRight from "src/components/etIcon/EtIconArrowTurnRight.vue
 import EtDrawerMenuItem from "src/components/etMenu/EtDrawerMenuItem.vue";
 
 import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
+import { makeCode } from "src/helpers/misc";
 
 export default defineComponent({
     computed: {
@@ -822,5 +823,10 @@ export default defineComponent({
             ]
         }
     },
+    mounted() {
+        console.log(makeCode('test'));
+        console.log(makeCode('test 1'));
+        console.log(makeCode('test 1 and 123'));
+    }
 })
 </script>

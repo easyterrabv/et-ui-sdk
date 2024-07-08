@@ -64,13 +64,45 @@ export const makeSlug = (text: string) => {
     );
 };
 
+export const numberToText = (num: number) => {
+    switch (num) {
+        case 0:
+            return "zero";
+        case 1:
+            return "one";
+        case 2:
+            return "two";
+        case 3:
+            return "three";
+        case 4:
+            return "four";
+        case 5:
+            return "five";
+        case 6:
+            return "six";
+        case 7:
+            return "seven";
+        case 8:
+            return "eight";
+        case 9:
+            return "nine";
+        default:
+            return "";
+    }
+};
+
 export const makeCode = (text: string) => {
     if (!text) {
         return text;
     }
 
     const slug = makeSlug(text);
-    return slug.replace(/-/g, "_").toUpperCase();
+    return slug
+        .replace(/\d/g, (match) => ` ${numberToText(parseInt(match, 10))}`)
+        .replace(/\s+/g, "_")
+        .replace(/-/g, "_")
+        .replace(/__/g, "_")
+        .toUpperCase();
 };
 
 export function formatCurrency(
