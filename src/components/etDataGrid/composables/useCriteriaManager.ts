@@ -30,7 +30,7 @@ const _defaultCriteria = {
     sorting: {},
     filters: {},
     page: 1,
-    perPage: 30
+    perPage: 50
 };
 
 export interface IUseCriteriaManager {
