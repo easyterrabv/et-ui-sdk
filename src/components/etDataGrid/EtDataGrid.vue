@@ -300,7 +300,7 @@ function intervalSearchData() {
     searchData(true);
 }
 
-let refreshTimeout: number | undefined = undefined;
+let refreshTimeout: ReturnType<typeof setTimeout>;
 
 function setRefreshTimeout() {
     if (refreshTimeout) {
