@@ -1,7 +1,10 @@
 <template>
     <div class="et-sdk-layout-content">
         <slot name="header"></slot>
-        <div v-if="$slots.default" class="et-sdk-layout-content--content">
+        <div
+            v-if="$slots.default"
+            class="et-sdk-layout-content--content hide-scrollbar"
+        >
             <slot></slot>
         </div>
     </div>
