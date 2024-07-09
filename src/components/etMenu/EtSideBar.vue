@@ -2,24 +2,27 @@
     <aside
         v-if="$slots.default"
         :class="{
-            'et-sdk-side-bar__closed': isCollapsed,
-            'et-sdk-side-bar__open': !isCollapsed
+            'et-sdk-side-bar--closed': isCollapsed,
+            'et-sdk-side-bar--open': !isCollapsed
         }"
         class="et-sdk-side-bar"
     >
-        <div>
-            <slot :isCollapsed="isCollapsed"></slot>
+        <div class="et-sdk-side-bar__content hide-scrollbar">
+            <slot :isCollapsed="isCollapsed" />
         </div>
 
-        <div
-            @mousedown.left.stop="toggleCollapse"
-            class="et-sdk-side-bar--toggle"
-        >
-            <EtIconAnglesLeft
-                title="Hide Menu"
-                v-if="!isCollapsed"
-            ></EtIconAnglesLeft>
-            <EtIconAnglesRight title="Show Menu" v-else></EtIconAnglesRight>
+        <div class="et-sdk-side-bar__footer">
+            <slot name="footer" :isCollapsed="isCollapsed" />
+            <div
+                @mousedown.left.stop="toggleCollapse"
+                class="et-sdk-side-bar--toggle"
+            >
+                <EtIconAnglesLeft
+                    title="Hide Menu"
+                    v-if="!isCollapsed"
+                ></EtIconAnglesLeft>
+                <EtIconAnglesRight title="Show Menu" v-else></EtIconAnglesRight>
+            </div>
         </div>
     </aside>
 </template>
@@ -107,27 +110,38 @@ export default defineComponent({
 .et-sdk-side-bar {
     padding-top: 24px;
     z-index: 10;
+    overflow-y: auto;
     height: 100%;
     max-height: 100%;
     background-color: var(--et-sdk-dark-50);
     box-shadow: var(--et-sdk-shadow-normal-inset);
-    position: relative;
     transition: width 150ms ease-in-out;
     width: var(--et-sdk-left-menu-width-closed);
+
+    display: flex;
+    flex-direction: column;
 }
 
-.et-sdk-side-bar__closed {
+.et-sdk-side-bar--closed {
     width: var(--et-sdk-left-menu-width-closed);
 }
 
-.et-sdk-side-bar__open {
+.et-sdk-side-bar--open {
     width: var(--et-sdk-left-menu-width-open);
 }
 
+.et-sdk-side-bar__content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.et-sdk-side-bar__footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .et-sdk-side-bar--toggle {
-    position: absolute;
-    bottom: 0;
-    right: 0;
     padding: 16px;
     color: var(--et-sdk-dark-400);
     cursor: pointer;
