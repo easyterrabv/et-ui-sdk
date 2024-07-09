@@ -400,7 +400,6 @@ onBeforeUnmount(() => {
     padding: 0 6px;
     line-height: 40px;
     white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
 }
 
