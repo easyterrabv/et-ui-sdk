@@ -6,7 +6,7 @@
             @click="() => handleBulkMethod(bulkMethod)"
         >
             <component
-                v-bind="bulkMethod.meta ? bulkMethod.meta : {}"
+                v-bind="bulkMethodProps"
                 :is="bulkMethod.component || EtIconSquare"
             />
         </span>
@@ -62,6 +62,16 @@ const title = computed(() => {
     }
 
     return props.bulkMethod.title(checkedRows.rows);
+});
+
+const bulkMethodProps = computed(() => {
+    const bProps = props.bulkMethod.meta ? props.bulkMethod.meta : {};
+
+    if (checkedRows && props.bulkMethod.rowsAsProp) {
+        bProps.rows = checkedRows.rows;
+    }
+
+    return bProps;
 });
 
 async function handleBulkMethod(bulkMethod: BulkMethod) {

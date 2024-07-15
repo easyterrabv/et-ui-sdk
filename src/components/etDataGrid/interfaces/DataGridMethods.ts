@@ -8,6 +8,7 @@ export interface BulkMethod<T extends RowObject = RowObject> {
     title?: string | ((rows: T[]) => string);
     isVisible?: boolean | ((rows: T[]) => boolean);
     meta?: { [key: string]: any };
+    rowsAsProp?: boolean;
 }
 
 export interface CheckedProvide<T extends RowObject = RowObject> {
