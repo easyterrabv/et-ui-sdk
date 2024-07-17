@@ -189,7 +189,7 @@ export default defineComponent({
             }
 
             this.isOpen = true;
-            (this.$refs.popover as any).showDropDown();
+            // (this.$refs.popover as any).showDropDown();
         },
         onFirstInputFocus() {
             this.currentFocus = "inputOne";
