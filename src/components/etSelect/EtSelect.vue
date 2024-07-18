@@ -6,7 +6,7 @@
                 'et-sdk-select--option__selected':
                     !multiple && isSelected(option)
             }"
-            v-for="option in sortedOptions"
+            v-for="option in filteredOptions"
             @click.left.stop="(e) => selectDebounce.debounce(option)"
             :key="option.guid"
         >
@@ -25,8 +25,8 @@ import { defineComponent, type PropType } from "vue";
 import EtCheckbox from "../etForm/EtCheckbox.vue";
 import { OptionModel } from "../../models/Option";
 import { Debounce } from "../../helpers/debounce";
-import { needleFixer } from "../../helpers/misc";
 import { areArraysWithObjectsEqual, makeArray } from "../../helpers/array";
+import { filterOnBestMatch } from "../../helpers/search";
 
 export default defineComponent({
     components: {
@@ -98,40 +98,7 @@ export default defineComponent({
     },
     computed: {
         filteredOptions() {
-            const options = this.options || [];
-            const filteredOptions: OptionModel[] = [];
-
-            const fixedValue = needleFixer(this.filter);
-
-            (options || []).forEach((option: OptionModel, index) => {
-                if (!option) {
-                    return;
-                }
-
-                if (!fixedValue) {
-                    // To keep this in order of supplied array order.
-                    option.score = -option.defaultSortOrder;
-                    filteredOptions.push(option);
-                    return;
-                }
-
-                option.calculateAndSetScore(this.filter);
-
-                if (option.score > 0) {
-                    filteredOptions.push(option);
-                }
-            });
-
-            return filteredOptions;
-        },
-        sortedOptions() {
-            return (this.filteredOptions || []).sort(
-                (a: OptionModel, b: OptionModel) => {
-                    const scoreA = a.score || 0;
-                    const scoreB = b.score || 0;
-                    return scoreA < scoreB ? 1 : scoreA > scoreB ? -1 : 0;
-                }
-            );
+            return filterOnBestMatch(this.filter, this.options, 0);
         }
     },
     methods: {
