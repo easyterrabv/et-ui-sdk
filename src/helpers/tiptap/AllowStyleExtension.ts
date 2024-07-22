@@ -35,6 +35,12 @@ export const AllowStyleExtension = Extension.create({
                 attributes: {
                     style: {
                         default: null
+                    },
+                    id: {
+                        default: null
+                    },
+                    class: {
+                        default: null
                     }
                 }
             }
