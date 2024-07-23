@@ -36,7 +36,8 @@ import {
     type Ref,
     type UnwrapNestedRefs,
     onMounted,
-    onBeforeUnmount
+    onBeforeUnmount,
+    onUnmounted
 } from "vue";
 import type { DataGridRow } from "./interfaces/DataGridRow";
 import type {
@@ -362,11 +363,11 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-    if (refreshTimeout) {
-        clearTimeout(refreshTimeout);
-    }
-
     window.removeEventListener("resize", calculateMaxCellWidth);
+});
+
+onUnmounted(() => {
+    refreshTimeout && clearTimeout(refreshTimeout);
 });
 </script>
 
