@@ -362,6 +362,10 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+    if (refreshTimeout) {
+        clearTimeout(refreshTimeout);
+    }
+
     window.removeEventListener("resize", calculateMaxCellWidth);
 });
 </script>
