@@ -35,8 +35,8 @@
                 </div>
             </template>
             <EtDatePicker
-                @escape="(e) => onEscape()"
-                @blur="(e) => onInputBlur()"
+                @escape="() => onEscape()"
+                @blur="() => onInputBlur()"
                 @dateSelect="() => onDateSelect()"
                 v-model="internalDateValue"
             ></EtDatePicker>
