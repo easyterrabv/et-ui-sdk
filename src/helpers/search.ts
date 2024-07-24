@@ -10,7 +10,7 @@ export const sortOnBestMatch = (
     const fixedNeedle: string = needleFixer(needle);
     const filteredOptions: OptionModel[] = [];
 
-    options.forEach((option: OptionModel) => {
+    clonedOptions.forEach((option: OptionModel) => {
         if (!option) {
             return;
         }
