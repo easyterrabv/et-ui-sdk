@@ -30,7 +30,7 @@
             <template v-else-if="options.length > 0">
                 <div
                     v-for="(option, index) in options"
-                    :key="option.value"
+                    :key="option.guid"
                     @click="(e) => handleOnClick(option)"
                 >
                     <div

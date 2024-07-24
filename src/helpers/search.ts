@@ -1,10 +1,12 @@
 import { OptionModel } from "../models/Option";
 import { needleFixer } from "./misc";
+import { deepClone } from "./clone";
 
 export const sortOnBestMatch = (
     needle: string,
     options: OptionModel[]
 ): OptionModel[] => {
+    const clonedOptions: OptionModel[] = deepClone(options);
     const fixedNeedle: string = needleFixer(needle);
     const filteredOptions: OptionModel[] = [];
 
@@ -39,10 +41,12 @@ export const filterOnBestMatch = (
         fixedNeedle,
         options
     );
+
     if (!fixedNeedle) {
         return sortedOnBestMatch;
     }
-    return sortedOnBestMatch.filter(
-        (option: OptionModel) => option.score >= cutoff
-    );
+
+    return sortedOnBestMatch.filter((option: OptionModel) => {
+        return option.score > cutoff;
+    });
 };

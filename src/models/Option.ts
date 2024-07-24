@@ -11,13 +11,21 @@ export interface IOption {
     meta?: { [key: string]: any };
 }
 export class OptionModel extends EtModel {
-    constructor(option: IOption) {
+    label: string | null | undefined = null;
+    value: string | boolean | number | Date = "";
+    tags: string[] = [];
+    type: string | undefined = undefined;
+    meta: { [key: string]: any } = {};
+
+    constructor(option?: IOption) {
         super();
-        this.label = option.label;
-        this.value = option.value;
-        this.tags = option.tags || [];
-        this.type = option.type;
-        this.meta = option.meta || {};
+        if (option) {
+            this.label = option.label;
+            this.value = option.value;
+            this.tags = option.tags || [];
+            this.type = option.type;
+            this.meta = option.meta || {};
+        }
         this.score = 0;
         this.defaultSortOrder = OPTION_COUNT;
 
@@ -41,7 +49,7 @@ export class OptionModel extends EtModel {
     calculateScore(needle: string) {
         let score = 0;
         const fixedNeedle = needleFixer(needle || "");
-        const fixedLabel = needleFixer(this.label);
+        const fixedLabel = needleFixer(this.label || "");
         const fixedValue = needleFixer(this.value);
 
         if (!fixedNeedle) {
