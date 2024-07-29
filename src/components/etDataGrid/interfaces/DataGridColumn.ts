@@ -20,7 +20,7 @@ export interface DataGridColumn<T extends RowObject = RowObject> {
     };
     content: {
         key: string; // KeyUnit;
-        formatter?: (data: unknown, row: T) => Promise<string>;
+        formatter?: (data: unknown, row: T) => Promise<string> | string;
         component?: Raw<object>;
         class?: string;
     };
