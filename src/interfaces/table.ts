@@ -7,7 +7,7 @@ export type sortDirections = "ASC" | "DESC" | null;
 export type DataGettingReturnType = [EtModel[] | object[], number];
 export type DataGetterCallback = (
     criteria: ICriteria
-) => Promise<DataGettingReturnType>;
+) => Promise<DataGettingReturnType> | DataGettingReturnType;
 
 export interface ISorting {
     [key: string]: sortDirections;

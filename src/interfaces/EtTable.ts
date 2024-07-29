@@ -45,7 +45,7 @@ export interface TableColumnSorting {
     field: string;
     type?: string;
     level?: string;
-    onClick?: () => Promise<string>;
+    onClick?: () => Promise<string> | string;
 }
 
 export interface TableColumnFilter extends TableBasicFilter {
@@ -55,9 +55,9 @@ export interface TableColumnFilter extends TableBasicFilter {
 
 export interface TableBulkAction<T = object> {
     label: string;
-    method: (rows: T[]) => Promise<void>;
+    method: (rows: T[]) => Promise<void> | void;
     name?: string;
-    disabled?: boolean | ((rows: T[]) => Promise<boolean>);
+    disabled?: boolean | ((rows: T[]) => Promise<boolean> | boolean);
 }
 
 export interface TableColumnBulkEdit<T = object> {
@@ -98,8 +98,8 @@ export interface TableInfo<T = object> {
     defaultPerPage?: number;
     canChangeSettings?: boolean;
     allowMultiRowSort?: boolean;
-    saveMethod?: (rows: T[]) => Promise<void>;
-    showSavePopup?: boolean | ((rows: T[]) => Promise<boolean>);
+    saveMethod?: (rows: T[]) => Promise<void> | void;
+    showSavePopup?: boolean | ((rows: T[]) => Promise<boolean> | boolean);
     selectable?: boolean;
 }
 

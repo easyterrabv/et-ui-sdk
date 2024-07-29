@@ -3,7 +3,7 @@ import type { Raw } from "@vue/reactivity";
 import type { RowObject } from "./DataRowObject";
 
 export interface BulkMethod<T extends RowObject = RowObject> {
-    method: (rows: T[]) => Promise<void>;
+    method: (rows: T[]) => Promise<void> | void;
     component?: Raw<object>; // object
     title?: string | ((rows: T[]) => string);
     isVisible?: boolean | ((rows: T[]) => boolean);

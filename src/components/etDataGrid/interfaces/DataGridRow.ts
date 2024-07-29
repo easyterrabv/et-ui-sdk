@@ -7,7 +7,7 @@ export type IRowClass<T extends RowObject = RowObject> =
 
 export interface DataGridRow<T extends RowObject = RowObject> {
     idKey: string; // The key that uniquely identifies the row
-    onRowClick?: (row: T) => Promise<void>;
+    onRowClick?: (row: T) => Promise<void> | void;
     isSelectable?: boolean;
     class?: IRowClass<T>;
 }

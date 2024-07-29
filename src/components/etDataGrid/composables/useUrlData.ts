@@ -6,7 +6,7 @@ export type urlDataObject = { [key: string]: unknown };
 export interface IUseUrlData<T extends object = urlDataObject> {
     currentBase64String: string;
     makeUrlString: (data: urlDataObject) => string;
-    setDataToUrl: (data: urlDataObject) => Promise<void>;
+    setDataToUrl: (data: urlDataObject) => Promise<void> | void;
     getDataFromUrl: () => T | null;
 }
 

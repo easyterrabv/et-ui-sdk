@@ -8,22 +8,22 @@ import type { DataGridColumn } from "../interfaces/DataGridColumn";
 export interface ICriteriaManager {
     criteria: IDataGridCriteria;
     totalRows: number;
-    setCriteria: (criteria: IDataGridCriteria) => Promise<void>;
-    setSorting: (sorting: IDataGridCriteria["sorting"]) => Promise<void>;
+    setCriteria: (criteria: IDataGridCriteria) => Promise<void> | void;
+    setSorting: (sorting: IDataGridCriteria["sorting"]) => Promise<void> | void;
     setSortingByColumn: (
         column: DataGridColumn,
         direction: sortDirections
-    ) => Promise<void>;
-    setFilters: (filters: IDataGridCriteria["filters"]) => Promise<void>;
-    setFilter: (field: string, value: FilterValue) => Promise<void>;
-    setPage: (page: number) => Promise<void>;
-    setPerPage: (perPage: number) => Promise<void>;
+    ) => Promise<void> | void;
+    setFilters: (filters: IDataGridCriteria["filters"]) => Promise<void> | void;
+    setFilter: (field: string, value: FilterValue) => Promise<void> | void;
+    setPage: (page: number) => Promise<void> | void;
+    setPerPage: (perPage: number) => Promise<void> | void;
 
     getSortField: (column: DataGridColumn) => string | null;
-    toggleSorting: (column: DataGridColumn) => Promise<void>;
+    toggleSorting: (column: DataGridColumn) => Promise<void> | void;
     isColumnSortable: (column: DataGridColumn) => boolean;
     getColumnSortDirection: (column: DataGridColumn) => sortDirections;
-    resetSorting: (columns: DataGridColumn[]) => Promise<void>;
+    resetSorting: (columns: DataGridColumn[]) => Promise<void> | void;
 }
 
 const _defaultCriteria = {
