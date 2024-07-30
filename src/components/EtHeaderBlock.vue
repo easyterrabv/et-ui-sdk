@@ -40,5 +40,6 @@
     padding-right: 15px;
     display: flex;
     align-items: center;
+    gap: 15px;
 }
 </style>
