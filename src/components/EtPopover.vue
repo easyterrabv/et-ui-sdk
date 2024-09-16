@@ -91,7 +91,7 @@ function hideDropDown() {
     sdkOverlay?.setVisibility(false);
 
     try {
-        window.addEventListener("mouseup", handleClickOutside);
+        window.removeEventListener("mouseup", handleClickOutside);
         hasEvent.value = false;
     } catch (e) {}
 }
