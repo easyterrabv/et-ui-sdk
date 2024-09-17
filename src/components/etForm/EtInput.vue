@@ -227,6 +227,11 @@ export default defineComponent({
             required: false,
             default: ""
         },
+        autofocus: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
         ...commonInputProps
     },
     data() {
@@ -401,6 +406,11 @@ export default defineComponent({
         blur: () => true,
         // Will trigger on input clear
         clear: () => true
+    },
+    mounted() {
+        if (this.autofocus) {
+            this.focus();
+        }
     }
 });
 </script>
