@@ -117,6 +117,11 @@
             </EtFormGroup>
 
             <EtFormGroup style="margin-top: 16px;">
+                <template #label>Color picker</template>
+                <EtInputColorPicker v-model="colorPicked"></EtInputColorPicker>
+            </EtFormGroup>
+
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>Min Max</template>
                 <EtInputNumberRange v-model="numberRange"></EtInputNumberRange>
             </EtFormGroup>
@@ -244,9 +249,11 @@ import EtButton from "../../src/components/etButton/EtButton.vue";
 import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
 import EtBadge from "src/components/etBadge/EtBadge.vue";
 import EtBadgePrimary from "src/components/etBadge/EtBadgePrimary.vue";
+import EtInputColorPicker from "src/components/etForm/EtInputColorPicker.vue";
 
 export default defineComponent({
     components: {
+        EtInputColorPicker,
         EtBadgePrimary,
         EtBadge,
         EtButtonDefault,
@@ -323,7 +330,9 @@ export default defineComponent({
             wysiwygContent: 'Preset test content in here <strong>Bold and strong</strong> <table><tr><th>Header 1</th><th>Header 2</th></tr><tr><td>Content 1</td><td>Content 2</td></tr><tr><td>Content 1</td><td>Content 2</td></tr></table>',
             numberRange: [],
 
-            selectedTime: [13, 22]
+            selectedTime: [13, 22],
+
+            colorPicked: '#000000'
         }
     },
     computed: {
