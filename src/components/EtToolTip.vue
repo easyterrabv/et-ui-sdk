@@ -128,11 +128,11 @@ onBeforeUnmount(() => {
     popperInstance?.destroy();
     popperInstance = null;
 
-    (toggle.value as any).removeEventListener("mouseenter", showToolTip);
-    (toggle.value as any).removeEventListener("mouseleave", hideToolTip);
+    (toggle.value as any)?.removeEventListener?.("mouseenter", showToolTip);
+    (toggle.value as any)?.removeEventListener?.("mouseleave", hideToolTip);
 
-    (content.value as any).removeEventListener("mouseenter", showToolTip);
-    (content.value as any).removeEventListener("mouseleave", hideToolTip);
+    (content.value as any)?.removeEventListener?.("mouseenter", showToolTip);
+    (content.value as any)?.removeEventListener?.("mouseleave", hideToolTip);
 });
 </script>
 
