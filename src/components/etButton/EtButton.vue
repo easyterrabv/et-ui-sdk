@@ -21,74 +21,56 @@
     </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { UI_SIZING, UI_TYPES } from "../../helpers/enums";
+<script setup lang="ts">
+import { computed, ref } from "vue";
+import { UI_TYPES } from "../../helpers/enums";
 import { Debounce } from "../../helpers/debounce";
+import { type ISharedButtonProps, propDefaults } from "./IEtButtonStatic";
 
-interface iButtonColoring {
-    default: string;
-    readonly: string;
-    active: string;
-    disabled: string;
+interface ButtonProps extends ISharedButtonProps {
+    type?: string;
 }
 
-export const sharedButtonProps = {
-    disabled: { required: false, type: [Boolean, Function], default: false },
-    readonly: { required: false, type: Boolean, default: false },
-    active: { required: false, type: Boolean, default: false },
-    size: {
-        required: false,
-        type: String,
-        default: UI_SIZING.M
+const props = withDefaults(defineProps<ButtonProps>(), {
+    ...propDefaults,
+    type: UI_TYPES.DEFAULT
+});
+
+const emit = defineEmits<{
+    (e: "click", event: Event): void;
+    (e: "focus"): void;
+    (e: "blur"): void;
+}>();
+
+const etButton = ref<HTMLButtonElement | null>(null);
+
+const internalDisabled = computed(() => {
+    if (typeof props.disabled === "boolean") {
+        return props.disabled;
     }
+    return props.disabled?.();
+});
+
+const onClick = (event: Event) => {
+    if (internalDisabled.value || props.readonly) {
+        event.preventDefault();
+        return;
+    }
+    emit("click", event);
 };
 
-export default defineComponent({
-    props: {
-        ...sharedButtonProps,
-        type: {
-            required: false,
-            type: String,
-            default: UI_TYPES.DEFAULT
-        }
-    },
-    data() {
-        return {
-            clickDebounce: new Debounce(this.onClick, 100)
-        };
-    },
-    computed: {
-        internalDisabled() {
-            if (typeof this.disabled === "boolean") {
-                return this.disabled;
-            }
-            return this.disabled?.();
-        }
-    },
-    methods: {
-        onClick(event: Event) {
-            if (this.internalDisabled || this.readonly) {
-                event.preventDefault();
-                return;
-            }
+const clickDebounce = new Debounce(onClick, 100);
 
-            this.$emit("click", event);
-        },
-        focus() {
-            (this.$refs.etButton as HTMLButtonElement).focus();
-        },
-        blur() {
-            (this.$refs.etButton as HTMLButtonElement).blur();
-        }
-    },
-    expose: ["focus", "blur"],
-    emits: {
-        click: (event: Event) => !!event,
-        focus: () => true,
-        blur: () => true
-    }
-});
+const focus = () => {
+    etButton.value?.focus();
+};
+
+const blur = () => {
+    etButton.value?.blur();
+};
+
+// Expose methods to parent components
+defineExpose({ focus, blur });
 </script>
 
 <style>

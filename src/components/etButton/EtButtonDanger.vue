@@ -8,18 +8,13 @@
     </EtButton>
 </template>
 
-<script lang="ts">
-import EtButton, { sharedButtonProps } from "./EtButton.vue";
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import EtButton from "./EtButton.vue";
 import { UI_TYPES } from "../../helpers/enums";
 
-export default defineComponent({
-    computed: {
-        UI_TYPES() {
-            return UI_TYPES;
-        }
-    },
-    components: { EtButton },
-    props: sharedButtonProps
+import { type ISharedButtonProps, propDefaults } from "./IEtButtonStatic";
+
+withDefaults(defineProps<ISharedButtonProps>(), {
+    ...propDefaults
 });
 </script>

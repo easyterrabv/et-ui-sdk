@@ -27,74 +27,60 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { UI_TYPES, UI_SIZING } from "../../helpers/enums";
 import EtButton from "../etButton/EtButton.vue";
 
-export default defineComponent({
-    props: {
-        isActive: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        isCollapsed: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
-        disabled: {
-            required: false,
-            type: [Boolean, Function],
-            default: false
-        },
-        readonly: { required: false, type: Boolean, default: false },
-        type: {
-            required: false,
-            type: String,
-            default: UI_TYPES.DEFAULT
-        }
-    },
-    components: {
-        EtButton
-    },
-    data() {
-        return {
-            UI_SIZING
-        };
-    },
-    computed: {
-        internalDisabled() {
-            if (typeof this.disabled === "boolean") {
-                return this.disabled;
-            }
-            return this.disabled?.();
-        }
-    },
-    methods: {
-        onClick(event: Event) {
-            if (this.internalDisabled || this.readonly) {
-                event.preventDefault();
-                return;
-            }
+interface Props {
+    isActive?: boolean;
+    isCollapsed?: boolean;
+    disabled?: boolean | (() => boolean);
+    readonly?: boolean;
+    type?: string;
+}
 
-            this.$emit("click", event);
-        },
-        focus() {
-            (this.$refs.etButton as any).focus();
-        },
-        blur() {
-            (this.$refs.etButton as any).blur();
-        }
-    },
-    expose: ["focus", "blur"],
-    emits: {
-        click: (event: Event) => !!event,
-        focus: () => true,
-        blur: () => true
-    }
+const props = withDefaults(defineProps<Props>(), {
+    isActive: false,
+    isCollapsed: false,
+    disabled: false,
+    readonly: false,
+    type: UI_TYPES.DEFAULT
 });
+
+const emit = defineEmits<{
+    (e: "click", event: Event): void;
+    (e: "focus"): void;
+    (e: "blur"): void;
+}>();
+
+const etButton = ref<InstanceType<typeof EtButton> | null>(null);
+
+const internalDisabled = computed(() => {
+    if (typeof props.disabled === "boolean") {
+        return props.disabled;
+    }
+    return props.disabled?.();
+});
+
+const onClick = (event: Event) => {
+    if (internalDisabled.value || props.readonly) {
+        event.preventDefault();
+        return;
+    }
+    emit("click", event);
+};
+
+const focus = () => {
+    etButton.value?.focus();
+};
+
+const blur = () => {
+    etButton.value?.blur();
+};
+
+// Expose methods to parent components
+defineExpose({ focus, blur });
 </script>
 
 <style>

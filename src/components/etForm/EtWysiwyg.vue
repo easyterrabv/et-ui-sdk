@@ -582,7 +582,7 @@ export default defineComponent({
         },
         inlineImageUploadCallback: {
             type: Function as PropType<
-                (file: File) => Promise<string> | undefined
+                ((file: File) => Promise<string>) | undefined
             >,
             required: false,
             default: undefined
