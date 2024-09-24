@@ -1,6 +1,12 @@
 <template>
-    <div class="et-sdk-input-color-picker">
+    <div
+        class="et-sdk-input-color-picker"
+        :class="{
+            'et-sdk-input-color-picker--no-input': noInput
+        }"
+    >
         <EtInput
+            v-if="!noInput"
             class="et-sdk-input-color-picker__input"
             :size="size"
             v-model="model"
@@ -20,6 +26,10 @@
         <div class="et-sdk-input-color-options">
             <div
                 class="et-sdk-input-color-option"
+                :class="{
+                    'et-sdk-input-color-option--selected':
+                        model === fixedColorOption
+                }"
                 v-for="fixedColorOption in fixedColorOptions"
                 @click="model = fixedColorOption"
                 :style="{ 'background-color': fixedColorOption }"
@@ -38,6 +48,11 @@ defineProps({
         required: false,
         type: String,
         default: UI_SIZING.M
+    },
+    noInput: {
+        required: false,
+        type: Boolean,
+        default: false
     },
     fixedColorOptions: {
         required: false,
@@ -111,12 +126,22 @@ watch(
     margin-top: -5px;
 }
 
+.et-sdk-input-color-picker--no-input .et-sdk-input-color-options {
+    border-top-width: 1px;
+    margin-top: 0;
+    padding: 4px;
+}
+
 .et-sdk-input-color-option {
     height: 20px;
     aspect-ratio: 1/1;
-    border: 1px solid var(--et-sdk-dark-200);
     border-radius: 4px;
     margin: 2px;
     cursor: pointer;
+
+    &.et-sdk-input-color-option--selected {
+        outline: 2px solid var(--et-sdk-dark-700);
+        outline-offset: 1px;
+    }
 }
 </style>

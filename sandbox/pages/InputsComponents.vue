@@ -122,6 +122,11 @@
             </EtFormGroup>
 
             <EtFormGroup style="margin-top: 16px;">
+                <template #label>Color picker</template>
+                <EtInputColorPicker v-model="colorPicked" no-input></EtInputColorPicker>
+            </EtFormGroup>
+
+            <EtFormGroup style="margin-top: 16px;">
                 <template #label>Min Max</template>
                 <EtInputNumberRange v-model="numberRange"></EtInputNumberRange>
             </EtFormGroup>
