@@ -349,7 +349,7 @@ export default defineComponent({
         doSubmit() {
             alert('do Submit');
         },
-        onOptionSelect(selectedOption: OptionModel) {
+        onOptionSelect(selectedOption: OptionModel | OptionModel[] | null) {
             console.log('selected Option', selectedOption);
         },
         async dataGetter(searchValue: string) {

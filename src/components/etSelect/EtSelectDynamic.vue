@@ -41,7 +41,23 @@
                         }"
                     >
                         <slot :option="option">
-                            {{ (option as OptionModel).label }}
+                            <div class="et-sdk-select-dynamic__option__content">
+                                <span>
+                                    {{ (option as OptionModel).label }}
+                                </span>
+
+                                <EtIconCheckSolid
+                                    v-if="
+                                        (Array.isArray(
+                                            internalSelectedOption
+                                        ) &&
+                                            internalSelectedOption.includes(
+                                                option
+                                            )) ||
+                                        internalSelectedOption === option
+                                    "
+                                />
+                            </div>
                         </slot>
                     </div>
                 </div>
@@ -61,6 +77,7 @@ import { nextTick, ref, watch } from "vue";
 import { OptionModel } from "../../models/Option";
 import { Debounce } from "../../helpers/debounce";
 import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
+import EtIconCheckSolid from "../etIcon/EtIconCheckSolid.vue";
 
 const props = defineProps({
     dataGetter: {
@@ -74,8 +91,18 @@ const props = defineProps({
         default: "Filter Options"
     },
     onOptionSelect: {
-        type: Function as PropType<(selectedOption: OptionModel) => void>,
+        type: Function as PropType<
+            (value: OptionModel | OptionModel[] | null) => void
+        >,
         required: true
+    },
+    multiple: {
+        type: Boolean,
+        default: false
+    },
+    selectedOption: {
+        type: [Object, Array] as PropType<OptionModel | OptionModel[]>,
+        default: null
     }
 });
 
@@ -86,6 +113,9 @@ const loading = ref(false);
 
 const searchInput = ref("");
 const resultSearchInput = ref("");
+const internalSelectedOption = ref<OptionModel | OptionModel[] | null>(
+    props.selectedOption
+);
 
 const options = ref<OptionModel[]>([]);
 const searchDebounce = new Debounce(handleSearch, 250);
@@ -181,7 +211,18 @@ function handleKeyUpPressed() {
 
 function handleOnClick(selectedOption: OptionModel) {
     focusedIndex.value = -1;
-    props.onOptionSelect?.(selectedOption);
+
+    if (props.multiple) {
+        if (Array.isArray(internalSelectedOption.value)) {
+            internalSelectedOption.value.push(selectedOption);
+        } else {
+            internalSelectedOption.value = [selectedOption];
+        }
+    } else {
+        internalSelectedOption.value = selectedOption;
+    }
+
+    props.onOptionSelect?.(internalSelectedOption.value);
 }
 
 function focusInput() {
@@ -246,5 +287,11 @@ defineExpose({
 
 .et-sdk-select-dynamic__option--focused:hover {
     background-color: var(--et-sdk-blue-400);
+}
+
+.et-sdk-select-dynamic__option__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 </style>

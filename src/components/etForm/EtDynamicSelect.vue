@@ -25,6 +25,9 @@
                     :data-getter="props.dataGetter"
                     :placeholder="props.placeholder"
                     :onOptionSelect="handleOptionSelect"
+                    :multiple="multiple"
+                    :internalSelectedOption="internalSelectedOption"
+                    :selectedOption
                 >
                     <template #default="scope">
                         <slot name="option" :option="scope.option" />
@@ -38,14 +41,7 @@
 <script setup lang="ts">
 import EtButtonDefault from "../etButton/EtButtonDefault.vue";
 import EtSelectDynamic from "../etSelect/EtSelectDynamic.vue";
-import {
-    inject,
-    onBeforeUnmount,
-    onMounted,
-    type PropType,
-    reactive,
-    ref
-} from "vue";
+import { inject, onBeforeUnmount, onMounted, type PropType, ref } from "vue";
 import {
     EtOverlayEvent,
     type IEtOverlayProvide
@@ -73,14 +69,28 @@ const props = defineProps({
         default: "Filter Options"
     },
     onOptionSelect: {
-        type: Function as PropType<(selectedOption: OptionModel) => void>,
+        type: Function as PropType<
+            (selectedOption: OptionModel | OptionModel[] | null) => void
+        >,
         required: true
     },
     disabled: {
         type: Boolean,
         default: false
+    },
+    multiple: {
+        type: Boolean,
+        default: false
+    },
+    selectedOption: {
+        type: [Object, Array] as PropType<OptionModel | OptionModel[]>,
+        default: null
     }
 });
+
+const internalSelectedOption = ref<OptionModel | OptionModel[] | null>(
+    props.selectedOption
+);
 
 async function showToolTip() {
     if (props.disabled) {
@@ -97,19 +107,25 @@ async function showToolTip() {
 function hideToolTip() {
     isVisible.value = false;
     sdkOverlay?.setVisibility(false);
+
+    props.multiple && props.onOptionSelect?.(internalSelectedOption.value);
 }
 
 async function toggleInput() {
     if (isVisible.value) {
-        await hideToolTip();
+        hideToolTip();
     } else {
         await showToolTip();
     }
 }
 
-async function handleOptionSelect(option: OptionModel) {
-    hideToolTip();
-    props.onOptionSelect?.(option);
+async function handleOptionSelect(value: OptionModel | OptionModel[] | null) {
+    if (!props.multiple) {
+        hideToolTip();
+        props.onOptionSelect?.(value);
+    } else {
+        internalSelectedOption.value = value;
+    }
 }
 
 onMounted(() => {
