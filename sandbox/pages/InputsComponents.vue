@@ -211,9 +211,17 @@
             <EtDynamicSelect
                 :dataGetter="dataGetter"
                 :onOptionSelect="onOptionSelect"
+                :selectedOption="selectedOptions"
             >
                 Select Items
             </EtDynamicSelect>
+
+            <EtInputDynamicSelect
+                multiple
+                :dataGetter="dataGetter"
+                :onOptionSelect="onOptionSelect"
+                :selectedOption="selectedOptions"
+            ></EtInputDynamicSelect>
         </EtCard>
     </EtContent>
 </template>
@@ -255,9 +263,11 @@ import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
 import EtBadge from "src/components/etBadge/EtBadge.vue";
 import EtBadgePrimary from "src/components/etBadge/EtBadgePrimary.vue";
 import EtInputColorPicker from "src/components/etForm/EtInputColorPicker.vue";
+import EtInputDynamicSelect from "src/components/etForm/EtInputDynamicSelect.vue";
 
 export default defineComponent({
     components: {
+        EtInputDynamicSelect,
         EtInputColorPicker,
         EtBadgePrimary,
         EtBadge,
@@ -330,6 +340,7 @@ export default defineComponent({
                     label: 'Test 8'
                 }),
             ],
+            selectedOptions: null,
 
             textareaContent: '',
             wysiwygContent: 'Preset test content in here <strong>Bold and strong</strong> <table><tr><th>Header 1</th><th>Header 2</th></tr><tr><td>Content 1</td><td>Content 2</td></tr><tr><td>Content 1</td><td>Content 2</td></tr></table>',
@@ -351,6 +362,7 @@ export default defineComponent({
         },
         onOptionSelect(selectedOption: OptionModel | OptionModel[] | null) {
             console.log('selected Option', selectedOption);
+            this.selectedOptions = selectedOption;
         },
         async dataGetter(searchValue: string) {
             console.log("Handling search 2222!", searchValue);

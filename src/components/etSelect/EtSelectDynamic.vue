@@ -113,8 +113,14 @@ const loading = ref(false);
 
 const searchInput = ref("");
 const resultSearchInput = ref("");
-const internalSelectedOption = ref<OptionModel | OptionModel[] | null>(
-    props.selectedOption
+const internalSelectedOption = ref<OptionModel | OptionModel[] | null>(null);
+
+watch(
+    () => props.selectedOption,
+    () => {
+        internalSelectedOption.value = props.selectedOption;
+    },
+    { immediate: true }
 );
 
 const options = ref<OptionModel[]>([]);

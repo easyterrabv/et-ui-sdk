@@ -41,7 +41,14 @@
 <script setup lang="ts">
 import EtButtonDefault from "../etButton/EtButtonDefault.vue";
 import EtSelectDynamic from "../etSelect/EtSelectDynamic.vue";
-import { inject, onBeforeUnmount, onMounted, type PropType, ref } from "vue";
+import {
+    inject,
+    onBeforeUnmount,
+    onMounted,
+    type PropType,
+    ref,
+    watch
+} from "vue";
 import {
     EtOverlayEvent,
     type IEtOverlayProvide
@@ -88,8 +95,14 @@ const props = defineProps({
     }
 });
 
-const internalSelectedOption = ref<OptionModel | OptionModel[] | null>(
-    props.selectedOption
+const internalSelectedOption = ref<OptionModel | OptionModel[] | null>(null);
+
+watch(
+    () => props.selectedOption,
+    () => {
+        internalSelectedOption.value = props.selectedOption;
+    },
+    { immediate: true }
 );
 
 async function showToolTip() {
@@ -122,6 +135,7 @@ async function toggleInput() {
 async function handleOptionSelect(value: OptionModel | OptionModel[] | null) {
     if (!props.multiple) {
         hideToolTip();
+        console.log(props.onOptionSelect);
         props.onOptionSelect?.(value);
     } else {
         internalSelectedOption.value = value;
