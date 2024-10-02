@@ -5,7 +5,8 @@ export enum FilterInputType {
     INPUT,
     CHECKBOX,
     SELECT,
-    DATERANGE
+    DATERANGE,
+    DYNAMIC_SELECT
 }
 
 export type BaseFilterDefinition<T = FilterInputType> = {
@@ -31,9 +32,23 @@ export type DateFilterDefinition<T = FilterInputType.DATERANGE> = Omit<
     defaultEnd?: string | Date;
 };
 
+export type DynamicSelectFilterDefinition<T = FilterInputType.DYNAMIC_SELECT> =
+    BaseFilterDefinition<T> & {
+        dataGetter: (
+            searchInput: string
+        ) => Promise<OptionModel[]> | OptionModel[];
+        onOptionSelect?: (
+            selectedOption: OptionModel | OptionModel[] | null
+        ) => void;
+        placeholder?: string;
+        disabled?: boolean;
+        multiple?: boolean;
+    };
+
 export type FilterTypeMapping<T> = {
     [FilterInputType.SELECT]: SelectFilterDefinition<T>;
     [FilterInputType.DATERANGE]: DateFilterDefinition<T>;
+    [FilterInputType.DYNAMIC_SELECT]: DynamicSelectFilterDefinition<T>;
 };
 
 export type FilterDefinition<T extends FilterInputType = FilterInputType> =
@@ -61,7 +76,9 @@ export type FilterValue =
     | FilterPrimitives
     | FilterPrimitives[]
     | OptionFilterValue[]
-    | FilterDateValue;
+    | FilterDateValue
+    | OptionModel
+    | OptionModel[];
 
 export type FilterObject = {
     [field: string]: FilterValue;

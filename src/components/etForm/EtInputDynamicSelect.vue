@@ -1,10 +1,11 @@
 <template>
     <EtDynamicSelect
-        v-bind="{
-            ...props,
-            ...$attrs,
-            onOptionSelect: handleOptionSelect
-        }"
+        :data-getter="dataGetter"
+        :placeholder="placeholder"
+        :on-option-select="handleOptionSelect"
+        :disabled="disabled"
+        :multiple="multiple"
+        :selected-option="selectedOption"
     >
         <template #toggle>
             <div
@@ -39,7 +40,7 @@ const props = defineProps({
     },
     dataGetter: {
         type: Function as PropType<
-            (searchInput: string) => Promise<OptionModel[]>
+            (searchInput: string) => Promise<OptionModel[]> | OptionModel[]
         >,
         required: true
     },
@@ -51,7 +52,7 @@ const props = defineProps({
         type: Function as PropType<
             (selectedOption: OptionModel | OptionModel[] | null) => void
         >,
-        required: true
+        required: false
     },
     disabled: {
         type: Boolean,

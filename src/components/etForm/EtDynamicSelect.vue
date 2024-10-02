@@ -22,8 +22,8 @@
                 <!-- can't use v-bind="props" because onOptionSelect will be turned into an Array -->
                 <EtSelectDynamic
                     ref="selectDynamic"
-                    :data-getter="props.dataGetter"
-                    :placeholder="props.placeholder"
+                    :data-getter="dataGetter"
+                    :placeholder="placeholder"
                     :onOptionSelect="handleOptionSelect"
                     :multiple="multiple"
                     :internalSelectedOption="internalSelectedOption"
@@ -67,7 +67,7 @@ let popperInstance: Instance | null = null;
 const props = defineProps({
     dataGetter: {
         type: Function as PropType<
-            (searchInput: string) => Promise<OptionModel[]>
+            (searchInput: string) => Promise<OptionModel[]> | OptionModel[]
         >,
         required: true
     },

@@ -31,23 +31,24 @@
 <script lang="ts">
 import EtContent from "src/layouts/Content.vue";
 import EtDataGrid from "src/components/etDataGrid/EtDataGrid.vue";
-import {defineComponent, markRaw} from "vue";
-import type {DataGridColumn} from "../../src/components/etDataGrid/interfaces/DataGridColumn";
+import { defineComponent, markRaw } from "vue";
+import type { DataGridColumn } from "../../src/components/etDataGrid/interfaces/DataGridColumn";
 
 import EtDataGridCustomComponentCellTest from "../parts/DataGridCustomComponentCellTest.vue";
-import {wait} from "../../src/helpers/async";
-import type {FilterDateValue, FilterObject} from "../../src/components/etDataGrid/interfaces/DataGridFilters";
+import { wait } from "../../src/helpers/async";
 import {
+    type FilterDateValue,
     type FilterDefinition,
     FilterInputType,
+    type FilterObject
 } from "../../src/components/etDataGrid/interfaces/DataGridFilters";
 import EtIconPaperclip from "../../src/components/etIcon/EtIconPaperclip.vue";
-import {OptionModel} from "../../src/models/Option";
+import { OptionModel } from "../../src/models/Option";
 import EtButtonGroup from "../../src/components/etButton/EtButtonGroup.vue";
 import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
-import {UI_SIZING} from "../../src/helpers/enums";
-import type {BulkMethod, SortingObject} from "../../src/components/etDataGrid/interfaces/DataGridMethods";
-import {useFilterSaving} from "../../src/components/etDataGrid/composables/useFilterSaving";
+import { UI_SIZING } from "../../src/helpers/enums";
+import type { BulkMethod, SortingObject } from "../../src/components/etDataGrid/interfaces/DataGridMethods";
+import { useFilterSaving } from "../../src/components/etDataGrid/composables/useFilterSaving";
 
 type ExampleRow = {
     key: number,
@@ -222,6 +223,15 @@ export default defineComponent({
                     label: 'Has Attachments',
                     type: FilterInputType.CHECKBOX
                 },
+                {
+                    field: 'label',
+                    label: 'Labels',
+                    type: FilterInputType.DYNAMIC_SELECT,
+                    multiple: true,
+                    disabled: false,
+                    placeholder: 'Select something bruv.',
+                    dataGetter: this.optionsDataGetter
+                }
             ] as FilterDefinition[],
             staticData: [
                 {key: 1, name: 'John Doe', email: 'j.doe@example.com', text: 'Maecenas pretium posuere leo, interdum placerat ante placerat quis. Vivamus imperdiet ultricies sapien id posuere. Curabitur pharetra, risus nec interdum commodo, arcu ex dapibus nisl, eu pellentesque dolor ipsum quis dui. Praesent nec molestie ligula. Praesent feugiat dolor lobortis ante porttitor consequat. Nullam in varius tellus. Ut faucibus magna elit, a tincidunt lorem fermentum sed.'},
@@ -332,6 +342,46 @@ export default defineComponent({
         onRowsChecked(rows: ExampleRow) {
             console.log(rows);
         },
+        async optionsDataGetter(searchValue: string) {
+            console.log("Handling search 2222!", searchValue);
+
+            await wait(1500);
+
+            return [
+                new OptionModel({
+                    value: 1,
+                    label: "Item one"
+                }),
+                new OptionModel({
+                    value: 2,
+                    label: "Item two"
+                }),
+                new OptionModel({
+                    value: 3,
+                    label: "Item three"
+                }),
+                new OptionModel({
+                    value: 4,
+                    label: "Item four"
+                }),
+                new OptionModel({
+                    value: 5,
+                    label: "Item five"
+                }),
+                new OptionModel({
+                    value: 6,
+                    label: "Item six"
+                }),
+                new OptionModel({
+                    value: 7,
+                    label: "Item seven"
+                }),
+                new OptionModel({
+                    value: 8,
+                    label: "Item eight"
+                })
+            ];
+        }
     },
     async mounted() {
         await wait(5000);
@@ -340,7 +390,7 @@ export default defineComponent({
                 name: 'Patched content!'
             }
         );
-    }
+    },
 });
 
 </script>

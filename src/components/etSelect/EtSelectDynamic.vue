@@ -82,7 +82,7 @@ import EtIconCheckSolid from "../etIcon/EtIconCheckSolid.vue";
 const props = defineProps({
     dataGetter: {
         type: Function as PropType<
-            (searchInput: string) => Promise<OptionModel[]>
+            (searchInput: string) => Promise<OptionModel[]> | OptionModel[]
         >,
         required: true
     },
@@ -172,7 +172,8 @@ watch(
 async function handleSearch() {
     loading.value = true;
     focusedIndex.value = -1;
-    const result = await props.dataGetter(searchInput.value);
+
+    const result = await props.dataGetter?.(searchInput.value);
     if (Array.isArray(result)) {
         options.value = result;
     }

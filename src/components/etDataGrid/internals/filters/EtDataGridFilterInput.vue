@@ -48,6 +48,31 @@
         "
         :modelValue="filterValue as FilterDateValue"
     />
+
+    <EtInputDynamicSelect
+        v-else-if="filterType === FilterInputType.DYNAMIC_SELECT"
+        :size="UI_SIZING.S"
+        ref="input"
+        :data-getter="
+            getTypedFilterDefinition<FilterInputType.DYNAMIC_SELECT>()
+                .dataGetter
+        "
+        :placeholder="
+            getTypedFilterDefinition<FilterInputType.DYNAMIC_SELECT>()
+                .placeholder
+        "
+        :onOptionSelect="
+            getTypedFilterDefinition<FilterInputType.DYNAMIC_SELECT>()
+                .onOptionSelect
+        "
+        :disabled="
+            getTypedFilterDefinition<FilterInputType.DYNAMIC_SELECT>().disabled
+        "
+        :multiple="
+            getTypedFilterDefinition<FilterInputType.DYNAMIC_SELECT>().multiple
+        "
+        :selectedOption="filterValue as OptionModel | OptionModel[] | undefined"
+    />
 </template>
 
 <script lang="ts" setup>
@@ -55,6 +80,7 @@ import EtInput from "../../../etForm/EtInput.vue";
 import EtCheckboxWithLabel from "../../../etForm/EtCheckboxWithLabel.vue";
 import EtInputSelect from "../../../etForm/EtInputSelect.vue";
 import EtInputDateRange from "../../../etForm/EtInputDateRange.vue";
+import EtInputDynamicSelect from "../../../etForm/EtInputDynamicSelect.vue";
 
 import type { PropType } from "vue";
 import type {
@@ -101,6 +127,12 @@ const filterType = computed(
 const filterValue = computed(() =>
     filterValueStaging?.getFilter(props.filterDefinition?.field!)
 );
+
+function getTypedFilterDefinition<
+    T extends FilterInputType = FilterInputType
+>() {
+    return props.filterDefinition as FilterDefinition<T>;
+}
 
 const options = ref<Array<OptionModel>>([]);
 watchEffect(async () => {
