@@ -1,40 +1,41 @@
 <template>
     <div class="et-sdk-et-dynamic-select">
-        <div
-            class="et-sdk-et-dynamic-select__toggle"
-            ref="toggle"
-            @click="toggleInput"
+        <EtPopover
+            ref="popover"
+            class="et-sdk-et-dynamic-select__options"
+            fitToggle
+            manual
+            @clickedNext="hideToolTip"
         >
-            <slot name="toggle">
-                <EtButtonDefault @click.stop="toggleInput">
-                    <slot />
-                </EtButtonDefault>
-            </slot>
-        </div>
-        <Teleport to="body">
-            <div
-                ref="content"
-                class="et-sdk-et-dynamic-select__options"
-                v-show="isVisible"
-                @click.stop=""
-                @keyup.esc="hideToolTip"
-            >
-                <!-- can't use v-bind="props" because onOptionSelect will be turned into an Array -->
-                <EtSelectDynamic
-                    ref="selectDynamic"
-                    :data-getter="dataGetter"
-                    :placeholder="placeholder"
-                    :onOptionSelect="handleOptionSelect"
-                    :multiple="multiple"
-                    :internalSelectedOption="internalSelectedOption"
-                    :selectedOption
+            <template #toggle>
+                <div
+                    class="et-sdk-et-dynamic-select__toggle"
+                    ref="toggle"
+                    @click="toggleInput"
                 >
-                    <template #default="scope">
-                        <slot name="option" :option="scope.option" />
-                    </template>
-                </EtSelectDynamic>
-            </div>
-        </Teleport>
+                    <slot name="toggle">
+                        <EtButtonDefault @click="toggleInput">
+                            <slot />
+                        </EtButtonDefault>
+                    </slot>
+                </div>
+            </template>
+
+            <!-- can't use v-bind="props" because onOptionSelect will be turned into an Array -->
+            <EtSelectDynamic
+                ref="selectDynamic"
+                :data-getter="dataGetter"
+                :placeholder="placeholder"
+                :onOptionSelect="handleOptionSelect"
+                :multiple="multiple"
+                :internalSelectedOption="internalSelectedOption"
+                :selectedOption
+            >
+                <template #default="scope">
+                    <slot name="option" :option="scope.option" />
+                </template>
+            </EtSelectDynamic>
+        </EtPopover>
     </div>
 </template>
 
@@ -53,16 +54,16 @@ import {
     EtOverlayEvent,
     type IEtOverlayProvide
 } from "../etProvider/EtOverlayProviderInterfaces";
-import type { Instance } from "@popperjs/core/lib/types";
-import { createPopper } from "@popperjs/core";
 import { OptionModel } from "../../models/Option";
+import EtPopover from "../EtPopover.vue";
+import { wait } from "../../helpers/async";
 
 const selectDynamic = ref<typeof EtSelectDynamic>();
 const toggle = ref<HTMLElement | null>(null);
-const content = ref<HTMLElement | null>(null);
 const isVisible = ref(false);
 const sdkOverlay = inject<IEtOverlayProvide>("SDKOverlayProvide");
-let popperInstance: Instance | null = null;
+
+const popover = ref<typeof EtPopover | null>(null);
 
 const props = defineProps({
     dataGetter: {
@@ -110,17 +111,17 @@ async function showToolTip() {
         return;
     }
 
+    popover.value?.showDropDown?.();
     isVisible.value = true;
-    sdkOverlay?.setTransparency(true);
-    sdkOverlay?.setVisibility(true);
-    await popperInstance?.update();
+
+    await wait(100);
     (selectDynamic?.value as typeof EtSelectDynamic).focusInput();
 }
 
 function hideToolTip() {
     isVisible.value = false;
-    sdkOverlay?.setVisibility(false);
 
+    popover.value?.hideDropDown?.();
     props.multiple && props.onOptionSelect?.(internalSelectedOption.value);
 }
 
@@ -135,7 +136,6 @@ async function toggleInput() {
 async function handleOptionSelect(value: OptionModel | OptionModel[] | null) {
     if (!props.multiple) {
         hideToolTip();
-        console.log(props.onOptionSelect);
         props.onOptionSelect?.(value);
     } else {
         internalSelectedOption.value = value;
@@ -143,28 +143,10 @@ async function handleOptionSelect(value: OptionModel | OptionModel[] | null) {
 }
 
 onMounted(() => {
-    popperInstance = createPopper(
-        toggle.value as HTMLElement,
-        content.value as HTMLElement,
-        {
-            placement: "bottom-start",
-            modifiers: [
-                {
-                    name: "offset",
-                    options: {
-                        offset: [0, 6]
-                    }
-                }
-            ]
-        }
-    );
-
     sdkOverlay?.addEvent(EtOverlayEvent.onClick, hideToolTip);
 });
 
 onBeforeUnmount(() => {
-    popperInstance?.destroy();
-    popperInstance = null;
     sdkOverlay?.removeEvent(EtOverlayEvent.onClick, hideToolTip);
 });
 </script>
@@ -172,5 +154,7 @@ onBeforeUnmount(() => {
 <style>
 .et-sdk-et-dynamic-select__options {
     z-index: 13000;
+
+    width: 100%;
 }
 </style>

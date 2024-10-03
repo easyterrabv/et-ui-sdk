@@ -220,10 +220,20 @@ function handleOnClick(selectedOption: OptionModel) {
     focusedIndex.value = -1;
 
     if (props.multiple) {
-        if (Array.isArray(internalSelectedOption.value)) {
-            internalSelectedOption.value.push(selectedOption);
+        if (!Array.isArray(internalSelectedOption.value)) {
+            internalSelectedOption.value = [];
+        }
+
+        const isChecked =
+            internalSelectedOption.value.findIndex(
+                (opt: OptionModel) => opt.value === selectedOption.value
+            ) > -1;
+        if (isChecked) {
+            internalSelectedOption.value = internalSelectedOption.value.filter(
+                (opt: OptionModel) => opt.value !== selectedOption.value
+            );
         } else {
-            internalSelectedOption.value = [selectedOption];
+            internalSelectedOption.value.push(selectedOption);
         }
     } else {
         internalSelectedOption.value = selectedOption;
@@ -244,7 +254,7 @@ defineExpose({
 
 <style>
 .et-sdk-select-dynamic {
-    width: 360px;
+    min-width: 360px;
     padding: 12px;
     box-shadow: var(--et-sdk-shadow-normal);
     border-radius: var(--et-sdk-input-border-radius);

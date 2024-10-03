@@ -379,6 +379,26 @@ export default defineComponent({
                 new OptionModel({
                     value: 8,
                     label: "Item eight"
+                }),
+                new OptionModel({
+                    value: 9,
+                    label: "Item nine"
+                }),
+                new OptionModel({
+                    value: 10,
+                    label: "Item ten"
+                }),
+                new OptionModel({
+                    value: 11,
+                    label: "Item eleven"
+                }),
+                new OptionModel({
+                    value: 12,
+                    label: "Item twelve"
+                }),
+                new OptionModel({
+                    value: 13,
+                    label: "Item thirteen"
                 })
             ];
         }

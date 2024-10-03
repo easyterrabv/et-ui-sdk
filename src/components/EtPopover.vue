@@ -109,7 +109,14 @@ function handleClickOutside(e: MouseEvent) {
         e.target as HTMLElement,
         content.value
     );
-    if (!isSelf && isVisible.value) {
+
+    if (isSelf) {
+        return;
+    }
+
+    emits("clickedNext");
+
+    if (isVisible.value) {
         hideDropDownEvent();
     }
 }
@@ -188,7 +195,7 @@ defineExpose({
     isOpen
 });
 
-const emits = defineEmits(["open", "hide"]);
+const emits = defineEmits(["open", "hide", "clickedNext"]);
 </script>
 
 <style>
