@@ -46,17 +46,7 @@
                                     {{ (option as OptionModel).label }}
                                 </span>
 
-                                <EtIconCheckSolid
-                                    v-if="
-                                        (Array.isArray(
-                                            internalSelectedOption
-                                        ) &&
-                                            internalSelectedOption.includes(
-                                                option
-                                            )) ||
-                                        internalSelectedOption === option
-                                    "
-                                />
+                                <EtIconCheckSolid v-if="isChecked(option)" />
                             </div>
                         </slot>
                     </div>
@@ -168,6 +158,22 @@ watch(
         });
     }
 );
+
+function isChecked(option: OptionModel) {
+    if (!internalSelectedOption.value) {
+        return false;
+    }
+
+    if (Array.isArray(internalSelectedOption.value)) {
+        return (
+            internalSelectedOption.value.findIndex(
+                (opt) => opt.value === option.value
+            ) > -1
+        );
+    }
+
+    return internalSelectedOption.value.value === option.value;
+}
 
 async function handleSearch() {
     loading.value = true;

@@ -4,7 +4,10 @@
             {{ filterDisplay.definition.label }}
         </span>
         <template
-            v-if="filterDisplay.definition.type === FilterInputType.SELECT"
+            v-if="
+                filterDisplay.definition.type === FilterInputType.SELECT ||
+                filterDisplay.definition.type === FilterInputType.DYNAMIC_SELECT
+            "
         >
             <span
                 v-for="item in filterDisplay.value"

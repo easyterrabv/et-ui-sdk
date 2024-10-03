@@ -72,6 +72,9 @@
             getTypedFilterDefinition<FilterInputType.DYNAMIC_SELECT>().multiple
         "
         :selectedOption="filterValue as OptionModel | OptionModel[] | undefined"
+        @change="
+            (newValues) => setFilterValueFromSelect(newValues as OptionModel[])
+        "
     />
 </template>
 

@@ -114,6 +114,17 @@ function handleClickOutside(e: MouseEvent) {
         return;
     }
 
+    const isToggle = isElementOrParentEqualTo(
+        e.target as HTMLElement,
+        toggle.value
+    );
+
+    if (isToggle) {
+        e.stopPropagation();
+        hideDropDownEvent();
+        return;
+    }
+
     emits("clickedNext");
 
     if (isVisible.value) {
