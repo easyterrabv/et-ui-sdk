@@ -1,11 +1,11 @@
-export class Debounce {
-    private readonly callback: ((...args: any[]) => void) | undefined;
+export class Debounce<T = any> {
+    private readonly callback: ((...args: any[]) => T) | undefined;
     private readonly args: any[];
     private readonly wait: number;
     private timeOutID?: number;
 
     constructor(
-        callback: ((...args: any[]) => void) | undefined,
+        callback: ((...args: any[]) => T) | undefined,
         wait: number,
         ...args: any[]
     ) {
@@ -14,13 +14,19 @@ export class Debounce {
         this.args = args;
     }
 
-    debounce(...args: any[]) {
-        if (this.timeOutID) {
-            window.clearTimeout(this.timeOutID);
-        }
+    debounce(...args: any[]): Promise<T | undefined> {
+        return new Promise((resolve) => {
+            if (this.timeOutID) {
+                window.clearTimeout(this.timeOutID);
+            }
 
-        this.timeOutID = window.setTimeout(() => {
-            this.callback?.apply(null, [...this.args, ...args]);
-        }, this.wait);
+            this.timeOutID = window.setTimeout(() => {
+                const result = this.callback?.apply(null, [
+                    ...this.args,
+                    ...args
+                ]);
+                resolve(result);
+            }, this.wait);
+        });
     }
 }
