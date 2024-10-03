@@ -20,8 +20,8 @@ export class Debounce<T = any> {
                 window.clearTimeout(this.timeOutID);
             }
 
-            this.timeOutID = window.setTimeout(() => {
-                const result = this.callback?.apply(null, [
+            this.timeOutID = window.setTimeout(async () => {
+                const result = await this.callback?.apply(null, [
                     ...this.args,
                     ...args
                 ]);
