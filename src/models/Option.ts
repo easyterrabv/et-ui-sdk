@@ -81,11 +81,11 @@ export class OptionModel extends EtModel {
             const fixedTag = needleFixer(tag || "");
 
             if (fixedTag === fixedNeedle) {
-                score += 5;
-            } else if (fixedTag.startsWith(fixedNeedle)) {
                 score += 2;
+            } else if (fixedTag.startsWith(fixedNeedle)) {
+                score += 1;
             } else if (fixedTag.includes(fixedNeedle)) {
-                score += 0.5;
+                score += 0.25;
             }
         });
 
