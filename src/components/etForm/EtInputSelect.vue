@@ -204,7 +204,7 @@ export default defineComponent({
             this.$emit("focus");
         },
         onEscape() {
-            (this.$refs.popover as typeof EtPopover).hideDropDown();
+            (this.$refs.popover as typeof EtPopover)?.hideDropDown();
             this.onInputBlur();
         },
         onOptionToggle() {
@@ -231,7 +231,7 @@ export default defineComponent({
         },
         hide() {
             const popover = this.$refs.popover as typeof EtPopover;
-            popover.hideDropDown();
+            popover?.hideDropDown();
             this.handleHideEvent();
         },
         handleHideEvent() {
