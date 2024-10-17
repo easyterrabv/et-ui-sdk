@@ -31,7 +31,9 @@
                 </EtTooltip>
                 <span
                     class="et-sdk-data-grid__content-header-functionality__bulk-methods"
-                    v-if="hasBulkMethods && hasAnyChecked"
+                    v-if="
+                        hasBulkMethods && hasAnyChecked && anyBulkMethodsVisible
+                    "
                 >
                     <EtDataGridContentHeaderBulkMethod
                         v-for="bulkMethod in bulkMethods"
@@ -127,6 +129,23 @@ const isRefreshing = inject<Boolean>("isRefreshing");
 
 const hasBulkMethods = computed(() => (props.bulkMethods || []).length > 0);
 const hasAnyChecked = computed(() => checkedRows && checkedRows.anySelected());
+const anyBulkMethodsVisible = computed(() => {
+    return props.bulkMethods.some((bulkMethod) => {
+        if (!hasAnyChecked.value || !checkedRows?.rows) {
+            return false;
+        }
+
+        if (typeof bulkMethod.isVisible === "boolean") {
+            return bulkMethod.isVisible;
+        }
+
+        if (bulkMethod.isVisible === undefined) {
+            return true;
+        }
+
+        return bulkMethod.isVisible(checkedRows?.rows);
+    });
+});
 </script>
 
 <style>
