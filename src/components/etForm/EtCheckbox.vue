@@ -135,7 +135,6 @@ export default defineComponent({
     background-color: var(--et-sdk-light-0);
     border-radius: 4px;
     border: 1px solid var(--et-sdk-dark-400);
-    position: relative;
     color: var(--et-sdk-blue-600);
     fill: var(--et-sdk-blue-600);
     text-align: center;
