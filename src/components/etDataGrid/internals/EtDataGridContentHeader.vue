@@ -149,6 +149,13 @@ const anyBulkMethodsVisible = computed(() => {
 </script>
 
 <style>
+.et-sdk-data-grid__content-header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
 .et-sdk-data-grid__content-header-row {
     min-width: fit-content;
     width: 100%;
