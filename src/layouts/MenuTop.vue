@@ -1,5 +1,6 @@
 <template>
     <div class="et-sdk-layout-menu-top">
+        <slot name="pre"></slot>
         <EtTopBar>
             <slot name="top"></slot>
             <template #end>
