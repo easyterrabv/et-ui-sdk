@@ -22,6 +22,7 @@ export interface IEtToastOptions {
         vertical?: "top" | "bottom";
         horizontal?: "left" | "center" | "right";
     };
+    meta?: any;
 }
 
 export interface IEtActiveToast {

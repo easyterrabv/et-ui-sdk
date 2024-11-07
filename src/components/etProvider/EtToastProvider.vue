@@ -51,7 +51,8 @@ const showToast = (options: IEtToastOptions) => {
                     options.position?.horizontal ||
                     IEtToastOptionsDefaults.position!.horizontal ||
                     "center"
-            }
+            },
+            meta: options.meta
         },
         remove: () => hideToast(generatedGuid)
     };
