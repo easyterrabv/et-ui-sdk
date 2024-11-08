@@ -3,7 +3,7 @@ import { markRaw } from "vue";
 import EtIconCircleInfoSolid from "../etIcon/EtIconCircleInfo.vue";
 
 export interface IEtToastProvider {
-    showToast: (options: IEtToastOptions) => IEtActiveToast;
+    showToast: <T = any>(options: IEtToastOptions<T>) => IEtActiveToast<T>;
     hideToast: (guid: string) => void;
 }
 
@@ -14,7 +14,7 @@ export interface IEtToastContent {
     dismissible?: boolean;
 }
 
-export interface IEtToastOptions {
+export interface IEtToastOptions<T = any> {
     content?: IEtToastContent;
     component?: Raw<object>;
     duration?: number;
@@ -22,12 +22,12 @@ export interface IEtToastOptions {
         vertical?: "top" | "bottom";
         horizontal?: "left" | "center" | "right";
     };
-    meta?: any;
+    meta?: T;
 }
 
-export interface IEtActiveToast {
+export interface IEtActiveToast<T = any> {
     guid: string;
-    options: IEtToastOptions;
+    options: IEtToastOptions<T>;
     remove: () => void;
 }
 
