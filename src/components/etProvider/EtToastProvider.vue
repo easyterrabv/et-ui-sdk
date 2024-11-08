@@ -30,7 +30,7 @@ const bottomRight = ref<IEtActiveToast[]>([]);
 
 const toasts = ref<IEtActiveToast[]>([]);
 
-const showToast = (options: IEtToastOptions) => {
+const showToast = <T = any,>(options: IEtToastOptions<T>) => {
     const generatedGuid = generateId();
 
     const toast: IEtActiveToast = {
