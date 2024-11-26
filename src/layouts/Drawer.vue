@@ -77,7 +77,7 @@ export default defineComponent({
     padding-left: 5px;
     padding-right: 5px;
 
-    background-color: var(--et-sdk-dark-100);
+    background-color: var(--et-sdk-dark-50);
     border-left: 1px solid var(--et-sdk-dark-200);
 }
 </style>
