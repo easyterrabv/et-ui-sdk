@@ -327,7 +327,9 @@ export default defineComponent({
 
             console.log({
                 filters,
-                sorting
+                sorting,
+                page,
+                perPage
             });
 
             const start = (page - 1) * perPage;

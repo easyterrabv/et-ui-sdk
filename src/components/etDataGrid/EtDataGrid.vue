@@ -260,9 +260,9 @@ watch(
             Object.keys(criteriaManager.criteria.filters || {}).length === 0
         ) {
             emit("filtersCleared");
+            criteriaManager.criteria.page = 1;
         }
 
-        criteriaManager.criteria.page = 1;
         searchData();
         prevFilterValues.value = criteriaManager.criteria.filters || {};
     },

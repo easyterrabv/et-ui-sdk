@@ -79,7 +79,6 @@ export function useCriteriaManager(
         totalRows: 0,
         async setCriteria(criteria) {
             this.criteria = criteria;
-
             if (useUrlData && saveToUrl) {
                 await useUrlData.setDataToUrl(
                     criteria as unknown as urlDataObject
@@ -139,19 +138,24 @@ export function useCriteriaManager(
             await this.setFilters(filters);
         },
         async setPage(page) {
-            await this.setCriteria({
-                ...this.criteria,
-                page: page || defaultCriteria?.page || _defaultCriteria.page
-            });
+            this.criteria.page =
+                page || defaultCriteria?.page || _defaultCriteria.page;
+
+            if (useUrlData && saveToUrl) {
+                await useUrlData.setDataToUrl(
+                    this.criteria as unknown as urlDataObject
+                );
+            }
         },
         async setPerPage(perPage) {
-            await this.setCriteria({
-                ...this.criteria,
-                perPage:
-                    perPage ||
-                    defaultCriteria?.perPage ||
-                    _defaultCriteria.perPage
-            });
+            this.criteria.perPage =
+                perPage || defaultCriteria?.perPage || _defaultCriteria.perPage;
+
+            if (useUrlData && saveToUrl) {
+                await useUrlData.setDataToUrl(
+                    this.criteria as unknown as urlDataObject
+                );
+            }
         },
 
         getSortField(column) {
