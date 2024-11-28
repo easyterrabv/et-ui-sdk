@@ -134,7 +134,7 @@ function previousPage() {
         return;
     }
 
-    props.criteriaManager.criteria.page--;
+    props.criteriaManager?.setPage(props.criteriaManager.criteria.page - 1);
 }
 
 function nextPage() {
@@ -142,11 +142,11 @@ function nextPage() {
         return;
     }
 
-    props.criteriaManager.criteria.page++;
+    props.criteriaManager?.setPage(props.criteriaManager.criteria.page + 1);
 }
 
 function setPerPage(perPage: number) {
-    props.criteriaManager.criteria.perPage = perPage;
+    props.criteriaManager?.setPerPage(perPage);
 }
 </script>
 
