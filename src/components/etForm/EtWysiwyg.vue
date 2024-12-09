@@ -586,6 +586,11 @@ export default defineComponent({
             >,
             required: false,
             default: undefined
+        },
+        preventImageDrop: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     components: {
@@ -877,6 +882,21 @@ export default defineComponent({
             editorProps: {
                 attributes: {
                     class: "et-sdk-wysiwyg--editor-textarea prose"
+                },
+                handleDrop: (view, event) => {
+                    const files = event.dataTransfer?.files;
+                    if (files && files.length) {
+                        const file = files[0];
+                        if (
+                            file.type.startsWith("image/") &&
+                            this.preventImageDrop
+                        ) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             },
             extensions: [
