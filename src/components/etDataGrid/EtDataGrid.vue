@@ -225,7 +225,11 @@ async function __searchData(silent = false) {
             )
         );
 
-        [resultRows, criteriaManager.totalRows] = await dataRequest;
+        const [rows, totalRows] = await dataRequest;
+
+        resultRows = rows;
+        criteriaManager.totalRows = totalRows;
+
         isLoading.value = false;
         isRefreshing.value = false;
     }
