@@ -120,6 +120,7 @@ export function useCriteriaManager(
         async setFilters(filters) {
             await this.setCriteria({
                 ...this.criteria,
+                page: 1,
                 filters:
                     filters ||
                     defaultCriteria?.filters ||
