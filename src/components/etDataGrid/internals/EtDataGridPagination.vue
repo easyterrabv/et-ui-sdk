@@ -130,7 +130,7 @@ const hasNext = computed(() => {
 });
 
 function previousPage() {
-    if (!hasPrevious) {
+    if (!hasPrevious.value) {
         return;
     }
 
@@ -138,7 +138,7 @@ function previousPage() {
 }
 
 function nextPage() {
-    if (!hasNext) {
+    if (!hasNext.value) {
         return;
     }
 
