@@ -45,18 +45,18 @@ defineProps({
     gap: 5px;
 
     &.toasts-container-top-left {
-        top: 100px;
+        top: 120px;
         left: 25px;
     }
 
     &.toasts-container-top-center {
-        top: 100px;
+        top: 120px;
         left: 50%;
         transform: translateX(-50%);
     }
 
     &.toasts-container-top-right {
-        top: 100px;
+        top: 120px;
         right: 25px;
     }
 
