@@ -30,10 +30,11 @@
                     {{ viewingYear }}
                 </span>
                 <span v-else-if="viewMode === VIEW_MODES.MONTH">
-                    {{ viewingYear }} -
-                    <span v-if="viewingMonth">{{
-                        monthToNameFull(viewingMonth)
-                    }}</span>
+                    {{ viewingYear }}
+                    <span
+                        v-if="viewingMonth !== undefined && viewingMonth >= 0"
+                        >{{ monthToNameFull(viewingMonth) }}</span
+                    >
                 </span>
             </div>
             <div
@@ -185,8 +186,8 @@ export default defineComponent({
             return this.viewingDate?.getDate();
         },
         viewingPeriod(): Date[] {
-            const currentYear = this.viewingYear || new Date().getFullYear();
-            const currentMonth = this.viewingMonth || new Date().getMonth();
+            const currentYear = this.viewingYear ?? new Date().getFullYear();
+            const currentMonth = this.viewingMonth ?? new Date().getMonth();
 
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
@@ -406,8 +407,8 @@ export default defineComponent({
             this.switchPage(true);
         },
         switchPage(up = false) {
-            const viewingYear = this.viewingYear || new Date().getFullYear();
-            const viewingMonth = this.viewingMonth || new Date().getMonth();
+            const viewingYear = this.viewingYear ?? new Date().getFullYear();
+            const viewingMonth = this.viewingMonth ?? new Date().getMonth();
 
             const value = up ? 1 : -1;
 
@@ -427,9 +428,22 @@ export default defineComponent({
                     );
                     break;
                 case VIEW_MODES.MONTH:
+                    let newYear = viewingYear;
+                    let newMonth = viewingMonth + value;
+
+                    if (newMonth < 0) {
+                        newYear -= 1;
+                        newMonth = 11;
+                    }
+
+                    if (newMonth > 11) {
+                        newYear += 1;
+                        newMonth = 0;
+                    }
+
                     this.viewingDate = new Date(
-                        viewingYear,
-                        viewingMonth + value,
+                        newYear,
+                        newMonth,
                         this.viewingDayOfMonth
                     );
                     break;
