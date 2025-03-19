@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
 }
 
 .et-sdk-data-grid__filter-wrapper {
-    width: var(--data-grid-filter-input-width);
+    max-width: var(--data-grid-filter-input-width);
 }
 
 .et-sdk-data-grid__filter-input {
