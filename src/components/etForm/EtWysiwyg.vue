@@ -1028,7 +1028,7 @@ export default defineComponent({
 }
 
 .et-sdk-wysiwyg-editor--with-inner > .et-sdk-wysiwyg--editor-textarea {
-    padding-bottom: 34px;
+    padding-bottom: 50px;
 }
 
 .et-sdk-wysiwyg-content__inner-bottom-content {
