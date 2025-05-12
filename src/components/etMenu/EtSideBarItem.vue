@@ -16,8 +16,11 @@
         >
             <slot name="icon"></slot>
         </span>
-        <span v-if="!isCollapsed">
+        <span v-if="!isCollapsed" class="et-sdk-sidebar-item__label">
             <slot></slot>
+        </span>
+        <span v-if="!isCollapsed && $slots.extra">
+            <slot name="extra"></slot>
         </span>
     </div>
 </template>
@@ -50,6 +53,15 @@ export default defineComponent({
     line-height: 20px;
     transition: all 150ms ease-in-out;
     background-color: var(--et-sdk-dark-50);
+    word-break: break-all;
+
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.et-sdk-sidebar-item__label {
+    flex-grow: 1;
 }
 
 .et-sdk-sidebar-item__active {
@@ -74,7 +86,7 @@ export default defineComponent({
 }
 
 .et-sdk-sidebar-item--icon {
-    width: 12px;
+    width: 22px;
     padding-right: 5px;
     color: var(--et-sdk-dark-600);
 }
@@ -85,7 +97,10 @@ export default defineComponent({
     border-radius: 6px;
     text-align: center;
 
+    display: block;
+
     .et-sdk-sidebar-item--icon {
+        width: 12px;
         padding: 0;
         text-align: center;
     }

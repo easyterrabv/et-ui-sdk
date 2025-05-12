@@ -127,6 +127,21 @@
                                         </template>
                                         Price Alerts
                                     </EtSideBarItem>
+                                    <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                        <template #icon>
+                                            <EtIconTag style="color: initial;" />
+                                        </template>
+                                        WITH_A_SUPER_LONG_NAME_WITHOUT_SPACES
+                                    </EtSideBarItem>
+                                    <EtSideBarItem :isCollapsed="scope.isCollapsed">
+                                        <template #icon>
+                                            <EtIconTag style="color: initial;" />
+                                        </template>
+                                        WITH_A_SUPER_LONG_NAME_WITHOUT_SPACES_AND_EXTRA
+                                        <template #extra>
+                                            <EtIconTag style="color: initial;" />
+                                        </template>
+                                    </EtSideBarItem>
                                 </EtSideBarSection>
 
                                 <EtSideBarSection :isCollapsed="scope.isCollapsed">
@@ -134,14 +149,14 @@
                                         Buttons
                                     </template>
 
-                                    <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('Aii, I am disabled, you should not see this')">
+                                    <EtSideBarButton disabled :isCollapsed="scope.isCollapsed" @click="() => console.log('Aii, I am disabled, you should not see this')">
                                         <template #icon>
                                             <EtIconTag style="color: initial;" />
                                         </template>
                                         Disabled
                                     </EtSideBarButton>
 
-                                    <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="(e: Event) => console.log('test')">
+                                    <EtSideBarButton :isCollapsed="scope.isCollapsed" @click="() => console.log('test')">
                                         <template #icon>
                                             <EtIconTag style="color: initial;" />
                                         </template>
