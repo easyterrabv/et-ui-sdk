@@ -105,6 +105,9 @@ export default defineComponent({
             handler() {
                 this.$nextTick(() => {
                     const checkboxRef = this.$refs.checkbox as any;
+                    if (!checkboxRef || !checkboxRef.indeterminate || !this) {
+                        return;
+                    }
                     checkboxRef.indeterminate = this.internalIndeterminate;
                 });
                 this.$emit("update:indeterminate", this.internalIndeterminate);
