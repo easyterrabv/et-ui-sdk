@@ -1,6 +1,6 @@
 {
   "name": "et-ui-sdk",
-  "version": "0.0.457",
+  "version": "0.0.458",
   "type": "module",
   "description": "",
   "scripts": {
@@ -16,7 +16,7 @@
     "everything": "npm install && npm run format && npm run lint && npm run type-check && npm run test && npm run preview"
   },
   "engines": {
-      "node": ">=22.17"
+    "node": ">=22.17"
   },
   "repository": {
     "type": "git",
