@@ -15,8 +15,14 @@
                             :modelValue="firstDateDisplayFormat"
                             @focus="onFirstInputFocus"
                             @blur="onFirstInputBlur"
-                            @enter="(value) => onInputChange(value, 'first')"
-                            @change="(value) => onInputChange(value, 'first')"
+                            @enter="
+                                (value: string | number | null) =>
+                                    onInputChange(value, 'first')
+                            "
+                            @change="
+                                (value: string | number | null) =>
+                                    onInputChange(value, 'first')
+                            "
                         >
                             <template #pre>
                                 <EtIconCalendar />
@@ -39,8 +45,14 @@
                             @focus="onSecondInputFocus"
                             @blur="onSecondInputBlur"
                             :modelValue="secondDateDisplayFormat"
-                            @enter="(value) => onInputChange(value, 'second')"
-                            @change="(value) => onInputChange(value, 'second')"
+                            @enter="
+                                (value: string | number | null) =>
+                                    onInputChange(value, 'second')
+                            "
+                            @change="
+                                (value: string | number | null) =>
+                                    onInputChange(value, 'second')
+                            "
                         >
                             <template #pre>
                                 <EtIconCalendar />
