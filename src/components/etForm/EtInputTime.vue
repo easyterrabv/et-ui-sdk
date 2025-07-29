@@ -19,7 +19,7 @@
                         :placeholder="placeholder"
                         :size="size"
                         @change="
-                            (value) =>
+                            (value: string | number | null) =>
                                 (internalInputValue = value
                                     ? `${value}`
                                     : undefined)
