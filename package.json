@@ -30,9 +30,9 @@
   },
   "homepage": "https://github.com/easyterrabv/et-ui-sdk#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/pro-regular-svg-icons": "^6.7.2",
-    "@fortawesome/pro-solid-svg-icons": "^6.7.2",
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/pro-regular-svg-icons": "^7.0.0",
+    "@fortawesome/pro-solid-svg-icons": "^7.0.0",
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "@popperjs/core": "^2.11.8",
     "@tiptap/extension-hard-break": "^3.0.7",
