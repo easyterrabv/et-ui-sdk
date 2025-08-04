@@ -118,9 +118,9 @@ export function formatCurrency(
 export async function pleaseWait<T>(
     callback: (
         modalGuid: string | null | undefined
-    ) => Promise<T> | (() => Promise<T>)
+    ) => Promise<T> | (() => Promise<T>),
+    modalProvide: IEtModalProvide
 ) {
-    const modalProvide = inject<IEtModalProvide>("SDKModalProvide");
     const guid = modalProvide?.openModal("SDKPleaseWait");
     const result = await callback(guid);
 

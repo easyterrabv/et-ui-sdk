@@ -29,7 +29,7 @@
                 Open datepicker modal
             </EtButtonDefault>
 
-            <EtButtonDefault @click="openPleaseWait(5)" style="margin-top: 15px; display: block;">
+            <EtButtonDefault @click="() => openPleaseWait(5)" style="margin-top: 15px; display: block;">
                 Open please wait modal for 5 seconds
             </EtButtonDefault>
 
@@ -147,7 +147,7 @@ function areYouSure() {
 function openPleaseWait(seconds: number) {
     pleaseWait(async () => {
         await wait(seconds * 1000);
-    });
+    }, modalProvide);
 }
 
 type toastPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
