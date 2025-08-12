@@ -1,6 +1,5 @@
 import { reactive } from "vue";
 import type { CellWidthProvide } from "../interfaces/DataGridMethods";
-import type { DataGridColumn } from "../interfaces/DataGridColumn";
 
 export function useCellWidth() {
     return reactive<CellWidthProvide>({

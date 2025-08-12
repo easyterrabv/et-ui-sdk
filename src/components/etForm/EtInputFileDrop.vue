@@ -93,10 +93,6 @@ export default defineComponent({
             this.handleFiles(files);
         },
         handleFiles(files: FileList) {
-            let emitValue = files as FileList | null;
-            if (!files || files.length == 0) {
-                emitValue = null;
-            }
             this.$emit("files", files);
         },
         setProcessing(state: boolean = false) {

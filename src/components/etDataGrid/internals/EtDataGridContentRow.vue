@@ -58,7 +58,7 @@ async function handleClick() {
         return;
     }
 
-    if (isRowClickable) {
+    if (isRowClickable.value) {
         await props.rowInfo.onRowClick?.(props.row);
     }
 }

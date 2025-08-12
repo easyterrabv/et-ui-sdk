@@ -36,7 +36,8 @@
                     "
                 >
                     <EtDataGridContentHeaderBulkMethod
-                        v-for="bulkMethod in bulkMethods"
+                        v-for="(bulkMethod, index) in bulkMethods"
+                        :key="index"
                         :bulk-method="bulkMethod"
                     />
                 </span>
@@ -125,7 +126,7 @@ const props = defineProps({
 
 const searchData = inject<() => void>("searchData");
 const checkedRows = inject<CheckedProvide>("checkedRows");
-const isRefreshing = inject<Boolean>("isRefreshing");
+const isRefreshing = inject<boolean>("isRefreshing");
 
 const hasBulkMethods = computed(() => (props.bulkMethods || []).length > 0);
 const hasAnyChecked = computed(() => checkedRows && checkedRows.anySelected());

@@ -125,7 +125,9 @@ export default {
         try {
             document.removeEventListener("mousemove", this.resize);
             document.removeEventListener("mouseup", this.stopResize);
-        } catch (e) {}
+        } catch (e) {
+            console.warn("Failed to remove resize event listeners:", e);
+        }
     },
     emits: ["resizestop", "resizestart"]
 };

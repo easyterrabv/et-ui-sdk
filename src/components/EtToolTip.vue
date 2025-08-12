@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import { createPopper } from "@popperjs/core";
-import { onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import type { Placement } from "@popperjs/core/lib/enums";
 import type { Instance } from "@popperjs/core/lib/types";
 import { wait } from "../helpers/async";

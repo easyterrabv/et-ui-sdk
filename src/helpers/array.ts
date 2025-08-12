@@ -1,5 +1,3 @@
-import { OptionModel } from "../models/Option";
-
 export const makeArray = (
     value: any,
     preserveFalse = true,

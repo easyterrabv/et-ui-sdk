@@ -163,11 +163,11 @@ if (props.name && props.saveToUrl && route && router) {
     urlData = useUrlData<IDataGridCriteria>(props.name, route, router);
 }
 
-let criteriaManager: UnwrapNestedRefs<ICriteriaManager>;
+let _criteriaManager: UnwrapNestedRefs<ICriteriaManager>;
 if (props.criteriaManager) {
-    criteriaManager = props.criteriaManager;
+    _criteriaManager = props.criteriaManager;
 } else {
-    criteriaManager = useCriteriaManager({
+    _criteriaManager = useCriteriaManager({
         useUrlData: urlData || undefined,
         // They use the same prop for now
         saveToUrl: props.saveToUrl,
@@ -182,7 +182,7 @@ if (
     !urlDataValues.sorting ||
     Object.keys(urlDataValues.sorting).length === 0
 ) {
-    criteriaManager.resetSorting(props.columns);
+    _criteriaManager.resetSorting(props.columns);
 }
 
 let dataRequest: CancelablePromise<[RowObject[], number]>;
@@ -197,7 +197,7 @@ async function __searchData(silent = false) {
     let resultRows: RowObject[] = [];
 
     const filtersFormattedValues = Object.entries(
-        (criteriaManager.criteria.filters || {}) as unknown as FilterObject
+        (_criteriaManager.criteria.filters || {}) as unknown as FilterObject
     ).reduce((prev, [key, value]) => {
         const definition = props.filters?.find((def) => def.field === key);
 
@@ -219,16 +219,16 @@ async function __searchData(silent = false) {
         dataRequest = cancelable(
             props.dataGetter(
                 filtersFormattedValues || {},
-                criteriaManager.criteria.sorting || {},
-                criteriaManager.criteria.page || 1,
-                criteriaManager.criteria.perPage || 50
+                _criteriaManager.criteria.sorting || {},
+                _criteriaManager.criteria.page || 1,
+                _criteriaManager.criteria.perPage || 50
             )
         );
 
         const [rows, totalRows] = await dataRequest;
 
         resultRows = rows;
-        criteriaManager.totalRows = totalRows;
+        _criteriaManager.totalRows = totalRows;
 
         isLoading.value = false;
         isRefreshing.value = false;
@@ -257,32 +257,32 @@ provide<RowVersionProvider>("rowVersion", rowVersion);
 const prevFilterValues = ref<FilterObject>({});
 
 watch(
-    () => criteriaManager.criteria.filters,
+    () => _criteriaManager.criteria.filters,
     () => {
         if (
             Object.keys(prevFilterValues.value).length > 0 &&
-            Object.keys(criteriaManager.criteria.filters || {}).length === 0
+            Object.keys(_criteriaManager.criteria.filters || {}).length === 0
         ) {
             emit("filtersCleared");
-            criteriaManager.criteria.page = 1;
+            _criteriaManager.criteria.page = 1;
         }
 
         searchData();
-        prevFilterValues.value = criteriaManager.criteria.filters || {};
+        prevFilterValues.value = _criteriaManager.criteria.filters || {};
     },
     { deep: true, immediate: true }
 );
 watch(
-    () => criteriaManager.criteria.sorting,
+    () => _criteriaManager.criteria.sorting,
     () => searchData(),
     { deep: true }
 );
 watch(
-    () => criteriaManager.criteria.page,
+    () => _criteriaManager.criteria.page,
     () => searchData()
 );
 watch(
-    () => criteriaManager.criteria.perPage,
+    () => _criteriaManager.criteria.perPage,
     () => searchData()
 );
 
@@ -305,7 +305,7 @@ function intervalSearchData() {
     searchData(true);
 }
 
-let refreshTimeout: ReturnType<typeof setTimeout>;
+let refreshTimeout: ReturnType<typeof setTimeout> | undefined;
 
 function setRefreshTimeout() {
     if (refreshTimeout) {
@@ -327,7 +327,7 @@ function setRefreshTimeout() {
 function patchRow(rowId: string | number, data: any) {
     const dataValues = Object.entries<any>(data);
 
-    (rows.value || []).forEach((row, index) => {
+    (rows.value || []).forEach((row) => {
         if (row[props.rowInfo.idKey] === rowId) {
             dataValues.forEach(([key, value]) => {
                 assignToPath(row, key, value);
@@ -340,10 +340,10 @@ function patchRow(rowId: string | number, data: any) {
 defineExpose({
     checked: checkedRows,
     filters: {
-        values: (criteriaManager.criteria.filters ||
+        values: (_criteriaManager.criteria.filters ||
             {}) as unknown as FilterObject,
         setFilters(newFilters: FilterObject) {
-            criteriaManager.setFilters(newFilters);
+            _criteriaManager.setFilters(newFilters);
         }
     },
     urlData: urlData ? urlData : null,
@@ -371,7 +371,10 @@ onBeforeUnmount(() => {
 });
 
 onUnmounted(() => {
-    refreshTimeout && clearTimeout(refreshTimeout);
+    if (refreshTimeout) {
+        clearTimeout(refreshTimeout);
+        refreshTimeout = undefined;
+    }
 });
 </script>
 

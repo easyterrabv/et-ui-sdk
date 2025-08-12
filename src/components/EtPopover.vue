@@ -26,7 +26,6 @@ import {
     inject,
     onBeforeUnmount,
     onMounted,
-    reactive,
     ref,
     type PropType,
     watch
@@ -93,7 +92,11 @@ function hideDropDown() {
     try {
         window.removeEventListener("mouseup", handleClickOutside);
         hasEvent.value = false;
-    } catch (e) {}
+    } catch {
+        console.warn(
+            "EtPopover: Failed to remove click event listener, it might not have been added."
+        );
+    }
 }
 
 function hideDropDownEvent() {
@@ -196,7 +199,11 @@ onBeforeUnmount(() => {
     sdkOverlay?.removeEvent(EtOverlayEvent.onClick, hideDropDownEvent);
     try {
         window.removeEventListener("mouseup", handleClickOutside);
-    } catch (e) {}
+    } catch {
+        console.warn(
+            "EtPopover: Failed to remove click event listener, it might not have been added."
+        );
+    }
 });
 
 defineExpose({

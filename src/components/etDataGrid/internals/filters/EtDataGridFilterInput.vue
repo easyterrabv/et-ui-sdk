@@ -128,7 +128,7 @@ const filterType = computed(
 );
 
 const filterValue = computed(() =>
-    filterValueStaging?.getFilter(props.filterDefinition?.field!)
+    filterValueStaging?.getFilter(props.filterDefinition.field!)
 );
 
 function getTypedFilterDefinition<
@@ -232,7 +232,7 @@ function setFilterValueFromDateRange(dates: Array<Date | null> | null) {
 }
 
 function setFilterValue(newValue: FilterValue) {
-    const field = props.filterDefinition?.field!;
+    const field = props.filterDefinition.field!;
     dirty.value = true;
 
     if (newValue && Array.isArray(newValue) && newValue.length <= 0) {

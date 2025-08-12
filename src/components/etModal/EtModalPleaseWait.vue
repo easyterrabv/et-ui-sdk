@@ -14,7 +14,7 @@
 import EtModal from "./EtModal.vue";
 import EtIconSpinner from "../etIcon/EtIconSpinner.vue";
 
-const props = defineProps({
+defineProps({
     title: {
         type: String,
         default: "Please wait"

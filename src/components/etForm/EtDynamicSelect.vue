@@ -122,7 +122,9 @@ function hideToolTip() {
     isVisible.value = false;
 
     popover.value?.hideDropDown?.();
-    props.multiple && props.onOptionSelect?.(internalSelectedOption.value);
+    if (props.multiple) {
+        props.onOptionSelect?.(internalSelectedOption.value);
+    }
 }
 
 async function toggleInput() {

@@ -1,4 +1,4 @@
-import type { Raw } from "@vue/reactivity";
+import type { Raw } from "vue";
 import type { RowObject } from "./DataRowObject";
 
 export type WidthUnit = "px" | "%";

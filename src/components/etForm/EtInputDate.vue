@@ -128,10 +128,7 @@ export default defineComponent({
             this.internalInputValue = undefined;
             this.internalDateValue = undefined;
         },
-        async onInputEnter(
-            value: string | number | undefined | null,
-            e: Event
-        ) {
+        async onInputEnter(value: string | number | undefined | null) {
             this.internalInputValue = value ? `${value}` : undefined;
         }
     }

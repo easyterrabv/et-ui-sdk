@@ -43,11 +43,6 @@ import { Debounce } from "../../helpers/debounce";
 import { UI_SIZING } from "../../helpers/enums";
 
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
         size: {
             required: false,
@@ -109,7 +104,7 @@ export default defineComponent({
         }
     },
     emits: {
-        "update:modelValue": (modelValue: boolean): boolean => true
+        "update:modelValue": (_modelValue: boolean): boolean => true
     }
 });
 </script>

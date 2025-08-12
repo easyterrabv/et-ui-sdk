@@ -115,8 +115,8 @@ export default defineComponent({
     data() {
         return {
             UI_SIZING,
-            firstDateInput: null as String | null,
-            secondDateInput: null as String | null,
+            firstDateInput: null as string | null,
+            secondDateInput: null as string | null,
 
             internalDateValue: [null, null] as Array<Date | null>,
 
@@ -274,7 +274,8 @@ export default defineComponent({
         }
     },
     emits: {
-        "update:modelValue": (dates: Array<Date | null> | null): boolean => true
+        "update:modelValue": (_dates: Array<Date | null> | null): boolean =>
+            true
     }
 });
 </script>

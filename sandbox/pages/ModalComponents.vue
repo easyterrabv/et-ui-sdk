@@ -164,10 +164,8 @@ async function openToast(textComp: string, position: toastPosition = "top-center
             style: toastStyles
         },
         position: {
-            // @ts-ignore
-            vertical,
-            // @ts-ignore
-            horizontal
+            vertical: vertical as "top" | "bottom",
+            horizontal: horizontal as "left" | "center" | "right"
         }
     });
 

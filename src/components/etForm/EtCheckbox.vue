@@ -15,11 +15,6 @@
         :indeterminate="internalIndeterminate"
         @keyup.enter="internalChecked = !internalChecked"
     >
-        <!--        <EtIconCheck-->
-        <!--            class="et-sdk-checkbox__checked-icon"-->
-        <!--            v-if="internalChecked"-->
-        <!--        />-->
-
         <svg
             v-if="internalChecked"
             class="et-sdk-checkbox__checked-icon"
@@ -39,17 +34,7 @@
 import { defineComponent } from "vue";
 import { generateId } from "../../helpers/random";
 
-import EtIconCheck from "../etIcon/EtIconCheckSolid.vue";
-
 export default defineComponent({
-    components: {
-        EtIconCheck
-    },
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "checked",
-        event: "update:checked"
-    },
     props: {
         name: {
             type: String,
@@ -124,8 +109,8 @@ export default defineComponent({
         }
     },
     emits: {
-        "update:checked": (value: boolean) => true,
-        "update:indeterminate": (value: boolean) => true
+        "update:checked": (_value: boolean) => true,
+        "update:indeterminate": (_value: boolean) => true
     }
 });
 </script>

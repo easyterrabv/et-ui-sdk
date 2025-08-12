@@ -19,6 +19,7 @@
             >
                 <div
                     v-for="hourOption in hourOptions"
+                    :key="hourOption"
                     @click="dragging ? '' : (hour = hourOption)"
                     class="et-sdk-timepicker--content-list--option"
                     :class="{
@@ -37,6 +38,7 @@
             >
                 <div
                     v-for="minuteOption in minuteOptions"
+                    :key="minuteOption"
                     @click="dragging ? '' : (minute = minuteOption)"
                     class="et-sdk-timepicker--content-list--option"
                     :class="{

@@ -1,5 +1,5 @@
 import type { DataGridColumn } from "./DataGridColumn";
-import type { Raw } from "@vue/reactivity";
+import type { Raw } from "vue";
 import type { RowObject } from "./DataRowObject";
 
 export interface BulkMethod<T extends RowObject = RowObject> {

@@ -58,6 +58,7 @@
             <template v-if="viewMode === VIEW_MODES.MONTH">
                 <div
                     v-for="weekDay in ['M', 'T', 'W', 'T', 'F', 'S', 'S']"
+                    :key="weekDay"
                     class="et-sdk-datepicker--section et-sdk-datepicker--section__grayed-out"
                 >
                     {{ weekDay }}
@@ -65,6 +66,7 @@
             </template>
             <div
                 v-for="option in viewingOptions"
+                :key="option.getTime()"
                 @click.left.stop="(e) => pickOptionDebounce.debounce(e, option)"
                 class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
                 :class="{
@@ -134,11 +136,6 @@ export enum VIEW_MODES {
 }
 
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
         modelValue: {
             type: [Date, Array<Date | null>],
@@ -190,7 +187,7 @@ export default defineComponent({
             const currentMonth = this.viewingMonth ?? new Date().getMonth();
 
             switch (this.viewMode) {
-                case VIEW_MODES.DECADE:
+                case VIEW_MODES.DECADE: {
                     const currentDecadeStart =
                         Math.floor(currentYear / 10) * 10;
                     const currentDecadeEnd =
@@ -199,12 +196,14 @@ export default defineComponent({
                         new Date(currentDecadeStart, 0, 1),
                         new Date(currentDecadeEnd, 11, 31)
                     ];
-                case VIEW_MODES.YEAR:
+                }
+                case VIEW_MODES.YEAR: {
                     return [
                         new Date(currentYear, 0, 1),
                         new Date(currentYear, 11, 31)
                     ];
-                case VIEW_MODES.MONTH:
+                }
+                case VIEW_MODES.MONTH: {
                     const nextMonth = currentMonth + 1;
                     const nextMonthFirstDay = new Date(
                         currentYear,
@@ -217,6 +216,7 @@ export default defineComponent({
                         new Date(currentYear, currentMonth, 1),
                         new Date(currentYear, currentMonth, lastDay.getDate())
                     ];
+                }
             }
 
             return [];
@@ -233,13 +233,15 @@ export default defineComponent({
             let preFillerCount = 0;
 
             switch (this.viewMode) {
-                case VIEW_MODES.DECADE:
+                case VIEW_MODES.DECADE: {
                     options = getYearsBetweenDates(firstOption, secondOption);
                     break;
-                case VIEW_MODES.YEAR:
+                }
+                case VIEW_MODES.YEAR: {
                     options = getMonthsBetweenDates(firstOption, secondOption);
                     break;
-                case VIEW_MODES.MONTH:
+                }
+                case VIEW_MODES.MONTH: {
                     options = getDaysBetweenDates(firstOption, secondOption);
                     const dayOfWeek = firstOption.getDay();
                     preFillerCount = dayOfWeek - 1;
@@ -248,6 +250,7 @@ export default defineComponent({
                         preFillerCount = 6;
                     }
                     break;
+                }
             }
 
             if (this.viewMode === VIEW_MODES.MONTH) {
@@ -338,10 +341,11 @@ export default defineComponent({
         pickOption(e: Event, option: Date) {
             switch (this.viewMode) {
                 case VIEW_MODES.DECADE:
-                case VIEW_MODES.YEAR:
+                case VIEW_MODES.YEAR: {
                     this.viewingDate = new Date(option);
                     break;
-                case VIEW_MODES.MONTH:
+                }
+                case VIEW_MODES.MONTH: {
                     const date = new Date(option);
 
                     if (this.multiple) {
@@ -368,6 +372,7 @@ export default defineComponent({
                     this.$emit("dateSelect");
 
                     break;
+                }
             }
 
             this.modeDown();
@@ -413,21 +418,23 @@ export default defineComponent({
             const value = up ? 1 : -1;
 
             switch (this.viewMode) {
-                case VIEW_MODES.DECADE:
+                case VIEW_MODES.DECADE: {
                     this.viewingDate = new Date(
                         viewingYear + value * 10,
                         viewingMonth,
                         this.viewingDayOfMonth
                     );
                     break;
-                case VIEW_MODES.YEAR:
+                }
+                case VIEW_MODES.YEAR: {
                     this.viewingDate = new Date(
                         viewingYear + value,
                         viewingMonth,
                         this.viewingDayOfMonth
                     );
                     break;
-                case VIEW_MODES.MONTH:
+                }
+                case VIEW_MODES.MONTH: {
                     let newYear = viewingYear;
                     let newMonth = viewingMonth + value;
 
@@ -447,6 +454,7 @@ export default defineComponent({
                         this.viewingDayOfMonth
                     );
                     break;
+                }
             }
 
             this.$emit("interaction");
@@ -464,15 +472,15 @@ export default defineComponent({
     emits: {
         // will trigger and usually only update the v-model value
         "update:modelValue": (
-            modelValue: Array<Date | undefined> | Date | undefined
+            _modelValue: Array<Date | undefined> | Date | undefined
         ): boolean => true,
         interaction: (): boolean => true,
         dateSelect: (): boolean => true,
         escape: (): boolean => true,
         focus: (): boolean => true,
         blur: (): boolean => true,
-        onFirstChange: (value: Date | null): boolean => true,
-        onSecondChange: (value: Date | null): boolean => true
+        onFirstChange: (_value: Date | null): boolean => true,
+        onSecondChange: (_value: Date | null): boolean => true
     }
 });
 </script>

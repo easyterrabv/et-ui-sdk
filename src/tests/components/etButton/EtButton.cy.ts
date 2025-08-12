@@ -35,7 +35,6 @@ describe(`<EtButton />`, () => {
                 cy.wrap(emits)
                     .should("have.property", "click")
                     .then(() => {
-                        // @ts-ignore
                         const event = emits.click[0][0];
                         cy.wrap(event).should("be.instanceof", Event);
                     });

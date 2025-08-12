@@ -680,8 +680,12 @@
                 This is a resizable box
             </EtResizable>
 
-            <template v-for="formatDate in formatDates">
-                <EtDate :date="formatDate"></EtDate><br/>
+            <template
+                v-for="formatDate in formatDates"
+                :key="formatDate.getTime()"
+            >
+                <EtDate :date="formatDate"></EtDate>
+                <br/>
             </template>
 
             <EtListGroup>
@@ -726,12 +730,10 @@ import EtButtonText from "src/components/etButton/EtButtonText.vue";
 import EtButtonDropdown from "src/components/etButton/EtButtonDropdown.vue";
 
 import EtInput from "src/components/etForm/EtInput.vue";
-import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 import EtToggle from "src/components/etForm/EtToggle.vue";
 
 import EtHeaderBlock from "src/components/EtHeaderBlock.vue";
-import EtBox from "src/components/EtBox.vue";
 import EtCard from "src/components/EtCard.vue";
 import EtSection from "src/components/EtSection.vue";
 import EtBadge from "src/components/etBadge/EtBadge.vue";
@@ -783,14 +785,12 @@ export default defineComponent({
         EtButtonDropdown,
 
         EtInput,
-        EtInputGroup,
         EtInputGroupAddon,
         EtFormGroup,
         EtToggle,
 
         EtHeaderBlock,
         EtCard,
-        EtBox,
         EtSection,
         EtBadge,
         EtAlert,

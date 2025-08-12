@@ -27,7 +27,7 @@ export const sortByProperties = (array: [], sortConfig: SortConfig): [] => {
 
     return array.sort((a, b) => {
         for (const prop in sortConfig) {
-            if (!sortConfig.hasOwnProperty(prop)) {
+            if (!Object.prototype.hasOwnProperty.call(sortConfig, prop)) {
                 continue;
             }
 

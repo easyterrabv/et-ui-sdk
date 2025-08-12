@@ -79,7 +79,7 @@ async function handleBulkMethod(bulkMethod: BulkMethod) {
         return;
     }
 
-    if (!hasAnyChecked) {
+    if (!hasAnyChecked.value) {
         return;
     }
 

@@ -234,7 +234,6 @@ import EtContent from "src/layouts/Content.vue";
 import EtCard from "src/components/EtCard.vue";
 
 import EtInput from "src/components/etForm/EtInput.vue";
-import EtInputGroup from "src/components/etForm/EtInputGroup.vue";
 import EtInputGroupAddon from "src/components/etForm/EtInputGroupAddon.vue";
 
 import EtForm from "src/components/etForm/EtForm.vue";
@@ -258,9 +257,7 @@ import EtDynamicSelect from "src/components/etForm/EtDynamicSelect.vue";
 
 import {OptionModel} from "../../src/models/Option";
 import {wait} from "../../src/helpers/async";
-import EtButton from "../../src/components/etButton/EtButton.vue";
 import EtButtonDefault from "../../src/components/etButton/EtButtonDefault.vue";
-import EtBadge from "src/components/etBadge/EtBadge.vue";
 import EtBadgePrimary from "src/components/etBadge/EtBadgePrimary.vue";
 import EtInputColorPicker from "src/components/etForm/EtInputColorPicker.vue";
 import EtInputDynamicSelect from "src/components/etForm/EtInputDynamicSelect.vue";
@@ -270,16 +267,13 @@ export default defineComponent({
         EtInputDynamicSelect,
         EtInputColorPicker,
         EtBadgePrimary,
-        EtBadge,
         EtButtonDefault,
-        EtButton,
         EtContent,
         EtCard,
         EtForm,
         EtFormGroup,
 
         EtInput,
-        EtInputGroup,
         EtInputGroupAddon,
 
         EtCheckboxWithLabel,
@@ -411,7 +405,7 @@ export default defineComponent({
             const reader = new FileReader();
             reader.readAsDataURL(file);
 
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 reader.onload = function () {
                     console.log(reader.result);
                     resolve(reader.result);

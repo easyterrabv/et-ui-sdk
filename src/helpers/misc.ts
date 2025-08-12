@@ -1,4 +1,3 @@
-import { inject } from "vue";
 import type { IEtModalProvide } from "../components/etProvider/EtModalProviderInterfaces";
 
 export const needleFixer = (

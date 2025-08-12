@@ -110,7 +110,7 @@ export default defineComponent({
 
             await popoverElement.showDropDown();
         },
-        async onInputEnter(value: string | number | null, e: Event) {
+        async onInputEnter(value: string | number | null) {
             this.internalInputValue = String(value);
         },
         onInputClear() {

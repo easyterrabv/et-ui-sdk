@@ -64,7 +64,7 @@ import type {
     SavedUrlModalProps,
     SavedUrlModals
 } from "./EtModalProviderInterfaces";
-import type { Raw } from "@vue/reactivity";
+import type { Raw } from "vue";
 import { generateId } from "../../helpers/random";
 import { modalOptionsDefaults } from "./EtModalProviderInterfaces";
 import EtModalAreYouSure from "../etModal/EtModalAreYouSure.vue";
@@ -82,7 +82,7 @@ const registeredModals = new Map<string, IModal>();
 const openModalsMap = ref<Map<string, IOpenModal>>(new Map());
 const openModals = computed(() => Array.from(openModalsMap.value.values()));
 const sortedModals = computed(() => {
-    return openModals.value.sort((a, b) => {
+    return [...openModals.value].sort((a, b) => {
         if (a.modal.options.alwaysOnTop && !b.modal.options.alwaysOnTop) {
             return 1;
         }
@@ -226,7 +226,7 @@ function saveModalsToUrl() {
         if (Array.isArray(openModal.savedProps)) {
             state = Object.entries(openModal.props || {}).reduce(
                 (acc, [key, value]) => {
-                    if ((openModal.savedProps as String[]).includes(key)) {
+                    if ((openModal.savedProps as string[]).includes(key)) {
                         if (
                             !["string", "number", "boolean"].includes(
                                 typeof value

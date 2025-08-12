@@ -164,7 +164,7 @@ export default defineComponent({
                 | undefined
                 | null,
 
-            hasInputFocus: false as Boolean,
+            hasInputFocus: false as boolean,
             justToggledOption: false
         };
     },
@@ -243,7 +243,7 @@ export default defineComponent({
         focus: () => true,
         blur: () => true,
         "update:modelValue": (
-            data: OptionModel | OptionModel[] | undefined | null
+            _data: OptionModel | OptionModel[] | undefined | null
         ): boolean => true
     }
 });

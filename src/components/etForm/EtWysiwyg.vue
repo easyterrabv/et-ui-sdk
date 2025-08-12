@@ -527,11 +527,6 @@ export const EDIT_MODES = {
 };
 
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
         name: {
             type: String,
@@ -741,12 +736,8 @@ export default defineComponent({
             }
         },
         runEditorMethod(method: string, ...args: unknown[]) {
-            // @ts-ignore
-            this.editor
-                ?.chain()
-                .focus()
-                [method]?.(...args)
-                .run();
+            const ctx = this.editor?.chain().focus();
+            ctx[method]?.(...args).run();
         },
         onInputFocus() {
             if (this.hasDisabledInput) {
@@ -875,7 +866,6 @@ export default defineComponent({
         }
     },
     mounted() {
-        // @ts-ignore
         this.editor = new Editor({
             content: this.innerData ? String(this.innerData) : "",
             editable: !this.hasDisabledInput,
@@ -937,7 +927,9 @@ export default defineComponent({
         const editor = this.$refs.editor as HTMLElement;
         try {
             editor?.removeEventListener("drop", this.onDropHandler);
-        } catch (e) {}
+        } catch (e) {
+            console.warn("Failed to remove drop event listener:", e);
+        }
     },
     emits: ["update:modelValue", "attachments"]
 });

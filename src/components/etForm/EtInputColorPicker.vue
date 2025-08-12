@@ -31,6 +31,7 @@
                         model === fixedColorOption
                 }"
                 v-for="fixedColorOption in fixedColorOptions"
+                :key="fixedColorOption"
                 @click="model = fixedColorOption"
                 :style="{ 'background-color': fixedColorOption }"
             ></div>

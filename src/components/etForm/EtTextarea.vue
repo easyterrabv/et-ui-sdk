@@ -20,11 +20,6 @@ import { defineComponent } from "vue";
 import { commonInputProps } from "./EtInput.vue";
 
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
         ...commonInputProps,
         modelValue: {
@@ -46,7 +41,7 @@ export default defineComponent({
         },
         internalData: {
             immediate: true,
-            handler(value) {
+            handler() {
                 this.$emit("update:modelValue", this.internalData);
             }
         }

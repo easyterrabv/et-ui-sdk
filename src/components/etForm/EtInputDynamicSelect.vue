@@ -20,7 +20,8 @@
                 <div class="et-sdk-input-dynamic__selected-options">
                     <EtBadgeDefault
                         class="et-sdk-input-dynamic__selected-option"
-                        v-for="option in internalSelectedOption"
+                        v-for="(option, index) in internalSelectedOption"
+                        :key="index"
                     >
                         {{ option.label }}
                         <EtIconTimes

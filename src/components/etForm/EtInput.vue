@@ -187,11 +187,6 @@ export const commonInputProps = {
 };
 
 export default defineComponent({
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     inheritAttrs: false,
     components: {
         EtIconTimes

@@ -32,11 +32,6 @@ export default defineComponent({
     components: {
         EtCheckbox
     },
-    model: {
-        // backwards compatibility with vue2.x
-        prop: "modelValue",
-        event: "update:modelValue"
-    },
     props: {
         filter: {
             type: String,
@@ -70,7 +65,7 @@ export default defineComponent({
     watch: {
         internalSelected: {
             immediate: true,
-            handler(value) {
+            handler() {
                 if (this.isDifferent()) {
                     this.$emit("update:modelValue", this.internalSelected);
                 }
@@ -211,9 +206,9 @@ export default defineComponent({
     emits: {
         // will trigger and usually only update the v-model value
         "update:modelValue": (
-            modelValue: OptionModel | OptionModel[] | null
+            _modelValue: OptionModel | OptionModel[] | null
         ): boolean => true,
-        optionToggled: (opt: OptionModel): boolean => true
+        optionToggled: (_opt: OptionModel): boolean => true
     }
 });
 </script>

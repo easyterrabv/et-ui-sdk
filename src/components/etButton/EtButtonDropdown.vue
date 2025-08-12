@@ -26,14 +26,7 @@
 
 <script setup lang="ts">
 import EtButton from "./EtButton.vue";
-import {
-    inject,
-    onBeforeUnmount,
-    onMounted,
-    reactive,
-    ref,
-    type PropType
-} from "vue";
+import { inject, onBeforeUnmount, onMounted, ref, type PropType } from "vue";
 import {
     EtOverlayEvent,
     type IEtOverlayProvide

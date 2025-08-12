@@ -1,7 +1,7 @@
 <template>
     <div>
         Hi, this is a custom toast! <br />
-        <EtButtonDefault :size="UI_SIZING.XS" @click="toast">Give me a toast</EtButtonDefault>
+        <EtButtonDefault :size="UI_SIZING.XS" @click="openToast">Give me a toast</EtButtonDefault>
     </div>
 </template>
 
@@ -20,7 +20,7 @@ defineProps({
     }
 });
 
-function toast() {
+function openToast() {
     toastProvide.showToast({
         content: {
             text: "Another basic toast!",

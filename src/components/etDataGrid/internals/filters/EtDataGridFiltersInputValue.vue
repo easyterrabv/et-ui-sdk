@@ -10,7 +10,8 @@
             "
         >
             <span
-                v-for="item in filterDisplay.value"
+                v-for="(item, index) in filterDisplay.value"
+                :key="(item as OptionFilterValue).label || index"
                 class="et-sdk-data-grid__filter-content__filter-value__inner-pill"
             >
                 {{ (item as OptionFilterValue).label }}

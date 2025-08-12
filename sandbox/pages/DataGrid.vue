@@ -6,6 +6,7 @@
                 <EtButtonDefault
                     :size="UI_SIZING.S"
                     v-for="savedFilter in filterSetSaving.savedFilterSets"
+                    :key="savedFilter.name"
                     @click="setFilters(savedFilter.filters)"
                 >
                     {{savedFilter.label}}

@@ -11,6 +11,7 @@
             <div class="et-sdk-data-grid__filter-content hide-scrollbar">
                 <EtDataGridFiltersInputValue
                     v-for="filterDisplay in filterValuesList"
+                    :key="filterDisplay.field"
                     :filterDisplay="filterDisplay"
                 />
 
@@ -41,6 +42,7 @@
                 <div class="et-sdk-data-grid__filters-container">
                     <EtDataGridFilter
                         v-for="filterDefinition in props.filterDefinitions"
+                        :key="filterDefinition.field"
                         :filterDefinition="filterDefinition"
                         @on-enter="() => applyFilters()"
                     />
@@ -145,7 +147,7 @@ const filters = computed(() => props.criteriaManager?.criteria.filters || {});
 const hasFilterDefinitions = computed(() => props.filterDefinitions.length > 0);
 const filterValuesList = computed(() => {
     return Object.entries(filters.value)
-        .filter(([key, value]) => !!value)
+        .filter(([_key, value]) => !!value)
         .map(([key, value]) => ({
             field: key,
             value,

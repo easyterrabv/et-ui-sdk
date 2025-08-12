@@ -7,7 +7,6 @@ import InputComponents from "sandbox/pages/InputsComponents.vue"
 import DataGrid from "sandbox/pages/DataGrid.vue";
 import TestEmpty from "sandbox/pages/TestEmpty.vue";
 
-// @ts-ignore
 import App from "./App.vue";
 import ModalComponents from "./pages/ModalComponents.vue";
 
