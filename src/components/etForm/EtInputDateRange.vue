@@ -154,12 +154,16 @@ export default defineComponent({
     },
     computed: {
         firstDate(): Date | null {
-            return this.internalDateValue && this.internalDateValue.length > 0
+            return this.internalDateValue &&
+                this.internalDateValue.length > 0 &&
+                this.internalDateValue[0]
                 ? this.internalDateValue[0]
                 : null;
         },
         secondDate(): Date | null {
-            return this.internalDateValue && this.internalDateValue.length > 1
+            return this.internalDateValue &&
+                this.internalDateValue.length > 1 &&
+                this.internalDateValue[1]
                 ? this.internalDateValue[1]
                 : null;
         },

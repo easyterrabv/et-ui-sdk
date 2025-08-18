@@ -204,7 +204,7 @@ function handleOptionSelectByIndex(index: number) {
         return;
     }
 
-    const option = options.value[index];
+    const option = options.value[index]!;
     handleOnClick(option);
 }
 

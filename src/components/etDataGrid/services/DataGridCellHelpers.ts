@@ -53,16 +53,26 @@ export function assignToPath<T extends RowObject = RowObject>(
     const len = pList.length;
     for (let i = 0; i < len - 1; i++) {
         const elem = pList[i];
+        if (!elem) {
+            continue;
+        }
+
         if (!schema[elem]) {
             (schema as RowObject)[elem] = {};
         }
         schema = schema[elem];
     }
 
-    const currentValue = schema[pList[len - 1]];
+    const key = pList[len - 1];
+
+    if (!key) {
+        throw new Error(`Invalid path: ${path}. The last segment is empty.`);
+    }
+
+    const currentValue = schema[key];
 
     if (currentValue !== value) {
-        (schema as RowObject)[pList[len - 1]] = value;
+        (schema as RowObject)[key] = value;
         return [true, currentValue, value];
     }
 

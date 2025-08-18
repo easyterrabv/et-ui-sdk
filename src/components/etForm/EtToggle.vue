@@ -10,8 +10,8 @@
     >
         <button
             type="button"
-            @click.left.stop="(e) => clickDebounce.debounce(e)"
-            @keyup.enter="(e) => clickDebounce.debounce(e)"
+            @click.left.stop="(e) => clickDebounce?.debounce(e)"
+            @keyup.enter="(e) => clickDebounce?.debounce(e)"
             class="et-sdk-toggle--button"
             :class="{
                 'et-sdk-toggle--button__not-checked': !internalChecked,
@@ -64,9 +64,7 @@ export default defineComponent({
         return {
             UI_SIZING,
             internalChecked: false,
-            clickDebounce: new Debounce((...args) => {
-                this.onClick(...args);
-            }, 100)
+            clickDebounce: null as unknown as Debounce
         };
     },
     methods: {
@@ -105,6 +103,9 @@ export default defineComponent({
     },
     emits: {
         "update:modelValue": (_modelValue: boolean): boolean => true
+    },
+    created() {
+        this.clickDebounce = new Debounce(this.onClick, 100);
     }
 });
 </script>

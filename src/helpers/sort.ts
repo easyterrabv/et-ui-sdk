@@ -33,7 +33,7 @@ export const sortByProperties = (array: [], sortConfig: SortConfig): [] => {
 
             const order = sortConfig[prop];
             if (order !== null) {
-                const result = compare(a, b, prop, order);
+                const result = compare(a, b, prop, order || "ASC");
                 if (result !== 0) {
                     return result;
                 }

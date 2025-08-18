@@ -21,16 +21,13 @@ export default {
     },
     data() {
         return {
-            handleSubmitDebounce: new Debounce(
-                (...args) => this.handleSubmit(...args),
-                50
-            )
+            handleSubmitDebounce: null as unknown as Debounce
         };
     },
     methods: {
         debounceSubmit(e: Event) {
             e.preventDefault();
-            this.handleSubmitDebounce.debounce();
+            this.handleSubmitDebounce?.debounce();
         },
         handleSubmit() {
             this.$emit("submit");
@@ -38,6 +35,9 @@ export default {
     },
     emits: {
         submit: () => true
+    },
+    created() {
+        this.handleSubmitDebounce = new Debounce(this.handleSubmit, 50);
     }
 };
 </script>

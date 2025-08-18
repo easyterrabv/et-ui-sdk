@@ -84,12 +84,12 @@ const weekDayMap: { [key: string]: { full: string; short: string } } = {
 
 export const monthToNameFull = (month: string | number | Date): string => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
-    return _month in monthMap ? monthMap[_month].full : "Unknown";
+    return monthMap[_month]?.full ?? "Unknown";
 };
 
 export const monthToNameShort = (month: string | number | Date): string => {
     const _month = month instanceof Date ? month.getMonth() : String(month);
-    return _month in monthMap ? monthMap[_month].short : "Unknown";
+    return monthMap[_month]?.short ?? "Unknown";
 };
 
 export const weekDayToNameFull = (weekDay: number | Date): string => {
@@ -106,7 +106,7 @@ export const weekDayToNameFull = (weekDay: number | Date): string => {
     }
 
     const _weekday = String(weekDay);
-    return _weekday in weekDayMap ? weekDayMap[_weekday].full : "Unknown";
+    return weekDayMap[_weekday]?.full ?? "Unknown";
 };
 
 export const weekDayToNameShort = (weekDay: number | Date): string => {
@@ -123,7 +123,7 @@ export const weekDayToNameShort = (weekDay: number | Date): string => {
     }
 
     const _weekday = String(weekDay);
-    return _weekday in weekDayMap ? weekDayMap[_weekday].short : "Unknown";
+    return weekDayMap[_weekday]?.short ?? "Unknown";
 };
 
 export const isToday = (date: string | Date): boolean => {

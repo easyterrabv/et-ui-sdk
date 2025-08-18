@@ -21,7 +21,10 @@ export function useCellWidth() {
                     if ((column.width ?? "grow") !== "grow") {
                         return (
                             count +
-                            parseInt((column.width || "0px").split("px")[0], 10)
+                            parseInt(
+                                (column.width || "0px").split("px")[0]!,
+                                10
+                            )
                         );
                     }
                     return count;

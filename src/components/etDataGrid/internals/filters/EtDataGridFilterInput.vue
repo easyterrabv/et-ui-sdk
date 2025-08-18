@@ -218,7 +218,7 @@ function setFilterValueFromDateRange(dates: Array<Date | null> | null) {
         if (dates.length <= 0) {
             setFilterValue(null);
         } else if (dates.length === 1) {
-            values = [dates[0], dates[0]];
+            values = [dates[0]!, dates[0]!];
         } else if (dates.length >= 2) {
             values = [dates[0] || null, dates[1] || null];
         }

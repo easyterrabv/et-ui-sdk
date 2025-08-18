@@ -72,10 +72,10 @@ export default defineComponent({
     watch: {
         async internalTimeValue() {
             this.internalInputValue = [
-                this.internalTimeValue
+                this.internalTimeValue && this.internalTimeValue[0]
                     ? addLeadingZero(this.internalTimeValue[0])
                     : 0,
-                this.internalTimeValue
+                this.internalTimeValue && this.internalTimeValue[1]
                     ? addLeadingZero(this.internalTimeValue[1])
                     : 0
             ].join(":");
@@ -83,8 +83,8 @@ export default defineComponent({
         internalInputValue() {
             const splitInput = this.internalInputValue?.split(/[-_:\s]/);
             this.internalTimeValue = [
-                splitInput ? parseInt(splitInput[0]) : 0,
-                splitInput ? parseInt(splitInput[1]) : 0
+                splitInput && splitInput[0] ? parseInt(splitInput[0]) : 0,
+                splitInput && splitInput[1] ? parseInt(splitInput[1]) : 0
             ];
         },
         modelValue: {

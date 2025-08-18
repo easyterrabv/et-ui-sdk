@@ -24,8 +24,8 @@ export function useFilterSaving(collectionName: string) {
             (f) => f.name === name
         );
 
-        if (currentIndex >= 0) {
-            savedFilterSets.value[currentIndex].filters = filtersObj;
+        if (currentIndex >= 0 && savedFilterSets.value.length > currentIndex) {
+            savedFilterSets.value[currentIndex]!.filters = filtersObj;
         } else {
             savedFilterSets.value.push({ label, name, filters: filtersObj });
         }

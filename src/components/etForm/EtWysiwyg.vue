@@ -846,7 +846,7 @@ export default defineComponent({
                 return;
             }
 
-            await this.handleInlineImageFile(files[0]);
+            await this.handleInlineImageFile(files[0]!);
             target.value = "";
         },
         async handleInlineImageFile(file: File) {
@@ -878,7 +878,7 @@ export default defineComponent({
                     if (files && files.length) {
                         const file = files[0];
                         if (
-                            file.type.startsWith("image/") &&
+                            file?.type.startsWith("image/") &&
                             this.preventImageDrop
                         ) {
                             event.preventDefault();

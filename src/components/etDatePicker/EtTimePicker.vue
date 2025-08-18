@@ -105,8 +105,8 @@ export default defineComponent({
             immediate: true,
             deep: true,
             handler() {
-                this.hour = this.modelValue?.[0];
-                this.minute = this.modelValue?.[1];
+                this.hour = this.modelValue?.[0] || 0;
+                this.minute = this.modelValue?.[1] || 0;
             }
         }
     },

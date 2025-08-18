@@ -7,7 +7,7 @@
                     !multiple && isSelected(option)
             }"
             v-for="option in filteredOptions"
-            @click.left.stop="(e) => selectDebounce.debounce(option)"
+            @click.left.stop="(e) => selectDebounce?.debounce(option)"
             :key="option.guid"
         >
             <div v-if="multiple" class="et-sdk-select--option--checkbox">
@@ -56,10 +56,7 @@ export default defineComponent({
     data() {
         return {
             internalSelected: null as OptionModel | OptionModel[] | null,
-            selectDebounce: new Debounce(
-                (option: OptionModel) => this.select(option),
-                50
-            )
+            selectDebounce: null as unknown as Debounce
         };
     },
     watch: {
@@ -209,6 +206,12 @@ export default defineComponent({
             _modelValue: OptionModel | OptionModel[] | null
         ): boolean => true,
         optionToggled: (_opt: OptionModel): boolean => true
+    },
+    created() {
+        this.selectDebounce = new Debounce(
+            (option: OptionModel) => this.select(option),
+            50
+        );
     }
 });
 </script>

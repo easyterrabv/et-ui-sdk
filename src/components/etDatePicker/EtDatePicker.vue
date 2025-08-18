@@ -9,13 +9,13 @@
         <div class="et-sdk-datepicker--period">
             <div
                 class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
-                @click.left.stop="(e) => prevPageDebounce.debounce(e)"
+                @click.left.stop="(e) => prevPageDebounce?.debounce(e)"
             >
                 <EtIconChevronLeft />
             </div>
             <div
                 class="grow et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
-                @click.left.stop="(e) => modeUpDebounce.debounce(e)"
+                @click.left.stop="(e) => modeUpDebounce?.debounce(e)"
             >
                 <span v-if="viewMode === VIEW_MODES.DECADE">
                     <span v-if="viewingPeriod[0]">
@@ -39,7 +39,7 @@
             </div>
             <div
                 class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
-                @click.left.stop="(e) => nextPageDebounce.debounce(e)"
+                @click.left.stop="(e) => nextPageDebounce?.debounce(e)"
             >
                 <EtIconChevronRight />
             </div>
@@ -67,7 +67,9 @@
             <div
                 v-for="option in viewingOptions"
                 :key="option.getTime()"
-                @click.left.stop="(e) => pickOptionDebounce.debounce(e, option)"
+                @click.left.stop="
+                    (e) => pickOptionDebounce?.debounce(e, option)
+                "
                 class="et-sdk-datepicker--section et-sdk-datepicker--section__clickable"
                 :class="{
                     'et-sdk-datepicker--section__active':
@@ -157,13 +159,10 @@ export default defineComponent({
             today: now,
             setting: "first" as "first" | "second",
 
-            prevPageDebounce: new Debounce(() => this.prevPage(), 50),
-            nextPageDebounce: new Debounce(() => this.nextPage(), 50),
-            modeUpDebounce: new Debounce(() => this.modeUp(), 50),
-            pickOptionDebounce: new Debounce(
-                (...args) => this.pickOption(...args),
-                50
-            ),
+            prevPageDebounce: null as unknown as Debounce,
+            nextPageDebounce: null as unknown as Debounce,
+            modeUpDebounce: null as unknown as Debounce,
+            pickOptionDebounce: null as unknown as Debounce,
 
             selectedDates: undefined as Array<Date | undefined> | undefined,
 
@@ -171,6 +170,12 @@ export default defineComponent({
             viewMode: VIEW_MODES.MONTH as VIEW_MODES,
             VIEW_MODES
         };
+    },
+    created() {
+        this.prevPageDebounce = new Debounce(this.prevPage, 50);
+        this.nextPageDebounce = new Debounce(this.nextPage, 50);
+        this.modeUpDebounce = new Debounce(this.modeUp, 50);
+        this.pickOptionDebounce = new Debounce(this.pickOption, 50);
     },
     computed: {
         viewingYear() {
@@ -228,8 +233,8 @@ export default defineComponent({
 
             let options = [];
 
-            const firstOption = this.viewingPeriod[0];
-            const secondOption = this.viewingPeriod[1];
+            const firstOption = this.viewingPeriod[0]!;
+            const secondOption = this.viewingPeriod[1]!;
             let preFillerCount = 0;
 
             switch (this.viewMode) {
@@ -256,6 +261,9 @@ export default defineComponent({
             if (this.viewMode === VIEW_MODES.MONTH) {
                 const preFillers = [];
                 for (let pr = 0; pr < preFillerCount; pr++) {
+                    if (!firstOption) {
+                        continue;
+                    }
                     preFillers.push(
                         new Date(
                             firstOption.getFullYear(),
@@ -270,6 +278,9 @@ export default defineComponent({
                 const lastDate = options[options.length - 1];
                 const postFillers = [];
                 for (let po = 0; po < 7 - (options.length % 7); po++) {
+                    if (!lastDate) {
+                        continue;
+                    }
                     postFillers.push(
                         new Date(
                             lastDate.getFullYear(),
