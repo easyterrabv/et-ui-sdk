@@ -471,7 +471,6 @@
 import { defineComponent, type PropType } from "vue";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
-import { Underline } from "@tiptap/extension-underline";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 import { Table } from "@tiptap/extension-table";
@@ -890,8 +889,15 @@ export default defineComponent({
                 }
             },
             extensions: [
-                StarterKit,
-                Underline,
+                StarterKit.configure({
+                    link: {
+                        openOnClick: false,
+                        HTMLAttributes: {
+                            rel: "noopener",
+                            target: ""
+                        }
+                    }
+                }),
                 Typography,
                 Table,
                 TableCell,
@@ -900,13 +906,6 @@ export default defineComponent({
                 ImageResize.configure({
                     inline: false,
                     allowBase64: true
-                }),
-                Link.configure({
-                    openOnClick: false,
-                    HTMLAttributes: {
-                        rel: "noopener",
-                        target: ""
-                    }
                 }),
                 TextAlign.configure({
                     types: ["paragraph"],
