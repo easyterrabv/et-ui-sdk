@@ -9,7 +9,7 @@
                 :filters="filters"
                 :onFilterSave="onFilterSave"
                 :hideFilters="hideFilters"
-                :criteriaManager="criteriaManager"
+                :criteriaManager="_criteriaManager"
             />
             <EtDataGridContent
                 :columns="columns"
