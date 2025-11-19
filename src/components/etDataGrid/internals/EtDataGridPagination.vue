@@ -6,6 +6,12 @@
         <EtPopover class="et-sdk-data-grid-pagination__per-page-popover">
             <template #toggle>
                 <span>
+                    <span
+                        v-if="hasAnyChecked"
+                        class="et-sdk-data-grid-pagination__checked-count"
+                    >
+                        {{ checkedCount }} Selected
+                    </span>
                     {{ start }} - {{ end }} of {{ criteriaManager.totalRows }}
                 </span>
             </template>
@@ -75,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType, type UnwrapNestedRefs } from "vue";
+import { computed, inject, type PropType, type UnwrapNestedRefs } from "vue";
 
 import EtIconChevronLeft from "../../etIcon/EtIconChevronLeft.vue";
 import EtIconChevronRight from "../../etIcon/EtIconChevronRight.vue";
@@ -86,6 +92,7 @@ import EtButtonDefault from "../../etButton/EtButtonDefault.vue";
 import EtButtonPrimary from "../../etButton/EtButtonPrimary.vue";
 import { UI_SIZING } from "../../../helpers/enums";
 import type { ICriteriaManager } from "../composables/useCriteriaManager";
+import type { CheckedProvide } from "../interfaces/DataGridMethods";
 
 const props = defineProps({
     criteriaManager: {
@@ -93,6 +100,15 @@ const props = defineProps({
         required: true
     }
 });
+
+const checkedRows = inject<CheckedProvide>("checkedRows");
+const checkedCount = computed(() => {
+    if (!checkedRows) {
+        return 0;
+    }
+    return checkedRows.rows.length;
+});
+const hasAnyChecked = computed(() => checkedCount.value > 0);
 
 const defaultPerPage = 50;
 
@@ -155,6 +171,12 @@ function setPerPage(perPage: number) {
     color: var(--et-sdk-dark-400);
     font-weight: var(--et-sdk-font-weight-semibold);
     font-size: var(--et-sdk-font-size-small);
+}
+
+.et-sdk-data-grid-pagination__checked-count {
+    padding-right: 8px;
+    border-right: 1px solid var(--et-sdk-dark-300);
+    margin-right: 8px;
 }
 
 .et-sdk-data-grid-pagination__per-page-popover {
