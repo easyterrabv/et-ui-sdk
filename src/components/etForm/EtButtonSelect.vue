@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 import { OptionModel } from "../../models/Option";
 import { commonInputProps } from "./EtInput.vue";
 
@@ -35,11 +35,11 @@ export default defineComponent({
     },
     props: {
         options: {
-            type: Array<OptionModel>,
+            type: Array as PropType<Array<OptionModel>>,
             required: true
         },
         modelValue: {
-            type: [OptionModel, Array<OptionModel>],
+            type: [Object, Array] as PropType<OptionModel | Array<OptionModel>>,
             required: false,
             default: null
         },
