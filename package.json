@@ -51,7 +51,7 @@
     "cancelable-promise": "^4.3.1",
     "dateformat": "^5.0.3",
     "tiptap-extension-resize-image": "^1.2.2",
-    "vue-tsc": "^3.1.0"
+    "vue-tsc": "^3.1.5"
   },
   "devDependencies": {
     "@cypress/vue": "^6.0.2",
