@@ -110,7 +110,17 @@
                         <EtButtonDefault
                             :size="UI_SIZING.XS"
                         >
-                            Random button for test
+                            Random button for test 1
+                        </EtButtonDefault>
+                        <EtButtonDefault
+                            :size="UI_SIZING.S"
+                        >
+                            Random button for test 2
+                        </EtButtonDefault>
+                        <EtButtonDefault
+                            :size="UI_SIZING.M"
+                        >
+                            Random button for test 3
                         </EtButtonDefault>
                     </template>
                 </EtWysiwyg>

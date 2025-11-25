@@ -444,7 +444,10 @@
                 rows="12"
                 v-model="innerData"
             />
-            <div class="et-sdk-wysiwyg-content__inner-bottom-content">
+            <div
+                class="et-sdk-wysiwyg-content__inner-bottom-content"
+                v-if="$slots.inner"
+            >
                 <slot name="inner"></slot>
             </div>
         </div>
@@ -997,7 +1000,6 @@ export default defineComponent({
     border-bottom-left-radius: var(--et-sdk-input-border-radius);
     border-bottom-right-radius: var(--et-sdk-input-border-radius);
     padding: 8px;
-    border: 1px solid var(--et-sdk-dark-300);
     border-top: none;
     font-weight: var(--et-sdk-font-weight-normal);
 }
@@ -1014,16 +1016,22 @@ export default defineComponent({
 }
 
 .et-sdk-wysiwyg-content {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--et-sdk-dark-300);
+    border-bottom-left-radius: var(--et-sdk-input-border-radius);
+    border-bottom-right-radius: var(--et-sdk-input-border-radius);
 }
 
-.et-sdk-wysiwyg-editor--with-inner > .et-sdk-wysiwyg--editor-textarea {
-    padding-bottom: 50px;
+.et-sdk-wysiwyg--editor-textarea:focus {
+    outline: none;
+}
+
+.et-sdk-wysiwyg-content:has(.et-sdk-wysiwyg--editor-textarea:focus) {
+    outline: 2px solid;
 }
 
 .et-sdk-wysiwyg-content__inner-bottom-content {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
+    padding: 8px;
 }
 </style>
