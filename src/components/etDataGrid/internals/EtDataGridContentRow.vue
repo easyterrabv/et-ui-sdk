@@ -35,6 +35,10 @@ const props = defineProps({
     row: {
         type: Object as PropType<RowObject>,
         required: true
+    },
+    rows: {
+        type: Array as PropType<RowObject[]>,
+        required: true
     }
 });
 
@@ -59,7 +63,7 @@ async function handleClick() {
     }
 
     if (isRowClickable.value) {
-        await props.rowInfo.onRowClick?.(props.row);
+        await props.rowInfo.onRowClick?.(props.row, props.rows);
     }
 }
 </script>

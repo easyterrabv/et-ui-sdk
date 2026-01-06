@@ -5,6 +5,7 @@
                 <EtDataGridContentRow
                     v-for="row in data"
                     :row="row"
+                    :rows="data"
                     :rowInfo="rowInfo"
                     :key="keys[row[rowKeyIdentifier]] || row[rowKeyIdentifier]"
                 >
