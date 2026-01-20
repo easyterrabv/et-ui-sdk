@@ -335,6 +335,8 @@ function closeModal(
         if (!isSilent) {
             emit(guid, "onClosed");
         }
+
+        events.delete(guid);
     }
 
     saveModalsToUrl();
