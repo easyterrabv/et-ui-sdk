@@ -251,7 +251,11 @@ function openModal(
 
     const isSilent = options?.silent === true;
     if (!isSilent) {
-        emit(guid, "onOpened");
+        // Since guid is needed for registering an event,
+        // We handle this async, so the onOpened event can be registered
+        setTimeout(() => {
+            emit(guid, "onOpened");
+        }, 0);
     }
 
     saveModalsToUrl();
