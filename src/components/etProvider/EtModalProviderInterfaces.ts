@@ -1,5 +1,7 @@
 import type { Raw } from "vue";
 
+export type ModalEvents = "onOpened" | "onClosed";
+
 export interface IEtModalProvide {
     registerModal: (
         name: string,
@@ -12,10 +14,25 @@ export interface IEtModalProvide {
         props?: Record<string, any>,
         savedProps?: string[],
         withGuid?: string,
-        zAdjustment?: number
+        zAdjustment?: number,
+        options?: {
+            silent?: boolean;
+        }
     ): string | null;
-    closeModalByName(name: string): void;
-    closeModal(guid: string): void;
+    closeModalByName(
+        name: string,
+        options?: {
+            silent?: boolean;
+        }
+    ): void;
+    closeModal(
+        guid: string,
+        options?: {
+            silent?: boolean;
+        }
+    ): void;
+    on(guid: string, event: ModalEvents, callback: () => void): void;
+    off(guid: string, event: ModalEvents, callback: () => void): void;
 }
 
 export interface IModalOptions {
