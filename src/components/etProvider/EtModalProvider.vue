@@ -314,10 +314,15 @@ function saveModalsToUrl() {
     urlData.setDataToUrl({ data: saveDate });
 }
 
-function closeModalByName(name: string) {
+function closeModalByName(
+    name: string,
+    options?: {
+        silent?: boolean;
+    }
+) {
     openModalsMap.value.forEach((openModal, guid) => {
         if (openModal.modal.name === name) {
-            closeModal(guid);
+            closeModal(guid, options);
         }
     });
 }
@@ -399,7 +404,8 @@ provide<IEtModalProvide>("SDKModalProvide", {
     closeModalByName,
     closeModal,
     on,
-    off
+    off,
+    emit
 });
 </script>
 
