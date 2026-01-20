@@ -408,8 +408,7 @@ provide<IEtModalProvide>("SDKModalProvide", {
     closeModalByName,
     closeModal,
     on,
-    off,
-    emit
+    off
 });
 </script>
 

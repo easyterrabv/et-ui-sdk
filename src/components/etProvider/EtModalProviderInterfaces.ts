@@ -33,7 +33,6 @@ export interface IEtModalProvide {
     ): void;
     on(guid: string, event: ModalEvents, callback: () => void): void;
     off(guid: string, event: ModalEvents, callback: () => void): void;
-    emit(guid: string, event: ModalEvents): void;
 }
 
 export interface IModalOptions {
