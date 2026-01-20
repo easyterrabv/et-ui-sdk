@@ -248,7 +248,9 @@ function openModal(
     };
 
     openModalsMap.value.set(guid, openModal);
-    if (!options?.silent) {
+
+    const isSilent = options?.silent === true;
+    if (!isSilent) {
         emit(guid, "onOpened");
     }
 
@@ -329,7 +331,8 @@ function closeModal(
     if (guid) {
         openModalsMap.value.delete(guid);
 
-        if (!options?.silent) {
+        const isSilent = options?.silent === true;
+        if (!isSilent) {
             emit(guid, "onClosed");
         }
     }
@@ -360,7 +363,7 @@ function openModalsFromUrl() {
         const name = data.__name;
         const guid = data.__guid;
 
-        openModal(name, props, Object.keys(props), guid);
+        openModal(name, props, Object.keys(props), guid, 0, { silent: true });
     });
 }
 
