@@ -61,6 +61,7 @@ import type {
     IModal,
     IModalOptions,
     IOpenModal,
+    ModalEvents,
     SavedUrlModalProps,
     SavedUrlModals
 } from "./EtModalProviderInterfaces";
@@ -77,6 +78,56 @@ import { wait } from "../../helpers/async";
 const route = useRoute();
 const router = useRouter();
 const urlData = useUrlData<SavedUrlModals>("__modals", route, router);
+
+const events = new Map<string, Map<ModalEvents, Set<() => void>>>();
+
+function on(guid: string, event: ModalEvents, callback: () => void) {
+    if (!events.has(guid)) {
+        events.set(guid, new Map());
+    }
+
+    const modalEvents = events.get(guid)!;
+
+    if (!modalEvents.has(event)) {
+        modalEvents.set(event, new Set());
+    }
+
+    modalEvents.get(event)!.add(callback);
+}
+
+function off(guid: string, event: ModalEvents, callback: () => void) {
+    const modalEvents = events.get(guid);
+    if (!modalEvents) return;
+
+    const listeners = modalEvents.get(event);
+    if (!listeners) return;
+
+    listeners.delete(callback);
+
+    // Cleanup empty sets/maps to prevent memory leaks
+    if (listeners.size === 0) {
+        modalEvents.delete(event);
+    }
+    if (modalEvents.size === 0) {
+        events.delete(guid);
+    }
+}
+
+function emit(guid: string, event: ModalEvents) {
+    const modalEvents = events.get(guid);
+    if (!modalEvents) return;
+
+    const listeners = modalEvents.get(event);
+    if (!listeners) return;
+
+    for (const callback of [...listeners]) {
+        try {
+            callback();
+        } catch (err) {
+            console.error(`Error in ${event} listener for ${guid}:`, err);
+        }
+    }
+}
 
 const registeredModals = new Map<string, IModal>();
 const openModalsMap = ref<Map<string, IOpenModal>>(new Map());
@@ -155,7 +206,10 @@ function openModal(
     props?: Record<string, any>,
     savedProps?: string[] | boolean,
     withGuid?: string,
-    zAdjustment?: number
+    zAdjustment?: number,
+    options?: {
+        silent?: boolean;
+    }
 ) {
     if (!registeredModals.has(name)) {
         console.warn(
@@ -194,6 +248,9 @@ function openModal(
     };
 
     openModalsMap.value.set(guid, openModal);
+    if (!options?.silent) {
+        emit(guid, "onOpened");
+    }
 
     saveModalsToUrl();
 
@@ -263,9 +320,18 @@ function closeModalByName(name: string) {
     });
 }
 
-function closeModal(guid: string | null) {
+function closeModal(
+    guid: string | null,
+    options?: {
+        silent?: boolean;
+    }
+) {
     if (guid) {
         openModalsMap.value.delete(guid);
+
+        if (!options?.silent) {
+            emit(guid, "onClosed");
+        }
     }
 
     saveModalsToUrl();
@@ -326,7 +392,9 @@ provide<IEtModalProvide>("SDKModalProvide", {
     unregisterModal,
     openModal,
     closeModalByName,
-    closeModal
+    closeModal,
+    on,
+    off
 });
 </script>
 

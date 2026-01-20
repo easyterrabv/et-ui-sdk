@@ -1,5 +1,7 @@
 import type { Raw } from "vue";
 
+export type ModalEvents = "onOpened" | "onClosed";
+
 export interface IEtModalProvide {
     registerModal: (
         name: string,
@@ -16,6 +18,8 @@ export interface IEtModalProvide {
     ): string | null;
     closeModalByName(name: string): void;
     closeModal(guid: string): void;
+    on(guid: string, event: ModalEvents, callback: () => void): void;
+    off(guid: string, event: ModalEvents, callback: () => void): void;
 }
 
 export interface IModalOptions {
