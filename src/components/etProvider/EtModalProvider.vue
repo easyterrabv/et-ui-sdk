@@ -324,10 +324,8 @@ function closeModalByName(
         silent?: boolean;
     }
 ) {
-    openModalsMap.value.forEach((openModal, guid) => {
-        if (openModal.modal.name === name) {
-            closeModal(guid, options);
-        }
+    getModalsByName(name).forEach((openModal) => {
+        closeModal(openModal.guid, options);
     });
 }
 
@@ -378,6 +376,28 @@ function openModalsFromUrl() {
     });
 }
 
+function getModalsByName(name: string): IOpenModal[] {
+    return openModals.value.filter((openModal) => {
+        return openModal.modal.name === name;
+    });
+}
+
+function getModalByGuid(guid: string): IOpenModal | null {
+    return openModalsMap.value.get(guid) || null;
+}
+
+function isAnyModalOpen(): boolean {
+    return openModals.value.length > 0;
+}
+
+function isModalByNameOpen(name: string): boolean {
+    return getModalsByName(name).length > 0;
+}
+
+function isModalByGuidOpen(guid: string): boolean {
+    return openModalsMap.value.has(guid);
+}
+
 onMounted(async () => {
     await nextTick();
     await wait(150);
@@ -407,6 +427,11 @@ provide<IEtModalProvide>("SDKModalProvide", {
     openModal,
     closeModalByName,
     closeModal,
+    getModalsByName,
+    getModalByGuid,
+    isAnyModalOpen,
+    isModalByNameOpen,
+    isModalByGuidOpen,
     on,
     off
 });
