@@ -31,6 +31,11 @@ export interface IEtModalProvide {
             silent?: boolean;
         }
     ): void;
+    getModalsByName(name: string): IOpenModal[];
+    getModalByGuid(guid: string): IOpenModal | null;
+    isAnyModalOpen(): boolean;
+    isModalByNameOpen(name: string): boolean;
+    isModalByGuidOpen(guid: string): boolean;
     on(guid: string, event: ModalEvents, callback: () => void): void;
     off(guid: string, event: ModalEvents, callback: () => void): void;
 }
