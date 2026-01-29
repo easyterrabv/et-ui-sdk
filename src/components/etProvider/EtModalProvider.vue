@@ -383,11 +383,7 @@ function getModalsByName(name: string): IOpenModal[] {
 }
 
 function getModalByGuid(guid: string): IOpenModal | null {
-    return (
-        openModals.value.find((openModal) => {
-            return openModal.guid === guid;
-        }) || null
-    );
+    return openModalsMap.value.get(guid) || null;
 }
 
 function isAnyModalOpen(): boolean {
@@ -399,7 +395,7 @@ function isModalByNameOpen(name: string): boolean {
 }
 
 function isModalByGuidOpen(guid: string): boolean {
-    return !!getModalByGuid(guid);
+    return openModalsMap.value.has(guid);
 }
 
 onMounted(async () => {
