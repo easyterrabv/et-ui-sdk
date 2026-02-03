@@ -12,7 +12,7 @@ export interface IEtModalProvide {
     openModal(
         name: string,
         props?: Record<string, any>,
-        savedProps?: string[],
+        savedProps?: string[] | boolean,
         withGuid?: string,
         zAdjustment?: number,
         options?: {
