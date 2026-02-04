@@ -13,11 +13,28 @@
                 </template>
                 Custom Icon
             </EtDrawerMenuItem>
-            <EtDrawerMenuItem active>
+            <EtDrawerMenuGroup>
+                <EtDrawerMenuItem active>
+                    <template #icon>
+                        <EtDrawerMenuItem />
+                    </template>
+                    Active
+                </EtDrawerMenuItem>
+                <EtDrawerMenuItem>
+                    <template #icon>
+                        <EtIconTimes />
+                    </template>
+                    Custom Icon
+                </EtDrawerMenuItem>
+            </EtDrawerMenuGroup>
+            <EtDrawerMenuItem>
+                A longer name
+            </EtDrawerMenuItem>
+            <EtDrawerMenuItem>
                 <template #icon>
-                    <EtDrawerMenuItem />
+                    <EtIconTimes />
                 </template>
-                Active
+                Custom Icon
             </EtDrawerMenuItem>
         </template>
 
@@ -757,6 +774,7 @@ import EtDrawerMenuItem from "src/components/etMenu/EtDrawerMenuItem.vue";
 
 import EtIconTimes from "src/components/etIcon/EtIconTimes.vue";
 import { makeCode } from "src/helpers/misc";
+import EtDrawerMenuGroup from "src/components/etMenu/EtDrawerMenuGroup.vue";
 
 export default defineComponent({
     computed: {
@@ -768,6 +786,7 @@ export default defineComponent({
         }
     },
     components: {
+        EtDrawerMenuGroup,
         EtDrawerMenuItem,
         EtDrawer,
         EtContent,
