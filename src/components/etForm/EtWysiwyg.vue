@@ -906,8 +906,7 @@ export default defineComponent({
                 TableHeader,
                 TableRow,
                 ImageResize.configure({
-                    inline: false,
-                    allowBase64: true
+                    inline: false
                 }),
                 TextAlign.configure({
                     types: ["paragraph"],
