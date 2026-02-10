@@ -481,6 +481,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import ImageResize from "tiptap-extension-resize-image";
+import Image from "@tiptap/extension-image";
 
 import EtButtonGroup from "../etButton/EtButtonGroup.vue";
 import EtButton from "../etButton/EtButton.vue";
@@ -889,29 +890,6 @@ export default defineComponent({
                         }
                     }
                     return false;
-                },
-                handlePaste: (view, event) => {
-                    const files = event.clipboardData?.files;
-
-                    if (files && files.length) {
-                        const file = files[0];
-
-                        if (!file) {
-                            return true;
-                        }
-
-                        if (
-                            file?.type.startsWith("image/") &&
-                            this.preventImageDrop
-                        ) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            return true;
-                        }
-
-                        this.handleInlineImageFile(file);
-                    }
-                    return false;
                 }
             },
             extensions: [
@@ -929,6 +907,9 @@ export default defineComponent({
                 TableCell,
                 TableHeader,
                 TableRow,
+                Image.configure({
+                    allowBase64: true
+                }),
                 ImageResize.configure({
                     inline: false
                 }),
