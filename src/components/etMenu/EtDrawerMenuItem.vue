@@ -39,6 +39,8 @@ defineProps({
 }
 
 .et-sdk-drawer-menu-item__icon-wrapper {
+    position: relative;
+
     width: 38px;
     height: 38px;
     font-size: 18px;
