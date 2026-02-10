@@ -30,7 +30,7 @@ defineProps({
 
     cursor: pointer;
 
-    font-size: var(--et-sdk-font-size-small);
+    font-size: var(--et-sdk-font-size-tiny);
 
     &:hover .et-sdk-drawer-menu-item__icon-wrapper {
         background-color: var(--et-sdk-blue-700);
