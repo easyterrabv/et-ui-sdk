@@ -876,6 +876,7 @@ export default defineComponent({
                 },
                 handleDrop: (view, event) => {
                     const files = event.dataTransfer?.files;
+
                     if (files && files.length) {
                         const file = files[0];
                         if (
@@ -886,6 +887,29 @@ export default defineComponent({
                             event.stopPropagation();
                             return true;
                         }
+                    }
+                    return false;
+                },
+                handlePaste: (view, event) => {
+                    const files = event.clipboardData?.files;
+
+                    if (files && files.length) {
+                        const file = files[0];
+
+                        if (!file) {
+                            return true;
+                        }
+
+                        if (
+                            file?.type.startsWith("image/") &&
+                            this.preventImageDrop
+                        ) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            return true;
+                        }
+
+                        this.handleInlineImageFile(file);
                     }
                     return false;
                 }
