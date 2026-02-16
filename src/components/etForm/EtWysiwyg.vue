@@ -890,6 +890,28 @@ export default defineComponent({
                         }
                     }
                     return false;
+                },
+                handlePaste: (view, event) => {
+                    const files = event.clipboardData?.files;
+
+                    if (files && files.length) {
+                        const file = files[0];
+                        if (
+                            file?.type.startsWith("image/") &&
+                            this.preventImageDrop
+                        ) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            return true;
+                        } else if (file?.type.startsWith("image/")) {
+                            this.handleInlineImageFile(file);
+
+                            event.preventDefault();
+                            event.stopPropagation();
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             },
             extensions: [
