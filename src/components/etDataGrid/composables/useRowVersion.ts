@@ -25,8 +25,9 @@ export function useRowVersion<T extends RowObject = RowObject>(
             if (!key) {
                 return;
             }
-            let value = this.versions[key] || 0;
-            this.versions[key] = value += 1;
+
+            const value = this.versions[key] || 0;
+            this.versions[key] = value + 1;
         }
     });
 }
