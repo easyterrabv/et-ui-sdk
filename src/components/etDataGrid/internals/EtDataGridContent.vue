@@ -7,7 +7,7 @@
                     :row="row"
                     :rows="data"
                     :rowInfo="rowInfo"
-                    :key="keys[row[rowKeyIdentifier]] || row[rowKeyIdentifier]"
+                    :key="keys[getKey(row)] || row[getKey(row)]"
                 >
                     <template v-for="column in columns" :key="column.guid">
                         <EtDataGridContentCell :column="column" :row="row" />
@@ -56,6 +56,10 @@ const props = defineProps({
 
 const rowKeyIdentifier = ref(props.rowInfo?.idKey || "guid");
 const rowVersion = inject<RowVersionProvider>("rowVersion");
+
+function getKey(row: RowObject) {
+    return getContentFromKey(row, rowKeyIdentifier.value);
+}
 
 const keys = computed(() => {
     const _ks: Record<string, string> = {};

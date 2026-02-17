@@ -58,6 +58,51 @@ type ExampleRow = {
     text: string
 }
 
+const dummyDataFactory = (() => {
+    let index = 0;
+    return {
+        create(name: string, email: string, text:string ='') {
+            return {
+                key: ++index,
+                nested: {
+                    data: {
+                        key: index + '_key',
+                    }
+                },
+                name,
+                email,
+                text
+            }
+        }
+    }
+})();
+
+function createDummyData() {
+    const names = [
+        'John',
+        'Jake',
+        'Jane',
+        'Jenny',
+        'Johan',
+        'Jacob',
+        'Jeremy',
+        'Jerry',
+        'Joe',
+        'Jesse',
+    ];
+
+    let data = [];
+    for(let i = 0; i < 10; i++) {
+        data.push(...names.map((name) => dummyDataFactory.create(
+            `${name} Doe`,
+            'j.doe@example.com',
+            'Maecenas pretium posuere leo, interdum placerat ante placerat quis. Vivamus imperdiet ultricies sapien id posuere. Curabitur pharetra, risus nec interdum commodo, arcu ex dapibus nisl, eu pellentesque dolor ipsum quis dui. Praesent nec molestie ligula. Praesent feugiat dolor lobortis ante porttitor consequat. Nullam in varius tellus. Ut faucibus magna elit, a tincidunt lorem fermentum sed.'
+        )));
+    }
+
+    return data;
+}
+
 export default defineComponent({
     computed: {
         UI_SIZING() {
@@ -75,7 +120,7 @@ export default defineComponent({
             tableName: "datagridtest",
             filterSetSaving: useFilterSaving("datagridtest"),
             rowInfo: {
-                idKey: 'key',
+                idKey: 'nested.data.key',
                 isSelectable: true,
                 onRowClick: this.handleRowClick,
                 class: () => {
@@ -234,78 +279,7 @@ export default defineComponent({
                     dataGetter: this.optionsDataGetter
                 }
             ] as FilterDefinition[],
-            staticData: [
-                {key: 1, name: 'John Doe', email: 'j.doe@example.com', text: 'Maecenas pretium posuere leo, interdum placerat ante placerat quis. Vivamus imperdiet ultricies sapien id posuere. Curabitur pharetra, risus nec interdum commodo, arcu ex dapibus nisl, eu pellentesque dolor ipsum quis dui. Praesent nec molestie ligula. Praesent feugiat dolor lobortis ante porttitor consequat. Nullam in varius tellus. Ut faucibus magna elit, a tincidunt lorem fermentum sed.'},
-                {key: 2, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},
-                {key: 3, name: 'Jake Doe', email: 'j.doe@example.com', text: ''},
-                {key: 4, name: 'Jenny Doe', email: 'j.doe@example.com', text: ''},
-                {key: 5, name: 'Johan Doe', email: 'j.doe@example.com', text: ''},
-                {key: 6, name: 'Jacob Doe', email: 'j.doe@example.com', text: ''},
-                {key: 7, name: 'Jeremy Doe', email: 'j.doe@example.com', text: ''},
-                {key: 8, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
-                {key: 9, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
-                {key: 10, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-                {key: 11, name: 'John Doe', email: 'j.doe@example.com', text: ''},
-                {key: 12, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},
-                {key: 13, name: 'Jake Doe', email: 'j.doe@example.com', text: ''},
-                {key: 14, name: 'Jenny Doe', email: 'j.doe@example.com', text: ''},
-                {key: 15, name: 'Johan Doe', email: 'j.doe@example.com', text: ''},
-                {key: 16, name: 'Jacob Doe', email: 'j.doe@example.com', text: ''},
-                {key: 17, name: 'Jeremy Doe', email: 'j.doe@example.com', text: ''},
-                {key: 18, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
-                {key: 19, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
-                {key: 20, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-                {key: 21, name: 'John Doe', email: 'j.doe@example.com', text: ''},
-                {key: 22, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},
-                {key: 23, name: 'Jake Doe', email: 'j.doe@example.com', text: ''},
-                {key: 24, name: 'Jenny Doe', email: 'j.doe@example.com', text: ''},
-                {key: 25, name: 'Johan Doe', email: 'j.doe@example.com', text: ''},
-                {key: 26, name: 'Jacob Doe', email: 'j.doe@example.com', text: ''},
-                {key: 27, name: 'Jeremy Doe', email: 'j.doe@example.com', text: ''},
-                {key: 28, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
-                {key: 29, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
-                {key: 30, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-                {key: 31, name: 'John Doe', email: 'j.doe@example.com', text: ''},
-                {key: 32, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},
-                {key: 33, name: 'Jake Doe', email: 'j.doe@example.com', text: ''},
-                {key: 34, name: 'Jenny Doe', email: 'j.doe@example.com', text: ''},
-                {key: 35, name: 'Johan Doe', email: 'j.doe@example.com', text: ''},
-                {key: 36, name: 'Jacob Doe', email: 'j.doe@example.com', text: ''},
-                {key: 37, name: 'Jeremy Doe', email: 'j.doe@example.com', text: ''},
-                {key: 38, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
-                {key: 39, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
-                {key: 40, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-                {key: 41, name: 'John Doe', email: 'j.doe@example.com', text: ''},
-                {key: 42, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},
-                {key: 43, name: 'Jake Doe', email: 'j.doe@example.com', text: ''},
-                {key: 44, name: 'Jenny Doe', email: 'j.doe@example.com', text: ''},
-                {key: 45, name: 'Johan Doe', email: 'j.doe@example.com', text: ''},
-                {key: 46, name: 'Jacob Doe', email: 'j.doe@example.com', text: ''},
-                {key: 47, name: 'Jeremy Doe', email: 'j.doe@example.com', text: ''},
-                {key: 48, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
-                {key: 49, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
-                {key: 50, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-                {key: 51, name: 'John Doe', email: 'j.doe@example.com', text: ''},
-                {key: 52, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},
-                {key: 53, name: 'Jake Doe', email: 'j.doe@example.com', text: ''},
-                {key: 54, name: 'Jenny Doe', email: 'j.doe@example.com', text: ''},
-                {key: 55, name: 'Johan Doe', email: 'j.doe@example.com', text: ''},
-                {key: 56, name: 'Jacob Doe', email: 'j.doe@example.com', text: ''},
-                {key: 57, name: 'Jeremy Doe', email: 'j.doe@example.com', text: ''},
-                {key: 58, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
-                {key: 59, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
-                {key: 60, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-                {key: 61, name: 'John Doe', email: 'j.doe@example.com', text: ''},
-                {key: 62, name: 'Jane Doe', email: 'j.doe@example.com', text: ''},
-                {key: 63, name: 'Jake Doe', email: 'j.doe@example.com', text: ''},
-                {key: 64, name: 'Jenny Doe', email: 'j.doe@example.com', text: ''},
-                {key: 65, name: 'Johan Doe', email: 'j.doe@example.com', text: ''},
-                {key: 66, name: 'Jacob Doe', email: 'j.doe@example.com', text: ''},
-                {key: 67, name: 'Jeremy Doe', email: 'j.doe@example.com', text: ''},
-                {key: 68, name: 'Jerry Doe', email: 'j.doe@example.com', text: ''},
-                {key: 69, name: 'Joe Doe', email: 'j.doe@example.com', text: ''},
-                {key: 70, name: 'Jesse Doe', email: 'j.doe@example.com', text: ''},
-            ] as ExampleRow[],
+            staticData: createDummyData() as ExampleRow[],
         }
     },
     methods: {
