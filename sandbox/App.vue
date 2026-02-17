@@ -37,7 +37,7 @@
                                             :isActive="$route.matched.some(({path}) => path === '/various')"
                                             :isCollapsed="scope.isCollapsed">
                                             <template #icon>
-                                                <EtIconEnvelope />
+                                                <EtIconMedalDuo />
                                             </template>
                                             Various
                                         </EtSideBarItem>
@@ -197,4 +197,5 @@ import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
 import EtIconTurnRight from "src/components/etIcon/EtIconTurnRight.vue";
 import EtIconGarageOpen from "../src/components/etIcon/EtIconGarageOpen.vue";
 import EtToastProvider from "src/components/etProvider/EtToastProvider.vue";
+import EtIconMedalDuo from "src/components/etIcon/EtIconMedalDuo.vue";
 </script>
