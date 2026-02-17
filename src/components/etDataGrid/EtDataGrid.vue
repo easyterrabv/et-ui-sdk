@@ -239,6 +239,12 @@ async function __searchData(silent = false) {
     }
 
     rows.value = resultRows;
+
+    // This should force a rerender of everything
+    (rows.value || []).forEach((row) => {
+        rowVersion.increment(row);
+    });
+
     setRefreshTimeout();
 }
 const searchDataDebounce = new Debounce(__searchData, 100);
