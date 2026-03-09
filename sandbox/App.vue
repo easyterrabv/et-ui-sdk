@@ -190,7 +190,6 @@ import EtSideBarSection from "src/components/etMenu/EtSideBarSection.vue";
 import EtSideBarItem from "src/components/etMenu/EtSideBarItem.vue";
 import EtSideBarButton from "src/components/etMenu/EtSideBarButton.vue";
 
-import EtIconEnvelope from "src/components/etIcon/EtIconEnvelope.vue";
 import EtIconTable from "src/components/etIcon/EtIconTable.vue";
 import EtIconTag from "src/components/etIcon/EtIconTag.vue";
 import EtIconPlus from "src/components/etIcon/EtIconPlus.vue";
