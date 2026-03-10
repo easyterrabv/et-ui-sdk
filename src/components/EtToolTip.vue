@@ -92,32 +92,48 @@ async function hideToolTip() {
 
 watch(
     () => props.keepAliveOnContent,
-    () => {
-        if (props.keepAliveOnContent && !hasKeepAliveEvents) {
+    (newVal) => {
+        if (newVal && !hasKeepAliveEvents && content.value) {
             (content.value as any).addEventListener("mouseenter", showToolTip);
             (content.value as any).addEventListener("mouseleave", hideToolTip);
             hasKeepAliveEvents = true;
+        } else if (!newVal && hasKeepAliveEvents) {
+            (content.value as any)?.removeEventListener(
+                "mouseenter",
+                showToolTip
+            );
+            (content.value as any)?.removeEventListener(
+                "mouseleave",
+                hideToolTip
+            );
+            hasKeepAliveEvents = false;
         }
     }
 );
 
 onMounted(() => {
-    popperInstance = createPopper(toggle.value as any, content.value as any, {
-        placement: props.direction,
-        modifiers: [
+    if (content.value) {
+        popperInstance = createPopper(
+            toggle.value as any,
+            content.value as any,
             {
-                name: "offset",
-                options: {
-                    offset: [0, props.offset]
-                }
+                placement: props.direction,
+                modifiers: [
+                    {
+                        name: "offset",
+                        options: {
+                            offset: [0, props.offset]
+                        }
+                    }
+                ]
             }
-        ]
-    });
+        );
+    }
 
     (toggle.value as any).addEventListener("mouseenter", showToolTip);
     (toggle.value as any).addEventListener("mouseleave", hideToolTip);
 
-    if (props.keepAliveOnContent && !hasKeepAliveEvents) {
+    if (props.keepAliveOnContent && !hasKeepAliveEvents && content.value) {
         (content.value as any).addEventListener("mouseenter", showToolTip);
         (content.value as any).addEventListener("mouseleave", hideToolTip);
         hasKeepAliveEvents = true;
