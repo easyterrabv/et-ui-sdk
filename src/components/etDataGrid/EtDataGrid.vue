@@ -367,13 +367,18 @@ function calculateMaxCellWidth() {
 }
 
 const container = ref(null);
+let resizeObserver: ResizeObserver | null = null;
 onMounted(() => {
     calculateMaxCellWidth();
-    window.addEventListener("resize", calculateMaxCellWidth);
+    if (container.value) {
+        resizeObserver = new ResizeObserver(calculateMaxCellWidth);
+        resizeObserver.observe(container.value);
+    }
 });
 
 onBeforeUnmount(() => {
-    window.removeEventListener("resize", calculateMaxCellWidth);
+    resizeObserver?.disconnect();
+    resizeObserver = null;
 });
 
 onUnmounted(() => {
