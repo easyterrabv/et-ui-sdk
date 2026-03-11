@@ -407,8 +407,8 @@ onUnmounted(() => {
 .et-sdk-data-grid__row {
     min-width: 100%;
     width: fit-content;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 
     border-bottom: 1px solid var(--et-sdk-dark-100);
 }
