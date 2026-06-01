@@ -3,21 +3,44 @@
   "version": "0.0.527",
   "type": "module",
   "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.vue"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./styles.css": "./src/styles.css",
+    "./normalize.css": "./src/normalize.css",
+    "./prose.css": "./src/prose.css",
+    "./variables.css": "./src/variables.css",
+    "./package.json": "./package.json",
+    "./src/*": "./src/*",
+    "./dist/*": "./dist/*",
+    "./*": "./*"
+  },
   "scripts": {
     "test": "npx cypress run --component --headless",
     "dev": "vite",
     "build": "vite build",
+    "prepack": "npm run build",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{ts,vue}\"",
     "formatHook": "prettier",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "type-check": "vue-tsc --skipLibCheck --noEmit -p tsconfig.json --composite false",
-    "postinstall": "node -e \"try { require('child_process').execSync('./install-hooks.sh'); } catch (e) {}\"",
+    "postinstall": "node -e \"const fs=require('fs'); if (fs.existsSync('.git')) { try { require('child_process').execSync('./install-hooks.sh'); } catch (e) {} }\"",
     "everything": "npm install && npm run format && npm run lint && npm run type-check && npm run test && npm run build && npm run preview"
   },
   "engines": {
-    "node": ">=24.0"
+    "node": ">=20.0"
   },
   "repository": {
     "type": "git",
@@ -48,12 +71,12 @@
     "@tiptap/pm": "^3.0.7",
     "@tiptap/starter-kit": "^3.6.6",
     "@tiptap/vue-3": "^3.6.6",
-    "@vue/language-core": "^3.2.8",
-    "@vue/tsconfig": "^0.9.0",
     "cancelable-promise": "^4.3.1",
     "dateformat": "^5.0.3",
-    "tiptap-extension-resize-image": "^1.2.2",
-    "vue-tsc": "^3.1.0"
+    "tiptap-extension-resize-image": "^1.2.2"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
   },
   "devDependencies": {
     "@cypress/vue": "^6.0.2",
@@ -62,6 +85,9 @@
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
     "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/language-core": "^3.2.8",
+    "@vue/tsconfig": "^0.9.0",
+    "vue-tsc": "^3.1.0",
     "cypress": "^15.7.0",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
@@ -82,6 +108,8 @@
     "minimatch": "^10.2.4"
   },
   "files": [
+    "dist",
+    "src/index.ts",
     "src/components/**/*",
     "src/helpers/**/*",
     "src/layouts/**/*",

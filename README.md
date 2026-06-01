@@ -17,23 +17,38 @@ $ npm run dev
 
 ### Releasing
 
-Committing to `master` will automatically bump version by one minor version and rebuild the `dist/` folder.
+Pushing to `master` triggers the `pre-push` git hook, which bumps the last version
+field by one and rebuilds the `dist/` folder.
 
+## Requirements
+
+This package ships **uncompiled** Vue SFC and TypeScript source — your bundler
+(Vite / Nuxt / webpack with `vue-loader`) compiles it.
+
+- `vue` `^3.5` must be installed in the consuming app.
+- Icons use **FontAwesome Pro**. Installing this package pulls Pro packages, so the
+  consuming app needs FontAwesome Pro registry auth in its `.npmrc`:
+  ```
+  @fortawesome:registry=https://npm.fontawesome.com/
+  //npm.fontawesome.com/:_authToken=YOUR_FONTAWESOME_PRO_TOKEN
+  ```
 
 ## Usage
 ### Vue3
-Installing the package via NPM or yarn
+Install the package via NPM or yarn.
 
-Use components as such:
-
-Import styling for components
+Import styling for components (pick what you need):
 ```javascript
-import 'et-ui-sdk/dist/style.css';
+import 'et-ui-sdk/styles.css';      // base component styles
+import 'et-ui-sdk/variables.css';   // CSS custom properties / theme
+import 'et-ui-sdk/normalize.css';   // optional reset
+import 'et-ui-sdk/prose.css';       // optional rich-text (wysiwyg) styles
 ```
 
+Use components via the package entry point:
 ```Vue
 <script setup lang="ts">
-import { EtButton } from 'et-ui-sdk'; 
+import { EtButton } from 'et-ui-sdk';
 </script>
 
 <template>
@@ -47,9 +62,12 @@ import { EtButton } from 'et-ui-sdk';
 
 Use models as such:
 ```javascript
-import { Model } from 'et-ui-sdk';
-const model = new Model();
+import { EtModel } from 'et-ui-sdk';
+const model = new EtModel();
 ```
+
+> Deep imports such as `import EtButton from 'et-ui-sdk/src/components/etButton/EtButton.vue'`
+> still resolve and remain supported.
 
 ### Nuxt2
 Installing the package via NPM or yarn
@@ -80,6 +98,6 @@ then in components you can use:
 
 Use models as such:
 ```javascript
-import { Model } from 'et-ui-sdk';
-const model = new Model();
+import { EtModel } from 'et-ui-sdk';
+const model = new EtModel();
 ```
