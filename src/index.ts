@@ -1,3 +1,7 @@
+// AUTO-GENERATED public API barrel. Additive entry point.
+// Components are Vue SFC default exports, re-exported by name.
+
+// --- Components & Layouts ---
 export { default as EtBox } from "./components/EtBox.vue";
 export { default as EtCard } from "./components/EtCard.vue";
 export { default as EtHeaderBlock } from "./components/EtHeaderBlock.vue";
@@ -221,6 +225,22 @@ export { default as Full } from "./layouts/Full.vue";
 export { default as MenuLeft } from "./layouts/MenuLeft.vue";
 export { default as MenuTop } from "./layouts/MenuTop.vue";
 
+// --- Models, Helpers, Interfaces, DataGrid composables/interfaces, Provider interfaces (named exports) ---
+export * from "./components/etDataGrid/composables/useCellWidth";
+export * from "./components/etDataGrid/composables/useChecked";
+export * from "./components/etDataGrid/composables/useCriteriaManager";
+export * from "./components/etDataGrid/composables/useFilterSaving";
+export * from "./components/etDataGrid/composables/useRowVersion";
+export * from "./components/etDataGrid/composables/useUrlData";
+export * from "./components/etDataGrid/interfaces/DataGridColumn";
+export * from "./components/etDataGrid/interfaces/DataGridCriteria";
+export * from "./components/etDataGrid/interfaces/DataGridFilters";
+export * from "./components/etDataGrid/interfaces/DataGridMethods";
+export * from "./components/etDataGrid/interfaces/DataGridRow";
+export * from "./components/etDataGrid/interfaces/DataRowObject";
+export * from "./components/etProvider/EtModalProviderInterfaces";
+export * from "./components/etProvider/EtOverlayProviderInterfaces";
+export * from "./components/etProvider/EtToastProviderInterfaces";
 export * from "./helpers/array";
 export * from "./helpers/async";
 export * from "./helpers/clone";

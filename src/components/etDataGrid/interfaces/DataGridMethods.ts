@@ -1,6 +1,11 @@
 import type { DataGridColumn } from "./DataGridColumn";
 import type { Raw } from "vue";
 import type { RowObject } from "./DataRowObject";
+import type { sortDirections } from "../../../interfaces/table";
+
+// Single source of truth lives in interfaces/table; re-exported here so existing
+// `import { sortDirections } from ".../DataGridMethods"` callers keep working.
+export type { sortDirections };
 
 export interface BulkMethod<T extends RowObject = RowObject> {
     method: (rows: T[]) => Promise<void> | void;
@@ -32,7 +37,6 @@ export interface CheckedProvide<T extends RowObject = RowObject> {
 }
 
 export type SortingObject = { [key: string]: sortDirections };
-export type sortDirections = "ASC" | "DESC" | null;
 
 export interface CellWidthProvide<T extends RowObject = RowObject> {
     growCells: number;
