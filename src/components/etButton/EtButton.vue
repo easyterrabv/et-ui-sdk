@@ -27,7 +27,7 @@ import { UI_TYPES } from "../../helpers/enums";
 import { Debounce } from "../../helpers/debounce";
 import { type ISharedButtonProps, propDefaults } from "./IEtButtonStatic";
 
-interface ButtonProps extends ISharedButtonProps {
+export interface ButtonProps extends ISharedButtonProps {
     type?: string;
 }
 
