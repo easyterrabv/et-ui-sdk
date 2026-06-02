@@ -52,7 +52,7 @@
                         class="et-sdk-data-grid__filters-pre-buttons"
                         v-if="$slots.footer"
                     >
-                        <slot name="footer" />
+                        <slot name="footer" :staging="filterValueStaging" />
                     </div>
                     <EtButtonDefault
                         v-if="!!onFilterSave"
