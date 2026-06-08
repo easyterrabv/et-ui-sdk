@@ -21,8 +21,11 @@ export default defineConfig({
                 "src/tests/**",
                 "sandbox/**"
             ],
-            entryRoot: "src",
-            outDir: "dist"
+            entryRoot: path.resolve(__dirname, "src"),
+            outDir: "dist",
+            compilerOptions: {
+                rootDir: path.resolve(__dirname, "src")
+            }
         })
     ],
     resolve: {

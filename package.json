@@ -5,7 +5,7 @@
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "sideEffects": [
     "**/*.css",
     "**/*.vue"
@@ -94,13 +94,6 @@
     "minimatch": "^10.2.4"
   },
   "files": [
-    "dist",
-    "src/index.ts",
-    "src/components/**/*",
-    "src/helpers/**/*",
-    "src/layouts/**/*",
-    "src/models/**/*",
-    "src/interfaces/**/*",
-    "src/*.css"
+    "dist"
   ]
 }

@@ -80,10 +80,6 @@ once:
 import 'et-ui-sdk/dist/style.css';   // all component styles (bundled), incl. variables/normalize/prose
 ```
 
-> **Back-compat:** the raw per-file stylesheets under `src/` still resolve, e.g.
-> `import 'et-ui-sdk/src/styles.css'`. Prefer the bundled `et-ui-sdk/dist/style.css`
-> for new code.
-
 ### Components, helpers and models
 
 Import everything by name from the package entry point. Imports are
@@ -107,22 +103,10 @@ The entry point re-exports public components, layouts, helpers, models, DataGrid
 interfaces/composables and provider interface types. Component **internals**
 (paths containing `/internals/`) are intentionally not exported.
 
-> **Back-compat:** deep imports such as
-> `import EtButton from 'et-ui-sdk/src/components/etButton/EtButton.vue'`
-> still resolve. Prefer the bare `et-ui-sdk` entry for new code.
-
-### Nuxt 2
-
-```javascript
-// nuxt.config.js
-{
-    components: [
-        '~/components',
-        { path: 'node_modules/et-ui-sdk/src/components', level: 1 }
-    ],
-    buildModules: ['@nuxt/typescript-build']
-}
-```
+> The package ships **only the compiled `dist/`** — raw `src/` is no longer
+> published. Import everything from the bare `et-ui-sdk` entry. Old `et-ui-sdk/src/*`
+> deep imports (components, helpers, `src/styles.css`) no longer resolve; migrate
+> them to the bare entry and `et-ui-sdk/dist/style.css`.
 
 ## Developing
 
