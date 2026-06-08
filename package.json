@@ -1,28 +1,29 @@
 {
   "name": "et-ui-sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "description": "",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/src/index.d.ts",
   "sideEffects": [
     "**/*.css",
     "**/*.vue"
   ],
   "scripts": {
     "test": "npx cypress run --component --headless",
-    "dev": "vite",
+    "dev": "vite --config vite.demo.config.js",
     "build": "vite build",
-    "prepack": "npm run build",
-    "preview": "vite preview",
+    "prepare": "npm run build",
+    "build:demo": "vite build --config vite.demo.config.js",
+    "preview:demo": "vite preview --config vite.demo.config.js",
     "format": "prettier --write \"src/**/*.{ts,vue}\"",
     "formatHook": "prettier",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "type-check": "vue-tsc --skipLibCheck --noEmit -p tsconfig.json --composite false",
     "postinstall": "node -e \"const fs=require('fs'); if (fs.existsSync('.git')) { try { require('child_process').execSync('./install-hooks.sh'); } catch (e) {} }\"",
-    "everything": "npm install && npm run format && npm run lint && npm run type-check && npm run test && npm run build && npm run preview"
+    "everything": "npm install && npm run format && npm run lint && npm run type-check && npm run test && npm run build && npm run build:demo"
   },
   "engines": {
     "node": ">=20.0"

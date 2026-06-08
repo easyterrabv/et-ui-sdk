@@ -1,0 +1,15 @@
+# FontAwesome Pro registry auth — required to install et-ui-sdk.
+# et-ui-sdk pulls @fortawesome/pro-* packages transitively; npm must be able to
+# authenticate to the FontAwesome registry BEFORE/DURING install, or it fails
+# with a 401.
+#
+# IMPORTANT: put this in your USER-level npmrc at ~/.npmrc (home directory),
+# NOT the project root. A project-level .npmrc is not reliably picked up when
+# the Pro packages are fetched transitively — use ~/.npmrc.
+#   macOS/Linux: ~/.npmrc
+#   Windows:     %USERPROFILE%\.npmrc
+#
+# Token: https://fontawesome.com/account  (Settings > Pro license > tokens)
+
+@fortawesome:registry=https://npm.fontawesome.com/
+//npm.fontawesome.com/:_authToken=YOUR_FONTAWESOME_PRO_TOKEN

@@ -3,9 +3,11 @@ import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
 import path from "path";
 
-// All bare module specifiers (vue, @fortawesome/*, @tiptap/*, etc.) are
-// externalized so the library does not bundle its dependencies. Internal code
-// uses relative imports, so it stays bundled.
+// LIBRARY build: compiles src -> dist (ESM + .d.ts). Consumers install via git
+// tag and import the precompiled output (package.json `exports` -> dist), so they
+// do NOT compile the SFCs themselves. Demo/sandbox build lives in
+// vite.demo.config.js. All bare specifiers (vue, @fortawesome/*, @tiptap/*) are
+// externalized so deps aren't bundled; relative internal imports stay bundled.
 const isExternal = (id) => !id.startsWith(".") && !path.isAbsolute(id);
 
 export default defineConfig({
