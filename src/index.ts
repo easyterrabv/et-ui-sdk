@@ -1,6 +1,13 @@
 // AUTO-GENERATED public API barrel. Additive entry point.
 // Components are Vue SFC default exports, re-exported by name.
 
+// --- Global styles ---
+// Pulls styles.css (-> variables/normalize/prose + base utilities + Inter) into
+// the build graph so the bundled dist/style.css is complete. MUST be the first
+// line so consumers can import 'et-ui-sdk/dist/style.css' alone. Keep this in the
+// barrel generator template — a regen that drops it breaks consumer theming.
+import "./styles.css";
+
 // --- Components & Layouts ---
 export { default as EtBox } from "./components/EtBox.vue";
 export { default as EtCard } from "./components/EtCard.vue";

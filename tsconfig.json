@@ -6,7 +6,12 @@
     "forceConsistentCasingInFileNames": true,
 
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    // Loads vite's ambient `declare module "*.css"` so the side-effect CSS
+    // import in src/index.ts type-checks. env.d.ts can't provide it: the
+    // exclude below drops all *.d.ts.
+    "types": ["vite/client"]
   },
   "include": [
     "src/**/*.ts",
