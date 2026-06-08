@@ -1,11 +1,10 @@
-// AUTO-GENERATED public API barrel. Additive entry point.
-// Components are Vue SFC default exports, re-exported by name.
+// Public API barrel. Hand-maintained (no generator script — add/remove exports
+// here directly). Components are Vue SFC default exports, re-exported by name.
 
 // --- Global styles ---
 // Pulls styles.css (-> variables/normalize/prose + base utilities + Inter) into
 // the build graph so the bundled dist/style.css is complete. MUST be the first
-// line so consumers can import 'et-ui-sdk/dist/style.css' alone. Keep this in the
-// barrel generator template — a regen that drops it breaks consumer theming.
+// line so consumers can import 'et-ui-sdk/dist/style.css' alone — do not remove.
 import "./styles.css";
 
 // --- Components & Layouts ---
@@ -231,6 +230,25 @@ export { default as Drawer } from "./layouts/Drawer.vue";
 export { default as Full } from "./layouts/Full.vue";
 export { default as MenuLeft } from "./layouts/MenuLeft.vue";
 export { default as MenuTop } from "./layouts/MenuTop.vue";
+
+// --- DataGrid internals (advanced; subcomponents of EtDataGrid) ---
+export { default as EtDataGridContent } from "./components/etDataGrid/internals/EtDataGridContent.vue";
+export { default as EtDataGridContentCell } from "./components/etDataGrid/internals/EtDataGridContentCell.vue";
+export { default as EtDataGridContentContainer } from "./components/etDataGrid/internals/EtDataGridContentContainer.vue";
+export { default as EtDataGridContentHeader } from "./components/etDataGrid/internals/EtDataGridContentHeader.vue";
+export { default as EtDataGridContentHeaderBulkMethod } from "./components/etDataGrid/internals/EtDataGridContentHeaderBulkMethod.vue";
+export { default as EtDataGridContentHeaderCell } from "./components/etDataGrid/internals/EtDataGridContentHeaderCell.vue";
+export { default as EtDataGridContentHeaderSelectCell } from "./components/etDataGrid/internals/EtDataGridContentHeaderSelectCell.vue";
+export { default as EtDataGridContentLoadingRow } from "./components/etDataGrid/internals/EtDataGridContentLoadingRow.vue";
+export { default as EtDataGridContentRow } from "./components/etDataGrid/internals/EtDataGridContentRow.vue";
+export { default as EtDataGridContentSelectCell } from "./components/etDataGrid/internals/EtDataGridContentSelectCell.vue";
+export { default as EtDataGridNoContentRow } from "./components/etDataGrid/internals/EtDataGridNoContentRow.vue";
+export { default as EtDataGridPagination } from "./components/etDataGrid/internals/EtDataGridPagination.vue";
+export { default as EtDataGridFilter } from "./components/etDataGrid/internals/filters/EtDataGridFilter.vue";
+export { default as EtDataGridFilterInput } from "./components/etDataGrid/internals/filters/EtDataGridFilterInput.vue";
+export { default as EtDataGridFilterSaveModal } from "./components/etDataGrid/internals/filters/EtDataGridFilterSaveModal.vue";
+export { default as EtDataGridFiltersInput } from "./components/etDataGrid/internals/filters/EtDataGridFiltersInput.vue";
+export { default as EtDataGridFiltersInputValue } from "./components/etDataGrid/internals/filters/EtDataGridFiltersInputValue.vue";
 
 // --- Models, Helpers, Interfaces, DataGrid composables/interfaces, Provider interfaces (named exports) ---
 export * from "./components/etDataGrid/composables/useCellWidth";
