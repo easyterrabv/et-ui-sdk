@@ -1020,7 +1020,7 @@ export default defineComponent({
     color: var(--et-sdk-dark-600);
 }
 
-.et-sdk-wysiwyg--editor-textarea {
+.et-sdk-wysiwyg--editor-textarea.prose {
     max-width: 100%;
     min-height: 300px;
     border-bottom-left-radius: var(--et-sdk-input-border-radius);
