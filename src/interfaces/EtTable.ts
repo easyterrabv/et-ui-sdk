@@ -2,9 +2,7 @@ import type { IOption } from "../models/Option";
 
 export type FilterGenerics = string | number | boolean;
 export type TableCriteriaItem =
-    | FilterGenerics
-    | FilterGenerics[]
-    | TableCriteria;
+    FilterGenerics | FilterGenerics[] | TableCriteria;
 
 export type DateGetterCallback<T = object> = (
     criteria: TableCriteria
@@ -76,8 +74,7 @@ export interface TableColumnInfo<T = object, M = object> {
     rawValueGetter?: (data: unknown, rows: T[], fullData?: any) => unknown;
     bulkEditMethods?: TableColumnBulkEdit<T>;
     styleOption?:
-        | TableColumnStyling
-        | ((data: unknown, rows: T[]) => TableColumnStyling);
+        TableColumnStyling | ((data: unknown, rows: T[]) => TableColumnStyling);
     defaultVisible?: boolean;
     editable?: TableEditableCell;
     onEditCallback?: () => unknown;

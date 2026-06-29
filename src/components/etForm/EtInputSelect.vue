@@ -159,10 +159,7 @@ export default defineComponent({
             UI_SIZING,
             internalFilterValue: "",
             internalOptionValue: undefined as
-                | OptionModel
-                | OptionModel[]
-                | undefined
-                | null,
+                OptionModel | OptionModel[] | undefined | null,
 
             hasInputFocus: false as boolean,
             justToggledOption: false

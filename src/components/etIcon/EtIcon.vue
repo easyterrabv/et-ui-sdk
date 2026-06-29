@@ -9,11 +9,11 @@
 
 <script lang="ts">
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { defineComponent, type PropType } from "vue";
+import { defineComponent, type Component, type PropType } from "vue";
 import type { IconPrefix } from "@fortawesome/fontawesome-common-types";
 
 export default defineComponent({
-    components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon: FontAwesomeIcon as Component },
     props: {
         prefix: {
             required: false,
