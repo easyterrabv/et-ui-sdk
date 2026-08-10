@@ -634,7 +634,6 @@ export default defineComponent({
     data() {
         return {
             EDIT_MODES,
-            // Impossible to set proper type to editor
             editor: null as any,
             innerData: this.modelValue as string | number | undefined,
 
@@ -677,7 +676,7 @@ export default defineComponent({
                 if (this.editMode === EDIT_MODES.CODE && this.editor) {
                     this.editor.commands.setContent(
                         value ? String(value) : "",
-                        false
+                        { emitUpdate: false }
                     );
                 }
             }
@@ -687,7 +686,7 @@ export default defineComponent({
                 this.innerData = this.modelValue;
                 this.editor.commands.setContent(
                     this.innerData ? String(this.innerData) : "",
-                    false
+                    { emitUpdate: false }
                 );
             }
         },
