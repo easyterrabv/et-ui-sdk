@@ -522,6 +522,7 @@ import { wait } from "../../helpers/async";
 import { generateId } from "../../helpers/random";
 import EtTextarea from "./EtTextarea.vue";
 import { AllowStyleExtension } from "../../helpers/tiptap/AllowStyleExtension";
+import { stripMarkStyles } from "../../helpers/tiptap/stripMarkStyles";
 
 export const EDIT_MODES = {
     WYSIWYG: "WYSIWYG",
@@ -911,7 +912,8 @@ export default defineComponent({
                         }
                     }
                     return false;
-                }
+                },
+                transformPastedHTML: (html) => stripMarkStyles(html)
             },
             extensions: [
                 StarterKit.configure({

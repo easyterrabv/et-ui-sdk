@@ -277,6 +277,7 @@ export * from "./helpers/random";
 export * from "./helpers/search";
 export * from "./helpers/sort";
 export * from "./helpers/tiptap/AllowStyleExtension";
+export * from "./helpers/tiptap/stripMarkStyles";
 export * from "./interfaces/EtTable";
 export * from "./interfaces/table";
 export * from "./models/Base";
