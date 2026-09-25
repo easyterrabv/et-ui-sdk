@@ -1,5 +1,10 @@
 <template>
-    <div class="et-sdk-wysiwyg" v-if="editor" :name="name">
+    <div
+        class="et-sdk-wysiwyg"
+        v-if="editor"
+        :name="name"
+        :style="{ '--et-sdk-wysiwyg-min-height': minHeight }"
+    >
         <div
             class="et-sdk-wysiwyg--toolbar"
             :class="{
@@ -589,6 +594,11 @@ export default defineComponent({
             type: Boolean,
             required: false,
             default: false
+        },
+        minHeight: {
+            type: String,
+            required: false,
+            default: "300px"
         }
     },
     components: {
@@ -1023,7 +1033,7 @@ export default defineComponent({
 
 .et-sdk-wysiwyg--editor-textarea.prose {
     max-width: 100%;
-    min-height: 300px;
+    min-height: var(--et-sdk-wysiwyg-min-height, 300px);
     border-bottom-left-radius: var(--et-sdk-input-border-radius);
     border-bottom-right-radius: var(--et-sdk-input-border-radius);
     padding: 8px;
