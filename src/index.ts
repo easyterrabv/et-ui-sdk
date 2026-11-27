@@ -171,6 +171,7 @@ export { default as EtIconSliders } from "./components/etIcon/EtIconSliders.vue"
 export { default as EtIconSort } from "./components/etIcon/EtIconSort.vue";
 export { default as EtIconSortDown } from "./components/etIcon/EtIconSortDown.vue";
 export { default as EtIconSortUp } from "./components/etIcon/EtIconSortUp.vue";
+export { default as EtIconSparkles } from "./components/etIcon/EtIconSparkles.vue";
 export { default as EtIconSpellCheck } from "./components/etIcon/EtIconSpellCheck.vue";
 export { default as EtIconSpinner } from "./components/etIcon/EtIconSpinner.vue";
 export { default as EtIconSquare } from "./components/etIcon/EtIconSquare.vue";
